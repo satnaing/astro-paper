@@ -25,6 +25,9 @@ module.exports = {
           card: withOpacity("--color-card"),
         },
       },
+      fontFamily: {
+        mono: ["IBM Plex Mono", "monospace"],
+      },
     },
   },
   plugins: [],
