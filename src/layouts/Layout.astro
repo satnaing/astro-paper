@@ -35,8 +35,19 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+
+    <script is:inline>
+      // Get theme data from local storage
+      const currentTheme = localStorage.getItem("theme");
+
+      // Set theme to 'theme-dark' if currentTheme is 'dark'
+      const theme = currentTheme === "dark" ? "theme-dark" : "";
+
+      // Put dark class on html tag to enable dark mode
+      document.querySelector("html").className = theme;
+    </script>
   </head>
-  <body>
+  <body class="font-mono bg-skin-fill text-skin-base">
     <slot />
   </body>
 </html>

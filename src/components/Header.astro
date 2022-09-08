@@ -59,3 +59,18 @@
     @apply w-6 h-6 fill-skin-base hover:fill-skin-accent;
   }
 </style>
+
+<script>
+  const themeBtn = document.querySelector("#theme-btn");
+  const htmlClassList = document.querySelector("html")?.classList;
+
+  themeBtn?.addEventListener("click", function () {
+    if (htmlClassList?.contains("theme-dark")) {
+      localStorage.setItem("theme", "light");
+      htmlClassList?.remove("theme-dark");
+    } else {
+      localStorage.setItem("theme", "dark");
+      htmlClassList?.add("theme-dark");
+    }
+  });
+</script>

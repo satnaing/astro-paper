@@ -19,6 +19,14 @@
     --color-card: 63, 75, 90;
     --color-border: 236, 233, 233;
   }
+  #sun-svg,
+  .theme-dark #moon-svg {
+    display: none;
+  }
+  #moon-svg,
+  .theme-dark #sun-svg {
+    display: block;
+  }
 }
 
 @layer components {
