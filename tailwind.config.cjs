@@ -25,6 +25,17 @@ module.exports = {
           card: withOpacity("--color-card"),
         },
       },
+      borderColor: {
+        skin: {
+          line: withOpacity("--color-border"),
+        },
+      },
+      fill: {
+        skin: {
+          base: withOpacity("--color-text-base"),
+          accent: withOpacity("--color-text-accent"),
+        },
+      },
       fontFamily: {
         mono: ["IBM Plex Mono", "monospace"],
       },

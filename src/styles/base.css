@@ -9,6 +9,7 @@
     --color-fill: 251, 254, 251;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
+    --color-border: 236, 233, 233;
   }
   .theme-dark {
     --color-text-base: 250, 253, 254;
@@ -16,6 +17,7 @@
     --color-fill: 38, 45, 54;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
+    --color-border: 236, 233, 233;
   }
 }
 
