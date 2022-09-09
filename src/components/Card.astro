@@ -1,76 +1,54 @@
 ---
 export interface Props {
-	title: string;
-	body: string;
-	href: string;
+  title: string;
+  body: string;
+  href: string;
+  secHeading?: boolean;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, body, secHeading = true } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
+<li>
+  <a href={href}>
+    {secHeading ? <h2>{title}</h2> : <h3>{title}</h3>}
+  </a>
+  <div class="date-time-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" class="calendar"
+      ><path
+        d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"
+      ></path><path
+        d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"
+      ></path>
+    </svg>
+    <span class="date-time">June 9, 2022 | 10:12 AM</span>
+  </div>
+  <p>
+    {body}
+  </p>
 </li>
+
 <style>
-	:root {
-		--link-gradient: linear-gradient(45deg, #4f39fa, #da62c4 30%, var(--color-border) 60%);
-	}
-
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.15rem;
-		background-image: var(--link-gradient);
-		background-size: 400%;
-		border-radius: 0.5rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1em 1.3em;
-		border-radius: 0.35rem;
-		color: var(--text-color);
-		background-color: white;
-		opacity: 0.8;
-	}
-
-	h2 {
-		margin: 0;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	p {
-		margin-top: 0.75rem;
-		margin-bottom: 0;
-	}
-
-	h2 span {
-		display: inline-block;
-		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-	}
-
-	.link-card:is(:hover, :focus-within) h2 {
-		color: #4f39fa;
-	}
-
-	.link-card:is(:hover, :focus-within) h2 span {
-		will-change: transform;
-		transform: translateX(2px);
-	}
+  li {
+    @apply mt-6;
+  }
+  a {
+    @apply text-skin-accent font-medium text-lg;
+  }
+  a h2,
+  a h3 {
+    @apply font-medium text-lg;
+  }
+  .date-time-wrapper {
+    @apply my-1 opacity-80;
+  }
+  .calendar {
+    @apply scale-90;
+  }
+  .date-time {
+    @apply italic text-base;
+  }
+  svg {
+    @apply w-6 h-6 inline-block fill-skin-base;
+  }
 </style>
