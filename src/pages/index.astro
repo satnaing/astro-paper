@@ -1,6 +1,19 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
+import Card from "@components/Card.astro";
+
+export interface Frontmatter {
+  title: string;
+  description: string;
+  author: string;
+  datetime: string;
+  slug: string;
+  featured: boolean;
+  tags: string[];
+}
+
+const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
 ---
 
 <Layout title="Welcome to Astro.">
@@ -55,6 +68,20 @@ import Header from "@components/Header.astro";
     </section>
     <section id="featured-section">
       <h2>Featured</h2>
+      <ul>
+        {
+          posts.map(
+            (post) =>
+              post.frontmatter.featured && (
+                <Card
+                  href={post.url}
+                  post={post.frontmatter}
+                  secHeading={false}
+                />
+              )
+          )
+        }
+      </ul>
     </section>
   </main>
 </Layout>
