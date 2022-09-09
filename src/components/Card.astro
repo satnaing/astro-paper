@@ -1,17 +1,19 @@
 ---
+import type { Frontmatter } from "src/pages/index.astro";
+import formatDatetime from "src/utils/formatDatetime";
+
 export interface Props {
-  title: string;
-  body: string;
-  href: string;
+  href?: string;
+  post: Frontmatter;
   secHeading?: boolean;
 }
 
-const { href, title, body, secHeading = true } = Astro.props;
+const { href, post, secHeading = true } = Astro.props;
 ---
 
 <li>
   <a href={href}>
-    {secHeading ? <h2>{title}</h2> : <h3>{title}</h3>}
+    {secHeading ? <h2>{post.title}</h2> : <h3>{post.title}</h3>}
   </a>
   <div class="date-time-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" class="calendar"
@@ -21,10 +23,10 @@ const { href, title, body, secHeading = true } = Astro.props;
         d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"
       ></path>
     </svg>
-    <span class="date-time">June 9, 2022 | 10:12 AM</span>
+    <span class="date-time">{formatDatetime(post.datetime)}</span>
   </div>
   <p>
-    {body}
+    {post.description}
   </p>
 </li>
 
