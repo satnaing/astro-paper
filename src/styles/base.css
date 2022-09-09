@@ -17,7 +17,7 @@
     --color-fill: 38, 45, 54;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
-    --color-border: 236, 233, 233;
+    --color-border: 59, 70, 85;
   }
   #sun-svg,
   .theme-dark #moon-svg {
@@ -26,9 +26,6 @@
   #moon-svg,
   .theme-dark #sun-svg {
     display: block;
-  }
-  .theme-dark hr {
-    @apply opacity-30;
   }
 }
 
