@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Card from "@components/Card.astro";
+import Footer from "@components/Footer.astro";
 
 export interface Frontmatter {
   title: string;
@@ -117,6 +118,8 @@ const sortedPosts = posts.sort(
         </a>
       </div>
     </section>
+
+    <Footer />
   </main>
 </Layout>
 
