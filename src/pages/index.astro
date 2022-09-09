@@ -14,6 +14,12 @@ export interface Frontmatter {
 }
 
 const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
+
+const sortedPosts = posts.sort(
+  (a, b) =>
+    Math.floor(new Date(b.frontmatter.datetime).getTime() / 1000) -
+    Math.floor(new Date(a.frontmatter.datetime).getTime() / 1000)
+);
 ---
 
 <Layout title="Welcome to Astro.">
@@ -83,6 +89,34 @@ const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
         }
       </ul>
     </section>
+
+    <section id="recent-section">
+      <h2>Recent</h2>
+      <ul>
+        {
+          sortedPosts.map(
+            (post, index) =>
+              index < 4 && (
+                <Card
+                  href={post.url}
+                  post={post.frontmatter}
+                  secHeading={false}
+                />
+              )
+          )
+        }
+      </ul>
+      <div class="all-posts-btn-wrapper">
+        <a type="button" href="/posts">
+          All Posts
+          <svg xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </section>
   </main>
 </Layout>
 
@@ -113,11 +147,20 @@ const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
     @apply w-6 h-6 fill-skin-base hover:fill-skin-accent scale-125 sm:scale-110;
   }
 
-  /* ===== Featured Section ===== */
-  #featured-section {
-    @apply py-10;
+  /* ===== Featured & Recent Posts Sections ===== */
+  #featured-section,
+  #recent-section {
+    @apply py-6;
   }
-  #featured-section h2 {
+  #featured-section h2,
+  #recent-section h2 {
     @apply font-semibold text-2xl tracking-wide;
+  }
+
+  .all-posts-btn-wrapper {
+    @apply text-center my-8;
+  }
+  .all-posts-btn-wrapper svg {
+    @apply inline-block w-6 h-6;
   }
 </style>
