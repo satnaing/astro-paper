@@ -53,14 +53,17 @@ import Header from "@components/Header.astro";
       </div>
       <hr class="border-skin-line" />
     </section>
+    <section id="featured-section">
+      <h2>Featured</h2>
+    </section>
   </main>
 </Layout>
 
 <style>
+  /* ===== Hero Section ===== */
   #hero-section {
-    @apply max-w-3xl mx-auto px-4 pt-12;
+    @apply pt-12;
   }
-
   #hero-section h1 {
     @apply font-bold my-4 sm:my-8 text-3xl sm:text-5xl;
   }
@@ -70,7 +73,6 @@ import Header from "@components/Header.astro";
   p {
     @apply my-2;
   }
-
   .social-wrapper {
     @apply flex flex-col sm:flex-row sm:items-center mt-4 mb-6;
   }
@@ -82,5 +84,13 @@ import Header from "@components/Header.astro";
   }
   .social-icons button svg {
     @apply w-6 h-6 fill-skin-base hover:fill-skin-accent scale-125 sm:scale-110;
+  }
+
+  /* ===== Featured Section ===== */
+  #featured-section {
+    @apply py-10;
+  }
+  #featured-section h2 {
+    @apply font-semibold text-2xl tracking-wide;
   }
 </style>
