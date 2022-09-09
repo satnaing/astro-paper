@@ -27,7 +27,8 @@
   .theme-dark #sun-svg {
     display: block;
   }
-  section {
+  section,
+  footer {
     @apply max-w-3xl mx-auto px-4;
   }
 }
