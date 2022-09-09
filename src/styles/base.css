@@ -27,6 +27,9 @@
   .theme-dark #sun-svg {
     display: block;
   }
+  .theme-dark hr {
+    @apply opacity-30;
+  }
 }
 
 @layer components {
