@@ -12,9 +12,9 @@
     --color-border: 236, 233, 233;
   }
   .theme-dark {
-    --color-text-base: 250, 253, 254;
+    --color-text-base: 230, 230, 230;
     --color-text-accent: 26, 217, 217;
-    --color-fill: 38, 45, 54;
+    --color-fill: 47, 55, 65;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
     --color-border: 59, 70, 85;
@@ -26,6 +26,9 @@
   #moon-svg,
   .theme-dark #sun-svg {
     display: block;
+  }
+  section {
+    @apply max-w-3xl mx-auto px-4;
   }
 }
 
