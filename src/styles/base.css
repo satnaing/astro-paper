@@ -34,6 +34,12 @@
   svg {
     @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
   }
+  .prose {
+    @apply prose-a:underline-offset-8 prose-a:!decoration-dashed hover:prose-a:!decoration-solid;
+  }
+  .theme-dark .prose {
+    @apply prose-invert;
+  }
 }
 
 @layer components {
