@@ -9,6 +9,7 @@
     --color-fill: 251, 254, 251;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
+    --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
   }
   .theme-dark {
@@ -17,6 +18,7 @@
     --color-fill: 47, 55, 65;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
+    --color-card-muted: 89, 107, 129;
     --color-border: 59, 70, 85;
   }
   #sun-svg,

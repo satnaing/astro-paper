@@ -23,6 +23,7 @@ module.exports = {
         skin: {
           fill: withOpacity("--color-fill"),
           card: withOpacity("--color-card"),
+          "card-muted": withOpacity("--color-card-muted"),
         },
       },
       borderColor: {
