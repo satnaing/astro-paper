@@ -4,6 +4,7 @@ import Header from "@components/Header.astro";
 import Card from "@components/Card.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
+import getSortedPosts from "src/utils/getSortedPosts";
 
 export interface Frontmatter {
   title: string;
@@ -17,11 +18,7 @@ export interface Frontmatter {
 
 const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
 
-const sortedPosts = posts.sort(
-  (a, b) =>
-    Math.floor(new Date(b.frontmatter.datetime).getTime() / 1000) -
-    Math.floor(new Date(a.frontmatter.datetime).getTime() / 1000)
-);
+const sortedPosts = getSortedPosts(posts);
 ---
 
 <Layout title="Welcome to Astro.">

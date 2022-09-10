@@ -5,14 +5,11 @@ import Footer from "@components/Footer.astro";
 import Main from "@layouts/Main.astro";
 import Card from "@components/Card.astro";
 import type { Frontmatter } from "../index.astro";
+import getSortedPosts from "src/utils/getSortedPosts";
 
 const posts = await Astro.glob<Frontmatter>("./*.md");
 
-const sortedPosts = posts.sort(
-  (a, b) =>
-    Math.floor(new Date(b.frontmatter.datetime).getTime() / 1000) -
-    Math.floor(new Date(a.frontmatter.datetime).getTime() / 1000)
-);
+const sortedPosts = getSortedPosts(posts);
 ---
 
 <Layout title="Welcome to Astro.">
