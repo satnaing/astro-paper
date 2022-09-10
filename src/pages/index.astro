@@ -108,9 +108,11 @@ const sortedPosts = posts.sort(
         }
       </ul>
       <div class="all-posts-btn-wrapper">
-        <a type="button" href="/posts">
+        <a type="button" href="/posts" class="group">
           All Posts
-          <svg xmlns="http://www.w3.org/2000/svg"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="group-hover:fill-skin-accent"
             ><path
               d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
             ></path>
@@ -163,7 +165,10 @@ const sortedPosts = posts.sort(
   .all-posts-btn-wrapper {
     @apply text-center my-8;
   }
+  .all-posts-btn-wrapper a {
+    @apply hover:text-skin-accent;
+  }
   .all-posts-btn-wrapper svg {
-    @apply inline-block w-6 h-6 fill-skin-base hover:fill-skin-accent;
+    @apply inline-block w-6 h-6;
   }
 </style>
