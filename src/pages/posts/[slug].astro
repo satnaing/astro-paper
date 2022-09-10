@@ -1,4 +1,5 @@
 ---
+import Datetime from "@components/Datetime.astro";
 import Header from "@components/Header.astro";
 import Layout from "@layouts/Layout.astro";
 import type { MarkdownInstance } from "astro";
@@ -30,6 +31,7 @@ const { Content, frontmatter } = Astro.props.post;
   <Header />
   <main>
     <h1 class="post-title">{frontmatter.title}</h1>
+    <Datetime datetime={frontmatter.datetime} size="lg" className="my-2" />
     <article
       id="article"
       role="article"
