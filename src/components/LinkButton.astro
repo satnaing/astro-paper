@@ -1,0 +1,18 @@
+---
+export interface Props {
+  href: string;
+  className?: string;
+}
+
+const { href, className } = Astro.props;
+---
+
+<a type="button" href={href} class={`group ${className}`}>
+  <slot />
+</a>
+
+<style>
+  a {
+    @apply hover:text-skin-accent;
+  }
+</style>
