@@ -7,7 +7,7 @@ import Card from "@components/Card.astro";
 import type { Frontmatter } from "../index.astro";
 import getSortedPosts from "src/utils/getSortedPosts";
 
-const posts = await Astro.glob<Frontmatter>("./*.md");
+const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 ---
@@ -17,9 +17,11 @@ const sortedPosts = getSortedPosts(posts);
   <Main pageTitle="Posts" pageDesc="All the tags used in posts.">
     <ul>
       {
-        sortedPosts.map((post) => (
-          <Card href={post.url} post={post.frontmatter} />
-        ))
+        sortedPosts.map(({ frontmatter }) => {
+          return (
+            <Card href={`/posts/${frontmatter.slug}`} post={frontmatter} />
+          );
+        })
       }
     </ul>
   </Main>

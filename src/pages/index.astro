@@ -16,7 +16,7 @@ export interface Frontmatter {
   tags: string[];
 }
 
-const posts = await Astro.glob<Frontmatter>("../pages/posts/*.md");
+const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 ---
@@ -89,11 +89,11 @@ const sortedPosts = getSortedPosts(posts);
       <ul>
         {
           posts.map(
-            (post) =>
-              post.frontmatter.featured && (
+            ({ frontmatter }) =>
+              frontmatter.featured && (
                 <Card
-                  href={post.url}
-                  post={post.frontmatter}
+                  href={`/posts/${frontmatter.slug}`}
+                  post={frontmatter}
                   secHeading={false}
                 />
               )
@@ -107,11 +107,11 @@ const sortedPosts = getSortedPosts(posts);
       <ul>
         {
           sortedPosts.map(
-            (post, index) =>
+            ({ frontmatter }, index) =>
               index < 4 && (
                 <Card
-                  href={post.url}
-                  post={post.frontmatter}
+                  href={`/posts/${frontmatter.slug}`}
+                  post={frontmatter}
                   secHeading={false}
                 />
               )
