@@ -1,0 +1,50 @@
+---
+import Header from "@components/Header.astro";
+import Layout from "@layouts/Layout.astro";
+import type { MarkdownInstance } from "astro";
+
+export interface Props {
+  post: MarkdownInstance<Record<string, any>>;
+}
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob("../../contents/*.md");
+
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.frontmatter.slug,
+      },
+      props: {
+        post,
+        frontmatter: post.frontmatter,
+      },
+    };
+  });
+}
+
+const { Content, frontmatter } = Astro.props.post;
+---
+
+<Layout title={frontmatter.title}>
+  <Header />
+  <main>
+    <h1 class="post-title">{frontmatter.title}</h1>
+    <article
+      id="article"
+      role="article"
+      class="mx-auto max-w-3xl prose prose-slate"
+    >
+      <Content />
+    </article>
+  </main>
+</Layout>
+
+<style>
+  main {
+    @apply max-w-3xl mx-auto px-4 py-12;
+  }
+  .post-title {
+    @apply font-semibold text-2xl text-skin-accent;
+  }
+</style>
