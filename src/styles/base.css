@@ -31,6 +31,9 @@
   footer {
     @apply max-w-3xl mx-auto px-4;
   }
+  svg {
+    @apply w-6 h-6 fill-skin-base group-hover:fill-skin-accent;
+  }
 }
 
 @layer components {
