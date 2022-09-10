@@ -1,6 +1,6 @@
 ---
 import type { Frontmatter } from "src/pages/index.astro";
-import formatDatetime from "src/utils/formatDatetime";
+import Datetime from "./Datetime.astro";
 
 export interface Props {
   href?: string;
@@ -15,16 +15,7 @@ const { href, post, secHeading = true } = Astro.props;
   <a href={href}>
     {secHeading ? <h2>{post.title}</h2> : <h3>{post.title}</h3>}
   </a>
-  <div class="date-time-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" class="calendar"
-      ><path
-        d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"
-      ></path><path
-        d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"
-      ></path>
-    </svg>
-    <span class="date-time">{formatDatetime(post.datetime)}</span>
-  </div>
+  <Datetime datetime={post.datetime} />
   <p>
     {post.description}
   </p>
