@@ -1,11 +1,13 @@
 ---
 import Datetime from "@components/Datetime.astro";
 import Header from "@components/Header.astro";
+import Tag from "@components/Tag.astro";
 import Layout from "@layouts/Layout.astro";
 import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../index.astro";
 
 export interface Props {
-  post: MarkdownInstance<Record<string, any>>;
+  post: MarkdownInstance<Frontmatter>;
 }
 
 export async function getStaticPaths() {
@@ -32,6 +34,9 @@ const { Content, frontmatter } = Astro.props.post;
   <main>
     <h1 class="post-title">{frontmatter.title}</h1>
     <Datetime datetime={frontmatter.datetime} size="lg" className="my-2" />
+    <ul class="tags-container">
+      {frontmatter.tags.map((tag) => <Tag name={tag} />)}
+    </ul>
     <article
       id="article"
       role="article"
@@ -48,5 +53,8 @@ const { Content, frontmatter } = Astro.props.post;
   }
   .post-title {
     @apply font-semibold text-2xl text-skin-accent;
+  }
+  .tags-container {
+    @apply mb-8;
   }
 </style>
