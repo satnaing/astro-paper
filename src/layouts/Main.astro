@@ -1,0 +1,26 @@
+---
+export interface Props {
+  pageTitle: string;
+  pageDesc?: string;
+}
+
+const { pageTitle, pageDesc } = Astro.props;
+---
+
+<main>
+  <h1>{pageTitle}</h1>
+  <p>{pageDesc}</p>
+  <slot />
+</main>
+
+<style>
+  main {
+    @apply max-w-3xl mx-auto px-4 py-12;
+  }
+  h1 {
+    @apply font-semibold text-2xl sm:text-3xl;
+  }
+  p {
+    @apply mt-2 mb-6;
+  }
+</style>
