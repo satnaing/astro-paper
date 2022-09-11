@@ -29,6 +29,9 @@
   .theme-dark #sun-svg {
     display: block;
   }
+  body {
+    @apply font-mono bg-skin-fill text-skin-base min-h-screen flex flex-col;
+  }
   section,
   footer {
     @apply max-w-3xl mx-auto px-4;
