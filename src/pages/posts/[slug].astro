@@ -35,16 +35,17 @@ const { Content, frontmatter } = Astro.props.post;
   <main>
     <h1 class="post-title">{frontmatter.title}</h1>
     <Datetime datetime={frontmatter.datetime} size="lg" className="my-2" />
-    <ul class="tags-container">
-      {frontmatter.tags.map((tag) => <Tag name={tag} />)}
-    </ul>
     <article
       id="article"
       role="article"
-      class="mx-auto max-w-3xl prose prose-slate"
+      class="mx-auto max-w-3xl mt-8 prose prose-slate"
     >
       <Content />
     </article>
+
+    <ul class="tags-container">
+      {frontmatter.tags.map((tag) => <Tag name={tag} />)}
+    </ul>
   </main>
   <Footer />
 </Layout>
@@ -57,6 +58,6 @@ const { Content, frontmatter } = Astro.props.post;
     @apply font-semibold text-2xl text-skin-accent;
   }
   .tags-container {
-    @apply mb-8;
+    @apply my-8;
   }
 </style>
