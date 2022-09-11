@@ -22,6 +22,7 @@ module.exports = {
       backgroundColor: {
         skin: {
           fill: withOpacity("--color-fill"),
+          inverted: withOpacity("--color-text-base"),
           card: withOpacity("--color-card"),
           "card-muted": withOpacity("--color-card-muted"),
         },
