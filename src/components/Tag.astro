@@ -11,7 +11,7 @@ const { name, size = "sm" } = Astro.props;
 const slug = slugify(name);
 ---
 
-<li class="inline-block my-1">
+<li class={`inline-block ${size === "sm" ? "my-1" : "my-3 mx-1"}`}>
   <a
     href={`/tags/${slug}`}
     class={`${size === "sm" ? "py-1 px-2 text-sm" : "p-2 text-lg"}`}
