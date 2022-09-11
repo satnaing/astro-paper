@@ -1,8 +1,9 @@
 ---
 import Header from "@components/Header.astro";
-import Tag from "@components/Tag.astro";
+import Footer from "@components/Footer.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
+import Tag from "@components/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
 import type { Frontmatter } from "@utils/types";
 
@@ -18,4 +19,5 @@ let tags = getUniqueTags(posts);
       {tags.map((tag) => <Tag name={tag} size="lg" />)}
     </ul>
   </Main>
+  <Footer />
 </Layout>
