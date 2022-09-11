@@ -1,14 +1,5 @@
 import type { MarkdownInstance } from "astro";
-
-interface Frontmatter {
-  title: string;
-  description: string;
-  author: string;
-  datetime: string;
-  slug: string;
-  featured: boolean;
-  tags: string[];
-}
+import type { Frontmatter } from "./types";
 
 const getSortedPosts = (posts: MarkdownInstance<Frontmatter>[]) =>
   posts.sort(
