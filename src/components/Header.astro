@@ -13,9 +13,11 @@ const { activeNav } = Astro.props;
     <div class="top-nav-wrap">
       <a href="/" class="logo">AstroPaper</a>
       <button class="hamburger-menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-          ><path d="M4 6h16v2H4zm4 5h12v2H8zm5 5h7v2h-7z"></path>
-        </svg>
+        <div class="icon-container flex">
+          <div id="first-line"></div>
+          <div id="second-line"></div>
+          <div id="third-line"></div>
+        </div>
       </button>
     </div>
     <nav class="display-none sm:flex">
@@ -104,6 +106,22 @@ const { activeNav } = Astro.props;
   nav button svg {
     @apply w-6 h-6 fill-skin-base hover:fill-skin-accent;
   }
+
+  .icon-container {
+    @apply w-6 h-5 flex-col justify-between items-end;
+  }
+  .icon-container div {
+    @apply bg-skin-inverted h-0.5 transition-all;
+  }
+  #first-line {
+    @apply w-full;
+  }
+  #second-line {
+    @apply w-3/4;
+  }
+  #third-line {
+    @apply w-1/2;
+  }
 </style>
 
 <script>
@@ -123,11 +141,31 @@ const { activeNav } = Astro.props;
   // Toggle menu
   const menuBtn = document.querySelector(".hamburger-menu");
   const navClassList = document.querySelector("nav")?.classList;
+
+  const iconContainer = document.querySelector(".icon-container")?.classList;
+  const firstLine = document.querySelector("#first-line")?.classList;
+  const secondLine = document.querySelector("#second-line ")?.classList;
+  const thirdLine = document.querySelector("#third-line")?.classList;
+
   menuBtn!.addEventListener("click", function () {
     if (navClassList?.contains("display-none")) {
       navClassList?.remove("display-none");
+
+      // icon animation
+      iconContainer?.remove("flex");
+      iconContainer?.add("relative");
+      firstLine?.add("rotate-45", "absolute", "bottom-1/2");
+      thirdLine?.add("display-none");
+      secondLine?.add("!w-full", "-rotate-45", "absolute", "bottom-1/2");
     } else {
       navClassList?.add("display-none");
+
+      // icon animation
+      iconContainer?.add("flex");
+      iconContainer?.remove("relative");
+      firstLine?.remove("rotate-45", "absolute", "bottom-1/2");
+      thirdLine?.remove("display-none");
+      secondLine?.remove("!w-full", "-rotate-45", "absolute", "bottom-1/2");
     }
   });
 </script>
