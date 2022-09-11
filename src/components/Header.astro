@@ -1,4 +1,6 @@
 ---
+import Hr from "./Hr.astro";
+
 export interface Props {
   activeNav?: "posts" | "tags" | "about";
 }
@@ -55,7 +57,7 @@ const { activeNav } = Astro.props;
       </div>
     </nav>
   </div>
-  <hr />
+  <Hr />
 </header>
 
 <style>

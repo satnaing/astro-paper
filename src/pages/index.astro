@@ -5,6 +5,7 @@ import Card from "@components/Card.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 import getSortedPosts from "src/utils/getSortedPosts";
+import Hr from "@components/Hr.astro";
 
 export interface Frontmatter {
   title: string;
@@ -83,7 +84,7 @@ const sortedPosts = getSortedPosts(posts);
       </div>
     </section>
 
-    <hr class="h-row" />
+    <Hr />
 
     <section id="featured">
       <h2>Featured</h2>
@@ -103,7 +104,7 @@ const sortedPosts = getSortedPosts(posts);
       </ul>
     </section>
 
-    <hr class="h-row" />
+    <Hr />
 
     <section id="recent-posts">
       <h2>Recent Posts</h2>
