@@ -4,9 +4,9 @@ import Header from "@components/Header.astro";
 import Card from "@components/Card.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
-import getSortedPosts from "src/utils/getSortedPosts";
 import Hr from "@components/Hr.astro";
-import type { Frontmatter } from "src/utils/types";
+import getSortedPosts from "@utils/getSortedPosts";
+import type { Frontmatter } from "@utils/types";
 
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 

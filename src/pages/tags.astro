@@ -3,8 +3,8 @@ import Header from "@components/Header.astro";
 import Tag from "@components/Tag.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import getUniqueTags from "src/utils/getUniqueTags";
-import type { Frontmatter } from "src/utils/types";
+import getUniqueTags from "@utils/getUniqueTags";
+import type { Frontmatter } from "@utils/types";
 
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
