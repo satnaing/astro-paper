@@ -1,0 +1,25 @@
+---
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import Layout from "./Layout.astro";
+
+export interface Props {
+  frontmatter: {
+    title: string;
+    description?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <Header activeNav="about" />
+  <main>
+    <section class="mt-8 mb-28 prose prose-slate max-w-3xl">
+      <h1 class="text-2xl sm:text-3xl tracking-wider">{frontmatter.title}</h1>
+      <slot />
+    </section>
+  </main>
+  <Footer />
+</Layout>
