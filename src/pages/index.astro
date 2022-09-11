@@ -6,16 +6,7 @@ import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 import getSortedPosts from "src/utils/getSortedPosts";
 import Hr from "@components/Hr.astro";
-
-export interface Frontmatter {
-  title: string;
-  description: string;
-  author: string;
-  datetime: string;
-  slug: string;
-  featured: boolean;
-  tags: string[];
-}
+import type { Frontmatter } from "src/utils/types";
 
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
