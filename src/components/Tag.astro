@@ -1,4 +1,6 @@
 ---
+import slugify from "src/utils/slugify";
+
 export interface Props {
   name: string;
   size?: "sm" | "lg";
@@ -6,11 +8,7 @@ export interface Props {
 
 const { name, size = "sm" } = Astro.props;
 
-const slug = ((str: string) =>
-  str
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[^\w-]+/g, ""))(name);
+const slug = slugify(name);
 ---
 
 <li class="inline-block my-1">
