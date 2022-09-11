@@ -24,7 +24,7 @@ const sortedPosts = getSortedPosts(posts);
 <Layout title="Welcome to Astro.">
   <Header />
   <main>
-    <section id="hero-section">
+    <section id="hero">
       <h1>Mingalaba<span>.</span></h1>
       <p>
         Hi, I'm a theme for Astro, an example of how you can use this starter to
@@ -85,7 +85,7 @@ const sortedPosts = getSortedPosts(posts);
 
     <hr class="h-row" />
 
-    <section id="featured-section">
+    <section id="featured">
       <h2>Featured</h2>
       <ul>
         {
@@ -105,8 +105,8 @@ const sortedPosts = getSortedPosts(posts);
 
     <hr class="h-row" />
 
-    <section id="recent-section">
-      <h2>Recent</h2>
+    <section id="recent-posts">
+      <h2>Recent Posts</h2>
       <ul>
         {
           sortedPosts.map(
@@ -139,10 +139,10 @@ const sortedPosts = getSortedPosts(posts);
 
 <style>
   /* ===== Hero Section ===== */
-  #hero-section {
+  #hero {
     @apply pt-12;
   }
-  #hero-section h1 {
+  #hero h1 {
     @apply font-bold my-4 sm:my-8 text-3xl sm:text-5xl;
   }
   h1 span {
@@ -165,12 +165,12 @@ const sortedPosts = getSortedPosts(posts);
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
-  #featured-section,
-  #recent-section {
-    @apply py-6;
+  #featured,
+  #recent-posts {
+    @apply pt-12 pb-6;
   }
-  #featured-section h2,
-  #recent-section h2 {
+  #featured h2,
+  #recent-posts h2 {
     @apply font-semibold text-2xl tracking-wide;
   }
 
