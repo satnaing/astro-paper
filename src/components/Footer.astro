@@ -4,7 +4,7 @@ import LinkButton from "./LinkButton.astro";
 ---
 
 <footer>
-  <Hr className="px-0" />
+  <Hr noPadding />
   <div class="footer-wrapper">
     <div class="social-icons">
       <LinkButton href="https://github.com/satnaing" className="link-button">
@@ -49,6 +49,9 @@ import LinkButton from "./LinkButton.astro";
 </footer>
 
 <style>
+  footer {
+    @apply mt-auto w-full;
+  }
   .footer-wrapper {
     @apply py-6 sm:py-4 flex flex-col sm:flex-row-reverse justify-between items-center;
   }
