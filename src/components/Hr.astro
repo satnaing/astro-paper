@@ -1,11 +1,11 @@
 ---
 export interface Props {
-  className?: string;
+  noPadding?: boolean;
 }
 
-const { className } = Astro.props;
+const { noPadding = false } = Astro.props;
 ---
 
-<div class={`max-w-3xl mx-auto px-4 ${className}`}>
+<div class={`max-w-3xl mx-auto ${noPadding ? "px-0" : "px-4"}`}>
   <hr class="border-skin-line" />
 </div>
