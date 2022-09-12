@@ -26,11 +26,11 @@ const { href, post, secHeading = true } = Astro.props;
     @apply my-6;
   }
   a {
-    @apply text-skin-accent font-medium text-lg;
+    @apply text-skin-accent font-medium text-lg underline-offset-4 decoration-dashed focus-visible:underline;
   }
   a h2,
   a h3 {
-    @apply font-medium text-lg hover:underline underline-offset-4 decoration-dashed;
+    @apply font-medium text-lg hover:underline;
   }
   .date-time-wrapper {
     @apply opacity-80;
