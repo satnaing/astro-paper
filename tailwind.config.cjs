@@ -27,6 +27,11 @@ module.exports = {
           "card-muted": withOpacity("--color-card-muted"),
         },
       },
+      outlineColor: {
+        skin: {
+          fill: withOpacity("--color-accent"),
+        },
+      },
       borderColor: {
         skin: {
           line: withOpacity("--color-border"),
