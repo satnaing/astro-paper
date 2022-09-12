@@ -32,7 +32,7 @@ const { Content, frontmatter } = Astro.props.post;
 
 <Layout title={frontmatter.title}>
   <Header />
-  <main>
+  <main id="main-content">
     <h1 class="post-title">{frontmatter.title}</h1>
     <Datetime datetime={frontmatter.datetime} size="lg" className="my-2" />
     <article
