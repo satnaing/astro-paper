@@ -54,4 +54,7 @@
   .display-none {
     @apply hidden;
   }
+  .focus-outline {
+    @apply outline-offset-1 outline-skin-fill outline-2 focus-visible:outline-dashed focus-visible:no-underline;
+  }
 }
