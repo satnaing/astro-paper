@@ -83,7 +83,7 @@ const { activeNav } = Astro.props;
     @apply fill-skin-base w-6 h-6 scale-125;
   }
   nav {
-    @apply w-full py-2 sm:py-0 flex flex-col items-center sm:justify-end sm:flex-row sm:space-x-2 bg-skin-fill shadow sm:shadow-none;
+    @apply w-full py-2 sm:py-0 flex flex-col items-center sm:justify-end sm:flex-row sm:space-x-4 bg-skin-fill shadow sm:shadow-none;
   }
   nav ul {
     @apply flex flex-col sm:flex-row sm:space-x-4;
@@ -98,10 +98,10 @@ const { activeNav } = Astro.props;
     @apply underline underline-offset-4 decoration-wavy decoration-2;
   }
   .button-wrapper {
-    @apply flex my-2 sm:my-0 space-x-4 sm:space-x-2;
+    @apply flex my-2 sm:my-0 space-x-4;
   }
   nav button {
-    @apply p-2;
+    @apply p-1;
   }
   nav button svg {
     @apply w-6 h-6 fill-skin-base hover:fill-skin-accent;
