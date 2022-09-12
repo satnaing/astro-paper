@@ -2,10 +2,21 @@
 import "../styles/base.css";
 
 export interface Props {
-  title: string;
+  title?: string;
+  author?: string;
+  description?: string;
+  ogImage?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title = import.meta.env.PUBLIC_SITE_TITLE,
+  author = import.meta.env.PUBLIC_AUTHOR,
+  description = import.meta.env.PUBLIC_SITE_DESC,
+  ogImage = import.meta.env.PUBLIC_OG_IMAGE,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(ogImage, Astro.url);
 ---
 
 <!DOCTYPE html>
@@ -14,19 +25,27 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
 
-    <!-- meta tags for social media & SEO -->
-    <meta name="author" content="Sat Naing" />
-    <meta name="description" content="custom_description" />
-    <meta property="og:title" content="og_title" />
-    <meta property="og:description" content="og_description" />
-    <meta property="og:image" content="/some-image.png" />
-    <meta property="og:url" content="/this-page.html" />
-    <meta property="og:site_name" content="og_site_name" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image:alt" content="twitter_image_description" />
+    <!-- General Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
