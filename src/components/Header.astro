@@ -9,6 +9,7 @@ const { activeNav } = Astro.props;
 ---
 
 <header>
+  <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
       <a href="/" class="logo">AstroPaper</a>
@@ -63,6 +64,9 @@ const { activeNav } = Astro.props;
 </header>
 
 <style>
+  #skip-to-content {
+    @apply bg-skin-card py-2 px-3 absolute -top-full focus:top-4 left-16 z-50 transition-all;
+  }
   header hr {
     @apply border-skin-line mx-4 max-w-3xl sm:mx-auto;
   }
