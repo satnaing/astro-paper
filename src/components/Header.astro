@@ -12,7 +12,7 @@ const { activeNav } = Astro.props;
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo">AstroPaper</a>
+      <a href="/" class="logo">{import.meta.env.PUBLIC_SITE_TITLE}</a>
       <button class="hamburger-menu">
         <div class="icon-container flex">
           <div id="first-line"></div>
