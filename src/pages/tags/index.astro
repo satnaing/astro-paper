@@ -12,7 +12,7 @@ const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 let tags = getUniqueTags(posts);
 ---
 
-<Layout title="Tags | AstroPaper">
+<Layout title={`Tags | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="tags" />
   <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
     <ul>

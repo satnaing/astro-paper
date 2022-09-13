@@ -13,7 +13,7 @@ export interface Props {
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title}>
+<Layout title={`${frontmatter.title} | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="about" />
   <main id="main-content">
     <section class="mt-8 mb-28 prose prose-slate max-w-3xl">
