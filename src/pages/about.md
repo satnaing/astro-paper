@@ -3,7 +3,12 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Hi, I’m a theme for Astro, an example of how you can use this starter to create a personal blog. If you want to know more about how you can customise me, add more posts, and make it your own, click on one of the social links which will take you to my repo.
+Astro-Paper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is written in vanilla JavaScript (+ TypeScript for type checking) without any additional frontend frameworks like React, Vue, Svelte etc. TailwindCSS is used for styling; and Markdown is used for blog posts.
+
+This theme is aimed to be responsive, SEO-friendly and accessible out of
+the box. Light and dark mode are supported by default and additional
+color schemes can also be configured. See the documentation for more
+info.
 
 <div>
   <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="eiffel tower">
