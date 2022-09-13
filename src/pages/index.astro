@@ -13,7 +13,7 @@ const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 const sortedPosts = getSortedPosts(posts);
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout>
   <Header />
   <main id="main-content">
     <section id="hero">
