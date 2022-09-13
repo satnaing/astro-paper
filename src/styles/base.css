@@ -30,7 +30,8 @@
     display: block;
   }
   body {
-    @apply font-mono bg-skin-fill text-skin-base min-h-screen flex flex-col;
+    @apply font-mono bg-skin-fill text-skin-base min-h-screen flex flex-col 
+    selection:bg-skin-accent selection:text-skin-inverted selection:bg-opacity-70;
   }
   section,
   footer {

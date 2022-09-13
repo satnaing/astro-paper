@@ -17,11 +17,13 @@ module.exports = {
         skin: {
           base: withOpacity("--color-text-base"),
           accent: withOpacity("--color-text-accent"),
+          inverted: withOpacity("--color-fill"),
         },
       },
       backgroundColor: {
         skin: {
           fill: withOpacity("--color-fill"),
+          accent: withOpacity("--color-accent"),
           inverted: withOpacity("--color-text-base"),
           card: withOpacity("--color-card"),
           "card-muted": withOpacity("--color-card-muted"),

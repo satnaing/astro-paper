@@ -1,7 +1,7 @@
 ---
 title: My recent article 2
 author: Sat Naing
-datetime: 2022-8-30T10:12:12.000+00:00
+datetime: 2022-06-06T04:06:31Z
 slug: my-recent-2
 featured: false
 tags:

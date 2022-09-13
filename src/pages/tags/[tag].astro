@@ -42,7 +42,7 @@ const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
 const tagPosts = getPostsByTag(posts, tag);
 ---
 
-<Layout title={`Tag:${tag} | AstroPaper`}>
+<Layout title={`Tag:${tag} | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="tags" />
   <Main
     pageTitle={`Tag:${tag}`}

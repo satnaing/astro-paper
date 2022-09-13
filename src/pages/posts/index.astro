@@ -12,7 +12,7 @@ const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 const sortedPosts = getSortedPosts(posts);
 ---
 
-<Layout title="Posts | AstroPaper">
+<Layout title={`Posts | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="posts" />
   <Main pageTitle="Posts" pageDesc="All the tags used in posts.">
     <ul>
