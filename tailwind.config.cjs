@@ -37,6 +37,7 @@ module.exports = {
       borderColor: {
         skin: {
           line: withOpacity("--color-border"),
+          fill: withOpacity("--color-text-base"),
         },
       },
       fill: {
