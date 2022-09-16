@@ -11,7 +11,7 @@ color schemes can also be configured. See the documentation for more
 info.
 
 <div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="eiffel tower">
+  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
 </div>
 
 Now I'm going to show you an example of an unordered list to make sure that looks good, too:
