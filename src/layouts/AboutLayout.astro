@@ -1,4 +1,5 @@
 ---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import Layout from "./Layout.astro";
@@ -15,8 +16,9 @@ const { frontmatter } = Astro.props;
 
 <Layout title={`${frontmatter.title} | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="about" />
+  <Breadcrumbs />
   <main id="main-content">
-    <section class="mt-8 mb-28 prose prose-slate max-w-3xl">
+    <section class="mb-28 prose prose-slate max-w-3xl">
       <h1 class="text-2xl sm:text-3xl tracking-wider">{frontmatter.title}</h1>
       <slot />
     </section>
