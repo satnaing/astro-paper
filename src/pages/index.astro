@@ -18,7 +18,13 @@ const sortedPosts = getSortedPosts(posts);
   <main id="main-content">
     <section id="hero">
       <h1>Mingalaba</h1>
-      <a target="_blank" href="/rss.xml" class="rss-link">
+      <a
+        target="_blank"
+        href="/rss.xml"
+        class="rss-link"
+        aria-label="rss feed"
+        title="RSS Feed"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
           ><path
             d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
@@ -41,6 +47,7 @@ const sortedPosts = getSortedPosts(posts);
           <LinkButton
             href="https://github.com/satnaing"
             className="link-button"
+            title="Github"
           >
             <svg xmlns="http://www.w3.org/2000/svg"
               ><path
@@ -53,6 +60,7 @@ const sortedPosts = getSortedPosts(posts);
           <LinkButton
             href="https://www.facebook.com/satnaing.dev"
             className="link-button"
+            title="Facebook"
           >
             <svg xmlns="http://www.w3.org/2000/svg"
               ><path
@@ -63,6 +71,7 @@ const sortedPosts = getSortedPosts(posts);
           <LinkButton
             href="https://www.instagram.com/satnaing.dev/"
             className="link-button"
+            title="Instagram"
           >
             <svg xmlns="http://www.w3.org/2000/svg"
               ><path
@@ -73,6 +82,7 @@ const sortedPosts = getSortedPosts(posts);
           <LinkButton
             href="https://linkedin.com/satnaing.dev"
             className="link-button"
+            title="Linkedin"
           >
             <svg xmlns="http://www.w3.org/2000/svg"
               ><path
