@@ -67,7 +67,7 @@ export default function SearchBar({ searchList }: Props) {
         />
       </label>
 
-      {searchResults && searchResults.length > 0 && (
+      {inputVal.length > 1 && (
         <div className="mt-8">
           Found {searchResults?.length}
           {searchResults?.length && searchResults?.length > 1
