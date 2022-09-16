@@ -14,7 +14,7 @@ const sortedPosts = getSortedPosts(posts);
 
 <Layout title={`Posts | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
   <Header activeNav="posts" />
-  <Main pageTitle="Posts" pageDesc="All the tags used in posts.">
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
     <ul>
       {
         sortedPosts.map(({ frontmatter }) => {
