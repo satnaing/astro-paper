@@ -36,7 +36,8 @@ export default function SearchBar({ searchList }: Props) {
   const fuse = new Fuse(searchList, {
     keys: ["title", "description"],
     includeMatches: true,
-    threshold: 0.3,
+    minMatchCharLength: 2,
+    threshold: 0.5,
   });
 
   useEffect(() => {
@@ -66,7 +67,7 @@ export default function SearchBar({ searchList }: Props) {
         />
       </label>
 
-      {searchResults && searchResults.length > 0 && (
+      {inputVal.length > 1 && (
         <div className="mt-8">
           Found {searchResults?.length}
           {searchResults?.length && searchResults?.length > 1
