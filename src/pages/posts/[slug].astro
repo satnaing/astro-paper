@@ -6,6 +6,7 @@ import Datetime from "@components/Datetime.astro";
 import Tag from "@components/Tag.astro";
 import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "@utils/types";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;
@@ -32,6 +33,7 @@ const { Content, frontmatter } = Astro.props.post;
 
 <Layout title={frontmatter.title}>
   <Header />
+  <Breadcrumbs />
   <main id="main-content">
     <h1 class="post-title">{frontmatter.title}</h1>
     <Datetime datetime={frontmatter.datetime} size="lg" className="my-2" />
@@ -52,7 +54,7 @@ const { Content, frontmatter } = Astro.props.post;
 
 <style>
   main {
-    @apply max-w-3xl mx-auto px-4 py-12 w-full;
+    @apply max-w-3xl mx-auto px-4 pb-12 w-full;
   }
   .post-title {
     @apply font-semibold text-2xl text-skin-accent;
