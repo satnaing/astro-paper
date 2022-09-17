@@ -44,10 +44,21 @@
     @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
   }
   .prose {
-    @apply prose-a:underline-offset-8 prose-li:overflow-x-clip prose-a:!decoration-dashed hover:prose-a:text-skin-accent prose-img:mx-auto;
+    @apply prose-a:underline-offset-8 prose-li:overflow-x-clip 
+    prose-a:!decoration-dashed hover:prose-a:text-skin-accent 
+    prose-img:mx-auto;
   }
   .theme-dark .prose {
     @apply prose-invert;
+  }
+  #article h2#table-of-contents {
+    @apply mb-2;
+  }
+  #article h2#table-of-contents + p {
+    @apply hidden;
+  }
+  #article details {
+    @apply cursor-pointer inline-block select-none;
   }
 }
 
