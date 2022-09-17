@@ -3,7 +3,7 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Astro-Paper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is written in vanilla JavaScript (+ TypeScript for type checking) without any additional frontend frameworks like React, Vue, Svelte etc. TailwindCSS is used for styling; and Markdown is used for blog posts.
+Astro-Paper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some actions. TailwindCSS is used for styling; and Markdown is used for blog contents.
 
 This theme is aimed to be responsive, SEO-friendly and accessible out of
 the box. Light and dark mode are supported by default and additional
@@ -14,25 +14,15 @@ info.
   <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
 </div>
 
-Now I'm going to show you an example of an unordered list to make sure that looks good, too:
+## Features
 
-- So here is the first item in this list.
-- In this example we're keeping the items short.
-- Later, we'll use longer, more complex list items.
+Here are certain features of this site.
 
-I think most people are going to use [highlight.js](https://highlightjs.org/) or [Prism](https://prismjs.com/) or something if they want to style their code blocks but it wouldn't hurt to make them look _okay_ out of the box, even with no syntax highlighting.
+- fully responsive and accessible
+- SEO-friendly
+- support light & dark themes
+- fuzzy search
+- super fast, good performance
 
-Here's what a default `tailwind.config.js` file looks like at the time of writing:
-
-```js
-module.exports = {
-  purge: [],
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
-};
-```
-
-Hopefully that looks good enough to you.
+If you like this theme, you can star/contribute to the [repo](https://highlightjs.org/).  
+Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
