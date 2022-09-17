@@ -44,7 +44,7 @@
     @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
   }
   .prose {
-    @apply prose-a:underline-offset-8 prose-li:overflow-x-clip 
+    @apply prose-a:underline-offset-8 prose-ul:overflow-x-clip 
     prose-a:!decoration-dashed hover:prose-a:text-skin-accent 
     prose-img:mx-auto;
   }
