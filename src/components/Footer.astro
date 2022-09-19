@@ -2,6 +2,8 @@
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 import socialLinks from "@utils/socialLinks";
+
+const currentYear = new Date().getFullYear();
 ---
 
 <footer>
@@ -23,7 +25,7 @@ import socialLinks from "@utils/socialLinks";
       }
     </div>
     <div class="copyright-wrapper">
-      <span>Copyright &#169; 2022</span>
+      <span>Copyright &#169; {currentYear}</span>
       <span class="separator">&nbsp;|&nbsp;</span>
       <span>All rights reserved.</span>
     </div>
