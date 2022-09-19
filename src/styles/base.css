@@ -43,6 +43,11 @@
   svg {
     @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
   }
+  svg.icon-tabler {
+    @apply w-6 h-6 scale-125 sm:scale-110 opacity-90 
+    inline-block fill-transparent stroke-2 stroke-current 
+    group-hover:fill-transparent;
+  }
   .prose {
     @apply prose-a:underline-offset-8 prose-ul:overflow-x-clip 
     prose-a:!decoration-dashed hover:prose-a:text-skin-accent 
