@@ -3,12 +3,10 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Astro-Paper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some actions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+Astro-Paper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
 
-This theme is aimed to be responsive, SEO-friendly and accessible out of
-the box. Light and dark mode are supported by default and additional
-color schemes can also be configured. See the documentation for more
-info.
+This theme is aimed to be accessible out of the box. Light and dark mode are supported by
+default and additional color schemes can also be configured. See the documentation for more info.
 
 <div>
   <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
@@ -20,9 +18,9 @@ Here are certain features of this site.
 
 - fully responsive and accessible
 - SEO-friendly
-- support light & dark themes
+- light & dark mode
 - fuzzy search
-- super fast, good performance
+- super fast performance
 
-If you like this theme, you can star/contribute to the [repo](https://highlightjs.org/).  
+If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
 Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
