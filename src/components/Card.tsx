@@ -4,18 +4,25 @@ import type { Frontmatter } from "@utils/types";
 export interface Props {
   href?: string;
   post: Frontmatter;
+  secHeading?: boolean;
 }
 
-export default function Card({ href, post }: Props) {
+const styles = {
+  cardContainer: "my-6",
+  titleLink:
+    "text-skin-accent font-medium text-lg underline-offset-4 decoration-dashed focus-visible:underline",
+  titleHeading: "font-medium text-lg decoration-dashed hover:underline",
+};
+
+export default function Card({ href, post, secHeading = true }: Props) {
   return (
-    <li className="my-6">
-      <a
-        href={href}
-        className="text-skin-accent font-medium text-lg underline-offset-4 decoration-dashed focus-visible:underline"
-      >
-        <h2 className="font-medium text-lg decoration-dashed hover:underline">
-          {post.title}
-        </h2>
+    <li className={styles.cardContainer}>
+      <a href={href} className={styles.titleLink}>
+        {secHeading ? (
+          <h2 className={styles.titleHeading}>{post.title}</h2>
+        ) : (
+          <h3 className={styles.titleHeading}>{post.title}</h3>
+        )}
       </a>
       <Datetime datetime={post.datetime} />
       <p>{post.description}</p>
