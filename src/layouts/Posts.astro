@@ -34,7 +34,7 @@ const next = pageNum < totalPages ? "" : "disabled";
     </ul>
   </Main>
 
-  <div class="pagination-wrapper">
+  <nav class="pagination-wrapper" aria-label="Pagination Navigation">
     <LinkButton
       href={`/posts/${pageNum - 1}`}
       className={`mr-4 select-none ${prev}`}
@@ -57,7 +57,7 @@ const next = pageNum < totalPages ? "" : "disabled";
         ></path>
       </svg>
     </LinkButton>
-  </div>
+  </nav>
   <Footer noMarginTop />
 </Layout>
 
