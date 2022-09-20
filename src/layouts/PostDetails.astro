@@ -4,7 +4,6 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
 import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "@utils/types";
 
@@ -17,7 +16,15 @@ const { post } = Astro.props;
 
 <Layout title={post.frontmatter.title}>
   <Header />
-  <Breadcrumbs />
+  <div class="max-w-3xl mx-auto w-full px-2 flex justify-start">
+    <button class="mt-8 mb-2 hover:opacity-75 flex" onclick="history.back()">
+      <svg xmlns="http://www.w3.org/2000/svg"
+        ><path
+          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
+      </svg><span>Go back</span>
+    </button>
+  </div>
   <main id="main-content">
     <h1 class="post-title">{post.frontmatter.title}</h1>
     <Datetime datetime={post.frontmatter.datetime} size="lg" className="my-2" />
