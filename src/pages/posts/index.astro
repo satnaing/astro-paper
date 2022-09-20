@@ -1,29 +1,19 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Main from "@layouts/Main.astro";
-import Card from "@components/Card";
+import Posts from "@layouts/Posts.astro";
 import getSortedPosts from "@utils/getSortedPosts";
+import getPageNumbers from "@utils/getPageNumbers";
 import type { Frontmatter } from "@utils/types";
 
 const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 
 const sortedPosts = getSortedPosts(posts);
+
+const totalPages = getPageNumbers(posts.length);
+
+const paginatedPosts = sortedPosts.slice(
+  0,
+  import.meta.env.PUBLIC_POST_PER_PAGE
+);
 ---
 
-<Layout title={`Posts | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
-  <Header activeNav="posts" />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <ul>
-      {
-        sortedPosts.map(({ frontmatter }) => {
-          return (
-            <Card href={`/posts/${frontmatter.slug}`} post={frontmatter} />
-          );
-        })
-      }
-    </ul>
-  </Main>
-  <Footer />
-</Layout>
+<Posts posts={paginatedPosts} pageNum={1} totalPages={totalPages.length} />
