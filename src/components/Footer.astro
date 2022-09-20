@@ -4,9 +4,15 @@ import LinkButton from "./LinkButton.astro";
 import socialLinks from "@utils/socialLinks";
 
 const currentYear = new Date().getFullYear();
+
+export interface Props {
+  noMarginTop?: boolean;
+}
+
+const { noMarginTop = false } = Astro.props;
 ---
 
-<footer>
+<footer class={`${noMarginTop ? "" : "mt-auto"}`}>
   <Hr noPadding />
   <div class="footer-wrapper">
     <div class="social-icons">
@@ -34,7 +40,7 @@ const currentYear = new Date().getFullYear();
 
 <style>
   footer {
-    @apply mt-auto w-full;
+    @apply w-full;
   }
   .footer-wrapper {
     @apply py-6 sm:py-4 flex flex-col sm:flex-row-reverse justify-between items-center;
