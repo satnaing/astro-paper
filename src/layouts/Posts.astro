@@ -1,0 +1,74 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Card from "@components/Card";
+import LinkButton from "@components/LinkButton.astro";
+import type { Frontmatter } from "@utils/types";
+import type { MarkdownInstance } from "astro";
+
+export interface Props {
+  pageNum: number;
+  totalPages: number;
+  posts: MarkdownInstance<Frontmatter>[];
+}
+
+const { pageNum, totalPages, posts } = Astro.props;
+
+const prev = pageNum > 1 ? "" : "disabled";
+const next = pageNum < totalPages ? "" : "disabled";
+---
+
+<Layout title={`Posts | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
+  <Header activeNav="posts" />
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+    <ul>
+      {
+        posts.map(({ frontmatter }) => {
+          return (
+            <Card href={`/posts/${frontmatter.slug}`} post={frontmatter} />
+          );
+        })
+      }
+    </ul>
+  </Main>
+
+  <div class="pagination-wrapper">
+    <LinkButton
+      href={`/posts/${pageNum - 1}`}
+      className={`mr-4 select-none ${prev}`}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class={`${prev}-svg`}>
+        <path
+          d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"
+        ></path>
+      </svg>
+      Prev
+    </LinkButton>
+    <LinkButton
+      href={`/posts/${pageNum + 1}`}
+      className={`ml-4 select-none ${next}`}
+    >
+      Next
+      <svg xmlns="http://www.w3.org/2000/svg" class={`${next}-svg`}>
+        <path
+          d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+        ></path>
+      </svg>
+    </LinkButton>
+  </div>
+  <Footer noMarginTop />
+</Layout>
+
+<style>
+  .pagination-wrapper {
+    @apply flex justify-center mt-auto mb-8;
+  }
+  .disabled {
+    @apply opacity-50 hover:text-skin-base group-hover:fill-skin-base pointer-events-none select-none;
+  }
+  .disabled-svg {
+    @apply group-hover:!fill-skin-base;
+  }
+</style>
