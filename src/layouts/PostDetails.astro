@@ -1,0 +1,49 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Tag from "@components/Tag.astro";
+import Datetime from "@components/Datetime";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "@utils/types";
+
+export interface Props {
+  post: MarkdownInstance<Frontmatter>;
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={post.frontmatter.title}>
+  <Header />
+  <Breadcrumbs />
+  <main id="main-content">
+    <h1 class="post-title">{post.frontmatter.title}</h1>
+    <Datetime datetime={post.frontmatter.datetime} size="lg" className="my-2" />
+    <article
+      id="article"
+      role="article"
+      class="mx-auto max-w-3xl mt-8 prose prose-slate"
+    >
+      <post.Content />
+    </article>
+
+    <ul class="tags-container">
+      {post.frontmatter.tags.map((tag) => <Tag name={tag} />)}
+    </ul>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    @apply max-w-3xl mx-auto px-4 pb-12 w-full;
+  }
+  .post-title {
+    @apply font-semibold text-2xl text-skin-accent;
+  }
+  .tags-container {
+    @apply my-8;
+  }
+</style>
