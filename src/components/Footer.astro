@@ -52,9 +52,12 @@ const { noMarginTop = false } = Astro.props;
     @apply scale-125;
   }
   .copyright-wrapper {
-    @apply my-2 flex flex-col sm:flex-row items-center;
+    @apply my-2 flex flex-col sm:flex-row items-center whitespace-nowrap;
   }
   .separator {
     @apply hidden sm:inline;
+  }
+  .social-icons {
+    @apply flex flex-wrap justify-center gap-1;
   }
 </style>
