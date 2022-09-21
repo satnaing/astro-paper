@@ -11,10 +11,17 @@ export interface Props {
   post: MarkdownInstance<Frontmatter>;
 }
 
-const { post } = Astro.props;
+const { frontmatter, Content } = Astro.props.post;
+
+const { title, author, description, ogImage, datetime, tags } = frontmatter;
 ---
 
-<Layout title={post.frontmatter.title}>
+<Layout
+  title={title}
+  author={author}
+  description={description}
+  ogImage={ogImage}
+>
   <Header />
   <div class="max-w-3xl mx-auto w-full px-2 flex justify-start">
     <button class="mt-8 mb-2 hover:opacity-75 flex" onclick="history.back()">
@@ -26,18 +33,18 @@ const { post } = Astro.props;
     </button>
   </div>
   <main id="main-content">
-    <h1 class="post-title">{post.frontmatter.title}</h1>
-    <Datetime datetime={post.frontmatter.datetime} size="lg" className="my-2" />
+    <h1 class="post-title">{title}</h1>
+    <Datetime datetime={datetime} size="lg" className="my-2" />
     <article
       id="article"
       role="article"
       class="mx-auto max-w-3xl mt-8 prose prose-slate"
     >
-      <post.Content />
+      <Content />
     </article>
 
     <ul class="tags-container">
-      {post.frontmatter.tags.map((tag) => <Tag name={tag} />)}
+      {tags.map((tag) => <Tag name={tag} />)}
     </ul>
   </main>
   <Footer />
