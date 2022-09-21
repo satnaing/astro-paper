@@ -4,14 +4,16 @@ export interface Props {
   className?: string;
   ariaLabel?: string;
   title?: string;
+  tabindex?: string;
 }
 
-const { href, className, ariaLabel, title } = Astro.props;
+const { href, className, ariaLabel, title, tabindex } = Astro.props;
 ---
 
 <a
   type="button"
   href={href}
+  tabindex={tabindex}
   class={`group ${className}`}
   aria-label={ariaLabel}
   title={title}
