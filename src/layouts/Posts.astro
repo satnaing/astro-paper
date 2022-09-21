@@ -37,7 +37,7 @@ const next = pageNum < totalPages ? "" : "disabled";
   <nav class="pagination-wrapper" aria-label="Pagination Navigation">
     <LinkButton
       tabindex={prev === "disabled" ? "-1" : "0"}
-      href={`/posts/${pageNum - 1}`}
+      href={`/posts${pageNum - 1 !== 1 ? "/" + (pageNum - 1) : ""}`}
       className={`mr-4 select-none ${prev}`}
     >
       <svg xmlns="http://www.w3.org/2000/svg" class={`${prev}-svg`}>
