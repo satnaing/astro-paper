@@ -1,7 +1,8 @@
 ---
-import { SITE } from "src/config";
+import { LOGO_IMAGE, SITE } from "src/config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
+import logo from "/assets/logo.svg";
 
 export interface Props {
   activeNav?: "posts" | "tags" | "about" | "search";
@@ -14,7 +15,20 @@ const { activeNav } = Astro.props;
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo">{SITE.title}</a>
+      <a href="/" class="logo">
+        {
+          LOGO_IMAGE.enable ? (
+            <img
+              src={logo}
+              alt="AstroPaper Logo"
+              width={LOGO_IMAGE.width}
+              height={LOGO_IMAGE.height}
+            />
+          ) : (
+            SITE.title
+          )
+        }
+      </a>
       <button class="hamburger-menu" aria-label="menu">
         <div class="icon-container flex">
           <div id="first-line"></div>
