@@ -4,7 +4,7 @@ import PostDetails from "@layouts/PostDetails.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPageNumbers from "@utils/getPageNumbers";
 import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "@utils/types";
+import type { Frontmatter } from "src/types";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;

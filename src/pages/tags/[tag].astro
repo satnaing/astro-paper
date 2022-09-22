@@ -4,10 +4,10 @@ import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
-import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "@utils/types";
 import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "src/types";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;
