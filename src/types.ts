@@ -6,6 +6,7 @@ export interface Frontmatter {
   datetime: string;
   slug: string;
   featured: boolean;
+  draft: boolean;
   tags: string[];
 }
 
