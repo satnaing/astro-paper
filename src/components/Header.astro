@@ -1,4 +1,5 @@
 ---
+import { SITE } from "src/config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 
@@ -13,7 +14,7 @@ const { activeNav } = Astro.props;
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo">{import.meta.env.PUBLIC_SITE_TITLE}</a>
+      <a href="/" class="logo">{SITE.title}</a>
       <button class="hamburger-menu" aria-label="menu">
         <div class="icon-container flex">
           <div id="first-line"></div>

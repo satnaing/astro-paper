@@ -1,4 +1,5 @@
 ---
+import { SITE } from "src/config";
 import Posts from "@layouts/Posts.astro";
 import PostDetails from "@layouts/PostDetails.astro";
 import getSortedPosts from "@utils/getSortedPosts";
@@ -59,8 +60,8 @@ const currentPage =
   slug && !isNaN(Number(slug)) && totalPages.includes(Number(slug))
     ? Number(slug)
     : 0;
-const lastPost = currentPage * import.meta.env.PUBLIC_POST_PER_PAGE;
-const startPost = lastPost - import.meta.env.PUBLIC_POST_PER_PAGE;
+const lastPost = currentPage * SITE.postPerPage;
+const startPost = lastPost - SITE.postPerPage;
 
 const paginatedPosts = sortedPosts.slice(startPost, lastPost);
 ---

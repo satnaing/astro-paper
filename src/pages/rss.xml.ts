@@ -1,3 +1,4 @@
+import { SITE } from "src/config";
 import rss from "@astrojs/rss";
 import type { Frontmatter } from "src/types";
 import type { MarkdownInstance } from "astro";
@@ -12,9 +13,9 @@ const posts = Object.values(postImportResult);
 
 export const get = () =>
   rss({
-    title: import.meta.env.PUBLIC_SITE_TITLE,
-    description: import.meta.env.PUBLIC_SITE_DESC,
-    site: import.meta.env.SITE,
+    title: SITE.title,
+    description: SITE.desc,
+    site: SITE.website,
     items: posts.map(({ frontmatter }) => ({
       link: frontmatter.slug,
       title: frontmatter.title,

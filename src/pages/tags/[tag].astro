@@ -1,4 +1,5 @@
 ---
+import { SITE } from "src/config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
@@ -42,7 +43,7 @@ const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
 const tagPosts = getPostsByTag(posts, tag);
 ---
 
-<Layout title={`Tag:${tag} | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
+<Layout title={`Tag:${tag} | ${SITE.title}`}>
   <Header activeNav="tags" />
   <Main
     pageTitle={`Tag:${tag}`}

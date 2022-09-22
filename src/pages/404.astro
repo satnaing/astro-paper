@@ -1,11 +1,12 @@
 ---
+import { SITE } from "src/config";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 ---
 
-<Layout title={`404 Not Found | ${import.meta.env.PUBLIC_SITE_TITLE}`}>
+<Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
 
   <main id="main-content">

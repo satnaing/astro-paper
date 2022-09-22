@@ -1,8 +1,9 @@
 ---
+import { SITE } from "src/config";
 import Posts from "@layouts/Posts.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPageNumbers from "@utils/getPageNumbers";
-import type { Frontmatter } from "@utils/types";
+import type { Frontmatter } from "src/types";
 
 const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 
@@ -10,10 +11,7 @@ const sortedPosts = getSortedPosts(posts);
 
 const totalPages = getPageNumbers(posts.length);
 
-const paginatedPosts = sortedPosts.slice(
-  0,
-  import.meta.env.PUBLIC_POST_PER_PAGE
-);
+const paginatedPosts = sortedPosts.slice(0, SITE.postPerPage);
 ---
 
 <Posts posts={paginatedPosts} pageNum={1} totalPages={totalPages.length} />
