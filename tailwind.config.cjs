@@ -16,7 +16,7 @@ module.exports = {
       textColor: {
         skin: {
           base: withOpacity("--color-text-base"),
-          accent: withOpacity("--color-text-accent"),
+          accent: withOpacity("--color-accent"),
           inverted: withOpacity("--color-fill"),
         },
       },
@@ -43,7 +43,7 @@ module.exports = {
       fill: {
         skin: {
           base: withOpacity("--color-text-base"),
-          accent: withOpacity("--color-text-accent"),
+          accent: withOpacity("--color-accent"),
         },
       },
       fontFamily: {

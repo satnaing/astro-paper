@@ -5,7 +5,6 @@
 @layer base {
   :root {
     --color-text-base: 40, 39, 40;
-    --color-text-accent: 0, 108, 172;
     --color-fill: 251, 254, 251;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
@@ -14,7 +13,6 @@
   }
   .theme-dark {
     --color-text-base: 230, 230, 230;
-    --color-text-accent: 26, 217, 217;
     --color-fill: 47, 55, 65;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
