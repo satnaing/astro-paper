@@ -23,6 +23,10 @@ Here are certain features of this site.
 - light & dark mode
 - fuzzy search
 - super fast performance
+- draft posts
+- pagination
+- sitemap & rss feed
+- 19 popular social icons
 
 If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
 Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
