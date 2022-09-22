@@ -13,12 +13,14 @@ localStorage.setItem("myCat", "Tom");
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
 // List of items to search in
-const searchList = posts.map(({ frontmatter }) => ({
-  title: frontmatter.title,
-  description: frontmatter.description,
-  frontmatter,
-  slug: frontmatter.slug,
-}));
+const searchList = posts
+  .filter(({ frontmatter }) => !frontmatter.draft)
+  .map(({ frontmatter }) => ({
+    title: frontmatter.title,
+    description: frontmatter.description,
+    frontmatter,
+    slug: frontmatter.slug,
+  }));
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
