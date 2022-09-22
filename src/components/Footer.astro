@@ -1,7 +1,8 @@
 ---
+import socialIcons from "@assets/socialIcons";
+import { SOCIALS } from "src/config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
-import socialLinks from "@utils/socialLinks";
 
 const currentYear = new Date().getFullYear();
 
@@ -17,17 +18,15 @@ const { noMarginTop = false } = Astro.props;
   <div class="footer-wrapper">
     <div class="social-icons">
       {
-        socialLinks
-          .filter((socialLink) => socialLink.active)
-          .map((socialLink) => (
-            <LinkButton
-              href={socialLink.href}
-              className="link-button"
-              title={socialLink.name}
-            >
-              <Fragment set:html={socialLink.icon} />
-            </LinkButton>
-          ))
+        SOCIALS.filter((social) => social.active).map((social) => (
+          <LinkButton
+            href={social.href}
+            className="link-button"
+            title={social.name}
+          >
+            <Fragment set:html={socialIcons[social.name]} />
+          </LinkButton>
+        ))
       }
     </div>
     <div class="copyright-wrapper">

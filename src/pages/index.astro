@@ -6,7 +6,8 @@ import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import getSortedPosts from "@utils/getSortedPosts";
-import socialLinks from "@utils/socialLinks";
+import { SOCIALS } from "src/config";
+import socialIcons from "@assets/socialIcons";
 import type { Frontmatter } from "src/types";
 
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
@@ -45,17 +46,15 @@ const sortedPosts = getSortedPosts(posts);
         <div class="whitespace-nowrap">Social Links:</div>
         <div class="social-icons">
           {
-            socialLinks
-              .filter((socialLink) => socialLink.active)
-              .map((socialLink) => (
-                <LinkButton
-                  href={socialLink.href}
-                  className="link-button"
-                  title={socialLink.name}
-                >
-                  <Fragment set:html={socialLink.icon} />
-                </LinkButton>
-              ))
+            SOCIALS.filter((social) => social.active).map((social) => (
+              <LinkButton
+                href={social.href}
+                className="link-button"
+                title={social.name}
+              >
+                <Fragment set:html={socialIcons[social.name]} />
+              </LinkButton>
+            ))
           }
         </div>
       </div>
