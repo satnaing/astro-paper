@@ -1,6 +1,6 @@
 import slugify from "./slugify";
 import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "./types";
+import type { Frontmatter } from "../types";
 
 const getUniqueTags = (posts: MarkdownInstance<Frontmatter>[]) => {
   let tags: string[] = [];

@@ -2,7 +2,7 @@
 import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 import Card from "@components/Card";
-import type { Frontmatter } from "@utils/types";
+import type { Frontmatter } from "src/types";
 
 interface Props {
   searchList: {
