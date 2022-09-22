@@ -54,7 +54,7 @@ const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 
-const totalPages = getPageNumbers(posts.length);
+const totalPages = getPageNumbers(sortedPosts.length);
 
 const currentPage =
   slug && !isNaN(Number(slug)) && totalPages.includes(Number(slug))
