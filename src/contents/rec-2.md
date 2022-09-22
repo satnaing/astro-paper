@@ -4,6 +4,7 @@ author: Sat Naing
 datetime: 2022-06-06T04:06:31Z
 slug: my-recent-2
 featured: false
+draft: true
 tags:
   - TypeScript
   - Astro
