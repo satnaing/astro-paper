@@ -22,24 +22,48 @@ First of all, replace site property of _`astro.config.mjs` file with your own de
 
 Another important configurations lies in `src/config.ts` file. Within that file, you'll see the `SITE` object where you can specify your website's main configurations.
 
-![](https://res.cloudinary.com/noezectz/v1663912719/astro-paper/site-config_kw89jo.png)
+```js
+// file: src/config.ts
+export const SITE = {
+  website: "https://astro-paper.pages.dev/",
+  author: "Sat Naing",
+  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  title: "AstroPaper",
+  ogImage: "default-og.png",
+  postPerPage: 3,
+};
+```
+
+<!-- ![](https://res.cloudinary.com/noezectz/v1663912719/astro-paper/site-config_kw89jo.png) -->
 
 Here are SITE configuration options
 
-- website => Your deployed website url
-- author => Your name
-- desc => Your site description. Useful for SEO and social media sharing.
-- title => Your site name
-- ogImage => Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.
-- postPerPage => You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page)
+| Options       | Description                                                                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `website`     | Your deployed website url                                                                                                                                            |
+| `author`      | Your name                                                                                                                                                            |
+| `desc`        | Your site description. Useful for SEO and social media sharing.                                                                                                      |
+| `title`       | Your site name                                                                                                                                                       |
+| `ogImage`     | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                              |
+| `postPerPage` | You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page) |
 
-## Configure logo or title
+## Configuring logo or title
 
 You can specify site's title or logo image in `src/config.ts` file.
 
 ![](https://res.cloudinary.com/noezectz/v1663911318/astro-paper/AstroPaper-logo-config_goff5l.png)
 
-![](https://res.cloudinary.com/noezectz/v1663912849/astro-paper/logo-image-config_q7d574.png)
+```js
+// file: src/config.ts
+export const LOGO_IMAGE = {
+  enable: false,
+  svg: true,
+  width: 216,
+  height: 46,
+};
+```
+
+<!-- ![](https://res.cloudinary.com/noezectz/v1663912849/astro-paper/logo-image-config_q7d574.png) -->
 
 If you specify `LOGO_IMAGE.enable` => `false`, AstroPaper will automatically convert `SITE.title` to the main site text logo.
 
@@ -51,7 +75,7 @@ If your logo image is png file format, you have to set `LOGO_IMAGE.svg` => `fals
 
 It is recommended that you specify width and height of your logo image. You can do that by setting `LOGO_IMAGE.width` _and_ `LOGO_IMAGE.height`
 
-## Configure social links
+## Configuring social links
 
 You can configure your own social links along with its icons.
 
@@ -61,7 +85,29 @@ Currently 19 social icons are supported. (Github, LinkedIn, Facebook etc.)
 
 You can specify and enable certain social links in hero section and footer. To do this, go to `/src/config.ts` and then you'll find `SOCIALS` object.
 
-![](https://res.cloudinary.com/noezectz/v1663915122/astro-paper/SOCIALS-config_tkwhqw.png)
+```js
+// file: src/config.ts
+export const SOCIALS: SocialsObject = [
+  {
+    name: "Github",
+    href: "https://github.com/satnaing/astro-paper",
+    active: true,
+  },
+  {
+    name: "Facebook",
+    href: "https://github.com/satnaing/astro-paper",
+    active: true,
+  },
+  {
+    name: "Instagram",
+    href: "https://github.com/satnaing/astro-paper",
+    active: true,
+  },
+  ...
+]
+```
+
+<!-- ![](https://res.cloudinary.com/noezectz/v1663915122/astro-paper/SOCIALS-config_tkwhqw.png) -->
 
 You have to set specific social link to `active: true` in order to appear your social links in hero and footer section. Then, you also have to specify your social link in `href` property.
 
@@ -71,8 +117,8 @@ For instance, if I want to make my Github appear, I'll make it like this.
 export const SOCIALS: SocialsObject = [
   {
     name: "Github",
-    href: "https://github.com/satnaing",
-    active: true,
+    href: "https://github.com/satnaing", // update account link
+    active: true, // makre sure to set active to true
   }
   ...
 ]
@@ -80,4 +126,4 @@ export const SOCIALS: SocialsObject = [
 
 ## Conclusion
 
-This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read this article. Thanks for reading.✌🏻 
+This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read this article. Thanks for reading.✌🏻
