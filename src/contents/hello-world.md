@@ -3,7 +3,7 @@ title: How Do I Develop My Portfolio Website & Blog
 author: Sat Naing
 datetime: 2022-03-25T16:55:12.000+00:00
 slug: how-do-i-develop-my-portfolio-and-blog
-featured: true
+featured: false
 draft: false
 tags:
   - NextJS
