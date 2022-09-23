@@ -49,7 +49,7 @@
   .prose {
     @apply prose-a:underline-offset-8 prose-ul:overflow-x-clip 
     prose-a:!decoration-dashed hover:prose-a:text-skin-accent 
-    prose-img:mx-auto;
+    prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line;
   }
   .theme-dark .prose {
     @apply prose-invert;
