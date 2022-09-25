@@ -3,13 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* :root {
     --color-fill: 251, 254, 251;
     --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
+  } */
+  :root {
+    --color-fill: 246, 238, 225;
+    --color-text-base: 1, 44, 86;
+    --color-accent: 225, 74, 57;
+    --color-card: 220, 152, 145;
+    --color-card-muted: 233, 119, 106;
+    --color-border: 220, 152, 145;
   }
   .theme-dark {
     --color-fill: 47, 55, 65;
