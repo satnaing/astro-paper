@@ -103,6 +103,10 @@ As the final setup, make some adjustment in the front matter field settings.
 
 Here are some adjustments you have to made.
 
+**_title_**
+
+- Validation => REQUIRED => true
+
 **_author_**
 
 - Default => your name
@@ -112,6 +116,10 @@ Here are some adjustments you have to made.
 - Default => USE "NOW" AS DEFAULT
 
 **_slug_**
+
+- Validation => REQUIRED => true
+
+**_description_**
 
 - Validation => REQUIRED => true
 
