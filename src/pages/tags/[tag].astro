@@ -9,6 +9,7 @@ import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "src/types";
+import slugify from "@utils/slugify";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;
@@ -52,7 +53,7 @@ const tagPosts = getPostsByTag(posts, tag);
     <ul>
       {
         tagPosts.map(({ frontmatter }) => (
-          <Card href={`/posts/${frontmatter.slug}`} post={frontmatter} />
+          <Card href={`/posts/${slugify(frontmatter)}`} post={frontmatter} />
         ))
       }
     </ul>

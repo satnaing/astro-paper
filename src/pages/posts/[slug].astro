@@ -6,6 +6,7 @@ import getSortedPosts from "@utils/getSortedPosts";
 import getPageNumbers from "@utils/getPageNumbers";
 import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "src/types";
+import slugify from "@utils/slugify";
 
 export interface Props {
   post: MarkdownInstance<Frontmatter>;
@@ -27,12 +28,12 @@ type PagePaths = {
 }[];
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob("../../contents/*.md");
+  const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
 
   let postResult: PostResult = posts.map((post) => {
     return {
       params: {
-        slug: post.frontmatter.slug,
+        slug: slugify(post.frontmatter),
       },
       props: {
         post,
