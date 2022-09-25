@@ -23,23 +23,23 @@ Frontmatter is the main place to store some important information about the post
 
 Here is the list of frontmatter property for each post.
 
-| Property          | Description                                                                               | Remark                 |
-| ----------------- | ----------------------------------------------------------------------------------------- | ---------------------- |
-| **_title_**       | Title of the post. (h1)                                                                   | required<sup>\*</sup>  |
-| **_description_** | Description of the post. Used in post excerpt and site description of the post.           | default = SITE.desc    |
-| **_author_**      | Author of the post.                                                                       | default = SITE.author  |
-| **_datetime_**    | Published datetime in ISO 8601 format.                                                    |                        |
-| **_slug_**        | Slug for the post. Usually the all lowercase title seperated in `-` instead of whtiespace | required<sup>\*</sup>  |
-| **_featured_**    | Whether or not display this post in featured section of home page                         | default = false        |
-| **_draft_**       | Mark this post 'unpublished'.                                                             | default = false        |
-| **_tags_**        | Related keywords for this post. Written in array yaml format.                             |                        |
-| **_ogImage_**     | OG image of the post. Useful for social media sharing and SEO.                            | default = SITE.ogImage |
+| Property          | Description                                                                               | Remark                    |
+| ----------------- | ----------------------------------------------------------------------------------------- | ------------------------- |
+| **_title_**       | Title of the post. (h1)                                                                   | required<sup>\*</sup>     |
+| **_description_** | Description of the post. Used in post excerpt and site description of the post.           | default = SITE.desc       |
+| **_author_**      | Author of the post.                                                                       | default = SITE.author     |
+| **_datetime_**    | Published datetime in ISO 8601 format.                                                    |                           |
+| **_slug_**        | Slug for the post. Usually the all lowercase title seperated in `-` instead of whtiespace | default = slugified title |
+| **_featured_**    | Whether or not display this post in featured section of home page                         | default = false           |
+| **_draft_**       | Mark this post 'unpublished'.                                                             | default = false           |
+| **_tags_**        | Related keywords for this post. Written in array yaml format.                             |                           |
+| **_ogImage_**     | OG image of the post. Useful for social media sharing and SEO.                            | default = SITE.ogImage    |
 
 `title` and `slug` fields in frontmatter must be specified.
 
 Title is the title of the post and it is very important for search engine optimization (SEO).
 
-`slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` needs to be separated with **-** or **\_** but **-** is recommended.
+`slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` needs to be separated with `-` or `_` but `-` is recommended. If slug is not specified, the slugified title of the post will be used as slug.
 
 Here is the sample frontmatter for the post.
 
@@ -100,4 +100,4 @@ My recommendation for image compression sites.
 
 ### OG Image
 
-The default OG image will be placed if a post does not specify the OG image. Though not required, OG image related to the post should be specify in the frontmatter. The recommended size for OG image is **_1200 x 640 px_**.
+The default OG image will be placed if a post does not specify the OG image. Though not required, OG image related to the post should be specify in the frontmatter. The recommended size for OG image is **_1200 X 640_** px.
