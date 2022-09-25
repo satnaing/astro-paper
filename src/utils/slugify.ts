@@ -6,7 +6,7 @@ const slugger = GithubSlugger.slug;
 export const slugifyStr = (str: string) => slugger(str);
 
 const slugify = (frontmatter: Frontmatter) =>
-  frontmatter.slug ? frontmatter.slug : slugger(frontmatter.title);
+  frontmatter.slug ? slugger(frontmatter.slug) : slugger(frontmatter.title);
 
 export const slufigyAll = (arr: string[]) => arr.map((str) => slugifyStr(str));
 
