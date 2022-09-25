@@ -30,6 +30,7 @@ export const SITE = {
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
   title: "AstroPaper",
   ogImage: "default-og.png",
+  lightAndDarkMode: true,
   postPerPage: 3,
 };
 ```
@@ -45,6 +46,7 @@ Here are SITE configuration options
 | `desc`        | Your site description. Useful for SEO and social media sharing.                                                                                                      |
 | `title`       | Your site name                                                                                                                                                       |
 | `ogImage`     | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                              |
+| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                                |
 | `postPerPage` | You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page) |
 
 ## Configuring logo or title
