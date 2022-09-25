@@ -4,16 +4,16 @@
 
 @layer base {
   :root {
-    --color-text-base: 40, 39, 40;
     --color-fill: 251, 254, 251;
+    --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
   }
   .theme-dark {
-    --color-text-base: 230, 230, 230;
     --color-fill: 47, 55, 65;
+    --color-text-base: 230, 230, 230;
     --color-accent: 26, 217, 217;
     --color-card: 63, 75, 90;
     --color-card-muted: 89, 107, 129;
@@ -52,18 +52,32 @@
     prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line
     prose-headings:!mb-3
     prose-th:border prose-th:border-skin-line
-    prose-td:border prose-td:border-skin-line;
+    prose-td:border prose-td:border-skin-line
+
+    
+    prose-p:!text-skin-base prose-headings:!text-skin-base 
+    prose-ol:!text-skin-base prose-ul:!text-skin-base prose-blockquote:opacity-80 
+    prose-figcaption:!text-skin-base prose-figcaption:opacity-70
+    prose-code:bg-skin-card prose-code:bg-opacity-75 
+    prose-code:!text-skin-base prose-code:p-1 prose-code:rounded
+    prose-code:after:!content-[''] prose-code:before:!content-['']
+    prose-strong:!text-skin-base prose-table:text-skin-base 
+    prose-pre:!text-skin-base prose-a:!text-skin-base 
+    prose-hr:!border-skin-line;
+  }
+  #article a {
+    @apply hover:!text-skin-accent;
   }
   .prose thead th:first-child,
   tbody td:first-child,
   tfoot td:first-child {
     padding-left: 0.5714286em;
   }
-  .theme-dark .prose {
-    @apply prose-invert;
-  }
   #article h2#table-of-contents {
     @apply mb-2;
+  }
+  #article details {
+    @apply text-skin-base;
   }
   #article h2#table-of-contents + p {
     @apply hidden;
