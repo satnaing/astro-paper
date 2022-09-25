@@ -7,8 +7,6 @@ import Footer from "@components/Footer.astro";
 import Search from "@components/Search";
 import type { Frontmatter } from "src/types";
 
-localStorage.setItem("myCat", "Tom");
-
 // Retrieve all articles
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
