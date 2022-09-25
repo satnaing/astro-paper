@@ -115,10 +115,6 @@ Here are some adjustments you have to made.
 
 - Default => USE "NOW" AS DEFAULT
 
-**_slug_**
-
-- Validation => REQUIRED => true
-
 **_description_**
 
 - Validation => REQUIRED => true
