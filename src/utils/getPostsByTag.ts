@@ -1,5 +1,5 @@
-import type { MarkdownInstance } from "astro";
 import { slufigyAll } from "./slugify";
+import type { MarkdownInstance } from "astro";
 import type { Frontmatter } from "../types";
 
 const getPostsByTag = (posts: MarkdownInstance<Frontmatter>[], tag: string) =>
