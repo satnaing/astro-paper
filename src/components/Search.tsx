@@ -8,6 +8,7 @@ import type { Frontmatter } from "src/types";
 type SearchItem = {
   title: string;
   description: string;
+  headings: string[];
   frontmatter: Frontmatter;
 };
 
@@ -31,7 +32,7 @@ export default function SearchBar({ searchList }: Props) {
   };
 
   const fuse = new Fuse(searchList, {
-    keys: ["title", "description"],
+    keys: ["title", "description", "headings"],
     includeMatches: true,
     minMatchCharLength: 2,
     threshold: 0.5,

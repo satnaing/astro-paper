@@ -15,10 +15,11 @@ const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 // List of items to search in
 const searchList = posts
   .filter(({ frontmatter }) => !frontmatter.draft)
-  .map(({ frontmatter }) => ({
-    title: frontmatter.title,
-    description: frontmatter.description,
-    frontmatter,
+  .map((post) => ({
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    headings: post.getHeadings().map((h) => h.text),
+    frontmatter: post.frontmatter,
   }));
 ---
 
