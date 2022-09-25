@@ -38,11 +38,7 @@ const { title, author, description, ogImage, datetime, tags } = frontmatter;
   <main id="main-content">
     <h1 class="post-title">{title}</h1>
     <Datetime datetime={datetime} size="lg" className="my-2" />
-    <article
-      id="article"
-      role="article"
-      class="mx-auto max-w-3xl mt-8 prose prose-slate"
-    >
+    <article id="article" role="article" class="mx-auto max-w-3xl mt-8 prose">
       <Content />
     </article>
 
