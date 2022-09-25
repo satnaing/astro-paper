@@ -24,7 +24,10 @@ const { title, author, description, ogImage, datetime, tags } = frontmatter;
 >
   <Header />
   <div class="max-w-3xl mx-auto w-full px-2 flex justify-start">
-    <button class="mt-8 mb-2 hover:opacity-75 flex" onclick="history.back()">
+    <button
+      class="mt-8 mb-2 hover:opacity-75 flex focus-outline"
+      onclick="history.back()"
+    >
       <svg xmlns="http://www.w3.org/2000/svg"
         ><path
           d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
