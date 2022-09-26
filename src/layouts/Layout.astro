@@ -62,11 +62,21 @@ const socialImageURL = new URL(
     />
 
     <script is:inline>
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
       // Get theme data from local storage
       const currentTheme = localStorage.getItem("theme");
 
+      let theme;
+
       // Set theme to 'theme-dark' if currentTheme is 'dark'
-      const theme = currentTheme === "dark" ? "theme-dark" : "";
+      if (currentTheme) {
+        theme = currentTheme === "dark" ? "theme-dark" : "";
+      } else {
+        theme = darkModeMediaQuery ? "theme-dark" : "";
+      }
 
       // Put dark class on html tag to enable dark mode
       document.querySelector("html").className = theme;
