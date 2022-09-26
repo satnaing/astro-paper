@@ -62,6 +62,8 @@ const socialImageURL = new URL(
     />
 
     <script is:inline>
+      const primaryColorScheme = "none"; // "light" | "dark" | "none"
+
       const darkModeMediaQuery = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
@@ -75,7 +77,24 @@ const socialImageURL = new URL(
       if (currentTheme) {
         theme = currentTheme === "dark" ? "theme-dark" : "";
       } else {
-        theme = darkModeMediaQuery ? "theme-dark" : "";
+        // If primary color scheme is dark
+        // or primary color scheme is not set and prefers-color-scheme is dark
+        // choose dark mode
+        if (
+          primaryColorScheme === "dark" ||
+          (primaryColorScheme === "none" && darkModeMediaQuery)
+        ) {
+          theme = "theme-dark";
+        }
+        // If primary color scheme is light
+        // choose light mode
+        else if (primaryColorScheme === "light") {
+          theme = "";
+        }
+        // fallback to prefers-color-scheme
+        else {
+          theme = darkModeMediaQuery ? "theme-dark" : "";
+        }
       }
 
       // Put dark class on html tag to enable dark mode
