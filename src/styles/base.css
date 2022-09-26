@@ -15,8 +15,8 @@
     --color-fill: 246, 238, 225;
     --color-text-base: 1, 44, 86;
     --color-accent: 225, 74, 57;
-    --color-card: 220, 152, 145;
-    --color-card-muted: 233, 119, 106;
+    --color-card: 217, 209, 195;
+    --color-card-muted: 239, 216, 176;
     --color-border: 220, 152, 145;
   }
   .theme-dark {
@@ -71,7 +71,8 @@
     prose-code:after:!content-[''] prose-code:before:!content-['']
     prose-strong:!text-skin-base prose-table:text-skin-base 
     prose-pre:!text-skin-base prose-a:!text-skin-base 
-    prose-hr:!border-skin-line;
+    prose-hr:!border-skin-line prose-li:marker:!text-skin-accent 
+    prose-blockquote:!border-l-skin-accent prose-blockquote:border-opacity-50;
   }
   #article a {
     @apply hover:!text-skin-accent;
