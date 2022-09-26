@@ -74,7 +74,8 @@
     prose-hr:!border-skin-line prose-li:marker:!text-skin-accent 
     prose-blockquote:!border-l-skin-accent prose-blockquote:border-opacity-50;
   }
-  #article a {
+  #article a,
+  #about a {
     @apply hover:!text-skin-accent;
   }
   .prose thead th:first-child,
