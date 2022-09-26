@@ -74,8 +74,7 @@
     prose-hr:!border-skin-line prose-li:marker:!text-skin-accent 
     prose-blockquote:!border-l-skin-accent prose-blockquote:border-opacity-50;
   }
-  #article a,
-  #about a {
+  .prose a {
     @apply hover:!text-skin-accent;
   }
   .prose thead th:first-child,
@@ -83,13 +82,16 @@
   tfoot td:first-child {
     padding-left: 0.5714286em;
   }
-  #article h2#table-of-contents {
+  .prose h2#table-of-contents {
     @apply mb-2;
   }
-  #article details {
-    @apply text-skin-base;
+  .prose details {
+    @apply text-skin-base cursor-pointer inline-block select-none;
   }
-  #article h2#table-of-contents + p {
+  .prose summary {
+    @apply focus-outline;
+  }
+  .prose h2#table-of-contents + p {
     @apply hidden;
   }
   #article details {
