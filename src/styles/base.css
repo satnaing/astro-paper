@@ -94,9 +94,6 @@
   .prose h2#table-of-contents + p {
     @apply hidden;
   }
-  #article details {
-    @apply cursor-pointer inline-block select-none;
-  }
 
   /* ===== scrollbar ===== */
   html {
