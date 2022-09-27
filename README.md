@@ -24,7 +24,7 @@ This theme is self-documented \_ which means articles/posts in this theme can al
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+Inside of AstroPaper, you'll see the following folders and files:
 
 ```
 /
@@ -129,7 +129,7 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into their [Discord server](https://astro.build/chat).
+If you want to know more about Astro check [thier documentation](https://docs.astro.build) or jump into their [Discord server](https://astro.build/chat).
 
 ## License
 
