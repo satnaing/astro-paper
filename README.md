@@ -1,15 +1,11 @@
-<!-- <h1 align="center">
-  AstroPaper 📄
-</h1> -->
-
 # AstroPaper 📄
 
 ![astro-paper](https://user-images.githubusercontent.com/53733092/192439847-534ea3f9-3294-4509-b732-5810bc2db09a.png)
 
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%231BD9D8&logo=%231BD9D8&logoColor=%231BD9D8&style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on my personal blog.
+AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. This theme is designed and crafted based on [my personal blog](https://satnaing.dev/blog).
 
 This theme is aimed to be accessible out of the box. Light and dark mode are supported by default and additional color schemes can also be configured.
 
