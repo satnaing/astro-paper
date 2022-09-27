@@ -1,11 +1,30 @@
-# Welcome to [Astro](https://astro.build)
+<!-- <h1 align="center">
+  AstroPaper 📄
+</h1> -->
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+# AstroPaper 📄
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+![astro-paper](https://user-images.githubusercontent.com/53733092/192439847-534ea3f9-3294-4509-b732-5810bc2db09a.png)
 
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%231BD9D8&logo=%231BD9D8&logoColor=%231BD9D8&style=for-the-badge)
 
+AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on my personal blog.
+
+This theme is aimed to be accessible out of the box. Light and dark mode are supported by default and additional color schemes can also be configured.
+
+This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
+
+## 🔥 Features
+
+- [x] super fast performance
+- [x] fully responsive and accessible
+- [x] SEO-friendly
+- [x] light & dark mode
+- [x] fuzzy search
+- [x] draft posts & pagination
+- [x] sitemap & rss feed
+- [x] highly customizable
 
 ## 🚀 Project Structure
 
@@ -14,24 +33,92 @@ Inside of your Astro project, you'll see the following folders and files:
 ```
 /
 ├── public/
+│   ├── assets/
+│   │   └── logo.svg
+│   │   └── logo.png
 │   └── favicon.svg
+│   └── default-og.png
+│   └── robots.txt
 ├── src/
+│   ├── assets/
+│   │   └── socialIcons.ts
 │   ├── components/
-│   │   └── Card.astro
+│   ├── contents/
+│   │   └── some-blog-posts.md
 │   ├── layouts/
-│   │   └── Layout.astro
 │   └── pages/
-│       └── index.astro
+│   └── styles/
+│   └── utils/
+│   └── config.ts
+│   └── types.ts
 └── package.json
 ```
 
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
 Any static assets, like images, can be placed in the `public/` directory.
 
-## 🧞 Commands
+All blog posts are stored in `src/contents/` directory.
+
+## 📖 Documentation
+
+Documentation can be read in two formats\_ _markdown_ & _blog post_.
+
+- Configuration - [markdown](src/contents/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
+- Add Posts - [markdown](src/contents/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
+- Customize Color Schemes - [markdown](src/contents/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
+- Predefined Color Schemes - [markdown](src/contents/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
+
+## 💻 Tech Stack
+
+**Main Framework** - [Astro](https://astro.build/)  
+**Type Checking** - [TypeScript](https://www.typescriptlang.org/)  
+**Component Framework** - [ReactJS](https://reactjs.org/)  
+**Styling** - [TailwindCSS](https://tailwindcss.com/)  
+**UI/UX** - [Figma](https://figma.com)  
+**Fuzzy Search** - [FuseJS](https://fusejs.io/)  
+**Icons** - [Boxicons](https://boxicons.com/) | [Tablers](https://tabler-icons.io/)  
+**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)
+
+## 👨🏻‍💻 Running Locally
+
+Clone the project
+
+```bash
+git clone https://github.com/satnaing/astro-paper.git
+```
+
+Go to the project directory
+
+```bash
+cd astro-paper
+```
+
+Remove remote origin
+
+```bash
+git remote remove origin
+```
+
+Remove Google site verification
+
+```bash
+rm -rf public/googlebbcd930f1ecacd3a.html
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start the server
+
+```bash
+npm run dev
+```
+
+## 🧞 Astro Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -46,4 +133,8 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Feel free to check [our documentation](https://docs.astro.build) or jump into their [Discord server](https://astro.build/chat).
+
+## License
+
+Licensed under the MIT License, Copyright © 2022
