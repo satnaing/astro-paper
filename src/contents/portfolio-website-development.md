@@ -11,11 +11,15 @@ tags:
   - HeadlessCMS
   - Blog
 description:
-  My experience about developing my first portfolio website and a blog
-  using NextJS and a headless CMS.
+  "EXAMPLE POST: My experience about developing my first portfolio website and a blog
+  using NextJS and a headless CMS."
 ---
 
+> This article is originally from my [blog post](https://satnaing.dev/blog/posts/how-do-i-develop-my-portfolio-and-blog). I put this article to demonstrate how you can write blog posts/articles using AstroPaper theme.
+
 My experience about developing my first portfolio website and a blog using NextJS and a headless CMS.
+
+![Building portfolio](https://satnaing.dev/_ipx/w_2048,q_75/https%3A%2F%2Fres.cloudinary.com%2Fnoezectz%2Fimage%2Fupload%2Fv1653050141%2FSatNaing%2Fblog_at_cafe_ei1wf4.jpg?url=https%3A%2F%2Fres.cloudinary.com%2Fnoezectz%2Fimage%2Fupload%2Fv1653050141%2FSatNaing%2Fblog_at_cafe_ei1wf4.jpg&w=2048&q=75)
 
 ## Motivation
 

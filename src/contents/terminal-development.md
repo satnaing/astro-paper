@@ -12,11 +12,15 @@ tags:
   - Styled-Components
   - TypeScript
 description:
-  Developing a terminal-like website using ReactJS, TypeScript and Styled-Components.
-  Includes features like autocomplete, multiple themes, command hints etc.
+  "EXAMPLE POST: Developing a terminal-like website using ReactJS, TypeScript and Styled-Components.
+  Includes features like autocomplete, multiple themes, command hints etc."
 ---
 
+> This article is originally from my [blog post](https://satnaing.dev/blog/posts/how-do-i-develop-my-terminal-portfolio-website-with-react). I put this article to demonstrate how you can write blog posts/articles using AstroPaper theme.
+
 Developing a terminal-like website using ReactJS, TypeScript and Styled-Components. Includes features like autocomplete, multiple themes, command hints etc.
+
+![Sat Naing's Terminal Portfolio](https://satnaing.dev/_ipx/w_2048,q_75/https%3A%2F%2Fres.cloudinary.com%2Fnoezectz%2Fimage%2Fupload%2Fv1654754125%2FSatNaing%2Fterminal-screenshot_gu3kkc.png?url=https%3A%2F%2Fres.cloudinary.com%2Fnoezectz%2Fimage%2Fupload%2Fv1654754125%2FSatNaing%2Fterminal-screenshot_gu3kkc.png&w=2048&q=75)
 
 ## Table of contents
 
