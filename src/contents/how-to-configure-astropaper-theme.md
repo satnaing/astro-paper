@@ -35,19 +35,17 @@ export const SITE = {
 };
 ```
 
-<!-- ![](https://res.cloudinary.com/noezectz/v1663912719/astro-paper/site-config_kw89jo.png) -->
-
 Here are SITE configuration options
 
-| Options       | Description                                                                                                                                                          |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `website`     | Your deployed website url                                                                                                                                            |
-| `author`      | Your name                                                                                                                                                            |
-| `desc`        | Your site description. Useful for SEO and social media sharing.                                                                                                      |
-| `title`       | Your site name                                                                                                                                                       |
-| `ogImage`     | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                              |
-| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                                |
-| `postPerPage` | You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page) |
+| Options            | Description                                                                                                                                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `website`          | Your deployed website url                                                                                                                                            |
+| `author`           | Your name                                                                                                                                                            |
+| `desc`             | Your site description. Useful for SEO and social media sharing.                                                                                                      |
+| `title`            | Your site name                                                                                                                                                       |
+| `ogImage`          | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                              |
+| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                            |
+| `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page) |
 
 ## Configuring logo or title
 
@@ -64,8 +62,6 @@ export const LOGO_IMAGE = {
   height: 46,
 };
 ```
-
-<!-- ![](https://res.cloudinary.com/noezectz/v1663912849/astro-paper/logo-image-config_q7d574.png) -->
 
 If you specify `LOGO_IMAGE.enable` => `false`, AstroPaper will automatically convert `SITE.title` to the main site text logo.
 
@@ -108,8 +104,6 @@ export const SOCIALS: SocialsObject = [
   ...
 ]
 ```
-
-<!-- ![](https://res.cloudinary.com/noezectz/v1663915122/astro-paper/SOCIALS-config_tkwhqw.png) -->
 
 You have to set specific social link to `active: true` in order to appear your social links in hero and footer section. Then, you also have to specify your social link in `href` property.
 
