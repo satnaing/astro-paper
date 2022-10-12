@@ -37,15 +37,15 @@ export const SITE = {
 
 Here are SITE configuration options
 
-| Options            | Description                                                                                                                                                          |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `website`          | Your deployed website url                                                                                                                                            |
-| `author`           | Your name                                                                                                                                                            |
-| `desc`             | Your site description. Useful for SEO and social media sharing.                                                                                                      |
-| `title`            | Your site name                                                                                                                                                       |
-| `ogImage`          | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                              |
-| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                            |
-| `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: you you specify SITE.postPerPage to 3, page 1, page 2 etc will only show 3 posts per page) |
+| Options            | Description                                                                                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `website`          | Your deployed website url                                                                                                                              |
+| `author`           | Your name                                                                                                                                              |
+| `desc`             | Your site description. Useful for SEO and social media sharing.                                                                                        |
+| `title`            | Your site name                                                                                                                                         |
+| `ogImage`          | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                |
+| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.              |
+| `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: if you set SITE.postPerPage to 3, each page will only show 3 posts per page) |
 
 ## Configuring logo or title
 
@@ -122,4 +122,4 @@ export const SOCIALS: SocialsObject = [
 
 ## Conclusion
 
-This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read this article. Thanks for reading.✌🏻
+This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](customizing-astropaper-theme-color-schemes). Thanks for reading.✌🏻
