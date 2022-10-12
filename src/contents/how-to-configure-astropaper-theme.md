@@ -122,4 +122,4 @@ export const SOCIALS: SocialsObject = [
 
 ## Conclusion
 
-This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](customizing-astropaper-theme-color-schemes). Thanks for reading.✌🏻
+This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](/posts/customizing-astropaper-theme-color-schemes). Thanks for reading.✌🏻
