@@ -10,7 +10,7 @@ import slugify from "@utils/slugify";
 import type { Frontmatter } from "src/types";
 import Socials from "@components/Socials.astro";
 
-const posts = await Astro.glob<Frontmatter>("../contents/*.md");
+const posts = await Astro.glob<Frontmatter>("../contents/**/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 ---
