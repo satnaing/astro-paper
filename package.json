@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "cz": "cz"
+    "cz": "cz",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.1",
@@ -39,6 +40,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -47,5 +50,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*": [
+      "eslint",
+      "prettier --write"
+    ]
   }
 }
