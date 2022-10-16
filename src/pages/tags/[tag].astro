@@ -18,7 +18,7 @@ export interface Props {
 
 export async function getStaticPaths() {
   const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
-    "../../contents/*.md"
+    "../../contents/**/*.md"
   );
 
   const tags = getUniqueTags(posts);
@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 
 const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
-  "../../contents/*.md"
+  "../../contents/**/*.md"
 );
 
 const tagPosts = getPostsByTag(posts, tag);

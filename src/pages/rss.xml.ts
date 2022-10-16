@@ -5,7 +5,7 @@ import type { MarkdownInstance } from "astro";
 import slugify from "@utils/slugify";
 
 const postImportResult = import.meta.glob<MarkdownInstance<Frontmatter>>(
-  "../contents/*.md",
+  "../contents/**/**/*.md",
   {
     eager: true,
   }

@@ -28,7 +28,7 @@ type PagePaths = {
 }[];
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
+  const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
 
   let postResult: PostResult = posts.map((post) => {
     return {
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const { post } = Astro.props;
 
-const posts = await Astro.glob<Frontmatter>("../../contents/*.md");
+const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 
