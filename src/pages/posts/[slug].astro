@@ -30,7 +30,7 @@ type PagePaths = {
 export async function getStaticPaths() {
   const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
 
-  let postResult: PostResult = posts.map((post) => {
+  let postResult: PostResult = posts.map(post => {
     return {
       params: {
         slug: slugify(post.frontmatter),
@@ -41,7 +41,7 @@ export async function getStaticPaths() {
     };
   });
 
-  const pagePaths: PagePaths = getPageNumbers(posts.length).map((pageNum) => ({
+  const pagePaths: PagePaths = getPageNumbers(posts.length).map(pageNum => ({
     params: { slug: String(pageNum) },
   }));
 

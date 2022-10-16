@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 
   const tags = getUniqueTags(posts);
 
-  return tags.map((tag) => {
+  return tags.map(tag => {
     return {
       params: {
         tag,

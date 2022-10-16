@@ -10,19 +10,18 @@ export interface Props {
 const { centered = false } = Astro.props;
 ---
 
-
 <div class={`social-icons ${centered ? "flex" : ""}`}>
-    {
-      SOCIALS.filter((social) => social.active).map((social) => (
-        <LinkButton
-          href={social.href}
-          className="link-button"
-          title={social.name}
-        >
-          <Fragment set:html={socialIcons[social.name]} />
-        </LinkButton>
-      ))
-    }
+  {
+    SOCIALS.filter(social => social.active).map(social => (
+      <LinkButton
+        href={social.href}
+        className="link-button"
+        title={social.name}
+      >
+        <Fragment set:html={socialIcons[social.name]} />
+      </LinkButton>
+    ))
+  }
 </div>
 
 <style>

@@ -59,16 +59,18 @@ Thus, to choose primary color scheme instead of prefers-color-scheme, we have to
 </script>
 ```
 
-The **primaryColorScheme** variable can hold three values_ `"light"`, `"dark"`, `"none"`. 
-- `"none"`  - system's prefers-color-scheme. (default) 
+The **primaryColorScheme** variable can hold three values\_ `"light"`, `"dark"`, `"none"`.
+
+- `"none"` - system's prefers-color-scheme. (default)
 - `"light"` - use light mode as primary color scheme.
-- `"dark"`  - use dark mode as primary color scheme.
+- `"dark"` - use dark mode as primary color scheme.
 
 <details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
 
-> To avoid color flickering on page reload, we have to place some JavaScript codes in the inline script tag. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore. 
+> To avoid color flickering on page reload, we have to place some JavaScript codes in the inline script tag. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
 
 [Click here](https://docs.astro.build/en/core-concepts/astro-components/#client-side-scripts) to know more about Astro's inline script.
+
 </details>
 
 ## Customize color schemes
@@ -113,18 +115,19 @@ Here is the detail explaination of color properties.
 | `--color-fill`       | Primary color of the website. Usually the main background. |
 | `--color-text-base`  | Secondary color of the website. Usually the text color.    |
 | `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-card`       | Card, scrollbar and code background color.                       |
+| `--color-card`       | Card, scrollbar and code background color.                 |
 | `--color-card-muted` | Card and scrollbar background color for hover state etc.   |
 | `--color-border`     | Border color. Especially used in horizontal row (hr)       |
 
 Here is an example of changing the light color scheme.
+
 ```css
 @layer base {
   /* lobster color scheme */
   :root {
     --color-fill: 246, 238, 225;
     --color-text-base: 1, 44, 86;
-    --color-accent: 225, 74, 57; 
+    --color-accent: 225, 74, 57;
     --color-card: 220, 152, 145;
     --color-card-muted: 233, 119, 106;
     --color-border: 220, 152, 145;
