@@ -27,6 +27,7 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
     "@tailwindcss/typography": "^0.5.7",
+    "@types/github-slugger": "^1.3.0",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.0",
