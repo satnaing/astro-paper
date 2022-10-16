@@ -1,5 +1,4 @@
 ---
-import { SOCIALS } from "src/config";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
@@ -7,9 +6,9 @@ import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import getSortedPosts from "@utils/getSortedPosts";
-import socialIcons from "@assets/socialIcons";
 import slugify from "@utils/slugify";
 import type { Frontmatter } from "src/types";
+import Socials from "@components/Socials.astro";
 
 const posts = await Astro.glob<Frontmatter>("../contents/*.md");
 
@@ -49,19 +48,7 @@ const sortedPosts = getSortedPosts(posts);
       </p>
       <div class="social-wrapper">
         <div class="whitespace-nowrap">Social Links:</div>
-        <div class="social-icons">
-          {
-            SOCIALS.filter((social) => social.active).map((social) => (
-              <LinkButton
-                href={social.href}
-                className="link-button"
-                title={social.name}
-              >
-                <Fragment set:html={socialIcons[social.name]} />
-              </LinkButton>
-            ))
-          }
-        </div>
+          <Socials />
       </div>
     </section>
 
@@ -119,7 +106,7 @@ const sortedPosts = getSortedPosts(posts);
   <Footer />
 </Layout>
 
-<style>
+<style is:global>
   /* ===== Hero Section ===== */
   #hero {
     @apply pt-8;
@@ -139,12 +126,6 @@ const sortedPosts = getSortedPosts(posts);
   .social-wrapper {
     @apply flex flex-col sm:flex-row sm:items-center mt-4 mb-6;
   }
-  .social-icons {
-    @apply mt-1 sm:mt-0 sm:ml-2 sm:space-x-1;
-  }
-  .link-button {
-    @apply p-2 sm:p-1 hover:rotate-6;
-  }
 
   /* ===== Featured & Recent Posts Sections ===== */
   #featured,
@@ -155,7 +136,6 @@ const sortedPosts = getSortedPosts(posts);
   #recent-posts h2 {
     @apply font-semibold text-2xl tracking-wide;
   }
-
   .all-posts-btn-wrapper {
     @apply text-center my-8;
   }
