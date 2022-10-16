@@ -47,7 +47,7 @@ const sortedPosts = getSortedPosts(posts);
         > for more info.
       </p>
       <div class="social-wrapper">
-        <div class="whitespace-nowrap">Social Links:</div>
+        <div class="social-links">Social Links:</div>
           <Socials />
       </div>
     </section>
@@ -106,7 +106,7 @@ const sortedPosts = getSortedPosts(posts);
   <Footer />
 </Layout>
 
-<style is:global>
+<style>
   /* ===== Hero Section ===== */
   #hero {
     @apply pt-8;
@@ -125,6 +125,9 @@ const sortedPosts = getSortedPosts(posts);
   }
   .social-wrapper {
     @apply flex flex-col sm:flex-row sm:items-center mt-4 mb-6;
+  }
+  .social-links {
+    @apply whitespace-nowrap mr-2 sm:mb-0 mb-1;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
