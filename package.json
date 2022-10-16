@@ -8,7 +8,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint .",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "cz": "cz",
