@@ -51,7 +51,7 @@ Here are SITE configuration options
 
 You can specify site's title or logo image in `src/config.ts` file.
 
-![](https://res.cloudinary.com/noezectz/v1663911318/astro-paper/AstroPaper-logo-config_goff5l.png)
+![An arrow pointing at the website logo](https://res.cloudinary.com/noezectz/v1663911318/astro-paper/AstroPaper-logo-config_goff5l.png)
 
 ```js
 // file: src/config.ts
@@ -77,7 +77,7 @@ It is recommended that you specify width and height of your logo image. You can 
 
 You can configure your own social links along with its icons.
 
-![](https://res.cloudinary.com/noezectz/v1663914759/astro-paper/astro-paper-socials_tkcjgq.png)
+![An arrow pointing at social link icons](https://res.cloudinary.com/noezectz/v1663914759/astro-paper/astro-paper-socials_tkcjgq.png)
 
 Currently 19 social icons are supported. (Github, LinkedIn, Facebook etc.)
 
