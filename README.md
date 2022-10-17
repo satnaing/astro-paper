@@ -26,7 +26,7 @@ This theme is self-documented \_ which means articles/posts in this theme can al
 
 Inside of AstroPaper, you'll see the following folders and files:
 
-```
+```bash
 /
 ├── public/
 │   ├── assets/
@@ -129,7 +129,7 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
-If you want to know more about Astro check [thier documentation](https://docs.astro.build) or jump into their [Discord server](https://astro.build/chat).
+If you want to know more about Astro check [Astro documentation](https://docs.astro.build) or jump into Astro's [Discord server](https://astro.build/chat).
 
 ## License
 
