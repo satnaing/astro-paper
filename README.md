@@ -75,7 +75,8 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 **UI/UX** - [Figma](https://figma.com)  
 **Fuzzy Search** - [FuseJS](https://fusejs.io/)  
 **Icons** - [Boxicons](https://boxicons.com/) | [Tablers](https://tabler-icons.io/)  
-**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)
+**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)  
+**Illustration in About Page** - [https://freesvgillustration.com](https://freesvgillustration.com/)
 
 ## 👨🏻‍💻 Running Locally
 
@@ -115,7 +116,7 @@ Start the server
 npm run dev
 ```
 
-## 🧞 Astro Commands
+## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -125,13 +126,20 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`          | Starts local dev server at `localhost:3000`        |
 | `npm run build`        | Build your production site to `./dist/`            |
 | `npm run preview`      | Preview your build locally, before deploying       |
+| `npm run format:check` | Check code format with Prettier                    |
+| `npm run format`       | Format codes with Prettier                         |
+| `npm run cz`           | Commit code changes with commitizen                |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
 | `npm run astro --help` | Get help using the Astro CLI                       |
 
-## 👀 Want to learn more?
+## ✨ Feedback & Suggestions
 
-If you want to know more about Astro check [Astro documentation](https://docs.astro.build) or jump into Astro's [Discord server](https://astro.build/chat).
+If you have any suggestions/feedback, you can contact me via [my email](mailto:contact@satnaing.dev). Alternatively, feel free to open an issue if you find bugs or want to request new features.
 
-## License
+## 📜 License
 
 Licensed under the MIT License, Copyright © 2022
+
+--- 
+
+Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻
