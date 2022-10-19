@@ -80,40 +80,17 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 
 ## 👨🏻‍💻 Running Locally
 
-Clone the project
+The easiest way to run this project locally is to run the following command in your desired directory.
 
 ```bash
-git clone https://github.com/satnaing/astro-paper.git
+npm create astro@latest -- --template satnaing/astro-paper
 ```
 
-Go to the project directory
+Don't forget to remove Google site varification.
 
 ```bash
-cd astro-paper
-```
-
-Remove remote origin
-
-```bash
-git remote remove origin
-```
-
-Remove Google site verification
-
-```bash
+# in your project directory
 rm -rf public/googlebbcd930f1ecacd3a.html
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Start the server
-
-```bash
-npm run dev
 ```
 
 ## 🧞 Commands
