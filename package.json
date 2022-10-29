@@ -22,7 +22,7 @@
     "remark-toc": "^8.0.1"
   },
   "devDependencies": {
-    "@astrojs/react": "^1.1.3",
+    "@astrojs/react": "^1.2.2",
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^2.1.1",
     "@tailwindcss/typography": "^0.5.7",
