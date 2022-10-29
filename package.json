@@ -30,7 +30,7 @@
     "@types/react": "^18.0.24",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
