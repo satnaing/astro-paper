@@ -2,12 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.1.1](https://github.com/satnaing/astro-paper/compare/v1.1.0...v1.1.1) (2022-10-30)
+## [1.1.1](https://github.com/satnaing/astro-paper/compare/v1.1.0...v1.1.1) (2022-10-30)
 
 
-### Bug Fixes
+### Updates
 
-* slug generate ([4d5a560](https://github.com/satnaing/astro-paper/commit/4d5a560dd4305d6b90b0c897037e806a97e967f3))
+* update github-slugger by @AkaraChen in https://github.com/satnaing/astro-paper/pull/5
+* move '@types/react' to dev dependencies ([3697a59](https://github.com/satnaing/astro-paper/commit/3697a59f1ab8b58af7d41c2ef4aa8ba97b9ad1e2))
+* update dependencies
 
 ## [1.1.0](https://github.com/satnaing/astro-paper/compare/v1.0.1...v1.1.0) (2022-10-18)
 
