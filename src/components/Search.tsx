@@ -53,7 +53,10 @@ export default function SearchBar({ searchList }: Props) {
   }, []);
 
   useEffect(() => {
-    setSearchResults(fuse!.search!(inputVal!));
+    // Add search result only if
+    // input value is more than one character
+    let inputResult = inputVal.length > 1 ? fuse.search(inputVal) : [];
+    setSearchResults(inputResult);
 
     // Update search string in URL
     if (inputVal.length > 0) {
