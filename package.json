@@ -1,6 +1,6 @@
 {
   "name": "astro-paper",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": false,
   "scripts": {
     "dev": "astro dev",
