@@ -17,10 +17,12 @@ export const get = () =>
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
-    items: posts.map(({ frontmatter }) => ({
-      link: slugify(frontmatter),
-      title: frontmatter.title,
-      description: frontmatter.description,
-      pubDate: new Date(frontmatter.datetime),
-    })),
+    items: posts
+      .filter(({ frontmatter }) => !frontmatter.draft)
+      .map(({ frontmatter }) => ({
+        link: `posts/${slugify(frontmatter)}`,
+        title: frontmatter.title,
+        description: frontmatter.description,
+        pubDate: new Date(frontmatter.datetime),
+      })),
   });
