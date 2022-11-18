@@ -15,7 +15,7 @@ description:
 
 I've crafted some predefined color schemes for this AstroPaper blog theme. You can replace these color schemes with the original ones.
 
-If you don't know how you can configure color schemes, check [this blog post](customizing-astropaper-theme-color-schemes.md).
+If you don't know how you can configure color schemes, check [this blog post](/posts/customizing-astropaper-theme-color-schemes).
 
 ## Table of contents
 
