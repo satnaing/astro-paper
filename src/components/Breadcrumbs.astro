@@ -14,7 +14,10 @@ breadcrumbList[0] === "posts" &&
 
 <nav class="breadcrumb" aria-label="breadcrumb">
   <ul>
-    <li><a href="/">Home</a></li>
+    <li>
+      <a href="/">Home</a>
+      <span aria-hidden="true">&#62;</span>
+    </li>
     {
       breadcrumbList.map((breadcrumb, index) => (
         <li>
@@ -36,12 +39,13 @@ breadcrumbList[0] === "posts" &&
     @apply max-w-3xl mx-auto px-4 w-full mt-8 mb-1;
   }
   .breadcrumb ul li {
-    @apply inline opacity-70 capitalize;
+    @apply inline;
   }
-  .breadcrumb ul li + li {
-    @apply text-skin-base before:content-[">"];
+  .breadcrumb ul li a,
+  .breadcrumb ul li span {
+    @apply opacity-70 capitalize;
   }
-  .breadcrumb ul li:not(:last-child) {
-    @apply hover:opacity-100 hover:before:opacity-70;
+  .breadcrumb ul li:not(:last-child) a {
+    @apply hover:opacity-100;
   }
 </style>
