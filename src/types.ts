@@ -14,6 +14,7 @@ export type SocialsObject = {
   name: SocialMedia;
   href: string;
   active: boolean;
+  linkTitle: string;
 }[];
 
 export type SocialIcons = {
