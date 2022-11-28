@@ -81,24 +81,27 @@ You can configure your own social links along with its icons.
 
 Currently 19 social icons are supported. (Github, LinkedIn, Facebook etc.)
 
-You can specify and enable certain social links in hero section and footer. To do this, go to `/src/config.ts` and then you'll find `SOCIALS` object.
+You can specify and enable certain social links in hero section and footer. To do this, go to `/src/config.ts` and then you'll find `SOCIALS` array of object.
 
 ```js
 // file: src/config.ts
-export const SOCIALS: SocialsObject = [
+export const SOCIALS: SocialObjects = [
   {
     name: "Github",
     href: "https://github.com/satnaing/astro-paper",
+    linkTitle: ` ${SITE.title} on Github`,
     active: true,
   },
   {
     name: "Facebook",
     href: "https://github.com/satnaing/astro-paper",
+    linkTitle: `${SITE.title} on Facebook`,
     active: true,
   },
   {
     name: "Instagram",
     href: "https://github.com/satnaing/astro-paper",
+    linkTitle: `${SITE.title} on Instagram`,
     active: true,
   },
   ...
@@ -110,16 +113,31 @@ You have to set specific social link to `active: true` in order to appear your s
 For instance, if I want to make my Github appear, I'll make it like this.
 
 ```js
-export const SOCIALS: SocialsObject = [
+export const SOCIALS: SocialObjects = [
   {
     name: "Github",
     href: "https://github.com/satnaing", // update account link
+    linkTitle: `${SITE.title} on Github`, // this text will appear on hover and VoiceOver
     active: true, // makre sure to set active to true
   }
   ...
 ]
 ```
 
+Another thing to note is that you can specify the `linkTitle` in the object. This text will display when hovering on the social icon link. Besides, this will improve accessibility and SEO. AstroPaper provides default link title values; but you can replace them with your own texts.
+
+For example,
+
+```js
+linkTitle: `${SITE.title} on Twitter`,
+```
+
+to
+
+```js
+linkTitle: `Follow ${SITE.title} on Twitter`;
+```
+
 ## Conclusion
 
-This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](/posts/customizing-astropaper-theme-color-schemes). Thanks for reading.✌🏻
+This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/). Thanks for reading.✌🏻

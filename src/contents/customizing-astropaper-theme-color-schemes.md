@@ -29,7 +29,7 @@ export const SITE = {
   author: "Sat Naing",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
   title: "AstroPaper",
-  ogImage: "og-default.png",
+  ogImage: "default-og.png",
   lightAndDarkMode: true, // true by default
   postPerPage: 3,
 };
@@ -41,35 +41,29 @@ To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
 
 By default, if we disable `SITE.lightAndDarkMode`, we will only get system's prefers-color-scheme.
 
-Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the primaryColorScheme variable inside `src/layouts/Layout.astro`.
+Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the primaryColorScheme variable inside `public/toggle-theme.js`.
 
-```html
-<!-- src/layouts/Layout.astro -->
-<script is:inline>
-  const primaryColorScheme = "none"; // "light" | "dark" | "none"
+```js
+/* file: public/toggle-theme.js */
+const primaryColorScheme = ""; // "light" | "dark"
 
-  const darkModeMediaQuery = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  ).matches;
+// Get theme data from local storage
+const currentTheme = localStorage.getItem("theme");
 
-  // Get theme data from local storage
-  const currentTheme = localStorage.getItem("theme");
-
-  // some more script codes ...
-</script>
+// other codes etc...
 ```
 
-The **primaryColorScheme** variable can hold three values\_ `"light"`, `"dark"`, `"none"`.
+The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
 
-- `"none"` - system's prefers-color-scheme. (default)
+- `""` - system's prefers-color-scheme. (default)
 - `"light"` - use light mode as primary color scheme.
 - `"dark"` - use dark mode as primary color scheme.
 
 <details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
 
-> To avoid color flickering on page reload, we have to place some JavaScript codes in the inline script tag. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
+> To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
 
-[Click here](https://docs.astro.build/en/core-concepts/astro-components/#client-side-scripts) to know more about Astro's inline script.
+[Click here](https://docs.astro.build/en/reference/directives-reference/#isinline) to know more about Astro's `is:inline` script.
 
 </details>
 
@@ -84,7 +78,8 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root,
+  html[data-theme="light"] {
     --color-fill: 251, 254, 251;
     --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
@@ -92,7 +87,7 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
   }
-  .theme-dark {
+  html[data-theme="dark"] {
     --color-fill: 47, 55, 65;
     --color-text-base: 230, 230, 230;
     --color-accent: 26, 217, 217;
@@ -104,9 +99,9 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
 }
 ```
 
-In AstroPaper theme, `:root` is the light color scheme and `.theme-dark` is the dark color scheme. If you want to customize your custom color scheme, it is **_recommended_** that you set light color scheme inside `:root` and dark color scheme inside `.theme-dark`.
+In AstroPaper theme, `:root` and `html[data-theme="light"]` selectors are used as the light color scheme and `html[data-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-theme="light"]` and dark color scheme inside `html[data-theme="dark"]`.
 
-Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of rgb(40, 39, 40), only specify `40, 39, 40`)
+Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of `rgb(40, 39, 40)`, only specify `40, 39, 40`)
 
 Here is the detail explaination of color properties.
 
@@ -115,7 +110,7 @@ Here is the detail explaination of color properties.
 | `--color-fill`       | Primary color of the website. Usually the main background. |
 | `--color-text-base`  | Secondary color of the website. Usually the text color.    |
 | `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-card`       | Card, scrollbar and code background color.                 |
+| `--color-card`       | Card, scrollbar and code background color (like `this`).   |
 | `--color-card-muted` | Card and scrollbar background color for hover state etc.   |
 | `--color-border`     | Border color. Especially used in horizontal row (hr)       |
 
@@ -124,7 +119,8 @@ Here is an example of changing the light color scheme.
 ```css
 @layer base {
   /* lobster color scheme */
-  :root {
+  :root,
+  html[data-theme="light"] {
     --color-fill: 246, 238, 225;
     --color-text-base: 1, 44, 86;
     --color-accent: 225, 74, 57;
@@ -132,4 +128,5 @@ Here is an example of changing the light color scheme.
     --color-card-muted: 233, 119, 106;
     --color-border: 220, 152, 145;
   }
+}
 ```

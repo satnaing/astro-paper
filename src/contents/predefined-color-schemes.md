@@ -15,20 +15,21 @@ description:
 
 I've crafted some predefined color schemes for this AstroPaper blog theme. You can replace these color schemes with the original ones.
 
-If you don't know how you can configure color schemes, check [this blog post](/posts/customizing-astropaper-theme-color-schemes).
+If you don't know how you can configure color schemes, check [this blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/).
 
 ## Table of contents
 
 ## Light color schemes
 
-Light color scheme has to be defined as `:root`.
+Light color scheme has to be defined using the css selector `:root` and `html[data-theme="light"]`.
 
 ### Lobster
 
 ![lobster-color-scheme](https://user-images.githubusercontent.com/53733092/192282447-1d222faf-a3ce-44a9-9cfe-ac873155e5a9.png)
 
 ```css
-:root {
+:root,
+html[data-theme="light"] {
   --color-fill: 246, 238, 225;
   --color-text-base: 1, 44, 86;
   --color-accent: 225, 74, 57;
@@ -43,7 +44,8 @@ Light color scheme has to be defined as `:root`.
 ![leaf-blue-color-scheme](https://user-images.githubusercontent.com/53733092/192318782-e80e3c39-54b5-423e-8f4b-9ae60402fc8d.png)
 
 ```css
-:root {
+:root,
+html[data-theme="light"] {
   --color-fill: 242, 245, 236;
   --color-text-base: 53, 53, 56;
   --color-accent: 17, 88, 209;
@@ -58,7 +60,8 @@ Light color scheme has to be defined as `:root`.
 ![pinky-color-scheme](https://user-images.githubusercontent.com/53733092/192286510-892d0042-2d6d-471e-bb72-954221ae2d17.png)
 
 ```css
-:root {
+:root,
+html[data-theme="light"] {
   --color-fill: 250, 252, 252;
   --color-text-base: 34, 46, 54;
   --color-accent: 211, 0, 106;
@@ -70,14 +73,14 @@ Light color scheme has to be defined as `:root`.
 
 ## Dark color schemes
 
-Light color scheme has to be defined as `.theme-dark`.
+Light color scheme has to be defined as `html[data-theme="dark"]`.
 
 ### Deep Oyster
 
 ![deep-oyster-color-scheme](https://user-images.githubusercontent.com/53733092/192314524-45ec5904-3d8f-450a-9edf-1e32c5e11d6c.png)
 
 ```css
-.theme-dark {
+html[data-theme="dark"] {
   --color-fill: 33, 35, 61;
   --color-text-base: 244, 247, 245;
   --color-accent: 255, 82, 86;
@@ -92,7 +95,7 @@ Light color scheme has to be defined as `.theme-dark`.
 ![pinky-dark-color-scheme](https://user-images.githubusercontent.com/53733092/192307050-fbd55326-911c-4001-87c6-a8ad9378ac2e.png)
 
 ```css
-.theme-dark {
+html[data-theme="dark"] {
   --color-fill: 53, 54, 64;
   --color-text-base: 233, 237, 241;
   --color-accent: 255, 120, 200;
