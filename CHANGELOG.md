@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/satnaing/astro-paper/compare/v1.1.3...v1.2.0) (2022-11-28)
+
+
+### Features
+
+* **a11y:** improve voiceover a11y for datetime component ([57c3f79](https://github.com/satnaing/astro-paper/commit/57c3f796d41ed180dcdf5ff763193ed5c06f54cf))
+* improve accessibility including voiceover ([5860254](https://github.com/satnaing/astro-paper/commit/5860254ea99996e466f2e521f033763961b6faa6))
+
+
+### Bug Fixes
+
+* **a11y:** improve breadcrumb to be more accessible when using with voiceover ([cabf30b](https://github.com/satnaing/astro-paper/commit/cabf30bc8e030015daee065c401dcf83814a6e8b))
+* **a11y:** update previous and next (disabled) buttons for vo a11y ([408fc4c](https://github.com/satnaing/astro-paper/commit/408fc4c7aa5a246fe82a6e85d119b36ee1f1ffc3))
+* add missing seperator in Breadcrumb ([b05b665](https://github.com/satnaing/astro-paper/commit/b05b6654f6c42c09eb5c6a4b918b9343cd4664e6))
+* add optional chaining for theme switch event listener ([c4c9ab2](https://github.com/satnaing/astro-paper/commit/c4c9ab2246ff423698468992222c60b30422beaf))
+* fix broken link ([9d3c897](https://github.com/satnaing/astro-paper/commit/9d3c89753d2b3fbc0bf87bcf0070c80763545148))
+* **typo:** rename Linkedin to LinkedIn ([307b55f](https://github.com/satnaing/astro-paper/commit/307b55ff0f6cb86a4fa4152c635d6acb39d1512f))
+
 ### [1.1.3](https://github.com/satnaing/astro-paper/compare/v1.1.2...v1.1.3) (2022-11-11)
 
 
