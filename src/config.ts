@@ -1,4 +1,4 @@
-import type { SocialsObject } from "./types";
+import type { SocialObjects } from "./types";
 
 export const SITE = {
   website: "https://astro-paper.pages.dev/",
@@ -17,11 +17,11 @@ export const LOGO_IMAGE = {
   height: 46,
 };
 
-export const SOCIALS: SocialsObject = [
+export const SOCIALS: SocialObjects = [
   {
     name: "Github",
-    linkTitle: ` ${SITE.title} on Github`,
     href: "https://github.com/satnaing/astro-paper",
+    linkTitle: ` ${SITE.title} on Github`,
     active: true,
   },
   {

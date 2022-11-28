@@ -10,7 +10,7 @@ export interface Frontmatter {
   tags: string[];
 }
 
-export type SocialsObject = {
+export type SocialObjects = {
   name: SocialMedia;
   href: string;
   active: boolean;
