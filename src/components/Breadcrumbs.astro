@@ -19,17 +19,20 @@ breadcrumbList[0] === "posts" &&
       <span aria-hidden="true">&#62;</span>
     </li>
     {
-      breadcrumbList.map((breadcrumb, index) => (
-        <li>
-          {index + 1 === breadcrumbList.length ? (
+      breadcrumbList.map((breadcrumb, index) =>
+        index + 1 === breadcrumbList.length ? (
+          <li>
             <span class={`${index > 0 ? "lowercase" : ""}`} aria-current="page">
               {breadcrumb}
             </span>
-          ) : (
+          </li>
+        ) : (
+          <li>
             <a href={`/${breadcrumb}`}>{breadcrumb}</a>
-          )}
-        </li>
-      ))
+            <span aria-hidden="true">&#62;</span>
+          </li>
+        )
+      )
     }
   </ul>
 </nav>
