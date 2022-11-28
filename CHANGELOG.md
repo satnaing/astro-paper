@@ -7,18 +7,18 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **a11y:** improve voiceover a11y for datetime component ([57c3f79](https://github.com/satnaing/astro-paper/commit/57c3f796d41ed180dcdf5ff763193ed5c06f54cf))
 * improve accessibility including voiceover ([5860254](https://github.com/satnaing/astro-paper/commit/5860254ea99996e466f2e521f033763961b6faa6))
+* add linkTitle in social links ([c9f796f](https://github.com/satnaing/astro-paper/commit/c9f796f4e63f1cf6b32b7874ae5e3810598a230c))
 
 
-### Bug Fixes
+### Updates
 
-* **a11y:** improve breadcrumb to be more accessible when using with voiceover ([cabf30b](https://github.com/satnaing/astro-paper/commit/cabf30bc8e030015daee065c401dcf83814a6e8b))
-* **a11y:** update previous and next (disabled) buttons for vo a11y ([408fc4c](https://github.com/satnaing/astro-paper/commit/408fc4c7aa5a246fe82a6e85d119b36ee1f1ffc3))
-* add missing seperator in Breadcrumb ([b05b665](https://github.com/satnaing/astro-paper/commit/b05b6654f6c42c09eb5c6a4b918b9343cd4664e6))
-* add optional chaining for theme switch event listener ([c4c9ab2](https://github.com/satnaing/astro-paper/commit/c4c9ab2246ff423698468992222c60b30422beaf))
-* fix broken link ([9d3c897](https://github.com/satnaing/astro-paper/commit/9d3c89753d2b3fbc0bf87bcf0070c80763545148))
+* move toggle theme codes from `layouts/Layout.astro` to `toggle-theme.js` ([5860254](https://github.com/satnaing/astro-paper/commit/5860254ea99996e466f2e521f033763961b6faa6))
+* delete `utils/formatDatetime.ts` and replaced with `FormattedDatetime` inside `components/Datetime.tsx` ([0eeed8e](https://github.com/satnaing/astro-paper/commit/0eeed8e870781d9b4a447c51e3055ccb2f359d8a))
+* 'toggling light and dark mode' code is remove from `src/components/Header.astro` and is rewritten in `public/toggle-theme.js` file. ([2ba459b](https://github.com/satnaing/astro-paper/commit/2ba459b4131a11a68a5fd818a278c474c1888cde)) ([0eeed8e](https://github.com/satnaing/astro-paper/commit/0eeed8e870781d9b4a447c51e3055ccb2f359d8a))
+* update previous and next button disabled state ([408fc4c](https://github.com/satnaing/astro-paper/commit/408fc4c7aa5a246fe82a6e85d119b36ee1f1ffc3))
 * **typo:** rename Linkedin to LinkedIn ([307b55f](https://github.com/satnaing/astro-paper/commit/307b55ff0f6cb86a4fa4152c635d6acb39d1512f))
+* update patch and minor dependencies ([3b0ab75](https://github.com/satnaing/astro-paper/commit/3b0ab7555f506a8a0b825ca9691fdb221e481adb)) ([c3a6e4e](https://github.com/satnaing/astro-paper/commit/c3a6e4e81d1f79efc17d451486ff560dccb8ddf0))
 
 ### [1.1.3](https://github.com/satnaing/astro-paper/compare/v1.1.2...v1.1.3) (2022-11-11)
 
