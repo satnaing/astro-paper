@@ -38,9 +38,10 @@ const next = pageNum < totalPages ? "" : "disabled";
 
   <nav class="pagination-wrapper" aria-label="Pagination Navigation">
     <LinkButton
-      tabindex={prev === "disabled" ? "-1" : "0"}
+      disabled={prev === "disabled"}
       href={`/posts${pageNum - 1 !== 1 ? "/" + (pageNum - 1) : ""}`}
       className={`mr-4 select-none ${prev}`}
+      ariaLabel="Previous"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class={`${prev}-svg`}>
         <path
@@ -50,9 +51,10 @@ const next = pageNum < totalPages ? "" : "disabled";
       Prev
     </LinkButton>
     <LinkButton
-      tabindex={next === "disabled" ? "-1" : "0"}
+      disabled={next === "disabled"}
       href={`/posts/${pageNum + 1}`}
       className={`ml-4 select-none ${next}`}
+      ariaLabel="Next"
     >
       Next
       <svg xmlns="http://www.w3.org/2000/svg" class={`${next}-svg`}>

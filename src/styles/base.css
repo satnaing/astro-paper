@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root,
+  html[data-theme="light"] {
     --color-fill: 251, 254, 251;
     --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
@@ -11,7 +12,7 @@
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
   }
-  .theme-dark {
+  html[data-theme="dark"] {
     --color-fill: 47, 55, 65;
     --color-text-base: 230, 230, 230;
     --color-accent: 26, 217, 217;
@@ -20,11 +21,11 @@
     --color-border: 59, 70, 85;
   }
   #sun-svg,
-  .theme-dark #moon-svg {
+  html[data-theme="dark"] #moon-svg {
     display: none;
   }
   #moon-svg,
-  .theme-dark #sun-svg {
+  html[data-theme="dark"] #sun-svg {
     display: block;
   }
   body {
@@ -36,7 +37,8 @@
     @apply max-w-3xl mx-auto px-4;
   }
   a {
-    @apply outline-offset-1 outline-skin-fill outline-2 focus-visible:outline-dashed focus-visible:no-underline;
+    @apply outline-offset-1 outline-skin-fill outline-2 
+    focus-visible:outline-dashed focus-visible:no-underline;
   }
   svg {
     @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
