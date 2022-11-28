@@ -34,7 +34,7 @@ export const SOCIALS: SocialsObject = [
     active: true,
   },
   {
-    name: "Linkedin",
+    name: "LinkedIn",
     href: "https://github.com/satnaing/astro-paper",
     active: true,
   },

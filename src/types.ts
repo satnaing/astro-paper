@@ -24,7 +24,7 @@ export type SocialMedia =
   | "Github"
   | "Facebook"
   | "Instagram"
-  | "Linkedin"
+  | "LinkedIn"
   | "Mail"
   | "Twitter"
   | "Twitch"
