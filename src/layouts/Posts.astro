@@ -36,7 +36,7 @@ const next = pageNum < totalPages ? "" : "disabled";
     </ul>
   </Main>
 
-  <nav class="pagination-wrapper" aria-label="Pagination Navigation">
+  <nav class="pagination-wrapper" aria-label="Pagination">
     <LinkButton
       disabled={prev === "disabled"}
       href={`/posts${pageNum - 1 !== 1 ? "/" + (pageNum - 1) : ""}`}
