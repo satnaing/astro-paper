@@ -13,6 +13,9 @@ import Socials from "@components/Socials.astro";
 const posts = await Astro.glob<Frontmatter>("../contents/**/*.md");
 
 const sortedPosts = getSortedPosts(posts);
+const featuredPosts = sortedPosts.filter(
+  ({ frontmatter }) => frontmatter.featured
+);
 ---
 
 <Layout>
@@ -59,25 +62,25 @@ const sortedPosts = getSortedPosts(posts);
 
     <Hr />
 
-    <section id="featured">
-      <h2>Featured</h2>
-      <ul>
-        {
-          sortedPosts.map(
-            ({ frontmatter }) =>
-              frontmatter.featured && (
+    {
+      featuredPosts.length > 0 && (
+        <>
+          <section id="featured">
+            <h2>Featured</h2>
+            <ul>
+              {featuredPosts.map(({ frontmatter }) => (
                 <Card
                   href={`/posts/${slugify(frontmatter)}`}
                   post={frontmatter}
                   secHeading={false}
                 />
-              )
-          )
-        }
-      </ul>
-    </section>
-
-    <Hr />
+              ))}
+            </ul>
+          </section>
+          <Hr />
+        </>
+      )
+    }
 
     <section id="recent-posts">
       <h2>Recent Posts</h2>
