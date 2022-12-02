@@ -9,7 +9,7 @@ const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
 
 const sortedPosts = getSortedPosts(posts);
 
-const totalPages = getPageNumbers(posts.length);
+const totalPages = getPageNumbers(sortedPosts.length);
 
 const paginatedPosts = sortedPosts.slice(0, SITE.postPerPage);
 ---
