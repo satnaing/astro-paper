@@ -8,11 +8,10 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * disable access to draft posts via url ([1c2821e](https://github.com/satnaing/astro-paper/commit/1c2821e4df65bee7126aed17244bb6590b1163d8))
-* display '0 results' instead of '0 result' in Search ([e9bdbee](https://github.com/satnaing/astro-paper/commit/e9bdbee524c88efc60943381cd2f523b8865bedb))
+* display '0 results' instead of '0 result' in Search ([eceb289](https://github.com/satnaing/astro-paper/commit/eceb2895623cffefc65671fdfc343fa5e4c01cdb))
 * displays featured section only if featured posts exist ([e0f93da](https://github.com/satnaing/astro-paper/commit/e0f93dab02024d65ddb69925a21e8d8598a036e9))
 * fix calculating draft posts in totalPages ([19e34a0](https://github.com/satnaing/astro-paper/commit/19e34a0801019df8681d1d4e80f678989cf2457c))
 * hide pagination when there's only 1 page ([6b35c7f](https://github.com/satnaing/astro-paper/commit/6b35c7fc2f63bb16aaefc140029b1eae1235cc44))
-* should be 0 results not result ([eceb289](https://github.com/satnaing/astro-paper/commit/eceb2895623cffefc65671fdfc343fa5e4c01cdb))
 
 ## [1.2.0](https://github.com/satnaing/astro-paper/compare/v1.1.3...v1.2.0) (2022-11-28)
 
