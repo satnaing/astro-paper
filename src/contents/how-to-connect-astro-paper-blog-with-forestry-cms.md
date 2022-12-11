@@ -101,7 +101,7 @@ As the final setup, make some adjustment in the front matter field settings.
 
 ![Making some adjustment in a front matter field setting](https://res.cloudinary.com/noezectz/v1663742450/astro-paper/forestry-io-fm-config_jqmgwz.png)
 
-Here are some adjustments you have to made.
+Here are some adjustments you have to make.
 
 **_title_**
 
