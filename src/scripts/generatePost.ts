@@ -28,18 +28,19 @@ async function askQuestions() {
         name: "fileName",
         message: "Enter your new file name: ",
         initial: newFileName,
+        validate: value => validateFileName(value),
       },
       {
         type: "text",
         name: "title",
         message: "Enter post title: ",
-        initial: prev => (prev === newFileName ? "" : prev),
+        initial: prev => (prev === newFileName ? "" : getFileName(prev)),
       },
       {
         type: "text",
         name: "slug",
         message: "Enter post slug ",
-        initial: prev => slugger(prev),
+        initial: prev => slugger(getFileName(prev)),
       },
       {
         type: "text",
@@ -105,11 +106,29 @@ description: ${desc ? desc : "# A_brief_description_about_your_new_article"}
 }
 
 async function generateFile() {
-  fs.writeFile(`./src/contents/${newFileName}`, content, function (err) {
-    if (err) throw err;
-    console.log(`New File: ${kleur.green(newFileName)}`);
-    console.log(`✅ File is created successfully.`);
-  });
+  const filePath = newFileName.split("/");
+  const dir = filePath.slice(0, -1);
+  const contentDirectory = `./src/contents/${dir}`;
+
+  // Create a directory if not exists
+  // eg: filename is '/exampledir/test' => /src/contents/exampledir/test.md
+  if (!fs.existsSync(contentDirectory)) {
+    fs.mkdirSync(contentDirectory);
+  }
+
+  // Create a new file
+  fs.writeFile(
+    `./src/contents/${newFileName}`,
+    content,
+    { flag: "wx" },
+    function (err) {
+      if (err) throw err;
+      console.log(
+        `New File: ${kleur.blue("/src/contents/")}${kleur.green(newFileName)}`
+      );
+      console.log(`✅ File is created successfully.`);
+    }
+  );
 }
 
 function onCancel() {
