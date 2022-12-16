@@ -3,6 +3,7 @@
 import fs from "fs";
 import prompts from "prompts";
 import { slug as slugger } from "github-slugger";
+import kleur from "kleur";
 import { SITE } from "../config.js";
 
 const currentDatetime = new Date().toISOString();
@@ -10,7 +11,10 @@ let newFileName = `${currentDatetime.replace(/\:|\./g, "-")}.md`;
 let content = getContent();
 
 async function welcome() {
-  console.log(`Welcome to AstroPaper command line!
+  console.log(`Welcome to ${kleur
+    .bold()
+    .italic()
+    .cyan("AstroPaper")} command line!
   `);
 }
 
@@ -105,7 +109,7 @@ async function generateFile() {
 }
 
 function onCancel() {
-  console.log("Operation cancelled :(");
+  console.log(`\n${kleur.dim("⚠️  Oops! Operation cancelled.")}`);
   process.exit(0);
 }
 
