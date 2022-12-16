@@ -7,8 +7,10 @@ import kleur from "kleur";
 import { SITE } from "../config.js";
 
 const currentDatetime = new Date().toISOString();
-let newFileName = `${currentDatetime.replace(/\:|\./g, "-")}.md`;
+let newFileName = currentDatetime.replace(/\:|\./g, "-");
 let content = getContent();
+
+const getFileName = (filename: string): string => filename.split("/").at(-1)!;
 
 async function welcome() {
   console.log(`Welcome to ${kleur
@@ -113,6 +115,17 @@ async function generateFile() {
 function onCancel() {
   console.log(`\n${kleur.dim("⚠️  Oops! Operation cancelled.")}`);
   process.exit(0);
+}
+
+function validateFileName(filename: string) {
+  // Check if filename ends with slash '/'
+  if (filename.at(-1) === "/") return "File name cannot end with slash ('/')";
+
+  // Check if filename contains more than one directory
+  if (filename.split("/").length > 2)
+    return `More than one nested directory is not allowed.`;
+
+  return true;
 }
 
 // Invoke functions for script
