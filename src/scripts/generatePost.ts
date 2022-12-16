@@ -157,6 +157,14 @@ function validateFileName(filename: string) {
   // Check if filename ends with slash '/'
   if (filename.at(-1) === "/") return "File name cannot end with slash ('/')";
 
+  // Check if file already exists
+  if (fs.existsSync(`./src/contents/${filename}.md`))
+    return `File already exists`;
+
+  // Check if file extension ".md" includes
+  if (filename.split(".").pop() === "md")
+    return `File extension ".md" should not include`;
+
   // Check if filename contains more than one directory
   if (filename.split("/").length > 2)
     return `More than one nested directory is not allowed.`;
