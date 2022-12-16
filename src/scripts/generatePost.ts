@@ -76,7 +76,7 @@ async function askQuestions() {
       }
     );
 
-  newFileName = `${fileName}.md`;
+  newFileName = fileName;
 
   console.log(`-----------------------------`);
 
@@ -133,13 +133,15 @@ async function generateFile() {
 
   // Create a new file
   fs.writeFile(
-    `./src/contents/${newFileName}`,
+    `./src/contents/${newFileName}.md`,
     content,
     { flag: "wx" },
     function (err) {
       if (err) throw err;
       console.log(
-        `New File: ${kleur.blue("/src/contents/")}${kleur.green(newFileName)}`
+        `New File: ${kleur.blue("/src/contents/")}${kleur.green(
+          `${newFileName}.md`
+        )}`
       );
       console.log(`✅ File is created successfully.`);
     }
