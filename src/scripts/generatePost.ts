@@ -3,65 +3,59 @@
 import fs from "fs";
 import prompts from "prompts";
 import { slug as slugger } from "github-slugger";
+import { SITE } from "../config.js";
+
+const currentDatetime = new Date().toISOString();
+let newFileName = `${currentDatetime.replace(/\:|\./g, "-")}.md`;
+let content = getContent();
 
 async function welcome() {
   console.log(`Welcome to AstroPaper command line!
   `);
 }
 
-const currentDatetime = new Date().toISOString();
-
-const defaultFileName = currentDatetime.replace(/\:|\./g, "-");
-
-const questions: prompts.PromptObject<string>[] = [
-  {
-    type: "text",
-    name: "fileName",
-    message: "Enter your new file name: ",
-    initial: `${defaultFileName}.md`,
-  },
-  {
-    type: "text",
-    name: "title",
-    message: "Enter post title: ",
-  },
-  {
-    type: "text",
-    name: "slug",
-    message: "Enter post slug ",
-    initial: prev => slugger(prev),
-  },
-  {
-    type: "text",
-    name: "desc",
-    message: "Enter OG description: ",
-  },
-  {
-    type: "toggle",
-    name: "featured",
-    message: "Featured: ",
-    initial: true,
-    active: "true",
-    inactive: "false",
-  },
-  {
-    type: "toggle",
-    name: "draft",
-    message: "Draft: ",
-    initial: false,
-    active: "true",
-    inactive: "false",
-  },
-];
-
-const onCancel = () => {
-  console.log("Operation cancelled :(");
-  process.exit(0);
-};
-
 async function askQuestions() {
   const { fileName, title, slug, desc, featured, draft } = await prompts(
-    questions,
+    [
+      {
+        type: "text",
+        name: "fileName",
+        message: "Enter your new file name: ",
+        initial: newFileName,
+      },
+      {
+        type: "text",
+        name: "title",
+        message: "Enter post title: ",
+      },
+      {
+        type: "text",
+        name: "slug",
+        message: "Enter post slug ",
+        initial: prev => slugger(prev),
+      },
+      {
+        type: "text",
+        name: "desc",
+        message: "Enter OG description: ",
+      },
+      {
+        type: "toggle",
+        name: "featured",
+        message: "Featured: ",
+        initial: false,
+        active: "true",
+        inactive: "false",
+      },
+      {
+        type: "toggle",
+        name: "draft",
+        message: "Draft: ",
+        initial: false,
+        active: "true",
+        inactive: "false",
+      },
+    ],
     {
       onCancel,
     }
@@ -69,29 +63,23 @@ async function askQuestions() {
 
   console.log(`Hello ${fileName}`);
 
-  const content = getContent(title, slug, desc, featured, draft);
+  newFileName = `${fileName}.md`;
 
-  fs.writeFile(`./src/contents/${fileName}.md`, content, function (err) {
-    if (err) throw err;
-    console.log("File is created successfully.");
-  });
+  content = getContent(title, slug, desc, featured, draft);
 }
-
-await welcome();
-await askQuestions();
 
 function getContent(
   title = "",
   slug = "",
   desc = "",
-  featured = true,
+  featured = false,
   draft = false
 ) {
   return `---
-author: Sat Naing
+author: ${SITE.author}
 datetime: ${currentDatetime}
-title: ${title}
-slug: ${slug}
+title: ${title ? title : "# Your_Post_Title"}
+slug: ${slug ? slug : "# Your_Post_Slug"}
 featured: ${featured}
 draft: ${draft}
 tags:
@@ -108,3 +96,20 @@ description: ${desc ? desc : "# A_brief_description_about_your_new_article"}
 <!-- Write your post content here -->
 `;
 }
+
+async function generateFile() {
+  fs.writeFile(`./src/contents/${newFileName}`, content, function (err) {
+    if (err) throw err;
+    console.log("File is created successfully.");
+  });
+}
+
+function onCancel() {
+  console.log("Operation cancelled :(");
+  process.exit(0);
+}
+
+// Invoke functions for script
+await welcome();
+!process.argv[2] && process.argv[2] !== "-y" && (await askQuestions());
+await generateFile();
