@@ -31,6 +31,7 @@ async function askQuestions() {
         type: "text",
         name: "title",
         message: "Enter post title: ",
+        initial: prev => (prev === newFileName ? "" : prev),
       },
       {
         type: "text",
