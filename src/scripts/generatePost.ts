@@ -66,9 +66,9 @@ async function askQuestions() {
     }
   );
 
-  console.log(`Hello ${fileName}`);
-
   newFileName = `${fileName}.md`;
+
+  console.log(`-----------------------------`);
 
   content = getContent(title, slug, desc, featured, draft);
 }
@@ -105,7 +105,8 @@ description: ${desc ? desc : "# A_brief_description_about_your_new_article"}
 async function generateFile() {
   fs.writeFile(`./src/contents/${newFileName}`, content, function (err) {
     if (err) throw err;
-    console.log("File is created successfully.");
+    console.log(`New File: ${kleur.green(newFileName)}`);
+    console.log(`✅ File is created successfully.`);
   });
 }
 
@@ -115,6 +116,8 @@ function onCancel() {
 }
 
 // Invoke functions for script
-await welcome();
-!process.argv[2] && process.argv[2] !== "-y" && (await askQuestions());
+if (!process.argv[2] && process.argv[2] !== "-y") {
+  await welcome();
+  await askQuestions();
+}
 await generateFile();
