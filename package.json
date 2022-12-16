@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "cz": "cz",
     "prepare": "husky install",
-    "generate": "npx ts-node-esm src/scripts/generatePost.ts"
+    "gen": "npx ts-node-esm src/scripts/generatePost.ts",
+    "gen:fast": "npx ts-node-esm src/scripts/generatePost.ts -y"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.3",
