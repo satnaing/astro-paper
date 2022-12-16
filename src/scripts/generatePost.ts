@@ -21,59 +21,73 @@ async function welcome() {
 }
 
 async function askQuestions() {
-  const { fileName, title, slug, desc, featured, draft } = await prompts(
-    [
+  const { fileName, title, slug, desc, featured, draft, datetime } =
+    await prompts(
+      [
+        {
+          type: "text",
+          name: "fileName",
+          message: "Enter your new file name: ",
+          initial: newFileName,
+          validate: value => validateFileName(value),
+        },
+        {
+          type: "text",
+          name: "title",
+          message: "Enter post title: ",
+          initial: prev => (prev === newFileName ? "" : getFileName(prev)),
+        },
+        {
+          type: "text",
+          name: "slug",
+          message: "Enter post slug ",
+          initial: prev => slugger(getFileName(prev)),
+        },
+        {
+          type: "date",
+          name: "datetime",
+          message: "Pick a date",
+          initial: new Date(currentDatetime),
+        },
+        {
+          type: "text",
+          name: "desc",
+          message: "Enter OG description: ",
+        },
+        {
+          type: "toggle",
+          name: "featured",
+          message: "Featured: ",
+          initial: false,
+          active: "true",
+          inactive: "false",
+        },
+        {
+          type: "toggle",
+          name: "draft",
+          message: "Draft: ",
+          initial: false,
+          active: "true",
+          inactive: "false",
+        },
+      ],
       {
-        type: "text",
-        name: "fileName",
-        message: "Enter your new file name: ",
-        initial: newFileName,
-        validate: value => validateFileName(value),
-      },
-      {
-        type: "text",
-        name: "title",
-        message: "Enter post title: ",
-        initial: prev => (prev === newFileName ? "" : getFileName(prev)),
-      },
-      {
-        type: "text",
-        name: "slug",
-        message: "Enter post slug ",
-        initial: prev => slugger(getFileName(prev)),
-      },
-      {
-        type: "text",
-        name: "desc",
-        message: "Enter OG description: ",
-      },
-      {
-        type: "toggle",
-        name: "featured",
-        message: "Featured: ",
-        initial: false,
-        active: "true",
-        inactive: "false",
-      },
-      {
-        type: "toggle",
-        name: "draft",
-        message: "Draft: ",
-        initial: false,
-        active: "true",
-        inactive: "false",
-      },
-    ],
-    {
-      onCancel,
-    }
-  );
+        onCancel,
+      }
+    );
 
   newFileName = `${fileName}.md`;
 
   console.log(`-----------------------------`);
 
-  content = getContent(title, slug, desc, featured, draft);
+  content = getContent(
+    title,
+    slug,
+    desc,
+    featured,
+    draft,
+    datetime.toISOString()
+  );
 }
 
 function getContent(
@@ -81,11 +95,12 @@ function getContent(
   slug = "",
   desc = "",
   featured = false,
-  draft = false
+  draft = false,
+  datetime = currentDatetime
 ) {
   return `---
 author: ${SITE.author}
-datetime: ${currentDatetime}
+datetime: ${datetime}
 title: ${title ? title : "# Your_Post_Title"}
 slug: ${slug ? slug : "# Your_Post_Slug"}
 featured: ${featured}
