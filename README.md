@@ -89,7 +89,14 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 The easiest way to run this project locally is to run the following command in your desired directory.
 
 ```bash
+# npm 6.x
+npm create astro@latest --template satnaing/astro-paper
+
+# npm 7+, extra double-dash is needed:
 npm create astro@latest -- --template satnaing/astro-paper
+
+# yarn
+yarn create astro --template satnaing/astro-paper
 ```
 
 Don't forget to remove Google site varification.
