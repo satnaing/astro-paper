@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-paper.pages.dev/",
+  site: "https://feat-auto-og-image-generatio.astro-paper.pages.dev/",
   integrations: [
     tailwind({
       config: {
