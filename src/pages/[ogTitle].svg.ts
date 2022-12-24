@@ -1,18 +1,23 @@
-import type { APIRoute } from "astro";
+import type { APIRoute, MarkdownInstance } from "astro";
 import generateOgImage from "@utils/generateOgImage";
+import type { Frontmatter } from "@types";
 
-export const get: APIRoute = async ({ params, request }) => {
-  const ogTitle = params.ogTitle ?? "Hello World";
-  console.log(ogTitle);
+export const get: APIRoute = async ({ params }) => {
   return {
-    body: await generateOgImage(ogTitle),
+    body: await generateOgImage(params.ogTitle),
   };
 };
 
+const postImportResult = import.meta.glob<MarkdownInstance<Frontmatter>>(
+  "../contents/**/**/*.md",
+  {
+    eager: true,
+  }
+);
+const posts = Object.values(postImportResult);
+
 export function getStaticPaths() {
-  return [
-    { params: { ogTitle: "Post 1" } },
-    { params: { ogTitle: "Post 2" } },
-    { params: { ogTitle: "Post 3" } },
-  ];
+  return posts.map(post => ({
+    params: { ogTitle: post.frontmatter.title },
+  }));
 }
