@@ -14,15 +14,33 @@ const ogImage = (text: string) => {
     >
       <div
         style={{
+          position: "absolute",
+          top: "-1px",
+          right: "-1px",
+          border: "4px solid #000",
+          background: "#ecebeb",
+          opacity: "0.9",
+          // filter: "blur(10px)",
+          borderRadius: "4px",
+          display: "flex",
+          justifyContent: "center",
+          margin: "2.5rem",
+          width: "88%",
+          height: "80%",
+        }}
+      />
+
+      <div
+        style={{
           border: "4px solid #000",
           background: "#fefbfb",
-          boxShadow: "24px 26px 8px 0px #ccc ",
+          // boxShadow: "24px 26px 8px 0px #ccc ",
           borderRadius: "4px",
           display: "flex",
           justifyContent: "center",
           margin: "2rem",
-          width: "85%",
-          height: "77%",
+          width: "88%",
+          height: "80%",
         }}
       >
         <div
@@ -37,9 +55,8 @@ const ogImage = (text: string) => {
         >
           <p
             style={{
-              fontSize: 64,
+              fontSize: 72,
               fontWeight: "bold",
-              color: "#006cac",
               maxHeight: "84%",
               overflow: "hidden",
             }}
@@ -59,7 +76,7 @@ const ogImage = (text: string) => {
               by{" "}
               <span
                 style={{
-                  color: "#fefbfb",
+                  color: "transparent",
                 }}
               >
                 "

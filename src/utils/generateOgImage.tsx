@@ -1,6 +1,6 @@
 import satori, { SatoriOptions } from "satori";
 import { SITE } from "@config";
-import ogImage from "@assets/og-themes/OgNavy";
+import ogImage from "@assets/og-themes/OgDevTo";
 
 const fetchFonts = async () => {
   // Regular Font
