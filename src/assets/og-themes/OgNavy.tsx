@@ -17,7 +17,7 @@ const ogImage = (text: string) => {
       <div
         style={{
           // border: "4px solid #000",
-          background: "transparent",
+          // background: "transparent",
           borderRadius: "4px",
           display: "flex",
           justifyContent: "center",
@@ -31,7 +31,7 @@ const ogImage = (text: string) => {
             flexDirection: "column",
             justifyContent: "space-between",
             margin: "20px",
-            background: "transparent",
+            // background: "transparent",
             width: "100%",
             height: "95%",
           }}
