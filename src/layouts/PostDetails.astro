@@ -14,14 +14,12 @@ export interface Props {
 const { frontmatter, Content } = Astro.props.post;
 
 const { title, author, description, ogImage, datetime, tags } = frontmatter;
+
+const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
+  .href;
 ---
 
-<Layout
-  title={title}
-  author={author}
-  description={description}
-  ogImage={ogImage}
->
+<Layout title={title} author={author} description={description} ogImage={ogUrl}>
   <Header />
   <div class="max-w-3xl mx-auto w-full px-2 flex justify-start">
     <button

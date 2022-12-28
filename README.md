@@ -89,14 +89,23 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 The easiest way to run this project locally is to run the following command in your desired directory.
 
 ```bash
+# npm 6.x
+npm create astro@latest --template satnaing/astro-paper
+
+# npm 7+, extra double-dash is needed:
 npm create astro@latest -- --template satnaing/astro-paper
+
+# yarn
+yarn create astro --template satnaing/astro-paper
 ```
 
-Don't forget to remove Google site varification.
+## Google Site Verification (optional)
+
+You can easily add your [Google Site Verification HTML tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag) in AstroPaper using environment variable. This step is optional. If you don't add the following env variable, the google-site-verification tag won't appear in the html `<head>` section.
 
 ```bash
-# in your project directory
-rm -rf public/googlebbcd930f1ecacd3a.html
+# in your environment variable file (.env)
+PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-value
 ```
 
 ## 🧞 Commands
