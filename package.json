@@ -15,11 +15,12 @@
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.3",
-    "astro": "^1.6.13",
+    "astro": "^1.8.0",
     "fuse.js": "^6.6.2",
     "github-slugger": "^2.0.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^8.0.1",
+    "satori": "^0.0.44",
     "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
@@ -33,7 +34,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
