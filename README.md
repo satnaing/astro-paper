@@ -24,8 +24,9 @@ This theme is self-documented \_ which means articles/posts in this theme can al
 - [x] sitemap & rss feed
 - [x] followed best practices
 - [x] highly customizable
+- [x] dynamic OG image generation for blog posts [#15](https://github.com/satnaing/astro-paper/pull/15)
 
-_Note: I've manually made the VoiceOver accessibility tests using the default VoiceOver on Mac; and haven't tested using other software. But VoiceOver accessibility enhancements in this website should be working fine on others as well._
+_Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver** on Mac and **TalkBack** on Android. I couldn't test all other screen-readers out there. However, accessibility enhancements in AstroPaper should be working fine on others as well._
 
 ## 🚀 Project Structure
 
