@@ -9,6 +9,7 @@ import getSortedPosts from "@utils/getSortedPosts";
 import slugify from "@utils/slugify";
 import type { Frontmatter } from "src/types";
 import Socials from "@components/Socials.astro";
+import { SOCIALS } from "@config";
 
 const posts = await Astro.glob<Frontmatter>("../contents/**/*.md");
 
@@ -16,6 +17,8 @@ const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(
   ({ frontmatter }) => frontmatter.featured
 );
+
+const socialCount = SOCIALS.filter(social => social.active).length;
 ---
 
 <Layout>
@@ -54,10 +57,15 @@ const featuredPosts = sortedPosts.filter(
           README
         </LinkButton> for more info.
       </p>
-      <div class="social-wrapper">
-        <div class="social-links">Social Links:</div>
-        <Socials />
-      </div>
+      {
+        // only display if at least one social link is enabled
+        socialCount > 0 && (
+          <div class="social-wrapper">
+            <div class="social-links">Social Links:</div>
+            <Socials />
+          </div>
+        )
+      }
     </section>
 
     <Hr />
@@ -117,7 +125,7 @@ const featuredPosts = sortedPosts.filter(
 <style>
   /* ===== Hero Section ===== */
   #hero {
-    @apply pt-8;
+    @apply pt-8 pb-6;
   }
   #hero h1 {
     @apply inline-block font-bold my-4 sm:my-8 text-3xl sm:text-5xl;
@@ -132,7 +140,7 @@ const featuredPosts = sortedPosts.filter(
     @apply my-2;
   }
   .social-wrapper {
-    @apply flex flex-col sm:flex-row sm:items-center mt-4 mb-6;
+    @apply flex flex-col sm:flex-row sm:items-center mt-4;
   }
   .social-links {
     @apply whitespace-nowrap mr-2 sm:mb-0 mb-1;

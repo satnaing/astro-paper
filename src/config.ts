@@ -132,4 +132,10 @@ export const SOCIALS: SocialObjects = [
     linkTitle: `${SITE.title} on Telegram`,
     active: false,
   },
+  {
+    name: "Mastodon",
+    href: "https://github.com/satnaing/astro-paper",
+    linkTitle: `${SITE.title} on Mastodon`,
+    active: true,
+  },
 ];
