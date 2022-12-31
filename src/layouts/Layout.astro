@@ -19,10 +19,13 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
 const socialImageURL = new URL(
   ogImage ? ogImage : SITE.ogImage,
   Astro.url.origin
-);
+).href;
+
+const fallbackImageURL = new URL(SITE.ogImage, Astro.url.origin).href;
 ---
 
 <!DOCTYPE html>
@@ -51,7 +54,12 @@ const socialImageURL = new URL(
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta
+      property="twitter:image"
+      content={socialImageURL.endsWith(".svg")
+        ? fallbackImageURL
+        : socialImageURL}
+    />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
