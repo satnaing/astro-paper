@@ -18,7 +18,7 @@ New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for bl
 
 ## Intro
 
-OG images (aka Social Imanges) play an important role in social media engagements. In case you don't know what OG image means, it is an image displayed whenever we share our website URL on social media such as Facebook, Discord etc.
+OG images (aka Social Images) play an important role in social media engagements. In case you don't know what OG image means, it is an image displayed whenever we share our website URL on social media such as Facebook, Discord etc.
 
 > The Social Image used for Twitter is technically not called OG image. However, in this post, I'll be using the term OG image for all types of Social Images.
 
