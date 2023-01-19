@@ -28,6 +28,14 @@ This theme is self-documented \_ which means articles/posts in this theme can al
 
 _Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver** on Mac and **TalkBack** on Android. I couldn't test all other screen-readers out there. However, accessibility enhancements in AstroPaper should be working fine on others as well._
 
+## ✅ Lighthouse Score
+
+<p align="center">
+  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fastro-paper.pages.dev%2F&form_factor=desktop">
+    <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
+  <a>
+</p>
+
 ## 🚀 Project Structure
 
 Inside of AstroPaper, you'll see the following folders and files:
