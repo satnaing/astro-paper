@@ -1,5 +1,5 @@
 export interface Props {
-  datetime: string;
+  datetime: string | Date;
   size?: "sm" | "lg";
   className?: string;
 }
@@ -25,7 +25,7 @@ export default function Datetime({ datetime, size = "sm", className }: Props) {
   );
 }
 
-const FormattedDatetime = ({ datetime }: { datetime: string }) => {
+const FormattedDatetime = ({ datetime }: { datetime: string | Date }) => {
   const myDatetime = new Date(datetime);
 
   const date = myDatetime.toLocaleDateString([], {
