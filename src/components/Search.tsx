@@ -86,7 +86,7 @@ export default function SearchBar({ searchList }: Props) {
           placeholder="Search for anything..."
           type="text"
           name="search"
-          defaultValue={inputVal}
+          value={inputVal}
           onChange={handleChange}
           autoComplete="off"
           autoFocus
