@@ -4,19 +4,22 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
-import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "src/types";
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  post: MarkdownInstance<Frontmatter>;
+  post: CollectionEntry<"blog">;
 }
 
-const { frontmatter, Content } = Astro.props.post;
+const { post } = Astro.props;
 
-const { title, author, description, ogImage, datetime, tags } = frontmatter;
+const { title, author, description, ogImage, pubDatetime, tags } = post.data;
 
-const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
-  .href;
+const { Content } = await post.render();
+
+const ogUrl = new URL(
+  ogImage?.src ? ogImage?.src : `${title}.svg`,
+  Astro.url.origin
+).href;
 ---
 
 <Layout title={title} author={author} description={description} ogImage={ogUrl}>
@@ -35,7 +38,7 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
   </div>
   <main id="main-content">
     <h1 class="post-title">{title}</h1>
-    <Datetime datetime={datetime} size="lg" className="my-2" />
+    <Datetime datetime={pubDatetime} size="lg" className="my-2" />
     <article id="article" role="article" class="mx-auto max-w-3xl mt-8 prose">
       <Content />
     </article>
