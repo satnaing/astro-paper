@@ -1,4 +1,4 @@
-import { SITE } from "src/config";
+import { SITE } from "@config";
 
 const getPageNumbers = (numberOfPosts: number) => {
   const numberOfPages = numberOfPosts / Number(SITE.postPerPage);
