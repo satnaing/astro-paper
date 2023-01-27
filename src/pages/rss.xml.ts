@@ -1,28 +1,19 @@
-import { SITE } from "src/config";
 import rss from "@astrojs/rss";
-import type { Frontmatter } from "src/types";
-import type { MarkdownInstance } from "astro";
+import { getCollection } from "astro:content";
+import { SITE } from "@config";
 import slugify from "@utils/slugify";
 
-const postImportResult = import.meta.glob<MarkdownInstance<Frontmatter>>(
-  "../contents/**/**/*.md",
-  {
-    eager: true,
-  }
-);
-const posts = Object.values(postImportResult);
-
-export const get = () =>
-  rss({
+export async function get() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return rss({
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
-    items: posts
-      .filter(({ frontmatter }) => !frontmatter.draft)
-      .map(({ frontmatter }) => ({
-        link: `posts/${slugify(frontmatter)}`,
-        title: frontmatter.title,
-        description: frontmatter.description,
-        pubDate: new Date(frontmatter.datetime),
-      })),
+    items: posts.map(({ data }) => ({
+      link: `posts/${slugify(data)}`,
+      title: data.title,
+      description: data.description,
+      pubDate: new Date(data.pubDatetime),
+    })),
   });
+}
