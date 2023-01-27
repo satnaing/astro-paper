@@ -1,8 +1,8 @@
 ---
 title: My recent article 2
 author: Sat Naing
-datetime: 2022-06-06T04:06:31Z
-slug: my-recent-2
+pubDatetime: 2022-06-06T04:06:31Z
+postSlug: my-recent-2
 featured: false
 draft: true
 tags:

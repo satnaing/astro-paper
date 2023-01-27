@@ -1,13 +1,15 @@
 ---
 author: Sat Naing
-datetime: 2022-09-23T15:22:00Z
+pubDatetime: 2022-09-23T15:22:00Z
 title: Adding new posts in AstroPaper theme
-slug: adding-new-posts-in-astropaper-theme
+postSlug: adding-new-posts-in-astropaper-theme
 featured: true
 draft: false
 tags:
   - docs
-ogImage: ""
+ogImage:
+  src: ""
+  alt: ""
 description:
   Some rules & recommendations for creating or adding new posts using AstroPaper
   theme.
@@ -28,7 +30,7 @@ Here is the list of frontmatter property for each post.
 | **_title_**       | Title of the post. (h1)                                                                   | required<sup>\*</sup>     |
 | **_description_** | Description of the post. Used in post excerpt and site description of the post.           | default = SITE.desc       |
 | **_author_**      | Author of the post.                                                                       | default = SITE.author     |
-| **_datetime_**    | Published datetime in ISO 8601 format.                                                    |                           |
+| **_datetime_**    | Published pubDatetime in ISO 8601 format.                                                 |                           |
 | **_slug_**        | Slug for the post. Usually the all lowercase title seperated in `-` instead of whtiespace | default = slugified title |
 | **_featured_**    | Whether or not display this post in featured section of home page                         | default = false           |
 | **_draft_**       | Mark this post 'unpublished'.                                                             | default = false           |
@@ -48,8 +50,8 @@ Here is the sample frontmatter for the post.
 ---
 title: The title of the post
 author: your name
-datetime: 2022-09-21T05:17:19Z
-slug: the-title-of-the-post
+pubDatetime: 2022-09-21T05:17:19Z
+postSlug: the-title-of-the-post
 featured: true
 draft: false
 tags:
