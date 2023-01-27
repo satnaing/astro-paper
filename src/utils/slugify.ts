@@ -1,10 +1,10 @@
-import type { CollectionEntry } from "astro:content";
 import { slug as slugger } from "github-slugger";
+import type { BlogFrontmatter } from "@content/_schemas";
 
 export const slugifyStr = (str: string) => slugger(str);
 
-const slugify = (post: CollectionEntry<"blog">) =>
-  post.data.slug ? slugger(post.data.slug) : post.slug;
+const slugify = (post: BlogFrontmatter) =>
+  post.postSlug ? slugger(post.postSlug) : slugger(post.title);
 
 export const slufigyAll = (arr: string[]) => arr.map(str => slugifyStr(str));
 
