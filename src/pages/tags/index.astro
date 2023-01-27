@@ -1,14 +1,14 @@
 ---
-import { SITE } from "src/config";
+import { getCollection } from "astro:content";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Tag from "@components/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
-import type { Frontmatter } from "src/types";
+import { SITE } from "@config";
 
-const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
+const posts = await getCollection("blog");
 
 let tags = getUniqueTags(posts);
 ---

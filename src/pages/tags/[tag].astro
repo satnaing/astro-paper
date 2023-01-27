@@ -1,5 +1,5 @@
 ---
-import { SITE } from "src/config";
+import { CollectionEntry, getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
@@ -7,19 +7,16 @@ import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
 import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
-import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "src/types";
 import slugify from "@utils/slugify";
+import { SITE } from "@config";
 
 export interface Props {
-  post: MarkdownInstance<Frontmatter>;
+  post: CollectionEntry<"blog">;
   tag: string;
 }
 
 export async function getStaticPaths() {
-  const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
-    "../../contents/**/*.md"
-  );
+  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
   const tags = getUniqueTags(posts);
 
@@ -37,9 +34,7 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 
-const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob(
-  "../../contents/**/*.md"
-);
+const posts: CollectionEntry<"blog">[] = await getCollection("blog");
 
 const tagPosts = getPostsByTag(posts, tag);
 ---
@@ -52,8 +47,8 @@ const tagPosts = getPostsByTag(posts, tag);
   >
     <ul>
       {
-        tagPosts.map(({ frontmatter }) => (
-          <Card href={`/posts/${slugify(frontmatter)}`} post={frontmatter} />
+        tagPosts.map(({ data }) => (
+          <Card href={`/posts/${slugify(data)}`} frontmatter={data} />
         ))
       }
     </ul>
