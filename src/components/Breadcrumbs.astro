@@ -22,7 +22,11 @@ breadcrumbList[0] === "posts" &&
       breadcrumbList.map((breadcrumb, index) =>
         index + 1 === breadcrumbList.length ? (
           <li>
-            <span class={`${index > 0 ? "lowercase" : ""}`} aria-current="page">
+            <span
+              class={`${index > 0 ? "lowercase" : "capitalize"}`}
+              aria-current="page"
+            >
+              {/* make the last part lowercase in Home > Tags > some-tag */}
               {breadcrumb}
             </span>
           </li>
@@ -44,9 +48,11 @@ breadcrumbList[0] === "posts" &&
   .breadcrumb ul li {
     @apply inline;
   }
-  .breadcrumb ul li a,
-  .breadcrumb ul li span {
+  .breadcrumb ul li a {
     @apply opacity-70 capitalize;
+  }
+  .breadcrumb ul li span {
+    @apply opacity-70;
   }
   .breadcrumb ul li:not(:last-child) a {
     @apply hover:opacity-100;
