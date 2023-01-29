@@ -11,42 +11,17 @@ export interface Props {
   post: CollectionEntry<"blog">;
 }
 
-type PostResult = {
-  params: {
-    slug: string | number;
-  };
-  props?: {
-    post: CollectionEntry<"blog">;
-  };
-}[];
-
-type PagePaths = {
-  params: {
-    slug: string;
-  };
-}[];
-
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  const filteredPosts = posts.filter(({ data }) => !data.draft);
+  const postResult = posts.map(post => ({
+    params: { slug: slugify(post.data) },
+    props: { post },
+  }));
 
-  let postResult: PostResult = filteredPosts.map(post => {
-    return {
-      params: {
-        slug: slugify(post.data),
-      },
-      props: {
-        post,
-      },
-    };
-  });
-
-  const pagePaths: PagePaths = getPageNumbers(filteredPosts.length).map(
-    pageNum => ({
-      params: { slug: String(pageNum) },
-    })
-  );
+  const pagePaths = getPageNumbers(posts.length).map(pageNum => ({
+    params: { slug: String(pageNum) },
+  }));
 
   return [...postResult, ...pagePaths];
 }
