@@ -8,16 +8,14 @@ import Footer from "@components/Footer.astro";
 import Search from "@components/Search";
 
 // Retrieve all articles
-const posts = await getCollection("blog");
+const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 // List of items to search in
-const searchList = posts
-  .filter(({ data }) => !data.draft)
-  .map(({ data }) => ({
-    title: data.title,
-    description: data.description,
-    data,
-  }));
+const searchList = posts.map(({ data }) => ({
+  title: data.title,
+  description: data.description,
+  data,
+}));
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
