@@ -16,25 +16,21 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+  const posts = await getCollection("blog");
 
   const tags = getUniqueTags(posts);
 
   return tags.map(tag => {
     return {
-      params: {
-        tag,
-      },
-      props: {
-        tag,
-      },
+      params: { tag },
+      props: { tag },
     };
   });
 }
 
 const { tag } = Astro.props;
 
-const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 const tagPosts = getPostsByTag(posts, tag);
 ---
