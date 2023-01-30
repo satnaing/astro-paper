@@ -2,7 +2,7 @@ import { z } from "astro:content";
 
 export const blogSchema = z.object({
   author: z.string().optional(),
-  pubDatetime: z.date(), // z.string().datetime() only available in Zod v3.20.2
+  pubDatetime: z.date(),
   title: z.string(),
   postSlug: z.string().optional(),
   featured: z.boolean().optional(),
