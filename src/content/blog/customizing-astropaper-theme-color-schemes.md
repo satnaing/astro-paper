@@ -130,3 +130,5 @@ Here is an example of changing the light color scheme.
   }
 }
 ```
+
+> Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.
