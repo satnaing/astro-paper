@@ -5,8 +5,8 @@ export const blogSchema = z.object({
   pubDatetime: z.date(), // z.string().datetime() only available in Zod v3.20.2
   title: z.string(),
   postSlug: z.string().optional(),
-  featured: z.boolean(),
-  draft: z.boolean(),
+  featured: z.boolean().optional(),
+  draft: z.boolean().optional(),
   tags: z.array(z.string()),
   ogImage: z.string().optional(),
   description: z.string(),
