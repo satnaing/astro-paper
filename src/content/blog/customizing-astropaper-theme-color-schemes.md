@@ -8,9 +8,7 @@ draft: false
 tags:
   - color-schemes
   - docs
-ogImage:
-  src: ""
-  alt: ""
+ogImage: ""
 description:
   How you can enable/disable light & dark mode; and customize color schemes
   of AstroPaper theme.

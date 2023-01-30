@@ -8,12 +8,7 @@ export const blogSchema = z.object({
   featured: z.boolean(),
   draft: z.boolean(),
   tags: z.array(z.string()),
-  ogImage: z
-    .object({
-      src: z.string(),
-      alt: z.string().optional(),
-    })
-    .optional(),
+  ogImage: z.string().optional(),
   description: z.string(),
 });
 

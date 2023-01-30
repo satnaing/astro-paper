@@ -7,9 +7,7 @@ featured: true
 draft: false
 tags:
   - docs
-ogImage:
-  src: ""
-  alt: ""
+ogImage: ""
 description:
   Some rules & recommendations for creating or adding new posts using AstroPaper
   theme.

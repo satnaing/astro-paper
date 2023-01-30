@@ -8,9 +8,7 @@ draft: false
 tags:
   - configuration
   - docs
-ogImage:
-  src: ""
-  alt: ""
+ogImage: ""
 description: How you can make AstroPaper theme absolutely yours.
 ---
 

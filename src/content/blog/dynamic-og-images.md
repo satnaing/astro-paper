@@ -8,9 +8,7 @@ draft: false
 tags:
   - docs
   - release
-ogImage:
-  src: ""
-  alt: ""
+ogImage: ""
 description: New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for blog posts.
 ---
 

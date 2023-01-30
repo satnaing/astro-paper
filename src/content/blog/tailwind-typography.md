@@ -7,9 +7,7 @@ draft: false
 tags:
   - TypeScript
   - Astro
-ogImage:
-  src: ""
-  alt: ""
+ogImage: ""
 description: "EXAMPLE POST: About Tailwind Typography Plugin and how you can use it effectively."
 ---
 

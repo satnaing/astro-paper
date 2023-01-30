@@ -9,9 +9,7 @@ tags:
   - docs
   - forestry-cms
   - astro-paper
-ogImage:
-  src: https://res.cloudinary.com/noezectz/v1663745737/astro-paper/astropaper-x-forestry-og_kqfwp0.png
-  alt: ""
+ogImage: https://res.cloudinary.com/noezectz/v1663745737/astro-paper/astropaper-x-forestry-og_kqfwp0.png
 description:
   Step by step process of connecting Astro-Paper blog theme with Forestry
   Headless CMS.
