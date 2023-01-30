@@ -16,10 +16,8 @@ const { title, author, description, ogImage, pubDatetime, tags } = post.data;
 
 const { Content } = await post.render();
 
-const ogUrl = new URL(
-  ogImage?.src ? ogImage?.src : `${title}.svg`,
-  Astro.url.origin
-).href;
+const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
+  .href;
 ---
 
 <Layout title={title} author={author} description={description} ogImage={ogUrl}>

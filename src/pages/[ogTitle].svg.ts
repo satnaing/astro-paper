@@ -11,7 +11,7 @@ const posts = Object.values(postImportResult);
 
 export function getStaticPaths() {
   return posts
-    .filter(({ data }) => !data.ogImage?.src)
+    .filter(({ data }) => !data.ogImage)
     .map(({ data }) => ({
       params: { ogTitle: data.title },
     }));
