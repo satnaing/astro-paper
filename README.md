@@ -14,6 +14,7 @@ This theme is self-documented \_ which means articles/posts in this theme can al
 
 ## 🔥 Features
 
+- [x] type-safe markdown
 - [x] super fast performance
 - [x] accessible (Keyboard/VoiceOver)
 - [x] responsive (mobile ~ desktops)
@@ -54,8 +55,11 @@ Inside of AstroPaper, you'll see the following folders and files:
 │   ├── assets/
 │   │   └── socialIcons.ts
 │   ├── components/
-│   ├── contents/
-│   │   └── some-blog-posts.md
+│   ├── content/
+│   │   |  blog/
+│   │   |    └── some-blog-posts.md
+│   │   └── _schemas.ts
+│   │   └── config.ts
 │   ├── layouts/
 │   └── pages/
 │   └── styles/
@@ -69,16 +73,16 @@ Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page
 
 Any static assets, like images, can be placed in the `public/` directory.
 
-All blog posts are stored in `src/contents/` directory.
+All blog posts are stored in `src/content/blog` directory.
 
 ## 📖 Documentation
 
 Documentation can be read in two formats\_ _markdown_ & _blog post_.
 
-- Configuration - [markdown](src/contents/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
-- Add Posts - [markdown](src/contents/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
-- Customize Color Schemes - [markdown](src/contents/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
-- Predefined Color Schemes - [markdown](src/contents/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
+- Configuration - [markdown](src/content/blog/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
+- Add Posts - [markdown](src/content/blog/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
+- Customize Color Schemes - [markdown](src/content/blog/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
+- Predefined Color Schemes - [markdown](src/content/blog/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
 
 ## 💻 Tech Stack
 
@@ -121,17 +125,16 @@ PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-value
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                | Action                                             |
-| :--------------------- | :------------------------------------------------- |
-| `npm install`          | Installs dependencies                              |
-| `npm run dev`          | Starts local dev server at `localhost:3000`        |
-| `npm run build`        | Build your production site to `./dist/`            |
-| `npm run preview`      | Preview your build locally, before deploying       |
-| `npm run format:check` | Check code format with Prettier                    |
-| `npm run format`       | Format codes with Prettier                         |
-| `npm run cz`           | Commit code changes with commitizen                |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
-| `npm run astro --help` | Get help using the Astro CLI                       |
+| Command                | Action                                                                                                                           |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `npm install`          | Installs dependencies                                                                                                            |
+| `npm run dev`          | Starts local dev server at `localhost:3000`                                                                                      |
+| `npm run build`        | Build your production site to `./dist/`                                                                                          |
+| `npm run preview`      | Preview your build locally, before deploying                                                                                     |
+| `npm run format:check` | Check code format with Prettier                                                                                                  |
+| `npm run format`       | Format codes with Prettier                                                                                                       |
+| `npm run sync`         | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
+| `npm run cz`           | Commit code changes with commitizen                                                                                              |
 
 ## ✨ Feedback & Suggestions
 
