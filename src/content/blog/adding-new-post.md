@@ -23,25 +23,40 @@ Frontmatter is the main place to store some important information about the post
 
 Here is the list of frontmatter property for each post.
 
-| Property          | Description                                                                               | Remark                    |
-| ----------------- | ----------------------------------------------------------------------------------------- | ------------------------- |
-| **_title_**       | Title of the post. (h1)                                                                   | required<sup>\*</sup>     |
-| **_description_** | Description of the post. Used in post excerpt and site description of the post.           | default = SITE.desc       |
-| **_author_**      | Author of the post.                                                                       | default = SITE.author     |
-| **_datetime_**    | Published pubDatetime in ISO 8601 format.                                                 |                           |
-| **_slug_**        | Slug for the post. Usually the all lowercase title seperated in `-` instead of whtiespace | default = slugified title |
-| **_featured_**    | Whether or not display this post in featured section of home page                         | default = false           |
-| **_draft_**       | Mark this post 'unpublished'.                                                             | default = false           |
-| **_tags_**        | Related keywords for this post. Written in array yaml format.                             |                           |
-| **_ogImage_**     | OG image of the post. Useful for social media sharing and SEO.                            | default = SITE.ogImage    |
+| Property          | Description                                                                     | Remark                                        |
+| ----------------- | ------------------------------------------------------------------------------- | --------------------------------------------- |
+| **_title_**       | Title of the post. (h1)                                                         | required<sup>\*</sup>                         |
+| **_description_** | Description of the post. Used in post excerpt and site description of the post. | required<sup>\*</sup>                         |
+| **_pubDatetime_** | Published datetime in ISO 8601 format.                                          | required<sup>\*</sup>                         |
+| **_author_**      | Author of the post.                                                             | default = SITE.author                         |
+| **_postSlug_**    | Slug for the post. Will automatically be slugified.                             | default = slugified title                     |
+| **_featured_**    | Whether or not display this post in featured section of home page               | default = false                               |
+| **_draft_**       | Mark this post 'unpublished'.                                                   | default = false                               |
+| **_tags_**        | Related keywords for this post. Written in array yaml format.                   | default = others                              |
+| **_ogImage_**     | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated SVG image |
 
-`title` and `slug` fields in frontmatter must be specified.
+Only `title`, `description` and `pubDatetime` fields in frontmatter must be specified.
 
-Title is the title of the post and it is very important for search engine optimization (SEO).
+Title and description (excerpt) are important for search engine optimization (SEO) and thus AstroPaper encourages to include these in blog posts.
 
-`slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` needs to be separated with `-` or `_` but `-` is recommended. If slug is not specified, the slugified title of the post will be used as slug.
+`slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` needs to be separated with `-` or `_` but `-` is recommended. However, even if you don't write the correct slug, AstroPaper will automatically slugify your incorrect slug. If slug is not specified, the slugified title of the post will be used as slug.
 
-Here is the sample frontmatter for the post.
+If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `/src/content/_schemas.ts` file.
+
+```ts
+// src/contents/_schemas.ts
+export const blogSchema = z.object({
+  // ---
+  // replace "others" with whatever you want
+  tags: z.array(z.string()).default(["others"]),
+  ogImage: z.string().optional(),
+  description: z.string(),
+});
+```
+
+### Sample Frontmatter
+
+Here is the sample frontmatter for a post.
 
 ```yaml
 # src/contents/sample-post.md
@@ -101,3 +116,5 @@ My recommendation for image compression sites.
 ### OG Image
 
 The default OG image will be placed if a post does not specify the OG image. Though not required, OG image related to the post should be specify in the frontmatter. The recommended size for OG image is **_1200 X 640_** px.
+
+> Since AstroPaper v1.4.0, OG images will be generated automatically if not specified. Check out [the announcement](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/).
