@@ -1,8 +1,8 @@
 ---
 author: Sat Naing
-datetime: 2022-09-23T04:58:53Z
+pubDatetime: 2022-09-23T04:58:53Z
 title: How to configure AstroPaper theme
-slug: how-to-configure-astropaper-theme
+postSlug: how-to-configure-astropaper-theme
 featured: true
 draft: false
 tags:
@@ -37,15 +37,15 @@ export const SITE = {
 
 Here are SITE configuration options
 
-| Options            | Description                                                                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `website`          | Your deployed website url                                                                                                                              |
-| `author`           | Your name                                                                                                                                              |
-| `desc`             | Your site description. Useful for SEO and social media sharing.                                                                                        |
-| `title`            | Your site name                                                                                                                                         |
-| `ogImage`          | Your default OG image for the site. Useful for social media sharing. OG image can be updated under `/public` directory.                                |
-| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.              |
-| `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: if you set SITE.postPerPage to 3, each page will only show 3 posts per page) |
+| Options            | Description                                                                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `website`          | Your deployed website url                                                                                                                                    |
+| `author`           | Your name                                                                                                                                                    |
+| `desc`             | Your site description. Useful for SEO and social media sharing.                                                                                              |
+| `title`            | Your site name                                                                                                                                               |
+| `ogImage`          | Your default OG image for the site. Useful for social media sharing. OG images can be an external image url or they can be placed under `/public` directory. |
+| `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                    |
+| `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: if you set SITE.postPerPage to 3, each page will only show 3 posts per page)       |
 
 ## Configuring logo or title
 

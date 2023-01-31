@@ -1,22 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
+import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import slugify from "@utils/slugify";
-import type { Frontmatter } from "src/types";
-import Socials from "@components/Socials.astro";
 import { SOCIALS } from "@config";
 
-const posts = await Astro.glob<Frontmatter>("../contents/**/*.md");
+const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(
-  ({ frontmatter }) => frontmatter.featured
-);
+const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
 ---
@@ -76,10 +74,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ frontmatter }) => (
+              {featuredPosts.map(({ data }) => (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}`}
-                  post={frontmatter}
+                  href={`/posts/${slugify(data)}`}
+                  frontmatter={data}
                   secHeading={false}
                 />
               ))}
@@ -95,11 +93,11 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       <ul>
         {
           sortedPosts.map(
-            ({ frontmatter }, index) =>
+            ({ data }, index) =>
               index < 4 && (
                 <Card
-                  href={`/posts/${slugify(frontmatter)}`}
-                  post={frontmatter}
+                  href={`/posts/${slugify(data)}`}
+                  frontmatter={data}
                   secHeading={false}
                 />
               )
@@ -128,22 +126,22 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     @apply pt-8 pb-6;
   }
   #hero h1 {
-    @apply inline-block font-bold my-4 sm:my-8 text-3xl sm:text-5xl;
+    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
   }
   #hero .rss-link {
     @apply mb-6;
   }
   #hero .rss-icon {
-    @apply h-6 w-6 scale-110 sm:scale-125 mb-2 sm:mb-3 fill-skin-accent;
+    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
   }
   #hero p {
     @apply my-2;
   }
   .social-wrapper {
-    @apply flex flex-col sm:flex-row sm:items-center mt-4;
+    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
   }
   .social-links {
-    @apply whitespace-nowrap mr-2 sm:mb-0 mb-1;
+    @apply mr-2 mb-1 whitespace-nowrap sm:mb-0;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
@@ -153,9 +151,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   }
   #featured h2,
   #recent-posts h2 {
-    @apply font-semibold text-2xl tracking-wide;
+    @apply text-2xl font-semibold tracking-wide;
   }
   .all-posts-btn-wrapper {
-    @apply text-center my-8;
+    @apply my-8 text-center;
   }
 </style>

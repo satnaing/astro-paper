@@ -1,11 +1,12 @@
 ---
-import { SITE } from "src/config";
+import { SITE } from "@config";
 import Posts from "@layouts/Posts.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPageNumbers from "@utils/getPageNumbers";
-import type { Frontmatter } from "src/types";
 
-const posts = await Astro.glob<Frontmatter>("../../contents/**/*.md");
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 

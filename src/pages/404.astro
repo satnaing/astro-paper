@@ -1,5 +1,5 @@
 ---
-import { SITE } from "src/config";
+import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
@@ -28,15 +28,15 @@ import LinkButton from "@components/LinkButton.astro";
 
 <style>
   #main-content {
-    @apply max-w-3xl mx-auto flex-1 justify-center items-center flex;
+    @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
   }
   .not-found-wrapper {
-    @apply flex flex-col items-center justify-center mb-14;
+    @apply mb-14 flex flex-col items-center justify-center;
   }
   .not-found-wrapper h1 {
-    @apply font-bold text-9xl text-skin-accent;
+    @apply text-9xl font-bold text-skin-accent;
   }
   .not-found-wrapper p {
-    @apply text-2xl sm:text-3xl mt-4;
+    @apply mt-4 text-2xl sm:text-3xl;
   }
 </style>

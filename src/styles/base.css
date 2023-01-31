@@ -13,12 +13,12 @@
     --color-border: 236, 233, 233;
   }
   html[data-theme="dark"] {
-    --color-fill: 47, 55, 65;
-    --color-text-base: 230, 230, 230;
-    --color-accent: 26, 217, 217;
-    --color-card: 63, 75, 90;
-    --color-card-muted: 89, 107, 129;
-    --color-border: 59, 70, 85;
+    --color-fill: 33, 39, 55;
+    --color-text-base: 234, 237, 243;
+    --color-accent: 255, 107, 1;
+    --color-card: 52, 63, 96;
+    --color-card-muted: 138, 51, 2;
+    --color-border: 171, 75, 8;
   }
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
@@ -29,45 +29,45 @@
     display: block;
   }
   body {
-    @apply font-mono bg-skin-fill text-skin-base min-h-screen flex flex-col 
-    selection:bg-skin-accent selection:text-skin-inverted selection:bg-opacity-70;
+    @apply flex min-h-screen flex-col bg-skin-fill font-mono text-skin-base 
+    selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-inverted;
   }
   section,
   footer {
-    @apply max-w-3xl mx-auto px-4;
+    @apply mx-auto max-w-3xl px-4;
   }
   a {
-    @apply outline-offset-1 outline-skin-fill outline-2 
-    focus-visible:outline-dashed focus-visible:no-underline;
+    @apply outline-2 outline-offset-1 outline-skin-fill 
+    focus-visible:no-underline focus-visible:outline-dashed;
   }
   svg {
-    @apply w-6 h-6 inline-block fill-skin-base group-hover:fill-skin-accent;
+    @apply inline-block h-6 w-6 fill-skin-base group-hover:fill-skin-accent;
   }
   svg.icon-tabler {
-    @apply w-6 h-6 scale-125 sm:scale-110 opacity-90 
-    inline-block fill-transparent stroke-2 stroke-current 
-    group-hover:fill-transparent;
+    @apply inline-block h-6 w-6 scale-125 fill-transparent 
+    stroke-current stroke-2 opacity-90 group-hover:fill-transparent 
+    sm:scale-110;
   }
   .prose {
-    @apply prose-a:underline-offset-8 prose-ul:overflow-x-clip 
-    prose-a:!decoration-dashed hover:prose-a:text-skin-accent 
-    prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line
-    prose-img:!mt-2 prose-headings:!mb-3
-    prose-th:border prose-th:border-skin-line
-    prose-td:border prose-td:border-skin-line
-    prose-h3:italic
+    @apply prose-headings:!mb-3 prose-headings:!text-skin-base 
+    prose-h3:italic prose-p:!text-skin-base 
+    prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8
+    hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent
+    prose-blockquote:border-opacity-50 prose-blockquote:opacity-80
+    prose-figcaption:!text-skin-base prose-figcaption:opacity-70
+    prose-strong:!text-skin-base
 
     
-    prose-p:!text-skin-base prose-headings:!text-skin-base 
-    prose-ol:!text-skin-base prose-ul:!text-skin-base prose-blockquote:opacity-80 
-    prose-figcaption:!text-skin-base prose-figcaption:opacity-70
-    prose-code:bg-skin-card prose-code:bg-opacity-75 
-    prose-code:!text-skin-base prose-code:p-1 prose-code:rounded
-    prose-code:after:!content-[''] prose-code:before:!content-['']
-    prose-strong:!text-skin-base prose-table:text-skin-base 
-    prose-pre:!text-skin-base prose-a:!text-skin-base 
-    prose-hr:!border-skin-line prose-li:marker:!text-skin-accent 
-    prose-blockquote:!border-l-skin-accent prose-blockquote:border-opacity-50;
+    prose-code:rounded prose-code:bg-skin-card 
+    prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-skin-base 
+    prose-code:before:!content-[''] prose-code:after:!content-['']
+    prose-pre:!text-skin-base prose-ol:!text-skin-base 
+    prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent
+    prose-table:text-skin-base prose-th:border
+    prose-th:border-skin-line prose-td:border 
+    prose-td:border-skin-line prose-img:mx-auto 
+    prose-img:!mt-2 prose-img:border-2 
+    prose-img:border-skin-line prose-hr:!border-skin-line;
   }
   .prose a {
     @apply hover:!text-skin-accent;
@@ -81,7 +81,7 @@
     @apply mb-2;
   }
   .prose details {
-    @apply text-skin-base cursor-pointer inline-block select-none;
+    @apply inline-block cursor-pointer select-none text-skin-base;
   }
   .prose summary {
     @apply focus-outline;
@@ -121,6 +121,6 @@
     @apply hidden;
   }
   .focus-outline {
-    @apply outline-offset-1 outline-skin-fill outline-2 focus-visible:outline-dashed focus-visible:no-underline;
+    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
 }

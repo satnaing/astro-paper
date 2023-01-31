@@ -1,8 +1,8 @@
 ---
 title: How Do I Develop My Portfolio Website & Blog
 author: Sat Naing
-datetime: 2022-03-25T16:55:12.000+00:00
-slug: how-do-i-develop-my-portfolio-and-blog
+pubDatetime: 2022-03-25T16:55:12.000+00:00
+postSlug: how-do-i-develop-my-portfolio-and-blog
 featured: false
 draft: false
 tags:
@@ -10,6 +10,7 @@ tags:
   - TailwindCSS
   - HeadlessCMS
   - Blog
+ogImage: ""
 description:
   "EXAMPLE POST: My experience about developing my first portfolio website and a blog
   using NextJS and a headless CMS."

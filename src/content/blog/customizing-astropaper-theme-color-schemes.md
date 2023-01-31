@@ -1,8 +1,8 @@
 ---
 author: Sat Naing
-datetime: 2022-09-25T15:20:35Z
+pubDatetime: 2022-09-25T15:20:35Z
 title: Customizing AstroPaper theme color schemes
-slug: ""
+postSlug: ""
 featured: false
 draft: false
 tags:
@@ -130,3 +130,5 @@ Here is an example of changing the light color scheme.
   }
 }
 ```
+
+> Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.

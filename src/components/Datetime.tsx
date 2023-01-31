@@ -1,17 +1,17 @@
 export interface Props {
-  datetime: string;
+  datetime: string | Date;
   size?: "sm" | "lg";
   className?: string;
 }
 
 export default function Datetime({ datetime, size = "sm", className }: Props) {
   return (
-    <div className={`opacity-80 flex items-center space-x-2 ${className}`}>
+    <div className={`flex items-center space-x-2 opacity-80 ${className}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`${
           size === "sm" ? "scale-90" : "scale-100"
-        } w-6 h-6 inline-block fill-skin-base`}
+        } inline-block h-6 w-6 fill-skin-base`}
         aria-hidden="true"
       >
         <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
@@ -25,7 +25,7 @@ export default function Datetime({ datetime, size = "sm", className }: Props) {
   );
 }
 
-const FormattedDatetime = ({ datetime }: { datetime: string }) => {
+const FormattedDatetime = ({ datetime }: { datetime: string | Date }) => {
   const myDatetime = new Date(datetime);
 
   const date = myDatetime.toLocaleDateString([], {

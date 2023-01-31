@@ -1,5 +1,5 @@
 ---
-import { SOCIALS } from "src/config";
+import { SOCIALS } from "@config";
 import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
@@ -29,6 +29,6 @@ const { centered = false } = Astro.props;
     @apply flex-wrap justify-center gap-1;
   }
   .link-button {
-    @apply p-2 sm:p-1 hover:rotate-6;
+    @apply p-2 hover:rotate-6 sm:p-1;
   }
 </style>
