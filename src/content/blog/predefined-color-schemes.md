@@ -104,3 +104,18 @@ html[data-theme="dark"] {
   --color-border: 134, 67, 107;
 }
 ```
+
+### Astro dark
+
+![astro-dark-color-scheme](https://user-images.githubusercontent.com/53733092/215680520-59427bb0-f4cb-48c0-bccc-f182a428d72d.svg)
+
+```css
+html[data-theme="dark"] {
+  --color-fill: 16, 23, 42;
+  --color-text-base: 234, 237, 243;
+  --color-accent: 254, 93, 1;
+  --color-card: 27, 39, 70;
+  --color-card-muted: 138, 51, 2;
+  --color-border: 141, 56, 8;
+}
+```
