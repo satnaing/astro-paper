@@ -107,35 +107,35 @@ const { activeNav } = Astro.props;
 
 <style>
   #skip-to-content {
-    @apply bg-skin-accent text-skin-inverted py-2 px-3 absolute -top-full focus:top-4 left-16 z-50 transition-all;
+    @apply absolute -top-full left-16 z-50 bg-skin-accent py-2 px-3 text-skin-inverted transition-all focus:top-4;
   }
   .nav-container {
-    @apply max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center;
+    @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
   }
   .top-nav-wrap {
-    @apply relative w-full p-4 sm:py-8 flex justify-between items-start sm:items-center;
+    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
   }
   .logo {
-    @apply absolute sm:static font-semibold text-xl sm:text-2xl py-1;
+    @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;
   }
   .hamburger-menu {
     @apply self-end p-2 sm:hidden;
   }
   .hamburger-menu svg {
-    @apply fill-skin-base w-6 h-6 scale-125;
+    @apply h-6 w-6 scale-125 fill-skin-base;
   }
 
   nav {
-    @apply w-full sm:py-0 sm:ml-2 flex flex-col items-center sm:justify-end sm:flex-row sm:space-x-4 bg-skin-fill;
+    @apply flex w-full flex-col items-center bg-skin-fill sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0;
   }
   nav ul {
-    @apply mt-4 w-44 grid grid-rows-4 grid-cols-2 gap-y-2 gap-x-2 sm:gap-y-0 sm:mt-0 sm:ml-0 sm:w-auto sm:gap-x-5;
+    @apply mt-4 grid w-44 grid-cols-2 grid-rows-4 gap-y-2 gap-x-2 sm:mt-0 sm:ml-0 sm:w-auto sm:gap-y-0 sm:gap-x-5;
   }
   nav ul li {
-    @apply col-span-2 flex justify-center items-center;
+    @apply col-span-2 flex items-center justify-center;
   }
   nav ul li a {
-    @apply px-4 py-3 w-full text-center sm:px-2 sm:py-1 sm:my-0 font-medium hover:text-skin-accent;
+    @apply w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1;
   }
   nav ul li:nth-child(4) a {
     @apply w-auto;
@@ -145,7 +145,7 @@ const { activeNav } = Astro.props;
     @apply col-span-1;
   }
   nav a.active {
-    @apply underline underline-offset-4 decoration-wavy decoration-2;
+    @apply underline decoration-wavy decoration-2 underline-offset-4;
   }
   nav a.active svg {
     @apply fill-skin-accent;
@@ -155,20 +155,20 @@ const { activeNav } = Astro.props;
     @apply p-1;
   }
   nav button svg {
-    @apply w-6 h-6 fill-skin-base hover:fill-skin-accent;
+    @apply h-6 w-6 fill-skin-base hover:fill-skin-accent;
   }
   #theme-btn {
     @apply p-3 sm:p-1;
   }
   #theme-btn svg {
-    @apply hover:rotate-12 scale-125 sm:scale-100;
+    @apply scale-125 hover:rotate-12 sm:scale-100;
   }
 
   .icon-container {
-    @apply w-6 h-5 flex-col justify-between items-end;
+    @apply h-5 w-6 flex-col items-end justify-between;
   }
   .icon-container div {
-    @apply bg-skin-inverted h-0.5 transition-all;
+    @apply h-0.5 bg-skin-inverted transition-all;
   }
   #first-line {
     @apply w-full;

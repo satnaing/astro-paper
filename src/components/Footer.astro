@@ -28,16 +28,16 @@ const { noMarginTop = false } = Astro.props;
     @apply w-full;
   }
   .footer-wrapper {
-    @apply py-6 sm:py-4 flex flex-col sm:flex-row-reverse justify-between items-center;
+    @apply flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-4;
   }
   .link-button {
-    @apply p-2 my-1 hover:rotate-6;
+    @apply my-1 p-2 hover:rotate-6;
   }
   .link-button svg {
     @apply scale-125;
   }
   .copyright-wrapper {
-    @apply my-2 flex flex-col sm:flex-row items-center whitespace-nowrap;
+    @apply my-2 flex flex-col items-center whitespace-nowrap sm:flex-row;
   }
   .separator {
     @apply hidden sm:inline;
