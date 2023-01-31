@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/satnaing/astro-paper/compare/v1.4.0...v2.0.0) (2023-01-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Migration of Astro to version 2
+
+### Features
+
+* add Mastodon social link ([2ec3912](https://github.com/satnaing/astro-paper/commit/2ec39128c65fd0b1dafd6aebd48ac3068f40f9c5))
+* add new predefined color scheme 'astro dark' ([bc263b6](https://github.com/satnaing/astro-paper/commit/bc263b6eac00fbc8ec62481f2ec0317ee11bc83a))
+* define blog schema and add blog collection ([b420e68](https://github.com/satnaing/astro-paper/commit/b420e688ca3a197a7e4ea2591193fd09da817ec7))
+
+
+### Bug Fixes
+
+* add embedFont option for Satori ([9322123](https://github.com/satnaing/astro-paper/commit/93221239ddaebaa9ab183871cf978548ea8d0ea5))
+* exclude draft posts in specific tag page ([c192cd8](https://github.com/satnaing/astro-paper/commit/c192cd8e5042d4481bcb0d0389866cf4a969aa8d))
+* fix broken tags in PostDetails page ([a61fd45](https://github.com/satnaing/astro-paper/commit/a61fd455594932c66380a358b81b8bebb9d604cc))
+* fix typo in title and slug ([945acf4](https://github.com/satnaing/astro-paper/commit/945acf4260e0ea79bde8b180835049eda07d3e6a))
+* hide social links section if no link is active ([42eb018](https://github.com/satnaing/astro-paper/commit/42eb0188896a8475a7fbb894775e5500ca8b7d35)), closes [#16](https://github.com/satnaing/astro-paper/issues/16)
+* make the last part of breadcrumb lowercase in specific tag page ([c556202](https://github.com/satnaing/astro-paper/commit/c556202c972f1f9fed9af0ba6abf199e7deccc5f))
+* resolve initial onChange input value bug ([bf4f687](https://github.com/satnaing/astro-paper/commit/bf4f687d2d87cfeef96141c5324d02c37766845b))
+* update card bg color ([8a99601](https://github.com/satnaing/astro-paper/commit/8a99601e93f90c0870a22aa4a8ea8b7ff1b76a98))
+* use default-og for twitter card ([9434d85](https://github.com/satnaing/astro-paper/commit/9434d850e1f41f0802de5706c4c5712e5b5def9d))
+
+
+### build
+
+* **deps:** bump astro and its packages to v2 ([5f279b3](https://github.com/satnaing/astro-paper/commit/5f279b34f88bd94bed820d16c1e1d5e95859045f))
+
 ## [1.4.0](https://github.com/satnaing/astro-paper/compare/v1.3.0...v1.4.0) (2022-12-28)
 
 
