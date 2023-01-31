@@ -65,6 +65,12 @@ export const blogSchema = z.object({
 });
 ```
 
+### New Predefined Dark Color Scheme
+
+AstroPaper v2 has a new dark color scheme which is based on Astro's dark logo. Check out [this link](https://astro-paper.pages.dev/posts/predefined-color-schemes#astro-dark) for more info.
+
+![New Predefined Dark Color Scheme](https://user-images.githubusercontent.com/53733092/215680520-59427bb0-f4cb-48c0-bccc-f182a428d72d.svg)
+
 ### Updated Docs & README
 
 All the [#docs](https://astro-paper.pages.dev/tags/docs/) blog posts and [README](https://github.com/satnaing/astro-paper#readme) are updated for this AstroPaper v2.
