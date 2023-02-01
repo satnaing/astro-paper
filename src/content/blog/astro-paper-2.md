@@ -43,7 +43,7 @@ Contents are now fetched with `getCollection` function. No relative path to the 
 
 ### Modified Search Logic for better Search Result
 
-In the older version of AstroPaper, when someone search some article, the search cirtea keys that will be searched are `title`, `description` and `headings` (heading means all the headings h1 ~ h6 of the blog post). In AstroPaper v2, only `title` and `description` will be searched as the user types.
+In the older version of AstroPaper, when someone search some article, the search criteria keys that will be searched are `title`, `description` and `headings` (heading means all the headings h1 ~ h6 of the blog post). In AstroPaper v2, only `title` and `description` will be searched as the user types.
 
 ### Renamed Frontmatter Properties
 
