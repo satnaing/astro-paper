@@ -191,7 +191,7 @@ const { activeNav } = Astro.props;
   const secondLine = document.querySelector("#second-line ")?.classList;
   const thirdLine = document.querySelector("#third-line")?.classList;
 
-  menuBtn!.addEventListener("click", function (event) {
+  menuBtn?.addEventListener("click", function () {
     const menuExpanded = menuBtn?.getAttribute("aria-expanded");
     if (menuExpanded === "false") {
       menuBtn?.setAttribute("aria-expanded", "true");
