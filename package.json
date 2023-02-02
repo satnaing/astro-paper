@@ -33,6 +33,8 @@
     "@types/react": "^18.0.27",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.33.0",
+    "eslint-plugin-astro": "^0.23.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
