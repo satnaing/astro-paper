@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "cz": "cz",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/rss": "^2.1.0",
