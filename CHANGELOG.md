@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/satnaing/astro-paper/compare/v2.0.0...v2.1.0) (2023-02-08)
+
+
+### Features
+
+* add ESLint and update linting errors ([#26](https://github.com/satnaing/astro-paper/issues/26)) ([a9631d0](https://github.com/satnaing/astro-paper/commit/a9631d0e1e65ac4339c6b4d806b3a17928fa2b62))
+
+
+### Bug Fixes
+
+* make schema(s) strict ([#23](https://github.com/satnaing/astro-paper/issues/23)) ([dc026b3](https://github.com/satnaing/astro-paper/commit/dc026b38defa760d77eddcddb1d4f12fdf8fff99))
+
 ## [2.0.0](https://github.com/satnaing/astro-paper/compare/v1.4.0...v2.0.0) (2023-01-31)
 
 
