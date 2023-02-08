@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.1.0",
-    "astro": "^2.0.6",
+    "astro": "^2.0.8",
     "fuse.js": "^6.6.2",
     "github-slugger": "^2.0.0",
     "remark-collapse": "^0.1.2",
@@ -39,8 +39,8 @@
     "eslint": "^8.33.0",
     "eslint-plugin-astro": "^0.23.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
-    "prettier": "^2.8.3",
+    "lint-staged": "^13.1.1",
+    "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
