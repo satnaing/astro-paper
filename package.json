@@ -52,7 +52,7 @@
   },
   "lint-staged": {
     "*": [
-      "prettier --write"
+      "prettier --plugin-search-dir=. --write"
     ]
   }
 }
