@@ -95,7 +95,7 @@ Then, click "Add Template" button at the top right corner.
 
 Select new template based on existing document.
 
-![Creating new tamplate based on existing document](https://res.cloudinary.com/noezectz/v1663742179/astro-paper/forestry-io-existing-doc_bwcb9q.png)
+![Creating new template based on existing document](https://res.cloudinary.com/noezectz/v1663742179/astro-paper/forestry-io-existing-doc_bwcb9q.png)
 
 Then, add template name and choose one of my document page as template.
 
