@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/satnaing/astro-paper/compare/v2.1.0...v2.2.0) (2023-03-16)
+
+
+### Features
+
+* generate og images in png format ([#43](https://github.com/satnaing/astro-paper/issues/43)) ([27507d1](https://github.com/satnaing/astro-paper/commit/27507d1d78531901c20a17d9ce72728c6cbb521e)), closes [#40](https://github.com/satnaing/astro-paper/issues/40)
+
+
+### Bug Fixes
+
+* add plugin-search-dir in format & format:check ([37b54af](https://github.com/satnaing/astro-paper/commit/37b54afd9471eb35588e09f1f33ae1634732b02c))
+* add plugin-search-dir in prettier write for pnpm ([e49ca61](https://github.com/satnaing/astro-paper/commit/e49ca61d6b7048a8e8b2f50b1d947fd91eaca3eb)), closes [#34](https://github.com/satnaing/astro-paper/issues/34)
+* correct typo in blog posts ([cbce54b](https://github.com/satnaing/astro-paper/commit/cbce54bd1cf951c36a8603db8f7a8487481fc7f1)), closes [#35](https://github.com/satnaing/astro-paper/issues/35)
+* slugifyAll typo ([bcae985](https://github.com/satnaing/astro-paper/commit/bcae9856712773887664bb3a3392e1ebfd78607b))
+
 ## [2.1.0](https://github.com/satnaing/astro-paper/compare/v2.0.0...v2.1.0) (2023-02-08)
 
 
