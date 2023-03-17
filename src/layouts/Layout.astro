@@ -24,8 +24,6 @@ const socialImageURL = new URL(
   ogImage ? ogImage : SITE.ogImage,
   Astro.url.origin
 ).href;
-
-const fallbackImageURL = new URL(SITE.ogImage, Astro.url.origin).href;
 ---
 
 <!DOCTYPE html>
@@ -54,12 +52,7 @@ const fallbackImageURL = new URL(SITE.ogImage, Astro.url.origin).href;
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta
-      property="twitter:image"
-      content={socialImageURL.endsWith(".svg")
-        ? fallbackImageURL
-        : socialImageURL}
-    />
+    <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
