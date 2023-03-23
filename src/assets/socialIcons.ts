@@ -1,4 +1,4 @@
-import type { SocialIcons } from "@types";
+import type { SocialIcons } from "../types";
 
 const socialIcons: SocialIcons = {
   Github: `<svg
