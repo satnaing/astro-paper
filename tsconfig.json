@@ -9,7 +9,6 @@
       "@content/*": ["content/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
-      "@scripts/*": ["scripts/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"]
     }
