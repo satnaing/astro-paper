@@ -13,7 +13,8 @@
     "format": "prettier --plugin-search-dir=. --write .",
     "cz": "cz",
     "prepare": "husky install",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "new:post": "node scripts/new-post.js"
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.0",
