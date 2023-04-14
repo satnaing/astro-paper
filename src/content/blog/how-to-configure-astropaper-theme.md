@@ -47,6 +47,17 @@ Here are SITE configuration options
 | `lightAndDarkMode` | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                    |
 | `postPerPage`      | You can specify how many posts will be displayed in each posts page. (eg: if you set SITE.postPerPage to 3, each page will only show 3 posts per page)       |
 
+## Configuring locale
+
+You can configure the default locale used for the build (e.g., date format in the post page), and for the rendering in browsers (e.g., date format in the search page)
+
+```js
+// file: src/config.ts
+export const LOCALE = ["en-EN"]; // set to [] to use the environment default
+```
+
+You can even specify an array of locales for fallback languages. Leave it empty `[]` to use the environment default at _build-_ and _run-time_.
+
 ## Configuring logo or title
 
 You can specify site's title or logo image in `src/config.ts` file.
