@@ -53,7 +53,7 @@
     }
   },
   "lint-staged": {
-    "*": [
+    "!(*.{png,jpg,jpeg,webp})": [
       "prettier --plugin-search-dir=. --write"
     ]
   }
