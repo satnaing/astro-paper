@@ -38,11 +38,24 @@ const { activeNav } = Astro.props;
           aria-expanded="false"
           aria-controls="menu-items"
         >
-          <div class="icon-container flex">
-            <div id="first-line"></div>
-            <div id="second-line"></div>
-            <div id="third-line"></div>
-          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="menu-icon"
+          >
+            <line x1="7" y1="12" x2="21" y2="12" class="line"></line>
+            <line x1="3" y1="6" x2="21" y2="6" class="line"></line>
+            <line x1="12" y1="18" x2="21" y2="18" class="line"></line>
+            <line x1="18" y1="6" x2="6" y2="18" class="close"></line>
+            <line x1="6" y1="6" x2="18" y2="18" class="close"></line>
+          </svg>
         </button>
         <ul id="menu-items" class="display-none sm:flex">
           <li>
@@ -164,57 +177,34 @@ const { activeNav } = Astro.props;
     @apply scale-125 hover:rotate-12 sm:scale-100;
   }
 
-  .icon-container {
-    @apply h-5 w-6 flex-col items-end justify-between;
+  .menu-icon line {
+    @apply transition-opacity duration-75 ease-in-out;
   }
-  .icon-container div {
-    @apply h-0.5 bg-skin-inverted transition-all;
+  .menu-icon .close {
+    opacity: 0;
   }
-  #first-line {
-    @apply w-full;
+  .menu-icon.is-active .line {
+    @apply opacity-0;
   }
-  #second-line {
-    @apply w-3/4;
-  }
-  #third-line {
-    @apply w-1/2;
+  .menu-icon.is-active .close {
+    @apply opacity-100;
   }
 </style>
 
 <script>
   // Toggle menu
   const menuBtn = document.querySelector(".hamburger-menu");
-  const menuItems = document.querySelector("#menu-items")?.classList;
+  const menuIcon = document.querySelector(".menu-icon");
+  const menuItems = document.querySelector("#menu-items");
 
-  const iconContainer = document.querySelector(".icon-container")?.classList;
-  const firstLine = document.querySelector("#first-line")?.classList;
-  const secondLine = document.querySelector("#second-line ")?.classList;
-  const thirdLine = document.querySelector("#third-line")?.classList;
-
-  menuBtn?.addEventListener("click", function () {
-    const menuExpanded = menuBtn?.getAttribute("aria-expanded");
-    if (menuExpanded === "false") {
-      menuBtn?.setAttribute("aria-expanded", "true");
-      menuBtn?.setAttribute("aria-label", "Close Menu");
-      menuItems?.remove("display-none");
-
-      // icon animation
-      iconContainer?.remove("flex");
-      iconContainer?.add("relative");
-      firstLine?.add("rotate-45", "absolute", "bottom-1/2");
-      thirdLine?.add("display-none");
-      secondLine?.add("!w-full", "-rotate-45", "absolute", "bottom-1/2");
-    } else {
-      menuBtn?.setAttribute("aria-expanded", "false");
-      menuBtn?.setAttribute("aria-label", "Open Menu");
-      menuItems?.add("display-none");
-
-      // icon animation
-      iconContainer?.add("flex");
-      iconContainer?.remove("relative");
-      firstLine?.remove("rotate-45", "absolute", "bottom-1/2");
-      thirdLine?.remove("display-none");
-      secondLine?.remove("!w-full", "-rotate-45", "absolute", "bottom-1/2");
-    }
+  menuBtn?.addEventListener("click", () => {
+    const menuExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+    menuIcon?.classList.toggle("is-active");
+    menuBtn.setAttribute("aria-expanded", menuExpanded ? "false" : "true");
+    menuBtn.setAttribute(
+      "aria-label",
+      menuExpanded ? "Open Menu" : "Close Menu"
+    );
+    menuItems?.classList.toggle("display-none");
   });
 </script>
