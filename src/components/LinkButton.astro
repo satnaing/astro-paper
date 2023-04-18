@@ -11,10 +11,9 @@ const { href, className, ariaLabel, title, disabled = false } = Astro.props;
 ---
 
 <a
-  type="button"
   href={disabled ? "#" : href}
   tabindex={disabled ? "-1" : "0"}
-  class={`group ${className}`}
+  class={`group inline-block ${className}`}
   aria-label={ariaLabel}
   title={title}
   aria-disabled={disabled}
