@@ -28,6 +28,15 @@ export default defineConfig({
         },
       ],
     ],
+    remarkPlugins: ["remark-math"],
+    rehypePlugins: [
+      [
+        "rehype-katex",
+        {
+          // Katex plugin options
+        },
+      ],
+    ],
     shikiConfig: {
       theme: "one-dark-pro",
       wrap: true,
