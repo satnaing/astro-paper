@@ -13,8 +13,7 @@ export interface Props {
 
 const { post } = Astro.props;
 
-let { title, author, description, ogImage, pubDatetime, tags } = post.data;
-tags = tags.map(tag => slugifyStr(tag));
+const { title, author, description, ogImage, pubDatetime, tags } = post.data;
 
 const { Content } = await post.render();
 
@@ -44,7 +43,7 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin)
     </article>
 
     <ul class="tags-container">
-      {tags.map(tag => <Tag name={tag} />)}
+      {tags.map(tag => <Tag name={slugifyStr(tag)} />)}
     </ul>
   </main>
   <Footer />
