@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/satnaing/astro-paper/compare/v2.2.0...v2.3.0) (2023-05-15)
+
+
+### Features
+
+* add locale configuration for Datetime component ([#59](https://github.com/satnaing/astro-paper/issues/59)) ([0e9f709](https://github.com/satnaing/astro-paper/commit/0e9f709c5dbd9a75aaf33e7994e88216fd56d8be))
+
+
+### Bug Fixes
+
+* add missing sitemap in head ([#69](https://github.com/satnaing/astro-paper/issues/69)) ([f6ac810](https://github.com/satnaing/astro-paper/commit/f6ac8104b2ba20de3b71eb5dde395e5adce9dfe7))
+* build error astro@2.1.4 && update astro@2.1.5 ([#49](https://github.com/satnaing/astro-paper/issues/49)) ([dd4fd98](https://github.com/satnaing/astro-paper/commit/dd4fd989722cbcb3e98045e808a32292cf555900))
+* **ignore:** added yarn directories to ignorefiles ([f3e9cd5](https://github.com/satnaing/astro-paper/commit/f3e9cd51479fd41f3c0e8863ac13c77d6daa2605))
+* replace history entries when searching ([#62](https://github.com/satnaing/astro-paper/issues/62)) ([a57f343](https://github.com/satnaing/astro-paper/commit/a57f3439f801c1d41256a8a46bd319c17dff86f1))
+* slugify tags in post detail page ([49d7f77](https://github.com/satnaing/astro-paper/commit/49d7f77a86987c00d211090301b662e21a27ce17))
+* sort rss feed from latest to oldest ([#38](https://github.com/satnaing/astro-paper/issues/38)) ([9e62b63](https://github.com/satnaing/astro-paper/commit/9e62b637e8ddb65f5f274fd0154191212dda0590))
+* tailwind jsdoc for intellisense ([99709dd](https://github.com/satnaing/astro-paper/commit/99709dd3aa2329220a497f7038b7ab069d389847))
+* update lint-staged configuration ([e654c03](https://github.com/satnaing/astro-paper/commit/e654c0308c26ccffdd0a4abc50f0adb99c76d9ca)), closes [#52](https://github.com/satnaing/astro-paper/issues/52)
+* update menu element with svg and refactor toggle logic ([0f76424](https://github.com/satnaing/astro-paper/commit/0f764242fea14565798085447d8524b4bf05f76a))
+
 ## [2.2.0](https://github.com/satnaing/astro-paper/compare/v2.1.0...v2.2.0) (2023-03-16)
 
 
