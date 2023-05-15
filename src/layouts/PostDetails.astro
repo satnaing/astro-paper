@@ -5,6 +5,7 @@ import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -12,7 +13,8 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const { title, author, description, ogImage, pubDatetime, tags } = post.data;
+let { title, author, description, ogImage, pubDatetime, tags } = post.data;
+tags = tags.map(tag => slugifyStr(tag));
 
 const { Content } = await post.render();
 
