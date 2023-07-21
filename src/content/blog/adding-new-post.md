@@ -23,17 +23,18 @@ Frontmatter is the main place to store some important information about the post
 
 Here is the list of frontmatter property for each post.
 
-| Property          | Description                                                                     | Remark                                        |
-| ----------------- | ------------------------------------------------------------------------------- | --------------------------------------------- |
-| **_title_**       | Title of the post. (h1)                                                         | required<sup>\*</sup>                         |
-| **_description_** | Description of the post. Used in post excerpt and site description of the post. | required<sup>\*</sup>                         |
-| **_pubDatetime_** | Published datetime in ISO 8601 format.                                          | required<sup>\*</sup>                         |
-| **_author_**      | Author of the post.                                                             | default = SITE.author                         |
-| **_postSlug_**    | Slug for the post. Will automatically be slugified.                             | default = slugified title                     |
-| **_featured_**    | Whether or not display this post in featured section of home page               | default = false                               |
-| **_draft_**       | Mark this post 'unpublished'.                                                   | default = false                               |
-| **_tags_**        | Related keywords for this post. Written in array yaml format.                   | default = others                              |
-| **_ogImage_**     | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated SVG image |
+| Property           | Description                                                                     | Remark                                        |
+| ------------------ | ------------------------------------------------------------------------------- | --------------------------------------------- |
+| **_title_**        | Title of the post. (h1)                                                         | required<sup>\*</sup>                         |
+| **_description_**  | Description of the post. Used in post excerpt and site description of the post. | required<sup>\*</sup>                         |
+| **_pubDatetime_**  | Published datetime in ISO 8601 format.                                          | required<sup>\*</sup>                         |
+| **_author_**       | Author of the post.                                                             | default = SITE.author                         |
+| **_postSlug_**     | Slug for the post. Will automatically be slugified.                             | default = slugified title                     |
+| **_featured_**     | Whether or not display this post in featured section of home page               | default = false                               |
+| **_draft_**        | Mark this post 'unpublished'.                                                   | default = false                               |
+| **_tags_**         | Related keywords for this post. Written in array yaml format.                   | default = others                              |
+| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated SVG image |
+| **_canonicalUrl_** | Canonical URL (absolute), in case the article already exists on other source.   | default = `Astro.site` + `Astro.url.pathname` |
 
 Only `title`, `description` and `pubDatetime` fields in frontmatter must be specified.
 
@@ -73,6 +74,7 @@ tags:
   - tags
 ogImage: ""
 description: This is the example description of the example post.
+canonicalUrl: https://example.org/my-article-was-already-posted-here
 ---
 ```
 
