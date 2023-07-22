@@ -11,6 +11,7 @@ export const blogSchema = z
     tags: z.array(z.string()).default(["others"]),
     ogImage: z.string().optional(),
     description: z.string(),
+    canonicalURL: z.string().optional(),
   })
   .strict();
 

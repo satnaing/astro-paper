@@ -9,6 +9,7 @@ export interface Props {
   author?: string;
   description?: string;
   ogImage?: string;
+  canonicalURL?: string;
 }
 
 const {
@@ -16,9 +17,8 @@ const {
   author = SITE.author,
   description = SITE.desc,
   ogImage = SITE.ogImage,
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const socialImageURL = new URL(
   ogImage ? ogImage : SITE.ogImage,
