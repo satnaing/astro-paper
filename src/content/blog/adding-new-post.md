@@ -34,7 +34,7 @@ Here is the list of frontmatter property for each post.
 | **_draft_**        | Mark this post 'unpublished'.                                                   | default = false                               |
 | **_tags_**         | Related keywords for this post. Written in array yaml format.                   | default = others                              |
 | **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated SVG image |
-| **_canonicalUrl_** | Canonical URL (absolute), in case the article already exists on other source.   | default = `Astro.site` + `Astro.url.pathname` |
+| **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.   | default = `Astro.site` + `Astro.url.pathname` |
 
 Only `title`, `description` and `pubDatetime` fields in frontmatter must be specified.
 
@@ -74,7 +74,7 @@ tags:
   - tags
 ogImage: ""
 description: This is the example description of the example post.
-canonicalUrl: https://example.org/my-article-was-already-posted-here
+canonicalURL: https://example.org/my-article-was-already-posted-here
 ---
 ```
 
