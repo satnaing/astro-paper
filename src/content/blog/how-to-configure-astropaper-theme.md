@@ -3,7 +3,7 @@ author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
 title: How to configure AstroPaper theme
 postSlug: how-to-configure-astropaper-theme
-featured: true
+featured: false
 draft: false
 tags:
   - configuration
