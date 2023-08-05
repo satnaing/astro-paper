@@ -35,7 +35,7 @@ const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 const tagPosts = getPostsByTag(posts, tag);
 
-const sortTagsPost = getSortedPosts(tagPosts)
+const sortTagsPost = getSortedPosts(tagPosts);
 ---
 
 <Layout title={`Tag:${tag} | ${SITE.title}`}>
