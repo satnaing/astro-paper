@@ -114,6 +114,11 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-skin-card-muted;
   }
+
+  code {
+    white-space: pre;
+    overflow: scroll;
+  }
 }
 
 @layer components {
