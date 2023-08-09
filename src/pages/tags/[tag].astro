@@ -9,6 +9,7 @@ import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import slugify from "@utils/slugify";
 import { SITE } from "@config";
+import getSortedPosts from "@utils/getSortedPosts";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -33,6 +34,8 @@ const { tag } = Astro.props;
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 const tagPosts = getPostsByTag(posts, tag);
+
+const sortTagsPost = getSortedPosts(tagPosts);
 ---
 
 <Layout title={`Tag:${tag} | ${SITE.title}`}>
@@ -43,7 +46,7 @@ const tagPosts = getPostsByTag(posts, tag);
   >
     <ul>
       {
-        tagPosts.map(({ data }) => (
+        sortTagsPost.map(({ data }) => (
           <Card href={`/posts/${slugify(data)}`} frontmatter={data} />
         ))
       }
