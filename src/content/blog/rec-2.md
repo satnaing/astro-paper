@@ -5,6 +5,7 @@ pubDatetime: 2023-07-25T04:06:31Z
 postSlug: my-recent-2
 featured: false
 draft: false
+ogImage: /public/astropaper-og.jpg
 tags:
   - TypeScript
   - Astro
