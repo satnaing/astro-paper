@@ -1,6 +1,6 @@
 ---
-// Remove current url path and remove trailing slash if exists
-const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
+// Remove trailing slash if exists
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/g, "");
 
 // Get url array from path
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
@@ -45,14 +45,11 @@ breadcrumbList[0] === "posts" &&
   .breadcrumb {
     @apply mx-auto mb-1 mt-8 w-full max-w-3xl px-4;
   }
+  .breadcrumb ul {
+    @apply flex gap-x-2;
+  }
   .breadcrumb ul li {
-    @apply inline;
-  }
-  .breadcrumb ul li a {
-    @apply capitalize opacity-70;
-  }
-  .breadcrumb ul li span {
-    @apply opacity-70;
+    @apply capitalize opacity-70 flex gap-x-2;
   }
   .breadcrumb ul li:not(:last-child) a {
     @apply hover:opacity-100;
