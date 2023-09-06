@@ -21,7 +21,7 @@ const { activeNav } = Astro.props;
         {
           LOGO_IMAGE.enable ? (
             <img
-              src={LOGO_IMAGE.svg ? logoSVG : logoPNG}
+              src={LOGO_IMAGE.svg ? logoSVG.src : logoPNG.src}
               alt="AstroPaper Logo"
               width={LOGO_IMAGE.width}
               height={LOGO_IMAGE.height}
