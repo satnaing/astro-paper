@@ -1,5 +1,5 @@
 ---
-// Remove trailing slash if exists
+// Get current url path and, if exists, remove trailing slash
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/g, "");
 
 // Get url array from path
@@ -51,7 +51,7 @@ breadcrumbList[0] === "posts" &&
   .breadcrumb ul li {
     @apply capitalize opacity-70 flex gap-x-2;
   }
-  .breadcrumb ul li:not(:last-child) a {
+  .breadcrumb ul li:not(:last-child) {
     @apply hover:opacity-100;
   }
 </style>
