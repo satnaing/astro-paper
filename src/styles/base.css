@@ -128,4 +128,16 @@
   .focus-outline {
     @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
+
+  /* Card */
+  .list-card {
+    @apply my-6;
+  }
+  .list-card > a {
+    @apply inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0;
+  }
+  .list-card h2,
+  .list-card h3 {
+    @apply text-lg font-medium decoration-dashed hover:underline;
+  }
 }
