@@ -67,9 +67,9 @@ export default function SearchBar({ searchList }: Props) {
       searchParams.set("q", inputVal);
       const newRelativePathQuery =
         window.location.pathname + "?" + searchParams.toString();
-      history.replaceState(null, "", newRelativePathQuery);
+      history.replaceState(history.state, "", newRelativePathQuery);
     } else {
-      history.replaceState(null, "", window.location.pathname);
+      history.replaceState(history.state, "", window.location.pathname);
     }
   }, [inputVal]);
 
