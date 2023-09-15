@@ -10,9 +10,7 @@ export default defineConfig({
   site: "https://astro-paper.pages.dev/", // replace this with your deployed domain
   integrations: [
     tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
+      applyBaseStyles: false,
     }),
     react(),
     sitemap(),
