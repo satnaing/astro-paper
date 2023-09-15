@@ -18,7 +18,7 @@ const { title, author, description, ogImage, canonicalURL, pubDatetime, tags } =
 
 const { Content } = await post.render();
 
-const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin)
+const ogUrl = new URL(ogImage ? ogImage : `${post.slug}.png`, Astro.url.origin)
   .href;
 ---
 

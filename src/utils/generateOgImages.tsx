@@ -2,6 +2,7 @@ import satori, { type SatoriOptions } from "satori";
 import { SITE } from "@config";
 import { writeFile } from "node:fs/promises";
 import { Resvg } from "@resvg/resvg-js";
+import { getCollection } from "astro:content";
 
 const fetchFonts = async () => {
   // Regular Font
@@ -135,21 +136,42 @@ const options: SatoriOptions = {
   ],
 };
 
-const generateOgImage = async (mytext = SITE.title) => {
-  const svg = await satori(ogImage(mytext), options);
+const generateOgImages = async () => {
+  const postImportResult = await getCollection(
+    "blog",
+    ({ data }) => !data.draft
+  );
+  const posts = Object.values(postImportResult).filter(
+    ({ data }) => !data.ogImage
+  );
 
-  // render png in production mode
-  if (import.meta.env.MODE === "production") {
-    const resvg = new Resvg(svg);
-    const pngData = resvg.render();
-    const pngBuffer = pngData.asPng();
+  const imageGenerationPromises = posts.map(async post => {
+    const svg = await satori(ogImage(post.data.title), options);
 
-    console.info("Output PNG Image  :", `${mytext}.png`);
+    // render png in production mode
+    if (import.meta.env.MODE === "production") {
+      const resvg = new Resvg(svg);
+      const pngData = resvg.render();
+      const pngBuffer = pngData.asPng();
 
-    await writeFile(`./dist/${mytext}.png`, pngBuffer);
-  }
+      const outputImage = `${post.slug}.png`;
 
-  return svg;
+      const LIGHT_BLUE = "\x1b[94m";
+      const DARK_GRAY = "\x1b[30m";
+      const RESET = "\x1b[0m";
+      console.info(
+        `  ${LIGHT_BLUE}└─${RESET} output png image:`,
+        `${DARK_GRAY}/${outputImage}${RESET}`
+      );
+
+      await writeFile(`./dist/${outputImage}`, pngBuffer);
+    }
+  });
+
+  // Wait for all image generation operations to complete
+  await Promise.all(imageGenerationPromises);
+
+  return null;
 };
 
-export default generateOgImage;
+export default generateOgImages;
