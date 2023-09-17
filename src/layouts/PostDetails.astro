@@ -43,7 +43,7 @@ const ogUrl = new URL(ogImage ? ogImage : `${post.slug}.png`, Astro.url.origin)
     </button>
   </div>
   <main id="main-content">
-    <h1 transition:name={title} class="post-title">{title}</h1>
+    <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
     <Datetime datetime={pubDatetime} size="lg" className="my-2" />
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />

@@ -1,6 +1,7 @@
 ---
 import Datetime from "@components/Datetime";
 import type { BlogFrontmatter } from "@content/_schemas";
+import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
   href?: string;
@@ -14,7 +15,7 @@ const { title, pubDatetime, description } = frontmatter;
 ---
 
 <li class="list-card">
-  <a href={href} transition:name={title}>
+  <a href={href} transition:name={slugifyStr(title)}>
     {secHeading ? <h2>{title}</h2> : <h3>{title}</h3>}
   </a>
   <Datetime datetime={pubDatetime} />
