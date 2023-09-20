@@ -14,5 +14,3 @@ export const blogSchema = z
     canonicalURL: z.string().optional(),
   })
   .strict();
-
-export type BlogFrontmatter = z.infer<typeof blogSchema>;
