@@ -18,7 +18,7 @@ Here are some rules/recommendations, tips & ticks for creating new posts in Astr
 
 ## Frontmatter
 
-Frontmatter is the main place to store some important information about the post (article). Frontmatter lies at the top of the article and is written in YAML format. Read more about frontmatter and its usage in [astro documentation](https://docs.astro.build/en/guides/markdown-content/).
+Frontmatter is the main place to store some important information about the blog post (article). Frontmatter lies at the top of the article and is written in YAML format. Read more about frontmatter and its usage in [astro documentation](https://docs.astro.build/en/guides/markdown-content/).
 
 Here is the list of frontmatter property for each post.
 
@@ -41,16 +41,15 @@ Title and description (excerpt) are important for search engine optimization (SE
 
 `slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` needs to be separated with `-` or `_` but `-` is recommended. However, even if you don't write the correct slug, AstroPaper will automatically slugify your incorrect slug. If slug is not specified, the slugified title of the post will be used as slug.
 
-If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `/src/content/_schemas.ts` file.
+If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `/src/content/config.ts` file.
 
 ```ts
-// src/contents/_schemas.ts
+// src/content/config.ts
 export const blogSchema = z.object({
   // ---
-  // replace "others" with whatever you want
-  tags: z.array(z.string()).default(["others"]),
-  ogImage: z.string().optional(),
-  description: z.string(),
+  draft: z.boolean().optional(),
+  tags: z.array(z.string()).default(["others"]), // replace "others" with whatever you want
+  // ---
 });
 ```
 
@@ -59,7 +58,7 @@ export const blogSchema = z.object({
 Here is the sample frontmatter for a post.
 
 ```yaml
-# src/contents/sample-post.md
+# src/content/blog/sample-post.md
 ---
 title: The title of the post
 author: your name
@@ -103,11 +102,55 @@ There's one thing to note about headings. The AstroPaper blog posts use title (t
 
 This rule is not mandatory, but highly recommended for visual, accessibility and SEO purposes.
 
+## Storing Images for Blog Content
+
+Here are two methods for storing images and displaying them inside a markdown file.
+
+> Note! If it's a requirement to style optimized images in markdown you should [use MDX](https://docs.astro.build/en/guides/images/#images-in-mdx-files).
+
+### Inside `src/assets/` directory (recommended)
+
+You can store images inside `src/assets/` directory. These images will be automatically optimized by Astro through [Image Service API](https://docs.astro.build/en/reference/image-service-reference/).
+
+You can use relative path or alias path (`@assets/`) to serve these images.
+
+Example: Suppose you want to display `example.jpg` whose path is `/src/assets/images/example.jpg`.
+
+```md
+![something](@assets/images/example.jpg)
+
+<!-- OR -->
+
+![something](../../assets/images/example.jpg)
+
+<!-- Using img tag or Image component won't work ❌ -->
+<img src="@assets/images/example.jpg" alt="something">
+<!-- ^^ This is wrong -->
+```
+
+> Technically, you can store images inside any directory under `src`. In here, `src/assets` is just a recommendation.
+
+### Inside `public` directory
+
+You can store images inside the `public` directory. Keep in mind that images stored in the `public` directory remain untouched by Astro, meaning they will be unoptimized and you need to handle image optimization by yourself.
+
+For these images, you should use an absolute path; and these images can be displayed using [markdown annotation](https://www.markdownguide.org/basic-syntax/#images-1) or [HTML img tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img).
+
+Example: Assume `example.jpg` is located at `/public/assets/images/example.jpg`.
+
+```md
+![something](/assets/images/example.jpg)
+
+<!-- OR -->
+
+<img src="/assets/images/example.jpg" alt="something">
+```
+
 ## Bonus
 
 ### Image compression
 
-When you put images in the blog post, it is recommended that the image is compressed. This will affect the overall performance of the website.
+When you put images in the blog post (especially for images under `public` directory), it is recommended that the image is compressed. This will affect the overall performance of the website.
 
 My recommendation for image compression sites.
 
