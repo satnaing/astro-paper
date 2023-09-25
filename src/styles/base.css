@@ -115,7 +115,8 @@
     @apply bg-skin-card-muted;
   }
 
-  code, blockquote {
+  code,
+  blockquote {
     word-wrap: break-word;
   }
 
