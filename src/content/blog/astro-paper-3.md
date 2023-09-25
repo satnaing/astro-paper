@@ -66,8 +66,105 @@ The single-line code block wrapping issue has been solved, making your code snip
 
 Update nav style CSS to allow adding more nav links to the navigation.
 
+## Upgrade to AstroPaper v3
+
+> This section is only for those who want to upgrade AstroPaper v3 from the older versions.
+
+This section will help you migrate from AstroPaper v2 to AstroPaper v3.
+
+Before reading the rest of the section, you might also want to check [this article](https://astro-paper.pages.dev/posts/how-to-update-dependencies/) for upgrading dependencies and AstroPaper.
+
+## Option 1: Fresh Restart (recommended)
+
+In this release, a lot of changes have been made\_ replacing old Astro APIs with newer APIs, bug fixes, new features etc. Thus, if you are someone who didn't make customization very much, you should follow this approach.
+
+**_Step 1: Keep all your updated files_**
+
+It's important to keep all the files which have been already updated. These files include
+
+- `/src/config.ts` (didn't touch in v3)
+- `/src/styles/base.css` (minor changes in v3; mentioned below)
+- `/src/assets/` (didn't touch in v3)
+- `/public/assets/` (didn't touch in v3)
+- `/content/blog/` (it's your blog content directory 🤷🏻‍♂️)
+- Any other customizations you've made.
+
+```css
+/* file: /src/styles/base.css */
+@layer base {
+  /* Other Codes */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-skin-card-muted;
+  }
+
+  /* Old code
+  code {
+    white-space: pre;
+    overflow: scroll;
+  } 
+  */
+
+  /* New code */
+  code,
+  blockquote {
+    word-wrap: break-word;
+  }
+  pre > code {
+    white-space: pre;
+  }
+}
+
+@layer components {
+  /* other codes */
+}
+```
+
+**_Step 1: Replace everything else with AstroPaper v3_**
+
+In this step, replace everything\_ except above files/directories (plus your customized files/directories)\_ with AstroPaper v3.
+
+**_Step 3: Schema Updates_**
+
+Keep in mind that `/src/content/_schemas.ts` has been replaced with `/src/content/config.ts`.
+
+Besides, there is no longer `BlogFrontmatter` type exported from `/src/content/config.ts`.
+
+Therefore, all the `BlogFrontmatter` type inside files need to be updated with `CollectionEntry<"blog">["data"]`.
+
+For example: `src/components/Card.tsx`
+
+```ts
+// AstroPaper v2
+import type { BlogFrontmatter } from "@content/_schemas";
+
+export interface Props {
+  href?: string;
+  frontmatter: BlogFrontmatter;
+  secHeading?: boolean;
+}
+```
+
+```ts
+// AstroPaper v3
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  href?: string;
+  frontmatter: CollectionEntry<"blog">["data"];
+  secHeading?: boolean;
+}
+```
+
+## Option 2: Upgrade using Git
+
+This approach is not recommended for most users. You should do the "Option 1" if you can. Only do this if you know how to resolve merge conflicts and you know what you're doing.
+
+Actually, I've already written a blog post for this case and you can check out [here](https://astro-paper.pages.dev/posts/how-to-update-dependencies/#updating-astropaper-using-git).
+
 ## Outro
 
 Ready to explore the exciting new features and improvements in AstroPaper v3? Start [using AstroPaper](https://github.com/satnaing/astro-paper) now.
 
 For other bug fixes and integration updates, check out the [release notes](https://github.com/satnaing/astro-paper/releases/tag/v3.0.0) to learn more.
+
+If you encounter any bugs or face difficulties during the upgrade process, please feel free to open an issue or start a discussion on [GitHub](https://github.com/satnaing/astro-paper).
