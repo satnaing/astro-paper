@@ -32,7 +32,7 @@ Here is the list of frontmatter property for each post.
 | **_featured_**     | Whether or not display this post in featured section of home page               | default = false                               |
 | **_draft_**        | Mark this post 'unpublished'.                                                   | default = false                               |
 | **_tags_**         | Related keywords for this post. Written in array yaml format.                   | default = others                              |
-| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated SVG image |
+| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO.                  | default = SITE.ogImage or generated OG image  |
 | **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.   | default = `Astro.site` + `Astro.url.pathname` |
 
 Only `title`, `description` and `pubDatetime` fields in frontmatter must be specified.
