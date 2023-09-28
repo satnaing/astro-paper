@@ -1,4 +1,4 @@
-@import url(https://fonts.bunny.net/css?family=armata:400);
+@import url(https://fonts.bunny.net/css?family=armata:400|nunito-sans:400|fira-sans:400);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
