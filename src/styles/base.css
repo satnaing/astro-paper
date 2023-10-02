@@ -70,7 +70,7 @@
     prose-img:border-skin-line prose-hr:!border-skin-line;
   }
   .prose a {
-    @apply hover:!text-skin-accent;
+    @apply break-words hover:!text-skin-accent;
   }
   .prose thead th:first-child,
   tbody td:first-child,
