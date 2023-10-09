@@ -37,7 +37,7 @@ export function remarkReadingTime() {
 }
 ```
 
-Step (3) Add the plugin to `astro.config.mjs`
+Step (3) Add the plugin to `astro.config.ts`
 
 ```js
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs"; // make sure your relative path is correct
