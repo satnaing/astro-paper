@@ -20,11 +20,9 @@ description: 印象的だったものを記録してます
 
 ### 韓国
 
-### 2度目のコロナ。さようなら北海道
+![photo](../../assets/images/P1001261.jpg)
 
 ## 10月
-
-### 2度目のコロナ。さようなら北海道
 
 ### 2度目の開発合宿 at 渋谷オフィス
 
@@ -33,24 +31,18 @@ description: 印象的だったものを記録してます
 友人結婚式が熊本で行われたため、久々に熊本に。
 新幹線最長記録更新のために、行きは新幹線で行きましたｗ
 
-レトロな感じの電車が良かった
+結婚式はとても素敵でした！泣いちゃった
+![photo](../../assets/images/P1002123.jpg)
+
+式場まで向かうローカル電車もレトロな感じで良かった
 ![photo](../../assets/images/P1002002.jpg)
 
-阿蘇山も行ったけど、今回は初めての大観峰
+阿蘇山は3回ほど行ったことがあるけれど、毎回草千里へ行っていたので、反対側の大観峰は初めて。
 
 ![photo](../../assets/images/P1001925.jpg)
-
-<details>
-  <summary>photo galally</summary>
-
 ![photo](../../assets/images/P1001873.jpg)
-![photo](../../assets/images/P1001925.jpg)
 ![photo](../../assets/images/P1001926.jpg)
-
-</details>
-
-結婚式はとても素敵でした！泣いちゃった
-
-![photo](../../assets/images/P1002123.jpg)
+![photo](../../assets/images/P1001847.jpg)
+![photo](../../assets/images/P1001878.jpg)
 
 ### 3年ぶりのBBQ
