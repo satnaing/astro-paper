@@ -6,7 +6,7 @@ export const SITE: Site = {
   desc: "hiromiのぶろぐ",
   title: "ぶろぐ",
   ogImage: "blog-og.jpg",
-  lightAndDarkMode: true,
+  lightAndDarkMode: false,
   postPerPage: 3,
 };
 
