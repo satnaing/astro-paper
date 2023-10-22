@@ -5,7 +5,7 @@ export const SITE: Site = {
   author: "Hiromi Fukuda",
   desc: "hiromi blog",
   title: "blog",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "blog-og.jpg",
   lightAndDarkMode: true,
   postPerPage: 3,
 };
