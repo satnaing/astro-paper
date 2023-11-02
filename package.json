@@ -19,13 +19,13 @@
     "@astrojs/check": "^0.2.0",
     "@astrojs/rss": "^3.0.0",
     "@resvg/resvg-js": "^2.4.1",
-    "astro": "^3.3.3",
+    "astro": "^3.4.2",
     "fuse.js": "^6.6.2",
     "github-slugger": "^2.0.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.8",
-    "tailwindcss": "^3.3.4",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
