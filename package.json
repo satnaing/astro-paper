@@ -25,6 +25,7 @@
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.8",
+    "sharp": "^0.32.6",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   },
@@ -50,6 +51,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
+  "trustedDependencies": [
+    "sharp"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
