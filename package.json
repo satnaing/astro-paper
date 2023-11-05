@@ -26,6 +26,7 @@
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.8",
+    "sharp": "^0.32.6",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   },
