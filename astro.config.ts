@@ -40,4 +40,9 @@ export default defineConfig({
   },
   scopedStyleStrategy: "where",
   output: "static",
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/noop",
+    },
+  },
 });
