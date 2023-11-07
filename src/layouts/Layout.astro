@@ -2,6 +2,8 @@
 import { SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -11,6 +13,7 @@ export interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  activeNav?: string;
 }
 
 const {
@@ -88,7 +91,12 @@ const socialImageURL = new URL(
 
     <script is:inline src="/toggle-theme.js"></script>
   </head>
+
   <body>
-    <slot />
+    <Header activeNav={Astro.props.activeNav} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

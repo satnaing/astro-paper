@@ -12,13 +12,14 @@ const { noMarginTop = false } = Astro.props;
 ---
 
 <footer class={`${noMarginTop ? "" : "mt-auto"}`}>
-  <Hr noPadding />
+  <Hr />
   <div class="footer-wrapper">
     <Socials centered />
     <div class="copyright-wrapper">
-      <span>Copyright &#169; {currentYear}</span>
+      <span>&#169; {currentYear}</span>
+      <span> &nbsp;Moritz Frisch</span>
       <span class="separator">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+      <span>Alle Rechte vorbehalten.</span>
     </div>
   </div>
 </footer>

@@ -3,8 +3,7 @@ import { getCollection } from "astro:content";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+
 import SearchBar from "@components/Search";
 
 // Retrieve all articles
@@ -18,10 +17,8 @@ const searchList = posts.map(({ data }) => ({
 }));
 ---
 
-<Layout title={`Search | ${SITE.title}`}>
-  <Header activeNav="search" />
+<Layout title={`Search | ${SITE.title}`} ,activeNav="search">
   <Main pageTitle="Search" pageDesc="Search any article ...">
     <SearchBar client:load searchList={searchList} />
   </Main>
-  <Footer />
 </Layout>

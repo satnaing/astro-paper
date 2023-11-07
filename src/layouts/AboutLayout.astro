@@ -15,14 +15,11 @@ export interface Props {
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={`${frontmatter.title} | ${SITE.title}`}>
-  <Header activeNav="about" />
-  <Breadcrumbs />
+<Layout title={`${frontmatter.title} | ${SITE.title}`} , activeNav="about">
   <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
+    <section id="about" class="prose mb-28 mt-10 max-w-6xl prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
       <slot />
     </section>
   </main>
-  <Footer />
 </Layout>
