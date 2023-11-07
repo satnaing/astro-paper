@@ -1,5 +1,5 @@
 import satori, { type SatoriOptions } from "satori";
-import { Resvg } from "@resvg/resvg-js";
+// import { Resvg } from "@resvg/resvg-js";
 import { type CollectionEntry } from "astro:content";
 import postOgImage from "./og-templates/post";
 import siteOgImage from "./og-templates/site";
