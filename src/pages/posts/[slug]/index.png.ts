@@ -3,6 +3,8 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { generateOgImageForPost } from "@utils/generateOgImages";
 import { slugifyStr } from "@utils/slugify";
 
+// export const prerender = true;
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog").then(p =>
     p.filter(({ data }) => !data.draft && !data.ogImage)

@@ -16,6 +16,8 @@ export interface Props {
   tag: string;
 }
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
