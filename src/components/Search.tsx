@@ -7,7 +7,7 @@ import type { CollectionEntry } from "astro:content";
 export type SearchItem = {
   title: string;
   description: string;
-  data: CollectionEntry<"blog">["data"];
+  data: CollectionEntry<"lunch">["data"];
 };
 
 interface Props {
@@ -96,7 +96,6 @@ export default function SearchBar({ searchList }: Props) {
           ref={inputRef}
         />
       </label>
-
       {inputVal.length > 1 && (
         <div className="mt-8">
           Found {searchResults?.length}

@@ -7,18 +7,17 @@ import Main from "@layouts/Main.astro";
 import SearchBar from "@components/Search";
 
 // Retrieve all articles
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = await getCollection("lunch", ({ data }) => !data.draft);
 
 // List of items to search in
 const searchList = posts.map(({ data }) => ({
   title: data.title,
-  description: data.description,
   data,
 }));
 ---
 
-<Layout title={`Search | ${SITE.title}`} ,activeNav="search">
-  <Main pageTitle="Search" pageDesc="Search any article ...">
-    <SearchBar client:load searchList={searchList} />
+<Layout title={`Suchen | ${SITE.title}`} ,activeNav="search">
+  <Main pageTitle="Suchen" pageDesc="Die Suche ist noch nicht verfügbar.">
+    <!--  <SearchBar client:load searchList={searchList} /> -->
   </Main>
 </Layout>
