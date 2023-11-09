@@ -38,6 +38,7 @@ export default defineConfig({
     },
   },
   scopedStyleStrategy: "where",
-  output: "server",
-  adapter: cloudflare(),
+  output: "static",
+  //output: "server",
+  //adapter: cloudflare(),
 });

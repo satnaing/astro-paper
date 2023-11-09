@@ -1,0 +1,22 @@
+---
+import { getEntry } from "astro:content";
+
+export interface Props {
+  post: {
+    data: {
+      id: number;
+      title: string;
+    };
+    slug: string;
+  };
+}
+
+const { post } = Astro.props;
+const entry = await getEntry("lunch", post.slug);
+const { Content } = await entry!.render();
+---
+
+<li>
+  <a href={`/lunch/${post.slug}/`}>{post.data.id}.&nbsp;{post.data.title}</a>
+  <Content />
+</li>

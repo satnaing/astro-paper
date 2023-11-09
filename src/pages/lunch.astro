@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
+import Meal from "@components/Meal.astro";
 const title = "Mittagskarte:";
 const activeNav = "lunch";
 const posts = await getCollection("lunch");
@@ -13,16 +14,7 @@ const posts = await getCollection("lunch");
     </h1>
     <p>Hier kommt die Mittagskarte hin.</p>
     <ul>
-      {
-        posts.map(post => (
-          <>
-            <p>
-              {post.data.id}.&nbsp;{post.data.title}
-            </p>
-            <a href={`/lunch/${post.slug}/`}>Zum Post</a>
-          </>
-        ))
-      }
+      {posts.map(post => <Meal {post} />)}
     </ul>
   </section>
 </Layout>

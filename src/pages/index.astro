@@ -1,6 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "../components/Header.astro";
+import { Image } from "astro:assets";
+import TitleImage from "../assets/images/title.jpg";
 ---
 
 <Layout>
@@ -8,6 +10,12 @@ import Header from "../components/Header.astro";
     <h1 class="my-4 mr-2 inline-block text-3xl font-bold sm:my-8 sm:text-5xl">
       Willkommen im Restaurant Rhodos!
     </h1>
+
+    <Image
+      src={TitleImage}
+      alt="Willkommen im Restaurant Rhodos!"
+      class="my-4 block sm:my-8"
+    />
     <p>Ihr gemütlicher Grieche in Weiterstadt.</p>
   </section>
 </Layout>
