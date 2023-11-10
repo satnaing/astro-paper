@@ -14,8 +14,8 @@ const { frontmatter } = Astro.props;
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`} , activeNav="lunch">
   <main id="main-content">
-    <section id="about" class="prose mb-28 mt-10 max-w-6xl prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">
+    <section id="about">
+      <h1 class="py-4 text-2xl tracking-wider sm:text-3xl">
         {frontmatter.title}
       </h1>
       <slot />

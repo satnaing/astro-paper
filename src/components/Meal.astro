@@ -18,14 +18,14 @@ const entry = await getEntry("lunch", post.slug);
 const { Content } = await entry!.render();
 ---
 
-<li class="mb-2">
+<li class="mb-5">
   <div class="flex w-full justify-items-start">
-    <div class="px-2 text-2xl">
+    <div class="px-2 text-lg">
       <span>{post.data.id}.</span>
     </div>
     <div class="flex w-full">
       <div class="flex-auto">
-        <div class="w-full flex-1 text-2xl hover:text-skin-accent">
+        <div class="w-full flex-1 text-lg hover:text-skin-accent">
           <a href={`/lunch/${post.slug}/`}> {post.data.title}</a>
         </div>
         <div>
@@ -33,7 +33,7 @@ const { Content } = await entry!.render();
         </div>
       </div>
       <div>
-        <span>{euro.format(post.data.price)}</span>
+        <span class="text-lg">{euro.format(post.data.price)}</span>
       </div>
     </div>
   </div>
