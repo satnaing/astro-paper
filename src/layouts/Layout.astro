@@ -4,6 +4,7 @@ import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import Navigation from "@components/Navigation.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -31,7 +32,7 @@ const socialImageURL = new URL(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="de-DE" id="root" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -84,9 +85,14 @@ const socialImageURL = new URL(
 
   <body>
     <Header activeNav={Astro.props.activeNav} />
+    <!-- <Navigation /> -->
     <main id="main-content">
       <slot />
     </main>
     <Footer />
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
   </body>
 </html>

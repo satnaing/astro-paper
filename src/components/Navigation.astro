@@ -1,0 +1,26 @@
+---
+const { activeNav } = Astro.props;
+import { isTemplateExpression } from "typescript";
+import MenuItem from "./MenuItem.astro";
+const menuItems = [
+  {
+    title: "Home",
+    href: "/",
+  },
+  {
+    title: "About",
+    href: "/about",
+  },
+  {
+    title: "Blog",
+    href: "/blog",
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
+];
+const title = "abc";
+---
+
+<MenuItem {title} />
