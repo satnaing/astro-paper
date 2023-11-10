@@ -1,6 +1,7 @@
 ---
 import LunchLayout from "@layouts/LunchLayout.astro";
 import { getCollection } from "astro:content";
+import euro from "@utils/euro";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("lunch");
@@ -16,4 +17,5 @@ export const prerender = true;
 
 <LunchLayout frontmatter={entry.data}>
   <Content />
+  <p>{euro.format(entry.data.price)}</p>
 </LunchLayout>

@@ -17,31 +17,19 @@ export type Props = StringTitleProp | ArrayTitleProp;
 const { props } = Astro;
 ---
 
-<main id="main-content">
+<main id="main-content" class="mx-auto w-full max-w-6xl px-4 pb-12">
   {
     "titleTransition" in props ? (
-      <h1>
+      <h1 class="text-2xl font-semibold sm:text-3xl">
         {props.pageTitle[0]}
         <span transition:name={props.titleTransition}>
           {props.pageTitle[1]}
         </span>
       </h1>
     ) : (
-      <h1>{props.pageTitle}</h1>
+      <h1 class="text-2xl font-semibold sm:text-3xl">{props.pageTitle}</h1>
     )
   }
-  <p>{props.pageDesc}</p>
+  <p class="mb-6 mt-2 italic">{props.pageDesc}</p>
   <slot />
 </main>
-
-<style>
-  #main-content {
-    @apply mx-auto w-full max-w-6xl px-4 pb-12;
-  }
-  #main-content h1 {
-    @apply text-2xl font-semibold sm:text-3xl;
-  }
-  #main-content p {
-    @apply mb-6 mt-2 italic;
-  }
-</style>

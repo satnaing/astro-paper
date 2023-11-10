@@ -1,11 +1,13 @@
 ---
 import { getEntry } from "astro:content";
+import euro from "../utils/euro";
 
 export interface Props {
   post: {
     data: {
-      id: number;
+      id: string;
       title: string;
+      price: number;
     };
     slug: string;
   };
@@ -16,7 +18,23 @@ const entry = await getEntry("lunch", post.slug);
 const { Content } = await entry!.render();
 ---
 
-<li>
-  <a href={`/lunch/${post.slug}/`}>{post.data.id}.&nbsp;{post.data.title}</a>
-  <Content />
+<li class="mb-2">
+  <div class="flex w-full justify-items-start">
+    <div class="px-2 text-2xl">
+      <span>{post.data.id}.</span>
+    </div>
+    <div class="flex w-full">
+      <div class="flex-auto">
+        <div class="w-full flex-1 text-2xl hover:text-skin-accent">
+          <a href={`/lunch/${post.slug}/`}> {post.data.title}</a>
+        </div>
+        <div>
+          <Content />
+        </div>
+      </div>
+      <div>
+        <span>{euro.format(post.data.price)}</span>
+      </div>
+    </div>
+  </div>
 </li>

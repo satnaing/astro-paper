@@ -1,20 +1,66 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { Image } from "astro:assets";
-import TitleImage from "../assets/images/title.jpg";
+
+import StatueImage from "../assets/images/title.jpg";
 ---
 
 <Layout>
   <section>
-    <h1 class="my-4 mr-2 text-3xl font-bold sm:my-8 sm:text-5xl">
-      Willkommen im Restaurant Rhodos!
-    </h1>
+    <div class="flex items-center justify-center">
+      <h1 class="my-4 mr-2 text-3xl font-bold sm:my-8 sm:text-5xl">
+        Willkommen im Restaurant Rhodos!
+      </h1>
+    </div>
+    <div class="p-4 text-center">
+      <p class="text-lg">
+        Entdecken Sie den Charme Griechenlands direkt an der B42. Unser
+        gemütliches Restaurant Rhodos bietet Ihnen nicht nur einen großen
+        Parkplatz, sondern auch eine herzliche, familiäre Atmosphäre. Genießen
+        Sie authentische griechische Küche zu einem fairen
+        Preis-Leistungsverhältnis und lassen Sie sich von unseren speziellen
+        Cocktails in der Lounge verwöhnen. Für Unterhaltung ist ebenfalls
+        gesorgt: Regelmäßige Live-Events machen jeden Besuch zu einem Erlebnis.
+        Zudem bieten wir die perfekte Location für Feierlichkeiten in größeren
+        Gruppen. Wir freuen uns auf Ihren Besuch!
+      </p>
+    </div>
+  </section>
 
-    <Image
-      src={TitleImage}
-      widths={[256, 512, 768, 1024]}
-      alt="Willkommen im Restaurant Rhodos!"
-    />
-    <p>Ihr gemütlicher Grieche in Weiterstadt.</p>
+  <section class="my-8">
+    <div class="flex flex-col items-center justify-center sm:flex-row">
+      <Image
+        class="m-auto mr-8 w-64 rounded-lg shadow-xl sm:my-8"
+        src={StatueImage}
+        widths={[256, 512, 768, 1024, 2048]}
+        alt="Statue"
+      />
+      <div>
+        <h2 class="my-4 text-2xl font-bold">
+          Entdecken Sie den Geschmack Griechenlands
+        </h2>
+        <p class="text-lg">
+          In Weiterstadt erwartet Sie das <strong>Restaurant Rhodos</strong> –
+          ein Ort, an dem traditionelle Gastfreundschaft auf zeitgenössischen
+          Genuss trifft.
+        </p>
+        <p class="my-2 text-lg">
+          Erleben Sie eine kulinarische Reise mit unserer vielfältigen
+          Speisekarte, die von frischen, lokal bezogenen Zutaten inspiriert ist.
+          Unsere Spezialitäten umfassen:
+        </p>
+        <ul class="my-4 list-inside list-disc">
+          <li>Herzhafte Meze</li>
+          <li>Frisch gegrilltes Fleisch</li>
+          <li>Delikate Fischspezialitäten</li>
+          <li>Ausgewählte vegetarische Optionen</li>
+        </ul>
+        <p class="text-lg">
+          Genießen Sie unsere Gerichte in einem <strong
+            >gemütlichen Ambiente</strong
+          >, begleitet von einem aufmerksamen Service, der Sie begeistern wird.
+        </p>
+      </div>
+    </div>
   </section>
 </Layout>

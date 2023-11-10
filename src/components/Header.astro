@@ -1,7 +1,8 @@
 ---
 import { LOGO_IMAGE, SITE } from "@config";
-import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
+import { Image } from "astro:assets";
+import TitleImage from "../assets/images/title-page.jpg";
 
 export interface Props {
   activeNav?: string;
@@ -11,7 +12,6 @@ const { activeNav } = Astro.props;
 ---
 
 <header>
-  <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
       <div>
@@ -122,18 +122,25 @@ const { activeNav } = Astro.props;
       </nav>
     </div>
   </div>
-  <Hr />
+
+  <div class="mx-auto flex items-center justify-center">
+    <div class="relative flex max-w-6xl p-4">
+      <Image
+        class="hidden rounded-lg shadow-xl sm:block"
+        src={TitleImage}
+        widths={[256, 512, 768, 1024, 2048]}
+        alt="Willkommen im Restaurant Rhodos!"
+      />
+    </div>
+  </div>
 </header>
 
 <style>
-  #skip-to-content {
-    @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4;
-  }
   .nav-container {
     @apply mx-auto flex max-w-6xl flex-col items-center justify-between sm:flex-row;
   }
   .top-nav-wrap {
-    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+    @apply relative flex w-full items-start justify-between p-4 sm:items-center;
   }
   .logo {
     @apply absolute py-1 text-xl font-semibold sm:static sm:text-2xl;

@@ -20,6 +20,7 @@
     --color-card-muted: 138, 51, 2;
     --color-border: 236, 233, 233;
   }
+
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
     display: none;

@@ -5,7 +5,7 @@ const lunch = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
-      id: z.number(),
+      id: z.string(),
       title: z.string(),
       price: z.number(),
       image: image().optional(),
