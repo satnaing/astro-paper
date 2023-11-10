@@ -30,7 +30,7 @@
     display: block;
   }
   body {
-    @apply bg-gray-400 flex min-h-[100svh] flex-col bg-skin-fill font-mono 
+    @apply flex min-h-[100svh] flex-col font-mono 
     text-skin-base selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-inverted;
   }
   section {
