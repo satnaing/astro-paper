@@ -8,10 +8,11 @@ const currentYear = new Date().getFullYear();
   class="w-full bg-gradient-to-r from-blue-600 to-blue-100 text-sm text-blue-800"
 >
   <div
-    class="flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row"
+    class="flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 lg:flex-row lg:justify-center"
   >
+    <!-- Adresse -->
     <div
-      class="flex flex-col items-center sm:flex-auto sm:items-start sm:text-blue-200 md:order-1"
+      class="flex flex-col items-center sm:flex-auto lg:order-1 lg:items-start lg:text-blue-200"
     >
       <p>Restaurant Rhodos</p>
       <p>Mainzer Straße 2, 64331 Weiterstadt</p>
@@ -20,22 +21,25 @@ const currentYear = new Date().getFullYear();
         >E-Mail: info@restaurant-rhodos.net</a
       >
     </div>
-    <div class="m-auto flex flex-col items-center md:order-3">
+
+    <!-- Öffnungszeiten -->
+    <div class="flex flex-col items-center lg:order-3 lg:flex-auto">
       <p>Öffnungszeiten:</p>
       <p>Dienstag - Freitag & Sonntag:</p><p>12:00 - 14:30 und 17:00 - 23:00</p>
       <p>Samstag: 17:00 - 23:00</p>
       <p>Montag: Ruhetag</p>
     </div>
-  </div>
 
-  <div class="flex flex-col items-center md:order-2">
-    <div class="flex items-center">
-      <span class=""
-        >&copy; {currentYear} Moritz Frisch. Alle Rechte vorbehalten.</span
-      >
-    </div>
-    <div class="flex">
-      <Socials />
+    <!-- Socials -->
+    <div class="flex flex-col items-center lg:order-2 lg:flex-auto">
+      <div class="flex items-center">
+        <span class=""
+          >&copy; {currentYear} Moritz Frisch. Alle Rechte vorbehalten.</span
+        >
+      </div>
+      <div class="flex">
+        <Socials />
+      </div>
     </div>
   </div>
 </footer>
