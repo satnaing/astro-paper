@@ -1,15 +1,18 @@
 ---
-import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="text-gray-200 w-full bg-gradient-to-r from-blue-600 to-blue-100">
+<footer
+  class="w-full bg-gradient-to-r from-blue-600 to-blue-100 text-sm text-blue-800"
+>
   <div
-    class="md:grid-cols-3 mx-auto flex max-w-6xl grid-cols-1 items-center justify-between gap-4 px-4 py-8"
+    class="flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row"
   >
-    <div class="text-blue-200 flex flex-col items-start text-sm">
+    <div
+      class="flex flex-col items-center sm:flex-auto sm:items-start sm:text-blue-200 md:order-1"
+    >
       <p>Restaurant Rhodos</p>
       <p>Mainzer Straße 2, 64331 Weiterstadt</p>
       <p>Telefon: 06150-4120</p>
@@ -17,8 +20,7 @@ const currentYear = new Date().getFullYear();
         >E-Mail: info@restaurant-rhodos.net</a
       >
     </div>
-
-    <div class="text-blue-800 flex flex-col items-center text-sm">
+    <div class="m-auto flex flex-col items-center md:order-3">
       <p>Öffnungszeiten:</p>
       <p>Dienstag - Freitag & Sonntag:</p><p>12:00 - 14:30 und 17:00 - 23:00</p>
       <p>Samstag: 17:00 - 23:00</p>
@@ -26,12 +28,12 @@ const currentYear = new Date().getFullYear();
     </div>
   </div>
 
-  <div
-    class="md:px-8 text-blue-800 flex items-center justify-between px-4 py-4"
-  >
-    <span class="text-blue-200 text-sm"
-      >&copy; {currentYear} Moritz Frisch. Alle Rechte vorbehalten.</span
-    >
+  <div class="flex flex-col items-center md:order-2">
+    <div class="flex items-center">
+      <span class=""
+        >&copy; {currentYear} Moritz Frisch. Alle Rechte vorbehalten.</span
+      >
+    </div>
     <div class="flex">
       <Socials />
     </div>
