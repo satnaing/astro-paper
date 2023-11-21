@@ -140,4 +140,10 @@ export const SOCIALS: SocialObjects = [
     linkTitle: `${SITE.title} on Mastodon`,
     active: false,
   },
+  {
+    name: "Sessionize",
+    href: "https://github.com/satnaing/astro-paper",
+    linkTitle: `${SITE.title} on Sessionize`,
+    active: false,
+  },
 ];
