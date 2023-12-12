@@ -27,7 +27,7 @@ breadcrumbList[0] === "posts" &&
               aria-current="page"
             >
               {/* make the last part lowercase in Home > Tags > some-tag */}
-              {breadcrumb}
+              {decodeURIComponent(breadcrumb)}
             </span>
           </li>
         ) : (
