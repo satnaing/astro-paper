@@ -21,7 +21,8 @@
         "vscode": {
             "extensions": [
                 "astro-build.astro-vscode",
-                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "rvest.vs-code-prettier-eslint",
                 "eliostruyf.vscode-front-matter"
             ]
         }
