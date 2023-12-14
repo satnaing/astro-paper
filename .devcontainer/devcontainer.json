@@ -1,0 +1,29 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+    "name": "Astro Dev Container",
+    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "image": "mcr.microsoft.com/devcontainers/base:alpine-3.18",
+    "features": {
+        "ghcr.io/cirolosapio/devcontainers-features/alpine-node:0": {
+            "lts": true,
+            "corepack": true,
+            "pnpmVersion": "latest"
+        }
+    },
+    "portsAttributes": {
+        "4321": {
+            "label": "Application",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "astro-build.astro-vscode",
+                "esbenp.prettier-vscode",
+                "eliostruyf.vscode-front-matter"
+            ]
+        }
+    }
+}
