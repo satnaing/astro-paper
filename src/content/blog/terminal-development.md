@@ -30,7 +30,7 @@ Recently, I've developed and published my portfolio + a blog. I’m glad I got s
 
 ## Tech Stack
 
-This project is a frontend project without any backend codes. The UI/UX part is designed in Figma. For the frontend user-interface, I chose React over pain JavaScript and NextJS. Why?
+This project is a frontend project without any backend codes. The UI/UX part is designed in Figma. For the frontend user-interface, I chose React over plain JavaScript and NextJS. Why?
 
 - Firstly, I want to write declarative code. Managing HTML DOM using JavaScript imperatively is really tedious.
 - Secondly, because it is React!!! It is fast, and reliable.
