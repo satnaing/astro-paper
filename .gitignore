@@ -16,13 +16,9 @@ pnpm-debug.log*
 .env
 .env.production
 
-# macOS-specific files
-.DS_Store
-
-# ignore .astro directory
+# additional folders to ignore
 .astro
-
-# ignore Jampack cache files
+.frontmatter
 .jampack/
 
 # yarn
