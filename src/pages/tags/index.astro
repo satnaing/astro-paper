@@ -10,6 +10,7 @@ import { SITE } from "@config";
 
 const posts = await getCollection("blog");
 
+// Tags come transformed: replace spaces with hyphens and convert to lowercase
 let tags = getUniqueTags(posts);
 ---
 

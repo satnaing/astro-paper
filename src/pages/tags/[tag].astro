@@ -7,7 +7,6 @@ import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
 import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
-import slugify from "@utils/slugify";
 import { SITE } from "@config";
 import getSortedPosts from "@utils/getSortedPosts";
 
@@ -19,6 +18,7 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
+  // Tags come transformed: replace spaces with hyphens and convert to lowercase
   const tags = getUniqueTags(posts);
 
   return tags.map(tag => {
@@ -33,9 +33,12 @@ const { tag } = Astro.props;
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
+// Tags are transformed in getUniqueTags(), therefore we have to transform the tags
+// property of the posts here too, which is done in getUniqueTags()
 const tagPosts = getPostsByTag(posts, tag);
 
 const sortTagsPost = getSortedPosts(tagPosts);
+
 ---
 
 <Layout title={`Tag:${tag} | ${SITE.title}`}>
@@ -48,8 +51,8 @@ const sortTagsPost = getSortedPosts(tagPosts);
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul>
       {
-        sortTagsPost.map(({ data }) => (
-          <Card href={`/posts/${slugify(data)}`} frontmatter={data} />
+        sortTagsPost.map(({ slug, data }) => (
+          <Card href={`/posts/${slug}`} frontmatter={data} />
         ))
       }
     </ul>
