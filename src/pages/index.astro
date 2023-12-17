@@ -8,7 +8,6 @@ import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import slugify from "@utils/slugify";
 import { SOCIALS } from "@config";
 
 const posts = await getCollection("blog");
@@ -74,9 +73,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ data }) => (
+              {featuredPosts.map(({ slug, data }) => (
                 <Card
-                  href={`/posts/${slugify(data)}`}
+                  href={`/posts/${slug}`}
                   frontmatter={data}
                   secHeading={false}
                 />
@@ -95,10 +94,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           sortedPosts
             .filter(({ data }) => !data.featured)
             .map(
-              ({ data }, index) =>
+              ({ slug, data }, index) =>
                 index < 4 && (
                   <Card
-                    href={`/posts/${slugify(data)}`}
+                    href={`/posts/${slug}`}
                     frontmatter={data}
                     secHeading={false}
                   />
