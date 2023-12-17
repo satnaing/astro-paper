@@ -2,9 +2,8 @@
 title: How to add an estimated reading time in AstroPaper
 author: Sat Naing
 pubDatetime: 2023-07-21T10:11:06.130Z
-postSlug: how-to-add-estimated-reading-time
+slug: add-estimated-reading-time-astropaper
 featured: false
-draft: false
 tags:
   - FAQ
 description: How you can add an 'Reading time' in your blog posts of AstroPaper.
