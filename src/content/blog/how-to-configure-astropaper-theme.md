@@ -52,10 +52,14 @@ You can configure the default locale used for the build (e.g., date format in th
 
 ```js
 // file: src/config.ts
-export const LOCALE = ["en-EN"]; // set to [] to use the environment default
+export const LOCALE = {
+  lang: "en", // html lang code. Set this empty and default will be "en"
+  langTag: ["en-EN"], // BCP 47 Language Tags. Set this empty [] to use the environment default
+} as const;
 ```
 
-You can even specify an array of locales for fallback languages. Leave it empty `[]` to use the environment default at _build-_ and _run-time_.
+`LOCALE.lang` will be used as HTML ISO Language code in `<html lang="en">`. If you don't specify this, default fallback will be set to `en`.
+`LOCALE.langTag` is used as [datetime locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString#locales). For this, you can specify an array of locales for fallback languages. Leave `LOCALE.langTag` empty `[]` to use the environment default at _build-_ and _run-time_.
 
 ## Configuring logo or title
 

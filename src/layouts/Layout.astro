@@ -1,5 +1,5 @@
 ---
-import { SITE } from "@config";
+import { LOCALE, SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 
@@ -28,7 +28,7 @@ const socialImageURL = new URL(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang=`${LOCALE.lang ?? "en"}`>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
