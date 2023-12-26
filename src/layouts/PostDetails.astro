@@ -13,8 +13,16 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const { title, author, description, ogImage, canonicalURL, pubDatetime, tags } =
-  post.data;
+const {
+  title,
+  author,
+  description,
+  ogImage,
+  canonicalURL,
+  pubDatetime,
+  modDatetime,
+  tags,
+} = post.data;
 
 const { Content } = await post.render();
 
@@ -23,15 +31,19 @@ const ogUrl = new URL(
   ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
   Astro.url.origin
 ).href;
+
+const layoutProps = {
+  title,
+  author,
+  description,
+  pubDatetime,
+  modDatetime,
+  canonicalURL,
+  ogImage: ogUrl,
+};
 ---
 
-<Layout
-  title={title}
-  author={author}
-  description={description}
-  ogImage={ogUrl}
-  canonicalURL={canonicalURL}
->
+<Layout {...layoutProps}>
   <Header />
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
@@ -47,7 +59,12 @@ const ogUrl = new URL(
   </div>
   <main id="main-content">
     <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
-    <Datetime datetime={pubDatetime} size="lg" className="my-2" />
+    <Datetime
+      pubDatetime={pubDatetime}
+      modDatetime={modDatetime}
+      size="lg"
+      className="my-2"
+    />
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
     </article>
