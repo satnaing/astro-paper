@@ -7,7 +7,6 @@ import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
 import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
-import slugify from "@utils/slugify";
 import { SITE } from "@config";
 import getSortedPosts from "@utils/getSortedPosts";
 
@@ -48,8 +47,8 @@ const sortTagsPost = getSortedPosts(tagPosts);
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul>
       {
-        sortTagsPost.map(({ data }) => (
-          <Card href={`/posts/${slugify(data)}`} frontmatter={data} />
+        sortTagsPost.map(({ data, slug }) => (
+          <Card href={`/posts/${slug}`} frontmatter={data} />
         ))
       }
     </ul>

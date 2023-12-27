@@ -2,8 +2,8 @@
 title: How to add an estimated reading time in AstroPaper
 author: Sat Naing
 pubDatetime: 2023-07-21T10:11:06.130Z
-modDatetime: 2023-12-21T05:03:41.955Z
-postSlug: how-to-add-estimated-reading-time
+modDatetime: 2023-12-26T08:39:25.181Z
+slug: how-to-add-estimated-reading-time
 featured: false
 draft: false
 tags:
@@ -89,8 +89,8 @@ Step (5) Create a new file called `getPostsWithRT.ts` under `src/utils` director
 
 ```ts
 import type { MarkdownInstance } from "astro";
-import slugify from "./slugify";
 import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "./slugify";
 
 export const getReadingTime = async () => {
   // Get all posts using glob. This is to get the updated frontmatter
@@ -104,7 +104,10 @@ export const getReadingTime = async () => {
   await Promise.all(
     globPostsValues.map(async globPost => {
       const { frontmatter } = await globPost();
-      mapFrontmatter.set(slugify(frontmatter), frontmatter.readingTime);
+      mapFrontmatter.set(
+        slugifyStr(frontmatter.title),
+        frontmatter.readingTime
+      );
     })
   );
 
@@ -114,7 +117,7 @@ export const getReadingTime = async () => {
 const getPostsWithRT = async (posts: CollectionEntry<"blog">[]) => {
   const mapFrontmatter = await getReadingTime();
   return posts.map(post => {
-    post.data.readingTime = mapFrontmatter.get(slugify(post.data));
+    post.data.readingTime = mapFrontmatter.get(slugifyStr(post.data.title));
     return post;
   });
 };
@@ -138,8 +141,8 @@ export async function getStaticPaths() {
 
   const postsWithRT = await getPostsWithRT(posts); // replace reading time logic with this func
 
-  const postResult = postsWithRT.map(post => ({ // make sure to replace posts with postsWithRT
-    params: { slug: slugify(post.data) },
+   const postResult = postsWithRT.map(post => ({ // make sure to replace posts with postsWithRT
+    params: { slug: post.slug },
     props: { post },
   }));
 

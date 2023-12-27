@@ -2,7 +2,7 @@
 author: Sat Naing
 pubDatetime: 2023-09-25T10:25:54.547Z
 title: AstroPaper 3.0
-postSlug: astro-paper-v3
+slug: astro-paper-v3
 featured: true
 ogImage: https://github.com/satnaing/astro-paper/assets/53733092/1ef0cf03-8137-4d67-ac81-84a032119e3a
 tags:
