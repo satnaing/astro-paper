@@ -70,7 +70,7 @@ const layoutProps = {
     </article>
 
     <ul class="my-8">
-      {tags.map(tag => <Tag name={slugifyStr(tag)} />)}
+      {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
     </ul>
     <div class="flex justify-end">
       <button
