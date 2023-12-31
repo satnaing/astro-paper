@@ -1,0 +1,79 @@
+stages:
+  - code-style
+  - build
+  - deploy
+
+default:
+  image: node:20.10.0
+  before_script:
+    - npm pkg delete scripts.prepare
+    - npm run ci
+
+cache:
+    - &global_cache_node_mods
+      key:
+          files:
+              - package-lock.json
+      paths:
+          - .npm/
+      policy: pull 
+
+install_dependencies:
+  stage: .pre
+  script:
+    - npm run ci
+  cache:
+    - <<: *global_cache_node_mods
+      when: on_success
+      policy: pull-push
+  artifacts:
+    paths:
+      - .npm
+  only:
+    changes:
+      - package.json
+
+lint-job:
+  stage: code-style
+  script: 
+    - echo "Starting to lint the application..."
+    - npm run lint
+    - echo "Finished linting the application..."
+
+format-job:
+  stage: code-style
+  script: 
+    - echo "Starting to format check the application..."
+    - npm run format:check
+    - echo "Finished format checking the application..."
+
+build-job:
+  stage: build
+  script:
+    - echo "Building the code..."
+    - npm run build
+    - echo "Build complete."
+  artifacts:
+    name: "astro-paper-blog"
+    when: on_success
+    expire_in: "30 days"
+    paths:
+      - "dist/*"
+
+pages:
+  stage: deploy  
+  environment: production
+  dependencies:
+    - "build-job"
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - ''
+  script:
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
