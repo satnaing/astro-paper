@@ -7,7 +7,7 @@ default:
   image: node:20.10.0
   before_script:
     - npm pkg delete scripts.prepare
-    - npm run ci
+    - npm npm ci --cache .npm --prefer-offline
 
 cache:
     - &global_cache_node_mods
