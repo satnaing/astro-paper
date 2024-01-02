@@ -93,7 +93,7 @@ You can configure your own social links along with its icons.
 
 ![An arrow pointing at social link icons](https://res.cloudinary.com/noezectz/v1663914759/astro-paper/astro-paper-socials_tkcjgq.png)
 
-Currently 20 social icons are supported. (Github, LinkedIn, Facebook etc.)
+Currently 21 social icons are supported. (Github, LinkedIn, Facebook etc.)
 
 You can specify and enable certain social links in hero section and footer. To do this, go to `/src/config.ts` and then you'll find `SOCIALS` array of object.
 
