@@ -2,13 +2,13 @@
 title: How to add an estimated reading time in AstroPaper
 author: Sat Naing
 pubDatetime: 2023-07-21T10:11:06.130Z
-modDatetime: 2023-12-26T08:39:25.181Z
+modDatetime: 2024-01-03T14:53:25Z
 slug: how-to-add-estimated-reading-time
 featured: false
 draft: false
 tags:
   - FAQ
-description: How you can add an 'Reading time' in your blog posts of AstroPaper.
+description: How you can add an 'Estimated Reading time' in your blog posts of AstroPaper.
 ---
 
 As the [Astro docs](https://docs.astro.build/en/recipes/reading-time/) say, we can use remark plugin to add a reading time property in our frontmatter. However, for some reason, we can't add this feature by following what stated in Astro docs. Therefore, to achieve this, we have to tweak a little bit. This post will demonstrate how we can do that.
@@ -211,7 +211,9 @@ Files that use `getSortedPosts` function are as follow
 - src/pages/index.astro
 - src/pages/posts/index.astro
 - src/pages/rss.xml.ts
+- src/pages/posts/index.astro
 - src/pages/posts/[slug].astro
+- src/utils/getPostsByTag.ts
 
 All you have to do is like this
 
