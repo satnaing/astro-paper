@@ -1,6 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-26T12:13:24Z
+modDatetime: 2024-01-04T09:09:06Z
 title: Predefined color schemes
 slug: predefined-color-schemes
 featured: false
@@ -162,5 +163,20 @@ html[data-theme="dark"] {
   --color-card: 52, 63, 96;
   --color-card-muted: 125, 79, 124;
   --color-border: 100, 36, 81;
+}
+```
+
+### AstroPaper v4 Special (New dark theme in AstroPaper 4)
+
+![AstroPaper v4 new theme](https://github.com/satnaing/astro-paper/assets/53733092/66eb74dc-7a0e-4f2e-982d-25f5c443b25a)
+
+```css
+html[data-theme="dark"] {
+  --color-fill: 0, 1, 35;
+  --color-accent: 97, 123, 255;
+  --color-text-base: 234, 237, 243;
+  --color-card: 33, 34, 83;
+  --color-card-muted: 12, 14, 79;
+  --color-border: 48, 63, 138;
 }
 ```
