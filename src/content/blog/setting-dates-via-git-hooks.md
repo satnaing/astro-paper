@@ -7,11 +7,12 @@ featured: false
 draft: false
 tags:
   - docs
+  - FAQ
 canonicalURL: https://smale.codes/posts/setting-dates-via-git-hooks/
-description: How to use Git Hooks to set your Created and Modified Dates on Astro-Paper
+description: How to use Git Hooks to set your Created and Modified Dates on AstroPaper
 ---
 
-In this post I will explain how to use the pre-commit Git hook to automate the input of the created (`pubDatetime`) and modified (`modDatetime`) in the Astro-Paper blog theme frontmatter
+In this post I will explain how to use the pre-commit Git hook to automate the input of the created (`pubDatetime`) and modified (`modDatetime`) in the AstroPaper blog theme frontmatter
 
 ## Table of contents
 
@@ -21,11 +22,11 @@ In this post I will explain how to use the pre-commit Git hook to automate the i
 
 You can get around this by having a `hooks` directory and manually copy them to the `.git/hooks` directory or set up a symlink, but this all requires you to remember to set it up, and that is not something I am good at doing.
 
-As this project uses npm we are able to make use of a package called [Husky](https://typicode.github.io/husky/) (this is already installed in Astro-Paper) to automatically install the hooks for us.
+As this project uses npm, we are able to make use of a package called [Husky](https://typicode.github.io/husky/) (this is already installed in AstroPaper) to automatically install the hooks for us.
 
 ## The Hook
 
-As we want this hook to run as we commit the code to update the dates and then have that as part of our change we are going to use the `pre-commit` hook. This has already been set up by this Astro-Paper project, but if it hadn't, you would run `npx husky add .husky/pre-commit 'echo "This is our new pre-commit hook"'`.
+As we want this hook to run as we commit the code to update the dates and then have that as part of our change we are going to use the `pre-commit` hook. This has already been set up by this AstroPaper project, but if it hadn't, you would run `npx husky add .husky/pre-commit 'echo "This is our new pre-commit hook"'`.
 
 Navigating to the `hooks/pre-commit` file, we are going to add one or both of the following snippets.
 
@@ -54,7 +55,7 @@ We pipe that output into the grep command where we are looking at each line to f
 
 #### Improvement - More Explicit
 
-This could be added to to only look for files that we markdown files in the `blog` directory, as these are the only ones tha will have the right frontmatter
+This could be added to only look for files that we markdown files in the `blog` directory, as these are the only ones that will have the right frontmatter
 
 ---
 
@@ -95,9 +96,11 @@ We could use the `a` variable to switch inside the loop and either update the `m
 
 ## Populating the frontmatter
 
-If your IDE supports snippets then there is the option to create a custom snippet to populate the frontmatter.[In v4 Astro-Paper will come with one for VSCode by default.](https://github.com/satnaing/astro-paper/pull/206)
+If your IDE supports snippets then there is the option to create a custom snippet to populate the frontmatter.[In AstroPaper v4 will come with one for VSCode by default.](https://github.com/satnaing/astro-paper/pull/206)
 
-![gif of the snippet in action](https://github.com/satnaing/astro-paper/assets/17761689/e13babbc-2d78-405d-8758-ca31915e41b0)
+<video autoplay muted="muted" controls plays-inline="true" class="border border-skin-line">
+  <source src="https://github.com/satnaing/astro-paper/assets/17761689/e13babbc-2d78-405d-8758-ca31915e41b0" type="video/mp4">
+</video>
 
 ## Empty `modDatetime` changes
 
@@ -147,7 +150,7 @@ export interface Props {
 }
 ```
 
-2. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
+1. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
 
 ```typescript
 interface DatetimesProps {
