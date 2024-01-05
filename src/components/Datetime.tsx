@@ -2,7 +2,7 @@ import { LOCALE } from "@config";
 
 interface DatetimesProps {
   pubDatetime: string | Date;
-  modDatetime: string | Date | undefined;
+  modDatetime: string | Date | undefined | null;
 }
 
 interface Props extends DatetimesProps {
