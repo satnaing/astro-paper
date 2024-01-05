@@ -1,0 +1,60 @@
+---
+import LinkButton from "./LinkButton.astro";
+import socialIcons from "@assets/socialIcons";
+
+export interface Props {
+  centered?: boolean;
+}
+
+const { centered = false } = Astro.props;
+const URL = Astro.url;
+
+const SOCIALS = [
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/?text=",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/sharer.php?u=",
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com/intent/tweet?url=",
+  },
+  {
+    name: "Telegram",
+    href: "https://t.me/share/url?url=",
+  },
+  {
+    name: "Pinterest",
+    href: "https://pinterest.com/pin/create/button/?url=",
+  },
+  {
+    name: "Mail",
+    href: "mailto:?subject=See%20this%20post&body=",
+  },
+];
+
+---
+
+<div class={`social-icons ${centered ? "flex" : ""}`}>
+  {SOCIALS.map((social) => (
+    <LinkButton
+      href={`${social.href + URL}`}
+      className="link-button"
+      title={social.name}
+    >
+      <Fragment set:html={socialIcons[social.name]} />
+    </LinkButton>
+  ))}
+</div>
+
+<style>
+  .social-icons {
+    @apply flex-wrap justify-center gap-1;
+  }
+  .link-button {
+    @apply p-2 sm:p-1 hover:rotate-6;
+  }
+</style>

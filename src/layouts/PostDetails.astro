@@ -6,6 +6,7 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
+import Sharebutton from "@components/Sharebutton.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -66,6 +67,7 @@ const layoutProps = {
       size="lg"
       className="my-2"
     />
+    <Sharebutton />
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
     </article>
