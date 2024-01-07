@@ -106,4 +106,53 @@ const layoutProps = {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   });
+
+  const copyButton = function () {
+    let copyButtonLabel = "Copy";
+    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (let codeBlock of codeBlocks) {
+      let wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      let copyButton = document.createElement("button");
+      copyButton.className = "copy-code";
+      copyButton.innerHTML = copyButtonLabel;
+      copyButton.style.position = "absolute";
+      copyButton.style.top = '-10px';
+      copyButton.style.right = '10px';
+      copyButton.style.backgroundColor = "#3730a3";
+      copyButton.style.padding = "0.25rem 0.5rem";
+      copyButton.style.fontSize = "0.75rem";
+      copyButton.style.lineHeight = "1rem";
+      copyButton.style.borderRadius = "1rem";
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+      // wrap codebock with relative parent element
+      codeBlock.parentNode.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      let code = block.querySelector("code");
+      let text = code.innerText;
+
+      await navigator.clipboard.writeText(text);
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  };
+
+  document.addEventListener("astro:after-swap", copyButton);
+
+  copyButton();
 </script>
