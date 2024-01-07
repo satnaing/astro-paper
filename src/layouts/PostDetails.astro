@@ -100,14 +100,9 @@ const layoutProps = {
 </style>
 
 <script is:inline>
-  /* When the user clicks on the "Back to Top" button,
-   * scroll to the top of the document */
-  document.querySelector("#back-to-top")?.addEventListener("click", () => {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  });
-
-  const copyButton = function () {
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
     let copyButtonLabel = "Copy";
     let codeBlocks = Array.from(document.querySelectorAll("pre"));
 
@@ -116,18 +111,12 @@ const layoutProps = {
       wrapper.style.position = "relative";
 
       let copyButton = document.createElement("button");
-      copyButton.className = "copy-code";
+      copyButton.className =
+        "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
       copyButton.innerHTML = copyButtonLabel;
-      copyButton.style.position = "absolute";
-      copyButton.style.top = '-10px';
-      copyButton.style.right = '10px';
-      copyButton.style.backgroundColor = "#3730a3";
-      copyButton.style.padding = "0.25rem 0.5rem";
-      copyButton.style.fontSize = "0.75rem";
-      copyButton.style.lineHeight = "1rem";
-      copyButton.style.borderRadius = "1rem";
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);
+
       // wrap codebock with relative parent element
       codeBlock.parentNode.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);
@@ -150,9 +139,18 @@ const layoutProps = {
         button.innerText = copyButtonLabel;
       }, 700);
     }
-  };
+  }
+  attachCopyButtons();
+  document.addEventListener("astro:after-swap", attachCopyButtons);
 
-  document.addEventListener("astro:after-swap", copyButton);
-
-  copyButton();
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    document.querySelector("#back-to-top")?.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+  }
+  backToTop();
+  document.addEventListener("astro:after-swap", backToTop);
 </script>
