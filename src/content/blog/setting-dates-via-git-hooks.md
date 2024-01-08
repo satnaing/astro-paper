@@ -1,7 +1,7 @@
 ---
 author: Simon Smale
 pubDatetime: 2024-01-03T20:40:08Z
-modDatetime:
+modDatetime: 2024-01-08T18:59:05Z
 title: How to use Git Hooks to set Created and Modified Dates
 featured: false
 draft: false
@@ -32,12 +32,34 @@ Navigating to the `hooks/pre-commit` file, we are going to add one or both of th
 
 ### Updating the modified date when a file is edited
 
+---
+
+UPDATE:
+
+This section has been updated with a new version of the hook that is smarter. It will now not increment the `modDatetime` until the post is published. On the first publish, set the draft status to `first` and watch the magic happen.
+
+---
+
 ```shell
 # Modified files, update the modDatetime
-git diff --cached --name-status | egrep -i "^(M).*\.(md)$" | while read a b; do
-  cat $b | sed "/---.*/,/---.*/s/^modDatetime:.*$/modDatetime: $(date -u "+%Y-%m-%dT%H:%M:%SZ")/" > tmp
-  mv tmp $b
-  git add $b
+git diff --cached --name-status |
+grep -i '^M.*\.md$' |
+while read _ file; do
+  filecontent=$(cat "$file")
+  frontmatter=$(echo "$filecontent" | awk -v RS='---' 'NR==2{print}')
+  draft=$(echo "$frontmatter" | awk '/^draft: /{print $2}')
+  if [ "$draft" = "false" ]; then
+    echo "$file modDateTime updated"
+    cat $file | sed "/---.*/,/---.*/s/^modDatetime:.*$/modDatetime: $(date -u "+%Y-%m-%dT%H:%M:%SZ")/" > tmp
+    mv tmp $file
+    git add $file
+  fi
+  if [ "$draft" = "first" ]; then
+    echo "First release of $file, draft set to false and modDateTime removed"
+    cat $file | sed "/---.*/,/---.*/s/^modDatetime:.*$/modDatetime:/" | sed "/---.*/,/---.*/s/^draft:.*$/draft: false/" > tmp
+    mv tmp $file
+    git add $file
+  fi
 done
 ```
 
@@ -60,6 +82,16 @@ This could be added to only look for files that we markdown files in the `blog` 
 ---
 
 The regex will capture the two parts, the letter and the file path. We are going to pipe this list into a while loop to iterate over the matching lines and assign the letter to `a` and the path to `b`. We are going to ignore `a` for now.
+
+To know the draft staus of the file, we need its frontmatter. In the following code we are using `cat` to get the content of the file, then using `awk` to split the file on the frontmatter separator (`---`) and taking the second block (the fonmtmatter, the bit between the `---`). From here we are using `awk` again to find the draft key and print is value.
+
+```shell
+  filecontent=$(cat "$file")
+  frontmatter=$(echo "$filecontent" | awk -v RS='---' 'NR==2{print}')
+  draft=$(echo "$frontmatter" | awk '/^draft: /{print $2}')
+```
+
+Now we have the value for `draft` we are going to do 1 of 3 things, set the modDatetime to now (when draft is false `if [ "$draft" = "false" ]; then`), clear the modDatetime and set draft to false (when draft is set to first `if [ "$draft" = "first" ]; then`), or nothing (in any other case).
 
 The next part with the sed command is a bit magical to me as I don't often use it, it was copied from [another blog post on doing something similar](https://mademistakes.com/notes/adding-last-modified-timestamps-with-git/). In essence, it is looking inside the frontmatter tags (`---`) of the file to find the `pubDatetime:` key, getting the full line and replacing it with the `pubDatetime: $(date -u "+%Y-%m-%dT%H:%M:%SZ")/"` same key again and the current datetime formatted correctly.
 
@@ -150,7 +182,9 @@ export interface Props {
 }
 ```
 
-1. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
+<!-- This needs to be 2 as it doesn't pick it up with the code block -->
+
+2. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
 
 ```typescript
 interface DatetimesProps {
