@@ -22,6 +22,7 @@ const {
   pubDatetime,
   modDatetime,
   tags,
+  draft,
 } = post.data;
 
 const { Content } = await post.render();
@@ -59,7 +60,9 @@ const layoutProps = {
     </button>
   </div>
   <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
+    <h1 transition:name={slugifyStr(title)} class="post-title">
+      {draft ? "DRAFT: " : ""}{title}
+    </h1>
     <Datetime
       pubDatetime={pubDatetime}
       modDatetime={modDatetime}

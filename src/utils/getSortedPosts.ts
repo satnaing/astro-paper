@@ -1,8 +1,9 @@
 import type { CollectionEntry } from "astro:content";
+import { draftFilter } from "./postFilters";
 
 const getSortedPosts = (posts: CollectionEntry<"blog">[]) => {
   return posts
-    .filter(({ data }) => !data.draft)
+    .filter(draftFilter)
     .sort(
       (a, b) =>
         Math.floor(

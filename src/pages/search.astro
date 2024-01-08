@@ -6,9 +6,10 @@ import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import SearchBar from "@components/Search";
+import { draftFilter } from "@utils/postFilters";
 
 // Retrieve all articles
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = await getCollection("blog", draftFilter);
 
 // List of items to search in
 const searchList = posts.map(({ data, slug }) => ({
@@ -26,3 +27,4 @@ const searchList = posts.map(({ data, slug }) => ({
   </Main>
   <Footer />
 </Layout>
+@utils/postFilters
