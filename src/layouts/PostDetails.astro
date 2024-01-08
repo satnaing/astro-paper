@@ -6,6 +6,7 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
+import ShareLinks from "@components/ShareLinks.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -73,10 +74,13 @@ const layoutProps = {
     <ul class="my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
     </ul>
-    <div class="flex justify-end">
+
+    <div
+      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+    >
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap hover:opacity-75"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
           <path
@@ -85,6 +89,8 @@ const layoutProps = {
         </svg>
         <span>Back to Top</span>
       </button>
+
+      <ShareLinks />
     </div>
   </main>
   <Footer />
