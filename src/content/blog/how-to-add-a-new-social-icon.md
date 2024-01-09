@@ -16,7 +16,7 @@ Hot new platform? Niche corner of the internet? Or one specific to your area? Th
 
 ## Merging back to the theme
 
-The maintainer of the theme [Sat Naing](https://github.com/satnaing) has said that they intend to only
+The maintainer of the theme [Sat Naing](https://github.com/satnaing) has said that he intends to only
 
 > keep the project supporting only a specific set of popular social icons.
 
@@ -32,10 +32,23 @@ For this guide we are going to use the StackOverflow icon as our example.
 
 ### Find the icon
 
+> In this case, we are going to use the `StackOverflow` as an example.
+
 Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/icons/icon/brand-stackoverflow>, we are going to need the svg code, so save it for later.
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-stackoverflow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+```html
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class="icon icon-tabler icon-tabler-brand-stackoverflow"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke="currentColor"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4 17v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-1" />
   <path d="M8 16h8" />
@@ -50,16 +63,15 @@ Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/
 We need to do some tidy up on what the theme provides us.
 
 1. remove all classes other than `icon-tabler`
-2. remove the width
-3. remove the heigh
-4. remove the viewBox
-5. remove the stroke-width
-6. remove the stroke
-7. remove the fill
+2. remove width & height
+3. remove the viewBox
+4. remove the stroke-width
+5. remove the stroke
+6. remove the fill
 
 This should leave you with the following
 
-```svg
+```html
 <svg
   xmlns="http://www.w3.org/2000/svg"
   class="icon-tabler
@@ -74,15 +86,11 @@ This should leave you with the following
 </svg>
 ```
 
-### Time to typescript
-
-In the file `src/types.ts` add the name of the social to the type declaration `SocialMedia`
-
-`| "StackOverflow";`
-
 Now we can add the clean svg code to the `src/assets/socialIcons.ts` file in `SocialIcons`.
 
 ```typescript
+const socialIcons = {
+  /* others */
   StackOverflow: `<svg
        xmlns="http://www.w3.org/2000/svg"
        class="icon-tabler
@@ -95,17 +103,23 @@ Now we can add the clean svg code to the `src/assets/socialIcons.ts` file in `So
        <path d="M8.787 9.168l7.826 1.664" />
        <path d="M10.096 5.764l7.608 2.472" />
      </svg>`,
+};
 ```
 
-Finally we can configure it for our blog in `src/config.ts` under `SocialObjects`. Setting active to true adds it to the site.
+Finally we can configure it for our blog in `src/config.ts` under `SOCIALS`. Setting `active: true` to add it to the site.
 
 ```typescript
+export const SOCIALS: SocialObjects = [
+  /* others */
   {
-     name: "StackOverflow",
-     href: "https://stackoverflow.com/search?q=astropaper",
-     linkTitle: `See what questions there are about ${SITE.title} on StackOverflow`,
-     active: true,
-   },
+    name: "StackOverflow",
+    href: "https://stackoverflow.com/search?q=astropaper",
+    linkTitle: `See what questions there are about ${SITE.title} on StackOverflow`,
+    active: true,
+  },
+];
 ```
+
+> Ensure that `href` and `linkTitle` are updated for the corresponding link and label.
 
 Full code for the above steps can be found in [this pull request](https://github.com/satnaing/astro-paper/pull/216/files)
