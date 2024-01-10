@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/satnaing/astro-paper/compare/v2.3.0...v4.1.0) (2024-01-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* Astro v4 upgrade
+* Astro v3
+
+### Features
+
+* add code-snippets for content creation ([#206](https://github.com/satnaing/astro-paper/issues/206)) ([14e2936](https://github.com/satnaing/astro-paper/commit/14e29366087fcb846b766fcb8d8454dbc2d9705a))
+* add copy buttons for code blocks ([#217](https://github.com/satnaing/astro-paper/issues/217)) ([6e7d76a](https://github.com/satnaing/astro-paper/commit/6e7d76a0d35f2050a585ef8a36fe852e830e5367))
+* add docker-compose file ([#174](https://github.com/satnaing/astro-paper/issues/174)) ([fb3fa98](https://github.com/satnaing/astro-paper/commit/fb3fa98936d76331869641014d5b4568a84d8d42)), closes [#172](https://github.com/satnaing/astro-paper/issues/172)
+* add image validation to schema ([e9d4303](https://github.com/satnaing/astro-paper/commit/e9d4303219bf312bc3955bb8af9aedb0eadb17cc))
+* add modified datetime in blog posts ([80e67a1](https://github.com/satnaing/astro-paper/commit/80e67a1dcad19394d7b466472f3c674470db8e0c)), closes [#134](https://github.com/satnaing/astro-paper/issues/134)
+* add pagination in tag posts ([#201](https://github.com/satnaing/astro-paper/issues/201)) ([581826a](https://github.com/satnaing/astro-paper/commit/581826a5affd03d12416a5ac7d28ed17d53eac8d)), closes [#152](https://github.com/satnaing/astro-paper/issues/152)
+* add share links in blog post ([#215](https://github.com/satnaing/astro-paper/issues/215)) ([1e2c5e8](https://github.com/satnaing/astro-paper/commit/1e2c5e82d8e573d70a340e378659fa52be84df3d))
+* add transition effect if light/dark changes ([a060cb5](https://github.com/satnaing/astro-paper/commit/a060cb5c87f733c455ea247d72f88095f1ca769c))
+* add view transitions for card on search page ([#118](https://github.com/satnaing/astro-paper/issues/118)) ([6c7d04f](https://github.com/satnaing/astro-paper/commit/6c7d04fa12d006379157cf876c2826f606f124e9))
+* add ViewTransitions from Astro ([cbdaa59](https://github.com/satnaing/astro-paper/commit/cbdaa59baea1c5c5497227dd2fb276e8cf88b936)), closes [#96](https://github.com/satnaing/astro-paper/issues/96)
+* default post author to site author ([20c8970](https://github.com/satnaing/astro-paper/commit/20c89709ada7e7c3f49460d6690d02999ba86d17))
+* dynamically generate robots.txt ([6352353](https://github.com/satnaing/astro-paper/commit/63523534703c1f95ac070452001070e2c3f74d5d))
+* generate og image using templates ([3032c18](https://github.com/satnaing/astro-paper/commit/3032c18321dfd4f001bc86c094881219bd2e22b7))
+* implement back-to-top button in blog post page ([c526157](https://github.com/satnaing/astro-paper/commit/c526157118b69ff68e3a653eee68428a791a7d9f)), closes [#156](https://github.com/satnaing/astro-paper/issues/156)
+* og image routes ([300d014](https://github.com/satnaing/astro-paper/commit/300d014fd7a83f52020bdc21976de8487eb41f63))
+* replace slugified title with unslugified tag name ([#198](https://github.com/satnaing/astro-paper/issues/198)) ([b05b8fb](https://github.com/satnaing/astro-paper/commit/b05b8fb842b43f4f6462b425cb46d835579cbcfb)), closes [#179](https://github.com/satnaing/astro-paper/issues/179)
+* support custom canonical URLs ([#83](https://github.com/satnaing/astro-paper/issues/83)) ([4687bd5](https://github.com/satnaing/astro-paper/commit/4687bd516b16970fc4d163c1202b28f29818a582))
+* update theme-color tag on theme switch ([f253776](https://github.com/satnaing/astro-paper/commit/f25377674ebc10f496ef6e5729b931d61ec67832))
+* upgrade to astro v3 ([e486687](https://github.com/satnaing/astro-paper/commit/e4866876109ca5a53b170560b0761d8efa00d5d3)), closes [#111](https://github.com/satnaing/astro-paper/issues/111)
+* use new og images in layout ([88d9343](https://github.com/satnaing/astro-paper/commit/88d9343ab53ce4f4241e2a73139e00f0263cabb1))
+* use post author in og template ([80fcc93](https://github.com/satnaing/astro-paper/commit/80fcc939540f9c05c3d91917587c6ef5fb612718))
+
+
+### Bug Fixes
+
+* [#133](https://github.com/satnaing/astro-paper/issues/133) update LOCALE config to cover overall locales ([cd02b04](https://github.com/satnaing/astro-paper/commit/cd02b047d2b5e3b4a2940c0ff30568cdebcec0b8))
+* [#72](https://github.com/satnaing/astro-paper/issues/72) replace SITE.website with a URL in astro.config site value ([26ecd17](https://github.com/satnaing/astro-paper/commit/26ecd173ddec1075abb6ede9bbb62572b9f74b33))
+* **a11y:** resolve accessibility issues ([940deb6](https://github.com/satnaing/astro-paper/commit/940deb6d3f25aac2abf0a57008b66942185ea2ab))
+* anchor oveflow on small screen size ([d025c91](https://github.com/satnaing/astro-paper/commit/d025c914d91a9b7969c8db4bd6a700723ef86a39))
+* **css:** text wrap in code blocks ([0c92492](https://github.com/satnaing/astro-paper/commit/0c92492959bed20f144d5d949116891d61c8e098))
+* decode unicode tag chars in breadcrumb ([#175](https://github.com/satnaing/astro-paper/issues/175)) ([058c790](https://github.com/satnaing/astro-paper/commit/058c790d26cbeab286679a8a8e3bad6c14042d6d))
+* get og image url correctly ([7f3edbd](https://github.com/satnaing/astro-paper/commit/7f3edbdecdce597d15e562e7d497d69af505d550))
+* **layout:** use 100svh for min-height on body instead of 100vh ([79d569d](https://github.com/satnaing/astro-paper/commit/79d569d053036f2113519f41b0d257523d035b76)), closes [#127](https://github.com/satnaing/astro-paper/issues/127)
+* og image src ([6dffcf3](https://github.com/satnaing/astro-paper/commit/6dffcf3cb36a0dab6549ee249fe426b4ee931b06))
+* prevent white flash in dark mode when navigate ([9eeb8fc](https://github.com/satnaing/astro-paper/commit/9eeb8fc76ecfd45b79ab716305f1916491649c95))
+* remove empty string as ogImage ([b03b722](https://github.com/satnaing/astro-paper/commit/b03b7223694b4c215c6fce0a45ed4f03178081f4))
+* resolve single-line code block wrapping issue ([#121](https://github.com/satnaing/astro-paper/issues/121)) ([0af3251](https://github.com/satnaing/astro-paper/commit/0af32518b343430dd8510470efd3806509337de7))
+* solve invisible text code block issue in light-mode ([#163](https://github.com/satnaing/astro-paper/issues/163)) ([64b3a28](https://github.com/satnaing/astro-paper/commit/64b3a286e6e3ff1dff7cf4ca0fc8fafc222cabcd))
+* solve modDatetime type errors ([d929ce1](https://github.com/satnaing/astro-paper/commit/d929ce1fefd5c509a83b44439324b57249066be7))
+* sort posts in [tag] page ([#101](https://github.com/satnaing/astro-paper/issues/101)) ([b571816](https://github.com/satnaing/astro-paper/commit/b571816dcddc72a07147389090502c09025b28a6))
+* update auto-gen OG images to allow special char usage in title ([1933a6b](https://github.com/satnaing/astro-paper/commit/1933a6beae7b4e2558b808d1f8a5c124f1244138)), closes [#103](https://github.com/satnaing/astro-paper/issues/103) [#88](https://github.com/satnaing/astro-paper/issues/88)
+* update rss pubDate to prioritize modDatetime if exists ([20536b0](https://github.com/satnaing/astro-paper/commit/20536b0562a3a69b3e376cb6fcb32a819a300551))
+* update tailwind base styles config ([#116](https://github.com/satnaing/astro-paper/issues/116)) ([4a03558](https://github.com/satnaing/astro-paper/commit/4a0355865081d07d05d9d758f520e411952a1063))
+* update title of the blog nowrap ([87b3e5b](https://github.com/satnaing/astro-paper/commit/87b3e5b8cd7d424b3e43e6d5abed6d21195aa759))
+* update twitter ShareLink title ([43f7160](https://github.com/satnaing/astro-paper/commit/43f716054b210a50f5b3cc63e282b160c5c4d0ef))
+
+
+* build!(deps): upgrade Astro and related packages to v4 ([59df7a5](https://github.com/satnaing/astro-paper/commit/59df7a5826b6b584b0eccb538447d35930a0d510)), closes [#187](https://github.com/satnaing/astro-paper/issues/187)
+
 ## [4.0.0](https://github.com/satnaing/astro-paper/compare/v2.3.0...v4.0.0) (2024-01-04)
 
 
