@@ -16,10 +16,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.4",
+    "@astrojs/check": "^0.4.1",
     "@astrojs/rss": "^4.0.1",
     "@resvg/resvg-js": "^2.6.0",
-    "astro": "^4.0.8",
+    "astro": "^4.1.1",
     "fuse.js": "^7.0.0",
     "github-slugger": "^2.0.0",
     "remark-collapse": "^0.1.2",
