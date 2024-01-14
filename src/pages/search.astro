@@ -6,12 +6,14 @@ import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import SearchBar from "@components/Search";
+import getSortedPosts from "@utils/getSortedPosts";
 
-// Retrieve all articles
+// Retrieve all published articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = getSortedPosts(posts);
 
 // List of items to search in
-const searchList = posts.map(({ data, slug }) => ({
+const searchList = sortedPosts.map(({ data, slug }) => ({
   title: data.title,
   description: data.description,
   data,

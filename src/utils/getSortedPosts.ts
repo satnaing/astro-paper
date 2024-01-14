@@ -1,8 +1,14 @@
+import { SITE } from "@config";
 import type { CollectionEntry } from "astro:content";
 
 const getSortedPosts = (posts: CollectionEntry<"blog">[]) => {
   return posts
-    .filter(({ data }) => !data.draft)
+    .filter(({ data }) => {
+      const isPublishTimePassed =
+        Date.now() >
+        new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
+      return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
+    })
     .sort(
       (a, b) =>
         Math.floor(
