@@ -66,6 +66,9 @@ module.exports = {
             code: {
               color: false,
             },
+            'h2': {
+              marginTop: '1em',
+            },
           },
         },
       },
