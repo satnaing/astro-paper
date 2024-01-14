@@ -66,7 +66,7 @@
     prose-table:text-skin-base prose-th:border
     prose-th:border-skin-line prose-td:border 
     prose-td:border-skin-line prose-img:mx-auto 
-    prose-img:!mt-2 prose-img:border-2 
+    prose-img:!mt-2 prose-img:!mb-2 prose-img:border-2 
     prose-img:border-skin-line prose-hr:!border-skin-line;
   }
   .prose a {
