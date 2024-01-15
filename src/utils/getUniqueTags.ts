@@ -1,6 +1,6 @@
-import { SITE } from "@config";
 import { slugifyStr } from "./slugify";
 import type { CollectionEntry } from "astro:content";
+import postFilter from "./postFilter";
 
 interface Tag {
   tag: string;
@@ -8,13 +8,8 @@ interface Tag {
 }
 
 const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
-  const filteredPosts = posts.filter(({ data }) => {
-    const isPublishTimePassed =
-      Date.now() >
-      new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
-    return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
-  });
-  const tags: Tag[] = filteredPosts
+  const tags: Tag[] = posts
+    .filter(postFilter)
     .flatMap(post => post.data.tags)
     .map(tag => ({ tag: slugifyStr(tag), tagName: tag }))
     .filter(
