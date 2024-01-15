@@ -106,6 +106,22 @@ const layoutProps = {
 </style>
 
 <script is:inline>
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    let headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6"));
+    for (let heading of headings) {
+      heading.classList.add("group")
+      let link = document.createElement("a");
+      link.innerText = "#";
+      link.className = "heading-link hidden group-hover:inline-block ml-2";
+      link.href = "#" + heading.id;
+      link.ariaHidden = true;
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
   function attachCopyButtons() {
