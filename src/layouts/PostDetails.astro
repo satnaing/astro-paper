@@ -6,6 +6,7 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
+import ShareLinks from "@components/ShareLinks.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -76,10 +77,13 @@ const layoutProps = {
     <ul class="my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
     </ul>
-    <div class="flex justify-end">
+
+    <div
+      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+    >
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap hover:opacity-75"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
           <path
@@ -88,6 +92,8 @@ const layoutProps = {
         </svg>
         <span>Back to Top</span>
       </button>
+
+      <ShareLinks />
     </div>
   </main>
   <Footer />
@@ -103,10 +109,73 @@ const layoutProps = {
 </style>
 
 <script is:inline>
-  /* When the user clicks on the "Back to Top" button,
-   * scroll to the top of the document */
-  document.querySelector("#back-to-top")?.addEventListener("click", () => {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  });
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    let headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6"));
+    for (let heading of headings) {
+      heading.classList.add("group")
+      let link = document.createElement("a");
+      link.innerText = "#";
+      link.className = "heading-link hidden group-hover:inline-block ml-2";
+      link.href = "#" + heading.id;
+      link.ariaHidden = true;
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    let copyButtonLabel = "Copy";
+    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (let codeBlock of codeBlocks) {
+      let wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      let copyButton = document.createElement("button");
+      copyButton.className =
+        "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock.parentNode.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      let code = block.querySelector("code");
+      let text = code.innerText;
+
+      await navigator.clipboard.writeText(text);
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+  document.addEventListener("astro:after-swap", attachCopyButtons);
+
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    document.querySelector("#back-to-top")?.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+  }
+  backToTop();
+  document.addEventListener("astro:after-swap", backToTop);
 </script>

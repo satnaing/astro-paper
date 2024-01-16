@@ -2,13 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [4.0.0](https://github.com/satnaing/astro-paper/compare/v2.3.0...v4.0.0) (2024-01-04)
+## [4.1.0](https://github.com/satnaing/astro-paper/compare/v4.0.0...v4.1.0) (2024-01-10)
+
+### Features
+
+* update Astro and other dependencies ([f70a0b7](https://github.com/satnaing/astro-paper/commit/f70a0b78ed44350f6d1b00153ea0cc5b7d285043)) ([034dd39](https://github.com/satnaing/astro-paper/commit/034dd394abd4df5cb95fcfe975749cc535a6c05c))
+* add share links in blog post ([#215](https://github.com/satnaing/astro-paper/issues/215))
+* add copy buttons for code blocks ([#217](https://github.com/satnaing/astro-paper/issues/217))
+
+### Bug Fixes
+
+* resolve accessibility issues ([#226](https://github.com/satnaing/astro-paper/issues/226))
+* solve modDatetime type errors ([#214](https://github.com/satnaing/astro-paper/issues/214))
+* remove SocialObjects type and update SocialObjects type ([#225](https://github.com/satnaing/astro-paper/issues/225))
+
+### Others
+
+* adds blog post for how to add a social icon ([#221](https://github.com/satnaing/astro-paper/issues/221)) 
+* updates the hook post with a smarter updateHook ([#222](https://github.com/satnaing/astro-paper/issues/222))
+* update breadcrumbs delimiter to "»" ([#213](https://github.com/satnaing/astro-paper/issues/213))
+
+## [4.0.0](https://github.com/satnaing/astro-paper/compare/v3.0.0...v4.0.0) (2024-01-04)
 
 
 ### ⚠ BREAKING CHANGES
 
 * Astro v4 upgrade
-* Astro v3
 
 ### Features
 
@@ -28,9 +47,6 @@ All notable changes to this project will be documented in this file. See [standa
 * replace slugified title with unslugified tag name ([#198](https://github.com/satnaing/astro-paper/issues/198)) ([b05b8fb](https://github.com/satnaing/astro-paper/commit/b05b8fb842b43f4f6462b425cb46d835579cbcfb)), closes [#179](https://github.com/satnaing/astro-paper/issues/179)
 * support custom canonical URLs ([#83](https://github.com/satnaing/astro-paper/issues/83)) ([4687bd5](https://github.com/satnaing/astro-paper/commit/4687bd516b16970fc4d163c1202b28f29818a582))
 * update theme-color tag on theme switch ([f253776](https://github.com/satnaing/astro-paper/commit/f25377674ebc10f496ef6e5729b931d61ec67832))
-* upgrade to astro v3 ([e486687](https://github.com/satnaing/astro-paper/commit/e4866876109ca5a53b170560b0761d8efa00d5d3)), closes [#111](https://github.com/satnaing/astro-paper/issues/111)
-* use new og images in layout ([88d9343](https://github.com/satnaing/astro-paper/commit/88d9343ab53ce4f4241e2a73139e00f0263cabb1))
-* use post author in og template ([80fcc93](https://github.com/satnaing/astro-paper/commit/80fcc939540f9c05c3d91917587c6ef5fb612718))
 
 
 ### Bug Fixes
@@ -57,7 +73,6 @@ All notable changes to this project will be documented in this file. See [standa
 * build!(deps): upgrade Astro and related packages to v4 ([a1d3ddd](https://github.com/satnaing/astro-paper/commit/a1d3ddd18591843a35b3c05be762e1f8af1b8fb0)), closes [#187](https://github.com/satnaing/astro-paper/issues/187)
 
 ## [3.0.0](https://github.com/satnaing/astro-paper/compare/v2.3.0...v3.0.0) (2023-09-25)
-
 
 ### ⚠ BREAKING CHANGES
 
