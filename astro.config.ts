@@ -5,7 +5,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
-import draftModeIntergration from "./src/toolbar/draftMode/draftModeIntergration";
+import draftModeIntergration from "./src/packages/toolbar/draft-mode/integration";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    draftModeIntergration,
+    draftModeIntergration(),
   ],
   markdown: {
     remarkPlugins: [

@@ -1,3 +1,5 @@
+import type { DevOverlayPlugin } from "astro";
+
 export default {
   id: "draft-mode",
   name: `Toggle Draft Mode ${
@@ -15,10 +17,10 @@ export default {
       if (!block) {
         console.debug(
           `Draft Mode has been toggled to  ${
-            event.detail.state ? "enabled" : "disabled"
+            (event as CustomEvent).detail.state ? "enabled" : "disabled"
           } mode.`
         );
-        localStorage.setItem("DRAFT_MODE", event.detail.state);
+        localStorage.setItem("DRAFT_MODE", (event as CustomEvent).detail.state);
         location.reload();
       } else {
         console.debug(
@@ -32,7 +34,7 @@ export default {
         console.log(
           "Mismatch between server mode and client mode, syncing with the Server. The window will reload."
         );
-        localStorage.setItem("DRAFT_MODE", bool);
+        localStorage.setItem("DRAFT_MODE", String(bool));
         location.reload();
       }
       console.debug("draftMode:sync event triggered, setting state to :", bool);
@@ -44,4 +46,4 @@ export default {
       block = false;
     });
   },
-};
+} satisfies DevOverlayPlugin;

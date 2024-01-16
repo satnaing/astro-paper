@@ -5,7 +5,7 @@ import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import getPageNumbers from "@utils/getPageNumbers";
 import getPagination from "@utils/getPagination";
-import { draftFilter } from "@utils/postFilters";
+import postFilter from "@utils/postFilter";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 const { page } = Astro.params;
 const { tag, tagName } = Astro.props;
 
-const posts = await getCollection("blog", draftFilter);
+const posts = await getCollection("blog", postFilter);
 
 const postsByTag = getPostsByTag(posts, tag);
 
@@ -43,4 +43,3 @@ const pagination = getPagination({
 ---
 
 <TagPosts {...pagination} {tag} {tagName} />
-@utils/postFilters

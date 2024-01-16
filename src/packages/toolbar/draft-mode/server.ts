@@ -1,8 +1,10 @@
-export function draftModeServer(server) {
+import type { ViteDevServer } from "vite";
+
+export function draftModeServer(server: ViteDevServer) {
   let block = true;
   if (process.env.DRAFT_MODE === undefined) {
     console.debug("DRAFT_MODE env not set, defaulting to false");
-    process.env.DRAFT_MODE = false;
+    process.env.DRAFT_MODE = String(false);
   }
   server.ws.on("astro-dev-toolbar:draft-mode:toggled", data => {
     if (!block) {
