@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/satnaing/astro-paper/compare/v4.1.0...v4.2.0) (2024-01-22)
+
+### Features
+
+* add heading links to PostDetails page ([#232](https://github.com/satnaing/astro-paper/issues/232)) ([742baff](https://github.com/satnaing/astro-paper/commit/742baff2c9bd47e0762f5d65f5b47a4d28014175))
+* hide posts in Prod with future pubDatetime  ([#234](https://github.com/satnaing/astro-paper/issues/234)) ([3efa05c](https://github.com/satnaing/astro-paper/commit/3efa05cc101688c32fc531af0122023d3ce82f08))
+
+### Bug Fixes
+
+* remove extra padding if lightAndDarkMode is false ([#230](https://github.com/satnaing/astro-paper/issues/230)) ([742314e](https://github.com/satnaing/astro-paper/commit/742314e0ac350a70ce1cc256e858c8de9c9153f6))
+* reduce margin-bottom on markdown images ([#235](https://github.com/satnaing/astro-paper/issues/235)) ([1331795](https://github.com/satnaing/astro-paper/commit/1331795a4965aab5c47581c223f32f3ea2cd71ab))
+* resolve broken line break in inline code ([#237](https://github.com/satnaing/astro-paper/issues/237)) ([ece0682](https://github.com/satnaing/astro-paper/commit/ece0682adce387f2a169185680cdf372a457e938))
+* remove recent posts section if there's no post ([#238](https://github.com/satnaing/astro-paper/issues/238)) ([629dbfd](https://github.com/satnaing/astro-paper/commit/629dbfda5b99a71e629dbbf1845c3ceba5ac97e0)), closes [#204](https://github.com/satnaing/astro-paper/issues/204)
+* update back button to redirect to home when no route history ([#241](https://github.com/satnaing/astro-paper/issues/241)) ([8f75f0a](https://github.com/satnaing/astro-paper/commit/8f75f0a5e75778a60e8030bb45b19289c0af502e))
+
+### Others
+
+* upgrade astro and other dependencies ([e903b69](https://github.com/satnaing/astro-paper/commit/e903b699cd947301256de1e62ae0ad2d1dcd3c2b))
+* update code formatting with prettier ([424c422](https://github.com/satnaing/astro-paper/commit/424c422392d836516bfbb6004a234a1a57930be1))
+* add astro extension in lint-staged code formatting ([d41bb69](https://github.com/satnaing/astro-paper/commit/d41bb69cd8f441caa773a07d911adb3ade54b493))
+* update outdated prettier script ([1281b93](https://github.com/satnaing/astro-paper/commit/1281b9340a6bebd67628a8d4c56f318701ffde47))
+
 ## [4.1.0](https://github.com/satnaing/astro-paper/compare/v4.0.0...v4.1.0) (2024-01-10)
 
 ### Features
