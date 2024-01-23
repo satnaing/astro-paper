@@ -73,7 +73,7 @@ html[data-theme="light"] {
 
 ## Dark color schemes
 
-Light color scheme has to be defined as `html[data-theme="dark"]`.
+Dark color scheme has to be defined as `html[data-theme="dark"]`.
 
 ### AstroPaper 1 original Dark Theme
 
