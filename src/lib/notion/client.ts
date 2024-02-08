@@ -54,15 +54,27 @@ import type {
 } from "../interfaces";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client, APIResponseError } from "@notionhq/client";
+import { NotionToMarkdown } from "notion-to-md";
 
 const client = new Client({
   auth: NOTION_API_SECRET,
+});
+
+const n2mClient = new NotionToMarkdown({
+  notionClient: client,
+  config: { separateChildPage: false },
 });
 
 let postsCache: Post[] | null = null;
 let dbCache: Database | null = null;
 
 const numberOfRetry = 2;
+
+export async function notion2md({ pageId }: { pageId: string }) {
+  const mdblocks = await n2mClient.pageToMarkdown(pageId);
+  const mdString = n2mClient.toMarkdownString(mdblocks);
+  return mdString.parent;
+}
 
 export async function getAllPosts(): Promise<Post[]> {
   if (postsCache !== null) {
