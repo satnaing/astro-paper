@@ -5,6 +5,13 @@ import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import getPageNumbers from "@utils/getPageNumbers";
 import getPagination from "@utils/getPagination";
+import {
+  getAllPosts,
+  getAllTags,
+  getPostsByTag as getNotionPostsByTag,
+} from "@lib/notion/client";
+import { slugifyStr } from "@utils/slugify";
+import { blogEntryFromNotionPost } from "@utils/blogEntryFromNotionPost";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -13,12 +20,25 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
+  // Astro
   const posts = await getCollection("blog");
-
   const tags = getUniqueTags(posts);
 
-  return tags.flatMap(({ tag, tagName }) => {
-    const tagPosts = getPostsByTag(posts, tag);
+  // Notion
+  const notionPosts = (await getAllPosts()).map(blogEntryFromNotionPost);
+  const notionTags = (await getAllTags()).map(({ name }) => ({
+    tag: slugifyStr(name),
+    tagName: name,
+  }));
+
+  // Combine
+  const allPosts = [...posts, ...notionPosts];
+  const allTags = [...tags, ...notionTags].filter(
+    (value, index, array) => array.map(t => t.tag).indexOf(value.tag) === index
+  );
+
+  return allTags.flatMap(({ tag, tagName }) => {
+    const tagPosts = getPostsByTag(allPosts, tag);
     const totalPages = getPageNumbers(tagPosts.length);
 
     return totalPages.map(page => ({
@@ -34,9 +54,13 @@ const { tag, tagName } = Astro.props;
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 const postsByTag = getPostsByTag(posts, tag);
+const notionPostsByTag = (await getNotionPostsByTag(tagName)).map(
+  blogEntryFromNotionPost
+);
 
+const allPostsByTag = [...postsByTag, ...notionPostsByTag];
 const pagination = getPagination({
-  posts: postsByTag,
+  posts: allPostsByTag,
   page,
 });
 ---
