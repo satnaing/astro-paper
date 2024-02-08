@@ -55,6 +55,8 @@ import type {
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client, APIResponseError } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
+import { blogEntryFromNotionPost } from "@utils/blogEntryFromNotionPost";
+import { slugifyStr } from "@utils/slugify";
 
 const client = new Client({
   auth: NOTION_API_SECRET,
@@ -74,6 +76,10 @@ export async function notion2md({ pageId }: { pageId: string }) {
   const mdblocks = await n2mClient.pageToMarkdown(pageId);
   const mdString = n2mClient.toMarkdownString(mdblocks);
   return mdString.parent;
+}
+
+export async function getNotionCollection() {
+  return (await getAllPosts()).map(blogEntryFromNotionPost);
 }
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -173,6 +179,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 export async function getPostByPageId(pageId: string): Promise<Post | null> {
   const allPosts = await getAllPosts();
   return allPosts.find(post => post.PageId === pageId) || null;
+}
+
+export async function getNotionPostsByTag(tagName: string) {
+  return (await getPostsByTag(tagName)).map(blogEntryFromNotionPost);
 }
 
 export async function getPostsByTag(
@@ -368,6 +378,13 @@ export async function getBlock(blockId: string): Promise<Block> {
   );
 
   return _buildBlock(res);
+}
+
+export async function getNotionTags() {
+  return (await getAllTags()).map(({ name }) => ({
+    tag: slugifyStr(name),
+    tagName: name,
+  }));
 }
 
 export async function getAllTags(): Promise<SelectProperty[]> {

@@ -9,10 +9,14 @@ import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SOCIALS } from "@config";
+import { getNotionCollection } from "@lib/notion/client";
 
 const posts = await getCollection("blog");
+const notionPosts = await getNotionCollection();
 
-const sortedPosts = getSortedPosts(posts);
+const allPosts = [...posts, ...notionPosts];
+
+const sortedPosts = getSortedPosts(allPosts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 

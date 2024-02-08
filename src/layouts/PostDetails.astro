@@ -8,6 +8,8 @@ import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
+import { notion2md } from "@lib/notion/client";
+import { marked } from "marked";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -26,7 +28,15 @@ const {
   tags,
 } = post.data;
 
-const { Content } = await post.render();
+let Content = null;
+let MarkdownContent = null;
+if (typeof post.render === "function") {
+  Content = (await post.render()).Content;
+} else if (post.notionPageId) {
+  MarkdownContent = marked.parse(
+    await notion2md({ pageId: post.notionPageId })
+  );
+}
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
@@ -69,8 +79,18 @@ const layoutProps = {
       className="my-2"
     />
     <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
+      {Content !== null && <Content />}
     </article>
+    {
+      MarkdownContent !== null && (
+        <article
+          set:html={MarkdownContent}
+          id="article"
+          role="article"
+          class="prose mx-auto mt-8 max-w-3xl"
+        />
+      )
+    }
 
     <ul class="my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}

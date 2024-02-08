@@ -5,20 +5,28 @@ import PostDetails from "@layouts/PostDetails.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPageNumbers from "@utils/getPageNumbers";
 import getPagination from "@utils/getPagination";
+import { getNotionCollection } from "@lib/notion/client";
 
 export interface Props {
   post: CollectionEntry<"blog">;
 }
 
 export async function getStaticPaths() {
+  // Astro
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  const postResult = posts.map(post => ({
+  // Notion
+  const notionPosts = await getNotionCollection();
+
+  // Combine
+  const allPosts = [...posts, ...notionPosts];
+
+  const postResult = allPosts.map(post => ({
     params: { slug: post.slug },
     props: { post },
   }));
 
-  const pagePaths = getPageNumbers(posts.length).map(pageNum => ({
+  const pagePaths = getPageNumbers(allPosts.length).map(pageNum => ({
     params: { slug: String(pageNum) },
   }));
 
@@ -29,8 +37,10 @@ const { slug } = Astro.params;
 const { post } = Astro.props;
 
 const posts = await getCollection("blog");
+const notionPosts = await getNotionCollection();
+const allPosts = [...posts, ...notionPosts];
 
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(allPosts);
 
 const pagination = getPagination({
   posts: sortedPosts,
