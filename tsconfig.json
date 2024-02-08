@@ -12,6 +12,8 @@
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
+      "@lib/*": ["lib/*"],
+      "@server-constants": ["server-constants.ts"],
     },
   },
 }
