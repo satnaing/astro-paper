@@ -4,9 +4,7 @@ import TagPosts from "@layouts/TagPosts.astro";
 import getPostsByTag from "@utils/getPostsByTag";
 import getPagination from "@utils/getPagination";
 import getUniqueTags from "@utils/getUniqueTags";
-import { getAllPosts, getAllTags } from "@lib/notion/client";
-import { slugifyStr } from "@utils/slugify";
-import { blogEntryFromNotionPost } from "@utils/blogEntryFromNotionPost";
+import { getNotionCollection, getNotionTags } from "@lib/notion/client";
 
 export async function getStaticPaths() {
   // Astro
@@ -14,11 +12,8 @@ export async function getStaticPaths() {
   const tags = getUniqueTags(posts);
 
   // Notion
-  const notionPosts = (await getAllPosts()).map(blogEntryFromNotionPost);
-  const notionTags = (await getAllTags()).map(({ name }) => ({
-    tag: slugifyStr(name),
-    tagName: name,
-  }));
+  const notionPosts = await getNotionCollection();
+  const notionTags = await getNotionTags();
 
   // Combine
   const allPosts = [...posts, ...notionPosts];

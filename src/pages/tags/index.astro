@@ -7,15 +7,11 @@ import Main from "@layouts/Main.astro";
 import Tag from "@components/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
 import { SITE } from "@config";
-import { getAllTags } from "@lib/notion/client";
-import { slugifyStr } from "@utils/slugify";
+import { getNotionTags } from "@lib/notion/client";
 
 const posts = await getCollection("blog");
 
-const notionTags = (await getAllTags()).map(({ name }) => ({
-  tag: slugifyStr(name),
-  tagName: name,
-}));
+const notionTags = await getNotionTags();
 
 const tags = [...getUniqueTags(posts), ...notionTags].filter(
   (value, index, array) => array.map(t => t.tag).indexOf(value.tag) === index
