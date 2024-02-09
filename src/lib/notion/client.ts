@@ -156,21 +156,6 @@ export async function getPosts(pageSize = 10): Promise<Post[]> {
   return allPosts.slice(0, pageSize);
 }
 
-export async function getRankedPosts(pageSize = 10): Promise<Post[]> {
-  const allPosts = await getAllPosts();
-  return allPosts
-    .filter(post => !!post.Rank)
-    .sort((a, b) => {
-      if (a.Rank > b.Rank) {
-        return -1;
-      } else if (a.Rank === b.Rank) {
-        return 0;
-      }
-      return 1;
-    })
-    .slice(0, pageSize);
-}
-
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const allPosts = await getAllPosts();
   return allPosts.find(post => post.Slug === slug) || null;
@@ -945,13 +930,7 @@ async function _getSyncedBlockChildren(block: Block): Promise<Block[]> {
 
 function _validPageObject(pageObject: responses.PageObject): boolean {
   const prop = pageObject.properties;
-  return (
-    !!prop.Page.title &&
-    prop.Page.title.length > 0 &&
-    !!prop.Slug.rich_text &&
-    prop.Slug.rich_text.length > 0 &&
-    !!prop.Date.date
-  );
+  return !!prop.Page.title && prop.Page.title.length > 0 && !!prop.Date.date;
 }
 
 function _buildPost(pageObject: responses.PageObject): Post {
@@ -999,16 +978,17 @@ function _buildPost(pageObject: responses.PageObject): Post {
     }
   }
 
+  const title = prop.Page.title
+    ? prop.Page.title.map(richText => richText.plain_text).join("")
+    : "";
   const post: Post = {
     PageId: pageObject.id,
-    Title: prop.Page.title
-      ? prop.Page.title.map(richText => richText.plain_text).join("")
-      : "",
+    Title: title,
     Icon: icon,
     Cover: cover,
     Slug: prop.Slug.rich_text
       ? prop.Slug.rich_text.map(richText => richText.plain_text).join("")
-      : "",
+      : slugifyStr(title),
     Date: prop.Date.date ? prop.Date.date.start : "",
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
     Excerpt:
@@ -1016,7 +996,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
         ? prop.Excerpt.rich_text.map(richText => richText.plain_text).join("")
         : "",
     FeaturedImage: featuredImage,
-    Rank: prop.Rank.number ? prop.Rank.number : 0,
+    Featured: prop.Featured.checkbox || false,
   };
 
   return post;

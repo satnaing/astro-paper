@@ -6,7 +6,7 @@ export function blogEntryFromNotionPost(post: Post): CollectionEntry<"blog"> {
   return {
     notionPageId: post.PageId,
     id: post.PageId,
-    slug: post.Slug ?? slugifyStr(post.Title),
+    slug: post.Slug?.trim() || slugifyStr(post.Title),
     body: "", // TODO should we make async call here to get notion content?
     collection: "blog",
     // https://github.com/satnaing/astro-paper/blob/main/src/content/blog/adding-new-post.md
