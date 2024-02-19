@@ -7,13 +7,19 @@ export interface Props {
   disabled?: boolean;
 }
 
-const { href, className, ariaLabel, title, disabled = false } = Astro.props;
+const {
+  href,
+  className = "",
+  ariaLabel,
+  title,
+  disabled = false,
+} = Astro.props;
 ---
 
 {
   disabled ? (
     <span
-      class={`group inline-block ${className}`}
+      class={`group inline-block ${className}`.trim()}
       aria-label={ariaLabel}
       title={title}
       aria-disabled={disabled}
