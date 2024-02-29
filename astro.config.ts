@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
@@ -37,4 +37,7 @@ export default defineConfig({
     },
   },
   scopedStyleStrategy: "where",
+  image: {
+    service: passthroughImageService(),
+  },
 });
