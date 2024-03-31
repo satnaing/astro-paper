@@ -7,6 +7,6 @@ COPY . .
 RUN npm run build
 
 # Runtime stage for serving the application
-FROM nginxinc/nginx-unprivileged:latest AS runtime
+FROM nginx:mainline-alpine-slim AS runtime
 COPY --from=base ./app/dist /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 80
