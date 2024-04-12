@@ -23,7 +23,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>Hyunsu</h1>
+      <h1>주현수</h1>
       <a
         target="_blank"
         href="/rss.xml"
@@ -47,21 +47,22 @@ const socialCount = SOCIALS.filter(social => social.active).length;
         <!--  class="rounded-full w-24 h-24 sm:w-32 sm:h-32" />-->
 
         <p>
-          안녕하세요. 저는 프론트엔드 엔지니어 입니다.<br />
+          안녕하세요. 프론트엔드 엔지니어 입니다.<br />
+          유닉스 철학의<br />
           • 작은 것이 아름답다.<br />
           • 각 프로그램은 한가지 역할만 잘 하도록 만들어라<br />
-          유닉스 철학이 와닿습니다.
+          를 바탕으로 사용자에게 좋은 가치를 제공 하도록 노력 합니다.
         </p>
       </div>
-      <p>
-        Read the blog posts or check
-        <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
+      <!--<p>-->
+      <!--  Read the blog posts or check-->
+      <!--  <LinkButton-->
+      <!--    className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"-->
+      <!--    href="https://github.com/satnaing/astro-paper#readme"-->
+      <!--  >-->
+      <!--    README-->
+      <!--  </LinkButton> for more info.-->
+      <!--</p>-->
       {
         // only display if at least one social link is enabled
         socialCount > 0 && (
