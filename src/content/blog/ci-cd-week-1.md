@@ -26,14 +26,18 @@ description: 월간 CS CI/CD 나는 왜 시작했나?
 
 ### CI/CD 란 무엇인가?
 
-- CI/CD는 지속적 통합(Continuous Integration)과 지속적 배포(Continuous Deployment)을 의미한다
-- 지속적 통합이 필요한 이유
-- 시나리오 예
-- a 개발자 - 모듈 A 개발
-- b 개발자 - 모듈 A 내 a 기능 개발
+**지속적 통합(Continuous Integration)**
 
-> 제품은 지속적 통합을 통해 어플리케이션의 정산 작동에 대한 안정성을 보장해 준다.
-> 하지만 이 과정은 테스트 코드에 대한 팀의 문화가 필요하며, 동시에 개발자 간의 협업이 필요하다.
+> 지속적 통합은 개발자가 개발 주기 전반에서 더 빈번하게 신규 작성 코드를 통합하는 소프트웨어 개발 프로세스. 매일 1회 이상 코드 베이스에 추가합니다. 빌드할 때마다 자동 테스트가 실행되어 통합 문제점을 일찍 찾아냅니다. 따라서 문제점을 수정하기가 더 용이합니다
+> 출처: [IBM](https://www.ibm.com/kr-ko/topics/continuous-integration#:~:text=%EC%A7%80%EC%86%8D%EC%A0%81%20%ED%86%B5%ED%95%A9%EC%9D%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80%20%EA%B0%9C%EB%B0%9C%20%EC%A3%BC%EA%B8%B0%20%EC%A0%84%EB%B0%98%EC%97%90%EC%84%9C%20%EB%8D%94,%ED%95%98%EA%B8%B0%EA%B0%80%20%EB%8D%94%20%EC%9A%A9%EC%9D%B4%ED%95%A9%EB%8B%88%EB%8B%A4.)
+
+**지속적 배포(Continuous Deployment)**
+
+> 지속적 통합이 끝나는 지점에서 다시 시작하여 선택된 인프라 환경으로 애플리케이션을 자동 딜리버리합니다. CD는 검증 완료된 코드 베이스 변경 사항(업데이트, 버그 수정, 새로운 기능 등)을 사용자에게 최대한 빠르고 안전하게 제공하는 데 중점을 둡니다. 그러면 코드 변경 사항을 개발, 테스트, 프로덕션 등과 같은 다양한 환경에 배포하는 작업이 자동화 됩니다.
+> 출처: [IBM](https://www.ibm.com/kr-ko/topics/continuous-integration#:~:text=%EC%A7%80%EC%86%8D%EC%A0%81%20%ED%86%B5%ED%95%A9%EC%9D%80%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80%20%EA%B0%9C%EB%B0%9C%20%EC%A3%BC%EA%B8%B0%20%EC%A0%84%EB%B0%98%EC%97%90%EC%84%9C%20%EB%8D%94,%ED%95%98%EA%B8%B0%EA%B0%80%20%EB%8D%94%20%EC%9A%A9%EC%9D%B4%ED%95%A9%EB%8B%88%EB%8B%A4.)
+
+제품은 지속적 통합을 통해 어플리케이션의 정산 작동에 대한 안정성을 보장해 준다.
+하지만 이 과정은 테스트 코드에 대한 팀의 문화가 필요하며, 동시에 개발자 간의 협업이 필요하다.
 
 ### Github Flow전략에 대한 이해
 
@@ -45,8 +49,12 @@ description: 월간 CS CI/CD 나는 왜 시작했나?
 
 ##### GitHub Flow 를 선택한 이유
 
-- 현재 개발자가 나 혼자 이기에 간단한 전략 선택 (오버 엔지니어링 방지)
-- CI/CD 구축에 능숙하지 않다.
+![github-flow.png](../images/ci-cd-week-1-github-flow.png)
+
+-
+- 현재 프로젝트에 기여하는 사람이 나 혼자 이므로 복잡한 브랜치 전략을 필요로 하지 않아 **빠르고 쉽게** 관리가 가능하다.
+- GitHub Flow는 main 브랜치로 병합된 후 즉시 배포가 가능 하므로, Git Flow 의 여러 브랜치 단계들을 거치는 과정 보다 배포 까지 빠르게 반영이 가능 하다고 할 수 있다.
+- 만약 여기서 팀원이 추가 된다 할지라도 워낙 기본적인 구조에서 시작하는 것이기 때문에 확장하는 것에 대한 부담이 적다고 생각한다.
 
 ##### GitHub Flow 전략
 
@@ -117,6 +125,8 @@ aws s3 cp --recursive ./build s3://<가비아에서 구매한 도메인> --profi
 예)
 aws s3 cp --recursive ./build s3://unchaptered.shop --profile monthly-cs
 ```
+
+![img.png](../images/ci-cd-week-1-result.png)
 
 ### 마무리
 
