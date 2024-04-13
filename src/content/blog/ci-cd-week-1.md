@@ -61,7 +61,13 @@ description: 월간 CS CI/CD 나는 왜 시작했나?
 ![img.png](../images/ci-cd-week-1-infra.png)
 
 특정 도메인을 주소창에서 검색하면 통상적으로 그 도메인을 소유하고 있는 네임 서버 쪽으로 요청을 보내게 된다.
-사용자에게 컨텐츠를 보여주고자 할 때는 브라우저와 CloudFront 사이에 HTTPS 프로토콜을 사용한다.
+도메인을 구입한 곳이 가비아 인데, aws에서 제공하는 CloudFront와 S3를 이용하여 도메인을 연결하고자 한다.
+그래서 네임서버를 가비아에서 AWS Route53의 네임서버로 변경하게 되면, 요청이 AWS로 들어오게 된다.
+
+hyunsu.shop 으로 사용자가 접속을 시도하면, 네임서버인 AWS Route53로 요청을 보내고, Route53는 해당 URL에
+A레코드가 있는지 확인한다. 만약 CloudfFront를 향한 A레코드가 있다면 CloudFront로 요청을 보낸다.
+
+CloudFront에 대한 설명을 간략히 하자면, 사용자에게 컨텐츠를 보여주고자 할 때는 브라우저와 CloudFront 사이에 HTTPS 프로토콜을 사용한다.
 이 때, SSL/TLS 인증서를 사용하여 클라이언트와 CloudFront 사이의 통신이 암호화 된다.
 
 여기서 CloudFront가 가져와야 할 컨텐츠는 오리진 서버 즉 S3에 있는 정적 파일을 가져오는데
@@ -69,7 +75,9 @@ description: 월간 CS CI/CD 나는 왜 시작했나?
 
 /index.html에 있는 리액트 파일에 접근 함으로서 CSR방식으로 페이지를 렌더링 한다.
 
-실습은 테라폼을 이용해 이루어졌다.
+### Terraform을 이용한 인프라 구축
+
+[실습 Gitbub Repo](https://github.com/sooster910/2024-04-cicd-week-1-template)
 
 1. aws IAM 계정 생성
 2. aws-cli profile 설정하기
