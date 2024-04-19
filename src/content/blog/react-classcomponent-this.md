@@ -1,3 +1,4 @@
+---
 title: Dan Abramov가 언급했던 React classComponent 에서 this
 author: Hyunsu Joo
 pubDatetime: 2024-04-21T15:33:05.569Z
@@ -6,12 +7,9 @@ featured: false
 draft: true
 ogImage: /src/assets/images/js_closure.png
 tags:
-
-- React
-- JavaScript
-  description: React Conf 2018 에서 리액트 팀은 React의 16.8 버전의 Hook을 소개 했다. 그 배경으로는 Class Component에 대한 몇가지 이슈들을
-  해결하기 위한 것이었다. 그 중 하나는 Dan Abramov가 블로그에서도 언급한 React classComponent 에서 this에 대한 이야기이다.
-
+  - React
+  - JavaScript
+description: React Conf 2018 에서 리액트 팀은 React의 16.8 버전의 Hook을 소개 했다. 그 배경으로는 Class Component에 대한 몇가지 이슈들을 해결하기 위한 것이었다. 그 중 하나는 Dan Abramov가 블로그에서도 언급한 React classComponent 에서 this에 대한 이야기이다.
 ---
 
 class Contract{
