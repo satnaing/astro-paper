@@ -1,7 +1,7 @@
 ---
 title: 클로저를 제대로 알지 못해 문제 정의를 잘못한 적이 있다.
 author: Hyunsu Joo
-pubDatetime: 2024-03-20T15:33:05.569Z
+pubDatetime: 2024-03-20
 slug: js-closure
 featured: true
 draft: false
@@ -139,18 +139,18 @@ hits(); // 2
 hits(); // 3
 ```
 
-함수 내에서 사용한 coun t변수는 함수 밖의 스코프에서 정의된 count를 참조 하고 있다.
-그런데 함수 밖의 스코프가 함수 스코프가 아닌 블럭 스코프이다.
-디버거에서 확인 해 보면 hits 함수의 스코프에는 closure가 없다.
+함수 내에서 사용한 `count` 변수는 함수 밖의 스코프에서 정의된 count를 참조 하고 있다.
+그런데 함수 밖의 스코프가 함수 스코프가 아닌 블럭 스코프 이다.
+디버깅 해보면 `hits` 함수의 스코프에는 closure가 없다.
 
 ![img.png](../images/closure_3.png)
 
 그런데 이것도 클로저 라고 볼 수 있는가?
 
-그렇다고 한다. 블로저의 외부 스코프는 일반적으로 함수에서 유래하지만, 반드시 함수스코프일 필요는 없다는 것이다.
+그렇다고 한다. 클로저의 외부 스코프는 일반적으로 함수에서 유래하지만, 반드시 함수 스코프일 필요는 없다는 것이다.
 내부 함수를 감싸는 외부 스코프(함수, 블록)가 있으면 클로저가 생성된다.
 
-디버거에서 [[Scopes]] 에 Closure이 아닌 Block이 생성되었다.
+`[[Scopes]]` 에 Closure이 아닌 Block이 생성되었다.
 이것은 Block Scope를 가지는 let, const, class, function 등의 선언이 블록 스코프를 생성하기 때문이다.
 
 클로저의 의해 외부 스코프인 Block Scope의 count 변수를 참조하고 있다.
@@ -165,13 +165,6 @@ hits(); // 3
 클로저를 관찰 할 수 없는 경우도 있다.
 
 다음과 같은 예를 보자.
-클로저를 관찰 할 수 있나?
-
-- inner() 함수 내에서 greeting과 myName을 참조 하고 있고, greeting과 myName은
-  inner() 함수가 정의된 스코프에 변수들이 정의 되어 참조하고 있으므로 클로저가 생성 된다고 오해 할 수 있다.
-
-- 여기서 관찰 되는 것은 렉시컬 스코프이다. inner() 함수를 호출한 위치가 geeting과myName을 참조 할 수 있는 동일 스코프 이다.
-  그래서 클로저를 지원하지 않는 언어에서도 렉시컬 스코프를 가진 언어면 똑같은 결과를 가지게 된다.
 
 ```javascript
 function say(myName) {
@@ -185,12 +178,14 @@ function say(myName) {
 say("Hyunsu");
 ```
 
-두번째 예이다.
+클로저를 관찰 할 수 있나?
 
-- getFirstStudent() 함수에서 리턴을 함수로 하고 내부 함수 호출까지 했다.
-- 그런데 클로저는 관찰되지 않는다.
-- 이유는 참조한 students 변수의 정의된 위치가 최상위인 글로벌 스코프이다.
-- 어떤 함수에서든 students 참조가 가능하다. 그 이유는 클로저가 아니라 렉시컬 스코프 이기 때문에 어떤 함수에서든 전역 변수에 접근할 수 있다.
+- `inner()` 함수 내에서 외부 스코프인 `say()` 함수에 정의된 `greeting`과 `myName`을 참조 하고 있으니 클로저가 생성 된다고 오해 할 수 있다.
+- 여기서 관찰 되는 것은 클로저가 아닌 렉시컬 스코프 이다.
+- 그 이유는 `inner()` 함수를 호출한 위치가 `geeting`과 `myName`을 참조 할 수 있는 동일 스코프 이다.
+- 그래서 클로저를 지원하지 않는 언어에서도 렉시컬 스코프를 가진 언어면 똑같은 결과를 가지게 된다.
+
+두번째 예이다.
 
 ```javascript
 var students = [
@@ -212,10 +207,12 @@ let student = getFirstStudent();
 console.log(student());
 ```
 
-세번째 예이다.
+- getFirstStudent() 함수에서 리턴을 함수로 하고 내부 함수 호출까지 했다.
+- 그런데 클로저는 관찰되지 않는다.
+- 이유는 참조한 students 변수의 정의된 위치가 최상위인 글로벌 스코프이다.
+- 어떤 함수에서든 students 참조가 가능하다. 그 이유는 클로저가 아니라 렉시컬 스코프 이기 때문에 어떤 함수에서든 전역 변수에 접근할 수 있다.
 
-- studentId 를 인자로 받아 nobody() 함수를 리턴한다.nobody 함수는 외부 스코프에 있는 studentID를 참조하지 않는다.
-- lookupStudent() 함수 실행 후 studentId를 어떤 스코프에서도 참조하지 않기 때문에 가비지 컬렉션 대상이 된다.
+세번째 예이다.
 
 ```javascript
 function lookupStudent(studentId) {
@@ -228,6 +225,9 @@ function lookupStudent(studentId) {
 let student = lookupStudent(112);
 student(); // Nobody here
 ```
+
+- studentId 를 인자로 받아 nobody() 함수를 리턴한다.nobody 함수는 외부 스코프에 있는 studentID를 참조하지 않는다.
+- lookupStudent() 함수 실행 후 studentId를 어떤 스코프에서도 참조하지 않기 때문에 가비지 컬렉션 대상이 된다.
 
 이로써 도출 할 수 있는 클로저의 정의는 다음과 같다.
 
