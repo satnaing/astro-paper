@@ -54,7 +54,7 @@ module.exports = {
         transparent: "transparent",
       },
       fontFamily: {
-        mono: ["var(--font-ibm)", "monospace"],
+        mono: ["var(--font-ibm)"],
       },
       typography: {
         DEFAULT: {
