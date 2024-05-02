@@ -8,7 +8,7 @@ draft: true
 ogImage: /src/assets/images/js_closure.png
 tags:
   - JavaScript
-description:
+description: ""
 ---
 
 ### 동기의 한계 그리고 비동기 등장
