@@ -151,12 +151,19 @@ const layoutProps = {
   }
   document.addEventListener("scroll", updateScrollProgress);
 
-  /** Attaches links to headings in the document,
+  /** Attaches links to headings in the article,
    *  allowing sharing of sections easily */
   function addHeadingLinks() {
-    let headings = Array.from(
-      document.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    const article = document.getElementById("article");
+
+    if (article === null) {
+      throw new Error("Article element not found");
+    }
+
+    const headings = Array.from(
+      article.querySelectorAll("h1, h2, h3, h4, h5, h6")
     );
+
     for (let heading of headings) {
       heading.classList.add("group");
       let link = document.createElement("a");
