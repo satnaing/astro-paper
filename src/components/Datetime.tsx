@@ -8,6 +8,7 @@ interface DatetimesProps {
 interface Props extends DatetimesProps {
   size?: "sm" | "lg";
   className?: string;
+  readingTime?: string;
 }
 
 export default function Datetime({
@@ -15,6 +16,7 @@ export default function Datetime({
   modDatetime,
   size = "sm",
   className,
+  readingTime,
 }: Props) {
   return (
     <div className={`flex items-center space-x-2 opacity-80 ${className}`}>
@@ -36,10 +38,8 @@ export default function Datetime({
         <span className="sr-only">Published:</span>
       )}
       <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-        <FormattedDatetime
-          pubDatetime={pubDatetime}
-          modDatetime={modDatetime}
-        />
+        <FormattedDatetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+        {readingTime && <span> ({readingTime})</span>}
       </span>
     </div>
   );
