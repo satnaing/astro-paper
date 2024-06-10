@@ -22,6 +22,8 @@
     "astro": "^4.2.1",
     "fuse.js": "^7.0.0",
     "github-slugger": "^2.0.0",
+    "mdast-util-to-string": "^4.0.0",
+    "reading-time": "^1.5.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.11",
