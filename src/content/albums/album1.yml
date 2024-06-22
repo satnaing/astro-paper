@@ -1,0 +1,11 @@
+author: "Author Name"
+pubDatetime: 2024-01-23T15:22:00Z
+modDatetime: 2024-02-21T09:12:47.400Z
+title: "Album 1"
+description: "This is an album"
+featured: true
+draft: false
+tags: ['Photography', 'People']
+cover: './album1/cover.jpg'
+canonicalURL: 'https://example.com/albums/album1/'
+slug: 'album1'
