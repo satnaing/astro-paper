@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Albums from "@layouts/Albums.astro";
+import AlbumDetails from "@layouts/AlbumDetails.astro";
+import PostDetails from "@layouts/PostDetails.astro";
+import getSortedAlbums from "@utils/getSortedAlbums";
+import getAlbumImages from "@utils/albums";
+
+import getPageNumbers from "@utils/getPageNumbers";
+import getPagination from "@utils/getPagination";
+
+export interface Props {
+  album: CollectionEntry<"albums">;
+}
+
+export async function getStaticPaths() {
+  const albums = await getCollection("albums", ({ data }) => !data.draft);
+
+  const albumResult = albums.map(album => ({
+    params: { slug: album.id },
+    props: { album },
+  }));
+
+  const pagePaths = getPageNumbers(albums.length).map(pageNum => ({
+    params: { slug: String(pageNum) },
+  }));
+
+  return [...albumResult, ...pagePaths];
+}
+
+const { slug } = Astro.params;
+const { album } = Astro.props;
+
+const posts = await getCollection("albums");
+
+const sortedPosts = getSortedAlbums(posts);
+
+const pagination = getPagination({
+  posts: sortedPosts,
+  page: slug,
+});
+---
+
+{album ? <AlbumDetails post={album} /> : <Albums {...pagination} />}

@@ -1,0 +1,61 @@
+---
+import { type CollectionEntry } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Card from "@components/Card";
+import Pagination from "@components/Pagination.astro";
+import { SITE } from "@config";
+import { Image } from "astro:assets";
+
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  paginatedPosts: CollectionEntry<"albums">[];
+}
+
+const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
+---
+
+<Layout title={`Albums | ${SITE.title}`}>
+  <Header activeNav="posts" />
+  <Main pageTitle="Albums" pageDesc="All the albums I've posted." />
+  <div class="p-8">
+    <h1 class="text-5xl font-bold text-center my-8">Gallery</h1>
+    <div class="mx-auto container max-w-screen-sm grid grid-cols-2 gap-8">
+      {
+        paginatedPosts.map(item => (
+          <a
+            href={`/albums/${item.id}`}
+            class="group transition-all mb-4 block"
+          >
+            <Image
+              src={item.data.cover}
+              alt={item.data.title}
+              format="avif"
+              width={720}
+              quality="mid"
+              class:list={[
+                "rounded-lg transition-all",
+                "group-hover:shadow-lg group-hover:opacity-90",
+              ]}
+            />
+            <div class="mt-4 text-center text-neutral-700">
+              <strong class="font-normal">{item.data.title}</strong>
+              <p class="text-xs">{item.data.description}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <Pagination
+    {currentPage}
+    {totalPages}
+    prevUrl={`/posts${currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""}/`}
+    nextUrl={`/posts/${currentPage + 1}/`}
+  />
+
+  <Footer noMarginTop={totalPages > 1} />
+</Layout>
