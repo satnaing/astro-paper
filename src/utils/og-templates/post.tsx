@@ -1,8 +1,10 @@
+import satori, { type SatoriOptions } from "satori";
 import { SITE } from "@config";
 import type { CollectionEntry } from "astro:content";
+import loadGoogleFont from "../loadGoogleFont";
 
-export default (post: CollectionEntry<"blog">) => {
-  return (
+export default async (post: CollectionEntry<"blog">) => {
+  return satori(
     <div
       style={{
         background: "#fefbfb",
@@ -91,6 +93,28 @@ export default (post: CollectionEntry<"blog">) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    {
+      width: 1200,
+      height: 630,
+      embedFont: true,
+      fonts: [
+        {
+          name: "Noto Sans TC",
+          data: await loadGoogleFont("Noto+Sans+TC", SITE.title + SITE.desc),
+          weight: 400,
+          style: "normal",
+        },
+        {
+          name: "Noto Sans TC",
+          data: await loadGoogleFont(
+            "Noto+Sans+TC:wght@700",
+            SITE.title + SITE.desc
+          ),
+          weight: 700,
+          style: "normal",
+        },
+      ],
+    }
   );
 };
