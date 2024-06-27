@@ -101,7 +101,10 @@ export default async (post: CollectionEntry<"blog">) => {
       fonts: [
         {
           name: "Noto Sans TC",
-          data: await loadGoogleFont("Noto+Sans+TC", SITE.title + SITE.desc),
+          data: await loadGoogleFont(
+            "Noto+Sans+TC",
+            post.data.title + post.data.author + SITE.title
+          ),
           weight: 400,
           style: "normal",
         },
@@ -109,7 +112,7 @@ export default async (post: CollectionEntry<"blog">) => {
           name: "Noto Sans TC",
           data: await loadGoogleFont(
             "Noto+Sans+TC:wght@700",
-            SITE.title + SITE.desc
+            post.data.title + post.data.author + SITE.title
           ),
           weight: 700,
           style: "normal",
