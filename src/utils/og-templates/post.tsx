@@ -1,7 +1,8 @@
 import satori, { type SatoriOptions } from "satori";
 import { SITE } from "@config";
 import type { CollectionEntry } from "astro:content";
-import loadGoogleFont from "../loadGoogleFont";
+import loadGoogleFonts from "../loadGoogleFont";
+import type { FontOptions } from "../loadGoogleFont";
 
 export default async (post: CollectionEntry<"blog">) => {
   return satori(
@@ -98,26 +99,9 @@ export default async (post: CollectionEntry<"blog">) => {
       width: 1200,
       height: 630,
       embedFont: true,
-      fonts: [
-        {
-          name: "Noto Sans TC",
-          data: await loadGoogleFont(
-            "Noto+Sans+TC",
-            post.data.title + post.data.author + SITE.title
-          ),
-          weight: 400,
-          style: "normal",
-        },
-        {
-          name: "Noto Sans TC",
-          data: await loadGoogleFont(
-            "Noto+Sans+TC:wght@700",
-            post.data.title + post.data.author + SITE.title
-          ),
-          weight: 700,
-          style: "normal",
-        },
-      ],
+      fonts: (await loadGoogleFonts(
+        post.data.title + post.data.author + SITE.title + "by"
+      )) as FontOptions[],
     }
   );
 };

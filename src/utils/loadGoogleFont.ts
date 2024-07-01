@@ -1,3 +1,11 @@
+import type { FontStyle, FontWeight } from "satori";
+export type FontOptions = {
+  name: string;
+  data: ArrayBuffer;
+  weight: FontWeight | undefined;
+  style: FontStyle | undefined;
+};
+
 async function loadGoogleFont(
   font: string,
   text: string
@@ -29,4 +37,68 @@ async function loadGoogleFont(
   return fonts;
 }
 
-export default loadGoogleFont;
+async function loadGoogleFonts(
+  text: string
+): Promise<
+  Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
+> {
+  const fontsConfig = [
+    {
+      name: "Noto Sans JP",
+      font: "Noto+Sans+JP",
+      weight: 400,
+      style: "normal",
+    },
+    {
+      name: "Noto Sans JP",
+      font: "Noto+Sans+JP:wght@700",
+      weight: 700,
+      style: "normal",
+    },
+
+    {
+      name: "Noto Sans KR",
+      font: "Noto+Sans+KR",
+      weight: 400,
+      style: "normal",
+    },
+    {
+      name: "Noto Sans KR",
+      font: "Noto+Sans+KR:wght@700",
+      weight: 700,
+      style: "normal",
+    },
+
+    {
+      name: "Noto Sans TC",
+      font: "Noto+Sans+TC",
+      weight: 400,
+      style: "normal",
+    },
+    {
+      name: "Noto Sans TC",
+      font: "Noto+Sans+TC:wght@700",
+      weight: 700,
+      style: "normal",
+    },
+
+    { name: "Noto Sans", font: "Noto+Sans", weight: 400, style: "normal" },
+    {
+      name: "Noto Sans",
+      font: "Noto+Sans:wght@700",
+      weight: 700,
+      style: "normal",
+    },
+  ];
+
+  const fonts = await Promise.all(
+    fontsConfig.map(async ({ name, font, weight, style }) => {
+      const data = await loadGoogleFont(font, text);
+      return { name, data, weight, style };
+    })
+  );
+
+  return fonts;
+}
+
+export default loadGoogleFonts;
