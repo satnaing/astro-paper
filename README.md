@@ -113,6 +113,9 @@ npm create astro@latest -- --template satnaing/astro-paper
 
 # yarn
 yarn create astro --template satnaing/astro-paper
+
+# pnpm
+pnpm dlx create-astro --template satnaing/astro-paper
 ```
 
 ## Google Site Verification (optional)
