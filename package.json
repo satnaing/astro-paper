@@ -16,10 +16,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "@astrojs/rss": "^4.0.2",
+    "@astrojs/check": "^0.8.2",
+    "@astrojs/rss": "^4.0.7",
     "@resvg/resvg-js": "^2.6.0",
-    "astro": "^4.2.1",
+    "astro": "^4.12.2",
     "fuse.js": "^7.0.0",
     "github-slugger": "^2.0.0",
     "remark-collapse": "^0.1.2",
@@ -29,8 +29,8 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@astrojs/react": "^3.0.9",
-    "@astrojs/sitemap": "^3.0.5",
+    "@astrojs/react": "^3.6.0",
+    "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.0",
     "@divriots/jampack": "^0.23.2",
     "@tailwindcss/typography": "^0.5.10",
