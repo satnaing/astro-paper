@@ -121,8 +121,8 @@ pnpm dlx create-astro --template satnaing/astro-paper
 Then start the project by running the following commands:
 
 ```bash
-# prepare commit hook & install dependencies
-npm run prepare && npm run install
+# install dependencies
+npm run install
 
 # start running the project
 npm run dev
@@ -162,7 +162,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm run format:check`               | Check code format with Prettier                                                                                                  |
 | `npm run format`                     | Format codes with Prettier                                                                                                       |
 | `npm run sync`                       | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
-| `npm run cz`                         | Commit code changes with commitizen                                                                                              |
 | `npm run lint`                       | Lint with ESLint                                                                                                                 |
 | `docker compose up -d`               | Run AstroPaper on docker, You can access with the same hostname and port informed on `dev` command.                              |
 | `docker compose run app npm install` | You can run any command above into the docker container.                                                                         |
