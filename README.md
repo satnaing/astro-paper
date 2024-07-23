@@ -118,6 +118,8 @@ yarn create astro --template satnaing/astro-paper
 pnpm dlx create-astro --template satnaing/astro-paper
 ```
 
+> **_Warning!_** If you're using `yarn 1`, you might need to [install `sharp`](https://sharp.pixelplumbing.com/install) as a dependency.
+
 Then start the project by running the following commands:
 
 ```bash
