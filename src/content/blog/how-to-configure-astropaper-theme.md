@@ -20,7 +20,7 @@ AstroPaper is a highly customizable Astro blog theme. With AstroPaper, you can c
 
 The important configurations lies in `src/config.ts` file. Within that file, you'll see the `SITE` object where you can specify your website's main configurations.
 
-During deveopment, it's okay to leave `SITE.website` empty. But in production mode, you should specify your deployed url in `SITE.website` option since this will be used for canonical URL, social card URL etc.. which are important for SEO.
+During development, it's okay to leave `SITE.website` empty. But in production mode, you should specify your deployed url in `SITE.website` option since this will be used for canonical URL, social card URL etc.. which are important for SEO.
 
 ```js
 // file: src/config.ts
