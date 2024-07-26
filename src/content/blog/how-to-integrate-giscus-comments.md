@@ -108,56 +108,56 @@ npm i @giscus/react
 Then we create a new `Comments.tsx` React component in `src/components`:
 
 ```tsx
-import Giscus, { type Theme } from '@giscus/react'
-import { GISCUS } from '@config'
-import { useEffect, useState } from 'react'
+import Giscus, { type Theme } from "@giscus/react";
+import { GISCUS } from "@config";
+import { useEffect, useState } from "react";
 
 interface CommentsProps {
-  lightTheme?: Theme
-  darkTheme?: Theme
+  lightTheme?: Theme;
+  darkTheme?: Theme;
 }
 
 export default function Comments({
-  lightTheme = 'light',
-  darkTheme = 'dark',
+  lightTheme = "light",
+  darkTheme = "dark",
 }: CommentsProps) {
   const [theme, setTheme] = useState(() => {
-    const currentTheme = localStorage.getItem('theme')
-    const browserTheme = window.matchMedia('(prefers-color-scheme: dark)')
+    const currentTheme = localStorage.getItem("theme");
+    const browserTheme = window.matchMedia("(prefers-color-scheme: dark)")
       .matches
-      ? 'dark'
-      : 'light'
+      ? "dark"
+      : "light";
 
-    return currentTheme || browserTheme
-  })
+    return currentTheme || browserTheme;
+  });
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = ({ matches }: MediaQueryListEvent) => {
-      setTheme(matches ? 'dark' : 'light')
-    }
+      setTheme(matches ? "dark" : "light");
+    };
 
-    mediaQuery.addEventListener('change', handleChange)
+    mediaQuery.addEventListener("change", handleChange);
 
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
-    const themeButton = document.querySelector('#theme-btn')
+    const themeButton = document.querySelector("#theme-btn");
     const handleClick = () => {
-      setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'))
-    }
+      setTheme(prevTheme => (prevTheme === "dark" ? "light" : "dark"));
+    };
 
-    themeButton?.addEventListener('click', handleClick)
+    themeButton?.addEventListener("click", handleClick);
 
-    return () => themeButton?.removeEventListener('click', handleClick)
-  }, [])
+    return () => themeButton?.removeEventListener("click", handleClick);
+  }, []);
 
   return (
     <div className="mt-8">
-      <Giscus theme={theme === 'light' ? lightTheme : darkTheme} {...GISCUS} />
+      <Giscus theme={theme === "light" ? lightTheme : darkTheme} {...GISCUS} />
     </div>
-  )
+  );
 }
 ```
 
