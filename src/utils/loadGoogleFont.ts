@@ -1,4 +1,5 @@
 import type { FontStyle, FontWeight } from "satori";
+
 export type FontOptions = {
   name: string;
   data: ArrayBuffer;
@@ -44,50 +45,16 @@ async function loadGoogleFonts(
 > {
   const fontsConfig = [
     {
-      name: "Noto Sans JP",
-      font: "Noto+Sans+JP",
+      name: "IBM Plex Mono",
+      font: "IBM+Plex+Mono",
       weight: 400,
       style: "normal",
     },
     {
-      name: "Noto Sans JP",
-      font: "Noto+Sans+JP:wght@700",
+      name: "IBM Plex Mono",
+      font: "IBM+Plex+Mono:wght@700",
       weight: 700,
-      style: "normal",
-    },
-
-    {
-      name: "Noto Sans KR",
-      font: "Noto+Sans+KR",
-      weight: 400,
-      style: "normal",
-    },
-    {
-      name: "Noto Sans KR",
-      font: "Noto+Sans+KR:wght@700",
-      weight: 700,
-      style: "normal",
-    },
-
-    {
-      name: "Noto Sans TC",
-      font: "Noto+Sans+TC",
-      weight: 400,
-      style: "normal",
-    },
-    {
-      name: "Noto Sans TC",
-      font: "Noto+Sans+TC:wght@700",
-      weight: 700,
-      style: "normal",
-    },
-
-    { name: "Noto Sans", font: "Noto+Sans", weight: 400, style: "normal" },
-    {
-      name: "Noto Sans",
-      font: "Noto+Sans:wght@700",
-      weight: 700,
-      style: "normal",
+      style: "bold",
     },
   ];
 

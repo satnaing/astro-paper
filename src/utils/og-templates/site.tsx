@@ -1,6 +1,6 @@
+import satori from "satori";
 import { SITE } from "@config";
-import satori, { type SatoriOptions } from "satori";
-import loadGoogleFont from "../loadGoogleFont";
+import loadGoogleFonts, { type FontOptions } from "../loadGoogleFont";
 
 export default async () => {
   return satori(
@@ -89,23 +89,7 @@ export default async () => {
       width: 1200,
       height: 630,
       embedFont: true,
-      fonts: [
-        {
-          name: "Noto Sans TC",
-          data: await loadGoogleFont("Noto+Sans+TC", SITE.title + SITE.desc),
-          weight: 400,
-          style: "normal",
-        },
-        {
-          name: "Noto Sans TC",
-          data: await loadGoogleFont(
-            "Noto+Sans+TC:wght@700",
-            SITE.title + SITE.desc
-          ),
-          weight: 700,
-          style: "normal",
-        },
-      ],
+      fonts: (await loadGoogleFonts(SITE.title + SITE.desc)) as FontOptions[],
     }
   );
 };

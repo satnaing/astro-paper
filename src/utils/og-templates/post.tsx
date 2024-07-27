@@ -1,8 +1,7 @@
-import satori, { type SatoriOptions } from "satori";
-import { SITE } from "@config";
+import satori from "satori";
 import type { CollectionEntry } from "astro:content";
-import loadGoogleFonts from "../loadGoogleFont";
-import type { FontOptions } from "../loadGoogleFont";
+import { SITE } from "@config";
+import loadGoogleFonts, { type FontOptions } from "../loadGoogleFont";
 
 export default async (post: CollectionEntry<"blog">) => {
   return satori(
