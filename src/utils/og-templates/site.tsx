@@ -1,7 +1,9 @@
+import satori from "satori";
 import { SITE } from "@config";
+import loadGoogleFonts, { type FontOptions } from "../loadGoogleFont";
 
-export default () => {
-  return (
+export default async () => {
+  return satori(
     <div
       style={{
         background: "#fefbfb",
@@ -82,6 +84,12 @@ export default () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    {
+      width: 1200,
+      height: 630,
+      embedFont: true,
+      fonts: (await loadGoogleFonts(SITE.title + SITE.desc)) as FontOptions[],
+    }
   );
 };
