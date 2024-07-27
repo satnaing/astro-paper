@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.3.0 (2024-07-27)
+
+### Feat
+
+- support light/dark theme in code blocks (#327)
+- add number of posts config for home page (#281)
+- make heading links keyboard focusable (#275)
+- add JSON-LD structured data (#260)
+- add scroll indicator in blog posts (#249)
+
+### Fix
+
+- adding data-theme to tailwind config (#319)
+- avoid `undefined` when passing class-name as prop (#270)
+- add $CURRENT_TIMEZONE_OFFSET in custom code snippets (#264)
+- display `Updated` in posts only when modDatetime > pubDatetime (#258)
+- add SITE.title in PostDetails title tag for consistent look (#247)
+- add trailing slash to links to avoid extra redirects (#246)
+- update incorrect typo in predefined-color-schemes.md (#245)
+
+### Refactor
+
+- remove trailing commas in tsconfig.json (#325)
+- remove redundant role in article element (#323)
+- avoid using unnecessary class-name in the pagination component (#274)
+- update post detail script codes
+- update code formatting with prettier
+
 ## [4.2.0](https://github.com/satnaing/astro-paper/compare/v4.1.0...v4.2.0) (2024-01-22)
 
 ### Features
