@@ -228,6 +228,41 @@ const sortedPosts = getSortedPosts(posts); // old code ❌
 const sortedPosts = await getSortedPosts(posts); // new code ✅
 ```
 
+Now, `getPostsByTag` function becomes an async function. Therefore, we needs to `await` the `getPostsByTag` function too.
+
+- src/pages/tags/[tag]/[page].astro
+- src/pages/tags/[tag]/index.astro
+
+```ts
+const postsByTag = getPostsByTag(posts, tag); // old code ❌
+const postsByTag = await getPostsByTag(posts, tag); // new code ✅
+```
+
+Moreover, update the `getStaticPaths` of `src/pages/tags/[tag]/[page].astro` like this:
+
+```ts
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  const tags = getUniqueTags(posts);
+
+  // Make sure to await the promises
+  const paths = await Promise.all(
+    tags.map(async ({ tag, tagName }) => {
+      const tagPosts = await getPostsByTag(posts, tag);
+      const totalPages = getPageNumbers(tagPosts.length);
+
+      return totalPages.map(page => ({
+        params: { tag, page: String(page) },
+        props: { tag, tagName },
+      }));
+    })
+  );
+
+  return paths.flat(); // Flatten the array of arrays
+}
+```
+
 Now you can access `readingTime` in other places besides `PostDetails`
 
 ## Displaying reading time (optional)
