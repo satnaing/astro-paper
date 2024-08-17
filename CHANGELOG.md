@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.3.2 (2024-08-17)
+
+### Fix
+
+- **a11y**: remove aria-labels from non-interactive elements (#346)
+
+### Refactor
+
+- update tailwind classes to v3 syntax (#345)
+- remove commented codes
+
 ## v4.3.1 (2024-07-27)
 
 ### Fix
