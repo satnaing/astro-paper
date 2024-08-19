@@ -150,8 +150,10 @@ const layoutProps = {
   /** Attaches links to headings in the document,
    *  allowing sharing of sections easily */
   function addHeadingLinks() {
-    let headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6"));
-    for (let heading of headings) {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
       heading.classList.add("group");
       const link = document.createElement("a");
       link.className =
@@ -170,14 +172,14 @@ const layoutProps = {
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
   function attachCopyButtons() {
-    let copyButtonLabel = "Copy";
-    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
-    for (let codeBlock of codeBlocks) {
-      let wrapper = document.createElement("div");
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
       wrapper.style.position = "relative";
 
-      let copyButton = document.createElement("button");
+      const copyButton = document.createElement("button");
       copyButton.className =
         "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
       copyButton.innerHTML = copyButtonLabel;
@@ -194,8 +196,8 @@ const layoutProps = {
     }
 
     async function copyCode(block, button) {
-      let code = block.querySelector("code");
-      let text = code?.innerText;
+      const code = block.querySelector("code");
+      const text = code?.innerText;
 
       await navigator.clipboard.writeText(text ?? "");
 
