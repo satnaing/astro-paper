@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.4.0 (2024-08-19)
+
+### Refactor
+
+- replace github-slugger with lodash.kebabcase (#357)
+
 ## v4.3.2 (2024-08-17)
 
 ### Fix
