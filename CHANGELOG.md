@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.4.0 (2024-08-19)
+
+### Content Layer API
+
+- upgrade Astro and use Content Layer API (#355)
+
+### Others
+
+- upgrade ESLint to v9 and update configurations (#356)
+- replace github-slugger with lodash.kebabcase (#357)
+
 ## v4.3.2 (2024-08-17)
 
 ### Fix
