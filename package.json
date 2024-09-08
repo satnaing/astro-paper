@@ -14,10 +14,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
+    "@astrojs/check": "^0.9.3",
     "@astrojs/rss": "^4.0.7",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "^4.14.2",
+    "astro": "^4.15.4",
     "fuse.js": "^7.0.0",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",
