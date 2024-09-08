@@ -215,7 +215,7 @@ Step (2) Make sure to refactor every file which uses `getSortedPosts` function. 
 Files that use `getSortedPosts` function are as follow
 
 - src/pages/index.astro
-- src/pages/posts/index.astro
+- src/pages/search.astro
 - src/pages/rss.xml.ts
 - src/pages/posts/index.astro
 - src/pages/posts/[slug]/index.astro
