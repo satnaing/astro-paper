@@ -5,6 +5,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
+import awsAmplify from 'astro-aws-amplify';
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,4 +42,5 @@ export default defineConfig({
   experimental: {
     contentLayer: true,
   },
+  adapter: awsAmplify(),
 });
