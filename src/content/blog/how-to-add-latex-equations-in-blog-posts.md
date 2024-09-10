@@ -1,17 +1,17 @@
 ---
 author: Alberto Perdomo
 pubDatetime: 2024-09-08T20:58:52.737Z
-title: Markdown and LaTeX
-slug: markdown-latex
+title: Adding LaTeX Equations in AstroPaper blog posts
 featured: false
 tags:
   - rendering
+  - docs
 description: How to use LaTeX equations in your Markdown files for AstroPaper.
 ---
 
-# Introduction to LaTeX Equations in Markdown
-
 This document demonstrates how to use LaTeX equations in your Markdown files for AstroPaper. LaTeX is a powerful typesetting system often used for mathematical and scientific documents.
+
+## Table of contents
 
 ## Instructions
 
@@ -21,49 +21,55 @@ In this section, you will find instructions on how to add support for LaTeX in y
 
 2. Update the Astro configuration to use the these libraries (see in **diff** format):
 
-```
-diff --git a/astro.config.ts b/astro.config.ts
-index 8386d5d..28a0cff 100644
---- a/astro.config.ts
-+++ b/astro.config.ts
-@@ -3,6 +3,8 @@ import tailwind from "@astrojs/tailwind";
- import react from "@astrojs/react";
- import remarkToc from "remark-toc";
- import remarkCollapse from "remark-collapse";
-+import remarkMath from 'remark-math';
-+import rehypeKatex from 'rehype-katex';
- import sitemap from "@astrojs/sitemap";
- import { SITE } from "./src/config";
- 
-@@ -25,6 +27,10 @@ export default defineConfig({
-           test: "Table of contents",
-         },
-       ],
-+      remarkMath,
-+    ],
-+    rehypePlugins: [
-+      rehypeKatex
-     ],
-     shikiConfig: {
-       // For more themes, visit https://shiki.style/themes
+```ts
+// astro.config.ts
 
+// other imports
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+export default defineConfig({
+  // other configs
+  markdown: {
+    remarkPlugins: [
+      remarkMath,
+      remarkToc,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+    ],
+    rehypePlugins: [rehypeKatex],
+    // other markdown configs
+  },
+  // other configs
+});
 ```
 
 3. Import KaTeX CSS in the main layout (see in **diff** format):
 
-```
-diff --git a/src/layouts/Layout.astro b/src/layouts/Layout.astro
-index decf1c7..a72a75f 100644
---- a/src/layouts/Layout.astro
-+++ b/src/layouts/Layout.astro
-@@ -132,6 +132,7 @@ const structuredData = {
-     <ViewTransitions />
+```html
+// src/layouts/Layout.astro
+
+---
+import { LOCALE, SITE } from "@config";
+
+// astro code
+---
+
+<!doctype html>
+
+// layout...
  
-     <script is:inline src="/toggle-theme.js"></script>
-+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
-   </head>
-   <body>
-     <slot />
+    <script is:inline src="/toggle-theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
 ```
 
 And *voilà*, this setup allows you to write LaTeX equations in your Markdown files, which will be rendered properly when the site is built. Once you do it, the rest of the document will appear rendered correctly. 
