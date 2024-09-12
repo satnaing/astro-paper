@@ -7,9 +7,10 @@ import Card from "@components/Card";
 import Pagination from "@components/Pagination.astro";
 import { SITE } from "@config";
 import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  page: Page;
+  page: Page<CollectionEntry<"blog">>;
   tag: string;
   tagName: string;
 }
