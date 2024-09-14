@@ -5,7 +5,8 @@ const postFilter = ({ data }: CollectionEntry<"blog">) => {
   const isPublishTimePassed =
     Date.now() >
     new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
-  return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
+  // Is in draft mode OR is not a draft and is past the publish date
+  return process.env.DRAFT_MODE === "true" || (!data.draft && isPublishTimePassed);
 };
 
 export default postFilter;
