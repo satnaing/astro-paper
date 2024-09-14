@@ -1,3 +1,29 @@
 ---
-return Astro.rewrite("/posts/1");
+import { SITE } from "@config";
+import Posts from "@layouts/Posts.astro";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const firstPagePosts = posts.slice(0, SITE.postPerPage);
+
+const page = {
+  data: firstPagePosts,
+  start: 0,
+  end: firstPagePosts.length,
+  total: posts.length,
+  lastPage: Math.ceil(posts.length / SITE.postPerPage),
+  currentPage: 1,
+  size: SITE.postPerPage,
+  url: {
+    current: "/posts/",
+    prev: undefined,
+    next: posts.length > SITE.postPerPage ? "/posts/2" : undefined,
+    first: "/posts/1",
+    last: `/posts/${Math.ceil(posts.length / SITE.postPerPage)}`,
+  },
+} satisfies Page<CollectionEntry<"blog">>;
 ---
+
+<Posts {page} />
