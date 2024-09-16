@@ -11,9 +11,10 @@ import { SITE } from "@config";
 
 export interface Props {
   post: CollectionEntry<"blog">;
+  posts: CollectionEntry<"blog">[];
 }
 
-const { post } = Astro.props;
+const { post, posts } = Astro.props;
 
 const {
   title,
@@ -44,6 +45,19 @@ const layoutProps = {
   ogImage: ogUrl,
   scrollSmooth: true,
 };
+
+/* ========== Prev/Next Posts ========== */
+
+const allPosts = posts.map(({ data: { title }, slug }) => ({
+  slug,
+  title,
+}));
+
+const currentPostIndex = allPosts.findIndex(a => a.slug === post.slug);
+
+const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
+const nextPost =
+  currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
 ---
 
 <Layout {...layoutProps}>
@@ -94,6 +108,72 @@ const layoutProps = {
 
       <ShareLinks />
     </div>
+
+    <hr class="my-6 border-dashed" />
+
+    <!-- Previous/Next Post Buttons -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        prevPost && (
+          <a
+            href={`/posts/${prevPost.slug}`}
+            class="flex w-full gap-1 hover:opacity-75"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
+            >
+              <>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 6l-6 6l6 6" />
+              </>
+            </svg>
+            <div>
+              <span>Previous Post</span>
+              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
+            </div>
+          </a>
+        )
+      }
+      {
+        nextPost && (
+          <a
+            href={`/posts/${nextPost.slug}`}
+            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+          >
+            <div>
+              <span>Next Post</span>
+              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
+            >
+              <>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 6l6 6l-6 6" />
+              </>
+            </svg>
+          </a>
+        )
+      }
+    </div>
   </main>
   <Footer />
 </Layout>
@@ -107,7 +187,7 @@ const layoutProps = {
   }
 </style>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
   function createProgressBar() {
@@ -132,20 +212,22 @@ const layoutProps = {
   /** Update the progress bar
    *  when user scrolls */
   function updateScrollProgress() {
-    const winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    if (document) {
-      const myBar = document.getElementById("myBar");
-      if (myBar) {
-        myBar.style.width = scrolled + "%";
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
       }
-    }
+    });
   }
-  document.addEventListener("scroll", updateScrollProgress);
+  updateScrollProgress();
 
   /** Attaches links to headings in the document,
    *  allowing sharing of sections easily */
@@ -220,4 +302,9 @@ const layoutProps = {
     });
   }
   backToTop();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
 </script>
