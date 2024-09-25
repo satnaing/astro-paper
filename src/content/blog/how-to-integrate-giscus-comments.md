@@ -1,6 +1,7 @@
 ---
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
+modDatetime: 2024-09-25T12:07:53Z
 title: How to integrate Giscus comments into AstroPaper
 slug: how-to-integrate-giscus-comments
 featured: true
@@ -189,10 +190,12 @@ Note that specifying a `theme` here will override the `lightTheme` and `darkThem
 To complete the process, add the new Comments component to `src/layouts/PostDetails.astro` (replacing the `script` tag from the previous step).
 
 ```diff
++ import Comments from "@components/Comments";
+
       <ShareLinks />
     </div>
 
-+    <Comments client:only />
++    <Comments client:only="react" />
 
   </main>
   <Footer />
