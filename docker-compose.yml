@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: node:18
+    image: node:20
     ports:
       - 4321:4321
     working_dir: /app
