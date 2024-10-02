@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.5.1 (2024-10-02)
+
+### Fix
+
+- **docs**: update giscus blog post (#392)
+- add missing posts sorting (#383)
+
 ## v4.5.0 (2024-09-16)
 
 ### Feat
