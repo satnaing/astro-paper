@@ -11,13 +11,30 @@ import { SITE } from "@config";
 const posts = await getCollection("blog");
 
 let tags = getUniqueTags(posts);
+let maxCount = tags[0].count;
+let minCount = 1;
+tags.forEach(tag => {
+    if (tag.count > maxCount) {
+        maxCount = tag.count;
+    }
+    if (tag.count < minCount) {
+        minCount = tag.count;
+    }
+});
+function getFontSize(count: number) {
+    const maxFontSize = 45;
+    const minFontSize = 14;
+    const fontSize = minFontSize +
+        ((count - minCount) / (maxCount - minCount)) * (maxFontSize - minFontSize);
+    return fontSize;
+}
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>
   <Header activeNav="tags" />
   <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
     <ul>
-      {tags.map(({ tag }) => <Tag {tag} size="lg" />)}
+      {tags.map(({ tag, count }) => <Tag {tag} size={getFontSize(count)} />)}
     </ul>
   </Main>
   <Footer />
