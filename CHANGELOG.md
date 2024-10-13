@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.6.0 (2024-10-13)
+
+### Feat
+
+- add edit post feature in blog posts (#384)
+
+### Refactor
+
+- remove duplicate [page].astro (#389)
+
 ## v4.5.1 (2024-10-02)
 
 ### Fix
