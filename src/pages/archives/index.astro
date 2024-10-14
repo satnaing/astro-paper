@@ -8,7 +8,12 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import getPostsByGroupCondition from "@utils/getPostsByGroupCondition";
 
-const posts = await getCollection("blog");
+// Redirect to 404 page if `showArchives` confgi is false
+if (!SITE.showArchives) {
+  return Astro.redirect("/404");
+}
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
 
 const MonthMap: Record<string, string> = {
   "1": "January",
