@@ -3,8 +3,7 @@ name: "✨ Feature Request"
 about: Suggest an idea for improving AstroPaper
 title: "[Feature Request]: "
 labels: enhancement
-assignees: ''
-
+assignees: ""
 ---
 
 **Is your feature request related to a problem? Please describe.**
