@@ -3,8 +3,7 @@ name: "\U0001F4DD Documentation Improvement"
 about: Propose updates or improvements to the documentation/blog posts
 title: "[Docs]: "
 labels: documentation
-assignees: ''
-
+assignees: ""
 ---
 
 **Describe the Issue**

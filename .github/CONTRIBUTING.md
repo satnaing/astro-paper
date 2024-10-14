@@ -4,7 +4,7 @@ Thank you for your interest in contributing to **AstroPaper**! We appreciate eve
 
 ## Types of Contributions
 
-There are several ways to contribute to **AstroPaper**, and every contribution counts_ whether it's a PR for a major feature or a small fix.
+There are several ways to contribute to **AstroPaper**, and every contribution counts\_ whether it's a PR for a major feature or a small fix.
 
 You can also contribute by leaving review comments on PRs, adding ideas to existing GitHub Issues and Discussions, or helping others by answering questions in GitHub Discussions.
 
@@ -53,4 +53,3 @@ Since AstroPaper doesn’t currently have automated testing, it’s especially u
 ## Starting a Discussion
 
 If you’re unsure whether your issue warrants a fix or if you just want to share ideas and get feedback, feel free to [start a GitHub discussion](https://github.com/satnaing/astro-paper/discussions/new/choose). It’s a great way to engage with the community.
-
