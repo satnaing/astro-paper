@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2024-01-15T13:05:56.066Z
+modDatetime: 2024-10-14T09:27:28.605Z
 title: How to configure AstroPaper theme
 slug: how-to-configure-astropaper-theme
 featured: true
@@ -33,6 +33,7 @@ export const SITE = {
   lightAndDarkMode: true,
   postPerPage: 3,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  showArchives: true,
   editPost: {
     url: "https://github.com/satnaing/astro-paper/edit/main/src/content/blog",
     text: "Suggest Changes",
@@ -54,6 +55,7 @@ Here are SITE configuration options
 | `postPerIndex`        | The number of posts to be displayed at the home page under `Recent` section.                                                                                                                                                                                                                                                                       |
 | `postPerPage`         | You can specify how many posts will be displayed in each posts page. (eg: if you set SITE.postPerPage to 3, each page will only show 3 posts per page)                                                                                                                                                                                             |
 | `scheduledPostMargin` | In Production mode, posts with a future `pubDatetime` will not be visible. However, if a post's `pubDatetime` is within the next 15 minutes, it will be visible. You can set `scheduledPostMargin` if you don't like the default 15 minutes margin.                                                                                                |
+| `showArchives`        | Determines whether to display the `Archives` menu (positioned between the `About` and `Search` menus) and its corresponding page on the site. This option is set to `true` by default.                                                                                                                                                             |
 | `editPost`            | This option allows users to suggest changes to a blog post by providing an edit link under blog post titles. This feature can be disabled by removing it from the `SITE` config. You can also set `appendFilePath` to `true` to automatically append the file path of the post to the url, directing users to the specific post they wish to edit. |
 
 ## Configuring locale
