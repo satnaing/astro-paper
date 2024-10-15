@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.7.0 (2024-10-15)
+
+### Feat
+
+- add archives page with configurable menu (#386)
+
 ## v4.6.0 (2024-10-13)
 
 ### Feat
