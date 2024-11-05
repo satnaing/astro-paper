@@ -75,12 +75,14 @@ import { SITE } from "@config";
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
-  type: "content",
+  type: "content_layer",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: ({ image }) =>
     z.object({
       // others...
       canonicalURL: z.string().optional(),
       readingTime: z.string().optional(), // 👈🏻 readingTime frontmatter
+      // others...
     }),
 });
 
@@ -131,7 +133,7 @@ const getPostsWithRT = async (posts: CollectionEntry<"blog">[]) => {
 export default getPostsWithRT;
 ```
 
-Step (6) Refactor `getStaticPaths` of `/src/pages/posts/[slug]/index.astro` as the following
+Step (6) Refactor `getStaticPaths` of `src/pages/posts/[slug]/index.astro` as the following
 
 ```ts
 ---
@@ -217,7 +219,7 @@ Files that use `getSortedPosts` function are as follow
 - src/pages/index.astro
 - src/pages/search.astro
 - src/pages/rss.xml.ts
-- src/pages/posts/index.astro
+- src/pages/posts/[...page].astro
 - src/pages/posts/[slug]/index.astro
 - src/utils/getPostsByTag.ts
 
@@ -241,21 +243,20 @@ const postsByTag = await getPostsByTag(posts, tag); // new code ✅
 Moreover, update the `getStaticPaths` of `src/pages/tags/[tag]/[page].astro` like this:
 
 ```ts
-export async function getStaticPaths() {
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog");
-
   const tags = getUniqueTags(posts);
 
   // Make sure to await the promises
   const paths = await Promise.all(
     tags.map(async ({ tag, tagName }) => {
       const tagPosts = await getPostsByTag(posts, tag);
-      const totalPages = getPageNumbers(tagPosts.length);
 
-      return totalPages.map(page => ({
-        params: { tag, page: String(page) },
-        props: { tag, tagName },
-      }));
+      return paginate(tagPosts, {
+        params: { tag },
+        props: { tagName },
+        pageSize: SITE.postPerPage,
+      });
     })
   );
 
@@ -274,19 +275,21 @@ But in this section, I'm gonna show you how I would display `readingTime` in my 
 Step (1) Update `Datetime` component to display `readingTime`
 
 ```tsx
-import { LOCALE } from "@config";
+// other codes
 
-export interface Props {
-  datetime: string | Date;
+interface Props extends DatetimesProps, EditPostProps {
   size?: "sm" | "lg";
   className?: string;
-  readingTime?: string; // new type
+  readingTime: string | undefined; // new type
 }
 
 export default function Datetime({
-  datetime,
+  pubDatetime,
+  modDatetime,
   size = "sm",
-  className,
+  className = "",
+  editPost,
+  postId,
   readingTime, // new prop
 }: Props) {
   return (
@@ -294,6 +297,7 @@ export default function Datetime({
     <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
       <FormattedDatetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
       <span> ({readingTime})</span> {/* display reading time */}
+      {size === "lg" && <EditPost editPost={editPost} postId={postId} />}
     </span>
     // other codes
   );
@@ -302,11 +306,11 @@ export default function Datetime({
 
 Step (2) Then, pass `readingTime` props from its parent component.
 
-file: Card.tsx
+file: `Card.tsx`
 
 ```ts
 export default function Card({ href, frontmatter, secHeading = true }: Props) {
-  const { title, pubDatetime, modDatetime description, readingTime } = frontmatter;
+  const { title, pubDatetime, modDatetime description, readingTime } = frontmatter; // don't forget to add readingTime here too
   return (
     ...
     <Datetime
@@ -319,7 +323,7 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
 }
 ```
 
-file: PostDetails.tsx
+file: `PostDetails.astro`
 
 ```jsx
 // Other Codes
