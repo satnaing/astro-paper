@@ -26,7 +26,7 @@ export default function Datetime({
 }: Props) {
   return (
     <div
-      className={`flex items-center space-x-2 opacity-80 ${className}`.trim()}
+      className={`flex items-center space-x-2 opacity-80 rtl:space-x-reverse ${className}`.trim()}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const EditPost = ({ editPost, postId }: EditPostProps) => {
       <>
         <span aria-hidden="true"> | </span>
         <a
-          className="space-x-1.5 hover:opacity-75"
+          className="space-x-1.5 hover:opacity-75 rtl:space-x-reverse"
           href={editPostUrl}
           rel="noopener noreferrer"
           target="_blank"
