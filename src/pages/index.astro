@@ -31,7 +31,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
         aria-label="rss feed"
         title="RSS Feed"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
+        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon rtl:-rotate-90"
           ><path
             d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
           ></path><path
@@ -112,7 +112,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     <div class="all-posts-btn-wrapper">
       <LinkButton href="/posts/">
         All Posts
-        <svg xmlns="http://www.w3.org/2000/svg"
+        <svg xmlns="http://www.w3.org/2000/svg" class="rtl:rotate-180"
           ><path
             d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
           ></path>
@@ -145,7 +145,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     @apply mt-4 flex flex-col sm:flex-row sm:items-center;
   }
   .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
+    @apply mb-1 me-2 whitespace-nowrap sm:mb-0;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
