@@ -16,12 +16,12 @@ const { page } = Astro.props;
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        className={`mr-4 select-none ${page.url.prev ? "" : "disabled"}`}
+        className={`me-4 select-none ${page.url.prev ? "" : "disabled"}`}
         ariaLabel="Previous"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.prev }]}
+          class:list={[{ "disabled-svg": !page.url.prev }, "rtl:rotate-180"]}
         >
           <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
         </svg>
@@ -37,7 +37,7 @@ const { page } = Astro.props;
         Next
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.next }]}
+          class:list={[{ "disabled-svg": !page.url.next }, "rtl:rotate-180"]}
         >
           <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
         </svg>
