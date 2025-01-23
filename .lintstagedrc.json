@@ -1,0 +1,4 @@
+{
+  "*": ["prettier --check --plugin=prettier-plugin-astro", "eslint"],
+  "*.{ts,tsx,astro}": "astro check"
+}
