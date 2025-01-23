@@ -11,7 +11,8 @@
     "astro": "astro",
     "format:check": "prettier --check . --plugin=prettier-plugin-astro",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
@@ -39,6 +40,7 @@
     "eslint": "^9.10.0",
     "eslint-plugin-astro": "^1.2.4",
     "globals": "^15.9.0",
+    "husky": "^9.1.7",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.6",
