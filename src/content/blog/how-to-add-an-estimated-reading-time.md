@@ -150,7 +150,7 @@ export async function getStaticPaths() {
   const postsWithRT = await getPostsWithRT(posts); // replace reading time logic with this func
 
    const postResult = postsWithRT.map(post => ({ // make sure to replace posts with postsWithRT
-    params: { slug: post.slug },
+    params: { slug: post.data.slug },
     props: { post },
   }));
 

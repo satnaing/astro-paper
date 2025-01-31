@@ -2,6 +2,7 @@
 author: Alberto Perdomo
 pubDatetime: 2024-09-08T20:58:52.737Z
 title: Adding LaTeX Equations in AstroPaper blog posts
+slug: adding-latex-equations-in-astropaper-blog-posts
 featured: false
 tags:
   - rendering
