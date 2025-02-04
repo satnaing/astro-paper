@@ -39,8 +39,5 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
   },
-  scopedStyleStrategy: "where",
-  experimental: {
-    contentLayer: true,
-  },
+  scopedStyleStrategy: "where"
 });
