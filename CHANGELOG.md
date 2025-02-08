@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v4.8.0 (2025-02-08)
+
+### Feat
+
+- add pencil icon before suggestion changes text (#405)
+
+### Fix
+
+- use tag name for display in tags page (#438)
+- exclude `/archives` from sitemap if it is disabled (#425)
+- add inline-block class to post title for improved view transition animation (#420)
+- sort archive posts by pubDatetime (#415)
+- focus search input on mount (#414)
+- replace twitter with x (#407)
+
 ## v4.7.0 (2024-10-15)
 
 ### Feat
