@@ -4,7 +4,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
-import type { CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
@@ -28,7 +28,7 @@ const {
   editPost,
 } = post.data;
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
@@ -49,12 +49,12 @@ const layoutProps = {
 
 /* ========== Prev/Next Posts ========== */
 
-const allPosts = posts.map(({ data: { title }, slug }) => ({
-  slug,
+const allPosts = posts.map(({ data: { title }, id }) => ({
+  slug: id,
   title,
 }));
 
-const currentPostIndex = allPosts.findIndex(a => a.slug === post.slug);
+const currentPostIndex = allPosts.findIndex(a => a.slug === post.id);
 
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
