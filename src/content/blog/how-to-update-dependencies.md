@@ -5,7 +5,7 @@ pubDatetime: 2023-07-20T15:33:05.569Z
 slug: how-to-update-dependencies
 featured: false
 draft: false
-ogImage: /assets/forrest-gump-quote.webp
+ogImage: ../../../public/assets/forrest-gump-quote.webp
 tags:
   - FAQ
 description: How to update project dependencies and AstroPaper template.

@@ -69,8 +69,8 @@ const MonthMap: Record<string, string> = {
                             new Date(a.data.pubDatetime).getTime() / 1000
                           )
                       )
-                      .map(({ data, slug }) => (
-                        <Card href={`/posts/${slug}`} frontmatter={data} />
+                      .map(({ data, id }) => (
+                        <Card href={`/posts/${id}`} frontmatter={data} />
                       ))}
                   </ul>
                 </div>
