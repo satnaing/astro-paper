@@ -67,6 +67,9 @@
   .prose h2#table-of-contents + p {
     @apply hidden;
   }
+  .prose span {
+    @apply text-skin-base
+  }
 
   /* ===== scrollbar ===== */
   html {
