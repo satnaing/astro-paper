@@ -20,12 +20,12 @@
     --color-card-muted: 138, 51, 2;
     --color-border: 171, 75, 8;
   }
-  #sun-svg,
-  html[data-theme="dark"] #moon-svg {
-    display: none;
-  }
   #moon-svg,
   html[data-theme="dark"] #sun-svg {
+    display: none;
+  }
+  #sun-svg,
+  html[data-theme="dark"] #moon-svg {
     display: block;
   }
   body {
