@@ -1,8 +1,9 @@
 async function loadGoogleFont(
   font: string,
-  text: string
+  text: string,
+  weight: number
 ): Promise<ArrayBuffer> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`;
+  const API = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=${encodeURIComponent(text)}`;
 
   const css = await (
     await fetch(API, {
@@ -51,7 +52,7 @@ async function loadGoogleFonts(
 
   const fonts = await Promise.all(
     fontsConfig.map(async ({ name, font, weight, style }) => {
-      const data = await loadGoogleFont(font, text);
+      const data = await loadGoogleFont(font, text, weight);
       return { name, data, weight, style };
     })
   );
