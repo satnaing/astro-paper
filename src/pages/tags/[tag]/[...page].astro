@@ -1,10 +1,15 @@
 ---
 import { getCollection } from "astro:content";
-import TagPosts from "@layouts/TagPosts.astro";
-import getUniqueTags from "@utils/getUniqueTags";
-import getPostsByTag from "@utils/getPostsByTag";
 import type { GetStaticPathsOptions } from "astro";
-import { SITE } from "@config";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card";
+import Pagination from "@/components/Pagination.astro";
+import getUniqueTags from "@/utils/getUniqueTags";
+import getPostsByTag from "@/utils/getPostsByTag";
+import { SITE } from "@/config";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog");
@@ -24,6 +29,28 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 const params = Astro.params;
 const { tag } = params;
 const { page, tagName } = Astro.props;
+
+const backUrl = SITE.showBackButton ? `?from=${Astro.url.pathname}` : "/";
 ---
 
-<TagPosts {page} {tag} {tagName} />
+<Layout title={`Tag: ${tagName} | ${SITE.title}`}>
+  <Header />
+  <Main
+    pageTitle={[`Tag:`, `${tagName}`]}
+    titleTransition={tag}
+    pageDesc={`All the articles with the tag "${tagName}".`}
+  >
+    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <ul>
+      {
+        page.data.map(({ data, id }) => (
+          <Card href={`/posts/${id}${backUrl}`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

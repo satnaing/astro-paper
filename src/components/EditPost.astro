@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+import IconEdit from "@/assets/icons/IconEdit.svg";
+import { SITE } from "@/config";
+
+export interface Props {
+  editPost?: CollectionEntry<"blog">["data"]["editPost"];
+  postId?: CollectionEntry<"blog">["id"];
+  class?: string;
+}
+
+const { editPost, postId, class: className = "" } = Astro.props;
+
+let editPostUrl = editPost?.url ?? SITE?.editPost?.url ?? "";
+const showEditPost = !editPost?.disabled && editPostUrl.length > 0;
+const appendFilePath =
+  editPost?.appendFilePath ?? SITE?.editPost?.appendFilePath ?? false;
+if (appendFilePath && postId) {
+  editPostUrl += `/${postId}`;
+}
+const editPostText = editPost?.text ?? SITE?.editPost?.text ?? "Edit";
+---
+
+{
+  showEditPost && (
+    <div class:list={["opacity-80", className]}>
+      <span aria-hidden="true" class="max-sm:hidden">
+        |
+      </span>
+      <a
+        class="space-x-1.5 hover:opacity-75"
+        href={editPostUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <IconEdit class="inline-block size-6" />
+        <span class="italic max-sm:text-sm sm:inline">{editPostText}</span>
+      </a>
+    </div>
+  )
+}

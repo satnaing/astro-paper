@@ -1,13 +1,17 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Tag from "@components/Tag.astro";
-import Datetime from "@components/Datetime";
 import { render, type CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
-import ShareLinks from "@components/ShareLinks.astro";
-import { SITE } from "@config";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import { Datetime } from "@/components/Datetime";
+import EditPost from "@/components/EditPost.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
+import BackButton from "@/components/BackButton.astro";
+import { slugifyStr } from "@/utils/slugify";
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import { SITE } from "@/config";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -32,7 +36,7 @@ const { Content } = await render(post);
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
+  ogImageUrl ?? `/posts/${slugifyStr(title)}/index.png`,
   Astro.url.origin
 ).href;
 
@@ -63,55 +67,53 @@ const nextPost =
 
 <Layout {...layoutProps}>
   <Header />
-
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
-    <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
+  <BackButton />
+  <main
+    id="main-content"
+    class:list={[
+      "mx-auto w-full max-w-3xl px-4 pb-12",
+      { "mt-8": !SITE.showBackButton },
+    ]}
+  >
+    <h1
+      transition:name={slugifyStr(title)}
+      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
     >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
-  </div>
-  <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title inline-block">
       {title}
     </h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-      editPost={editPost}
-      postId={post.id}
-    />
-    <article id="article" class="prose mx-auto mt-8 max-w-3xl">
+    <div class="flex items-center gap-4">
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        size="lg"
+        className="my-2"
+      />
+      <EditPost class="max-sm:hidden" editPost={editPost} postId={post.id} />
+    </div>
+    <article id="article" class="mx-auto prose mt-8 max-w-3xl">
       <Content />
     </article>
 
-    <ul class="my-8">
+    <hr class="my-8 border-dashed" />
+
+    <EditPost class="sm:hidden" editPost={editPost} postId={post.id} />
+
+    <ul class="mt-4 mb-8 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
     <div
-      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+      class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"
     >
+      <ShareLinks />
+
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
+        class="focus-outline py-1 whitespace-nowrap hover:opacity-75"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
-        </svg>
+        <IconChevronLeft class="inline-block rotate-90" />
         <span>Back to Top</span>
       </button>
-
-      <ShareLinks />
     </div>
 
     <hr class="my-6 border-dashed" />
@@ -124,24 +126,10 @@ const nextPost =
             href={`/posts/${prevPost.slug}`}
             class="flex w-full gap-1 hover:opacity-75"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M15 6l-6 6l6 6" />
-            </svg>
+            <IconChevronLeft class="inline-block flex-none" />
             <div>
               <span>Previous Post</span>
-              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
+              <div class="text-sm text-accent/85">{prevPost.title}</div>
             </div>
           </a>
         )
@@ -154,23 +142,9 @@ const nextPost =
           >
             <div>
               <span>Next Post</span>
-              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
+              <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l6 6l-6 6" />
-            </svg>
+            <IconChevronRight class="inline-block flex-none" />
           </a>
         )
       }
@@ -179,15 +153,6 @@ const nextPost =
   <Footer />
 </Layout>
 
-<style>
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
-  }
-  .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
-  }
-</style>
-
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
@@ -195,11 +160,11 @@ const nextPost =
     // Create the main container div
     const progressContainer = document.createElement("div");
     progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-skin-fill";
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
 
     // Create the progress bar div
     const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-skin-accent";
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
     progressBar.id = "myBar";
 
     // Append the progress bar to the progress container
@@ -264,7 +229,7 @@ const nextPost =
 
       const copyButton = document.createElement("button");
       copyButton.className =
-        "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
+        "copy-code absolute right-3 -top-3 rounded bg-muted px-2 py-1 text-xs leading-4 text-foreground font-medium";
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);

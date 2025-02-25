@@ -1,9 +1,14 @@
 ---
-import { SITE } from "@config";
-import Posts from "@layouts/Posts.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
-import getSortedPosts from "@utils/getSortedPosts";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card";
+import Pagination from "@/components/Pagination.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -11,6 +16,23 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+
+const backUrl = SITE.showBackButton ? `?from=${Astro.url.pathname}` : "/";
 ---
 
-<Posts {page} />
+<Layout title={`Posts | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+    <ul>
+      {
+        page.data.map(({ data, id }) => (
+          <Card href={`/posts/${id}${backUrl}`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

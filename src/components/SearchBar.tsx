@@ -1,7 +1,7 @@
 import Fuse from "fuse.js";
-import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
-import Card from "@components/Card";
 import type { CollectionEntry } from "astro:content";
+import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
+import Card from "@/components/Card";
 
 export type SearchItem = {
   title: string;
@@ -12,6 +12,7 @@ export type SearchItem = {
 
 interface Props {
   searchList: SearchItem[];
+  backUrl: string;
 }
 
 interface SearchResult {
@@ -19,7 +20,7 @@ interface SearchResult {
   refIndex: number;
 }
 
-export default function SearchBar({ searchList }: Props) {
+export default function SearchBar({ searchList, backUrl }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(
@@ -55,6 +56,7 @@ export default function SearchBar({ searchList }: Props) {
     }, 50);
   }, []);
 
+  let newRelativePathQuery = "";
   useEffect(() => {
     // Add search result only if
     // input value is more than one character
@@ -65,7 +67,7 @@ export default function SearchBar({ searchList }: Props) {
     if (inputVal.length > 0) {
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set("q", inputVal);
-      const newRelativePathQuery =
+      newRelativePathQuery =
         window.location.pathname + "?" + searchParams.toString();
       history.replaceState(history.state, "", newRelativePathQuery);
     } else {
@@ -80,17 +82,23 @@ export default function SearchBar({ searchList }: Props) {
     }
   }, [inputVal]);
 
+  const fullBackUrl = `${backUrl}${inputVal.trim() !== "" ? `?q=${inputVal}` : "/"}`;
+
   return (
     <>
       <label className="relative block">
+        <span className="sr-only">Search</span>
         <span className="absolute inset-y-0 left-0 flex items-center pl-2 opacity-75">
-          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            className="inline-block size-6 fill-foreground"
+          >
             <path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path>
           </svg>
-          <span className="sr-only">Search</span>
         </span>
         <input
-          className="block w-full rounded border border-skin-fill/40 bg-skin-fill py-3 pl-10 pr-3 placeholder:italic focus:border-skin-accent focus:outline-none"
+          className="border-skin-fill/40 bg-skin-fill focus:border-skin-accent block w-full rounded border py-3 pr-3 pl-10 placeholder:italic focus:outline-none"
           placeholder="Search for anything..."
           type="text"
           name="search"
@@ -116,7 +124,7 @@ export default function SearchBar({ searchList }: Props) {
         {searchResults &&
           searchResults.map(({ item, refIndex }) => (
             <Card
-              href={`/posts/${item.slug}/`}
+              href={`/posts/${item.slug}${fullBackUrl}`}
               frontmatter={item.data}
               key={`${refIndex}-${item.slug}`}
             />

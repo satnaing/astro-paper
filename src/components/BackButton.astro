@@ -1,0 +1,33 @@
+---
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+import LinkButton from "./LinkButton.astro";
+import { SITE } from "@/config";
+---
+
+{
+  SITE.showBackButton && (
+    <div class="mx-auto flex w-full max-w-3xl items-center justify-start px-2">
+      <LinkButton
+        id="back-button"
+        href="/"
+        class="focus-outline mt-8 mb-2 flex hover:text-foreground/75"
+      >
+        <IconChevronLeft class="inline-block size-6" />
+        <span>Go back</span>
+      </LinkButton>
+    </div>
+  )
+}
+
+<script is:inline data-astro-rerun>
+  /* Update Search Praam */
+  function updateGoBackUrl() {
+    const backButton = document.querySelector("#back-button");
+    const params = new URL(document.location.toString()).searchParams;
+
+    if (params.has("from")) {
+      backButton.href = params.get("from");
+    }
+  }
+  updateGoBackUrl();
+</script>

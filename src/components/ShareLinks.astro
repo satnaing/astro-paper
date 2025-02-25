@@ -1,66 +1,26 @@
 ---
+import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
-import socialIcons from "@assets/socialIcons";
 
 const URL = Astro.url;
-
-const shareLinks = [
-  {
-    name: "WhatsApp",
-    href: "https://wa.me/?text=",
-    linkTitle: `Share this post via WhatsApp`,
-  },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/sharer.php?u=",
-    linkTitle: `Share this post on Facebook`,
-  },
-  {
-    name: "X",
-    href: "https://x.com/intent/post?url=",
-    linkTitle: `Share this post on X`,
-  },
-  {
-    name: "Telegram",
-    href: "https://t.me/share/url?url=",
-    linkTitle: `Share this post via Telegram`,
-  },
-  {
-    name: "Pinterest",
-    href: "https://pinterest.com/pin/create/button/?url=",
-    linkTitle: `Share this post on Pinterest`,
-  },
-  {
-    name: "Mail",
-    href: "mailto:?subject=See%20this%20post&body=",
-    linkTitle: `Share this post via email`,
-  },
-] as const;
 ---
 
-<div class={`social-icons`}>
+<div
+  class="flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start"
+>
   <span class="italic">Share this post on:</span>
   <div class="text-center">
     {
-      shareLinks.map(social => (
+      SHARE_LINKS.map(social => (
         <LinkButton
           href={`${social.href + URL}`}
-          className="link-button"
+          class="scale-90 p-2 hover:rotate-6 sm:p-1"
           title={social.linkTitle}
         >
-          <Fragment set:html={socialIcons[social.name]} />
+          <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
           <span class="sr-only">{social.linkTitle}</span>
         </LinkButton>
       ))
     }
   </div>
 </div>
-
-<style>
-  .social-icons {
-    @apply flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start;
-  }
-  .link-button {
-    @apply scale-90 p-2 hover:rotate-6 sm:p-1;
-  }
-</style>
