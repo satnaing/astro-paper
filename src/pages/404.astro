@@ -1,22 +1,25 @@
 ---
-import { SITE } from "@config";
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import { SITE } from "@/config";
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
 
-  <main id="main-content">
-    <div class="not-found-wrapper">
-      <h1>404</h1>
+  <main
+    id="main-content"
+    class="mx-auto flex max-w-3xl flex-1 items-center justify-center"
+  >
+    <div class="mb-14 flex flex-col items-center justify-center">
+      <h1 class="text-9xl font-bold text-accent">404</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p>Page Not Found</p>
+      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
       <LinkButton
         href="/"
-        className="my-6 text-lg underline decoration-dashed underline-offset-8"
+        class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
         Go back home
       </LinkButton>
@@ -25,18 +28,3 @@ import LinkButton from "@components/LinkButton.astro";
 
   <Footer />
 </Layout>
-
-<style>
-  #main-content {
-    @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
-  }
-  .not-found-wrapper {
-    @apply mb-14 flex flex-col items-center justify-center;
-  }
-  .not-found-wrapper h1 {
-    @apply text-9xl font-bold text-skin-accent;
-  }
-  .not-found-wrapper p {
-    @apply mt-4 text-2xl sm:text-3xl;
-  }
-</style>
