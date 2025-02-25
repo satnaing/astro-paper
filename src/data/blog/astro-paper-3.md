@@ -12,7 +12,7 @@ description: "AstroPaper Version 3: Elevating Your Web Experience with Astro v3 
 
 We're excited to announce the release of AstroPaper v3, packed with new features, enhancements, and bug fixes to elevate your web development experience. Let's dive into the highlights of this release:
 
-![AstroPaper v3](@assets/images/AstroPaper-v3.png)
+![AstroPaper v3](@/assets/images/AstroPaper-v3.png)
 
 ## Table of contents
 

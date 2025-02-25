@@ -118,19 +118,19 @@ Here are two methods for storing images and displaying them inside a markdown fi
 
 You can store images inside `src/assets/` directory. These images will be automatically optimized by Astro through [Image Service API](https://docs.astro.build/en/reference/image-service-reference/).
 
-You can use relative path or alias path (`@assets/`) to serve these images.
+You can use relative path or alias path (`@/assets/`) to serve these images.
 
 Example: Suppose you want to display `example.jpg` whose path is `/src/assets/images/example.jpg`.
 
 ```md
-![something](@assets/images/example.jpg)
+![something](@/assets/images/example.jpg)
 
 <!-- OR -->
 
 ![something](../../assets/images/example.jpg)
 
 <!-- Using img tag or Image component won't work ❌ -->
-<img src="@assets/images/example.jpg" alt="something">
+<img src="@/assets/images/example.jpg" alt="something">
 <!-- ^^ This is wrong -->
 ```
 
