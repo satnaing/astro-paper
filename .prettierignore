@@ -9,5 +9,5 @@
 !astro.config.ts
 !package.json
 !.prettierrc
-!eslint.config.mjs
+!eslint.config.js
 !README.md
