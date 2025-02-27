@@ -144,7 +144,7 @@ export const SOCIALS: SocialObjects = [
     name: "Github",
     href: "https://github.com/satnaing", // update account link
     linkTitle: `${SITE.title} on Github`, // this text will appear on hover and VoiceOver
-    active: true, // makre sure to set active to true
+    active: true, // make sure to set active to true
   }
   ...
 ]
