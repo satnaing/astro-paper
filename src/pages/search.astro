@@ -1,32 +1,15 @@
 ---
-import { getCollection } from "astro:content";
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import SearchBar from "@/components/SearchBar";
-import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-
-// Retrieve all published articles
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(posts);
-
-// List of items to search in
-const searchList = sortedPosts.map(({ data, id }) => ({
-  title: data.title,
-  description: data.description,
-  data,
-  slug: id,
-}));
-
-const backUrl = SITE.showBackButton ? `?from=${Astro.url.pathname}` : "/";
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Search" pageDesc="Search any article ...">
-    <SearchBar client:load searchList={searchList} backUrl={backUrl} />
+    <!-- Search bar -->
   </Main>
   <Footer />
 </Layout>

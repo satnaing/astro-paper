@@ -1,0 +1,37 @@
+---
+import { slugifyStr } from "@/utils/slugify";
+import type { CollectionEntry } from "astro:content";
+import Datetime from "./Datetime.astro";
+
+export interface Props {
+  href?: string;
+  frontmatter: CollectionEntry<"blog">["data"];
+  secHeading?: boolean;
+}
+
+const { href, frontmatter, secHeading = true } = Astro.props;
+
+const { title, pubDatetime, modDatetime, description } = frontmatter;
+
+const headerProps = {
+  style: { viewTransitionName: slugifyStr(title) },
+  class: "text-lg font-medium decoration-dashed hover:underline",
+};
+---
+
+<li class="my-6">
+  <a
+    href={href}
+    class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+  >
+    {
+      secHeading ? (
+        <h2 {...headerProps}>{title}</h2>
+      ) : (
+        <h3 {...headerProps}>{title}</h3>
+      )
+    }
+  </a>
+  <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+  <p>{description}</p>
+</li>
