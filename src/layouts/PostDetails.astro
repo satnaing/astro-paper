@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
-import { Datetime } from "@/components/Datetime";
+import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
@@ -86,7 +86,7 @@ const nextPost =
         pubDatetime={pubDatetime}
         modDatetime={modDatetime}
         size="lg"
-        className="my-2"
+        class="my-2"
       />
       <EditPost class="max-sm:hidden" editPost={editPost} postId={post.id} />
     </div>
