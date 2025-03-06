@@ -1,5 +1,6 @@
 ---
 import Breadcrumb from "@/components/Breadcrumb.astro";
+import { SITE } from "@/config";
 
 interface StringTitleProp {
   pageTitle: string;
@@ -15,10 +16,16 @@ interface ArrayTitleProp {
 export type Props = StringTitleProp | ArrayTitleProp;
 
 const { props } = Astro;
+
+const backUrl = SITE.showBackButton ? Astro.url.pathname : "/";
 ---
 
 <Breadcrumb />
-<main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-4">
+<main
+  data-backUrl={backUrl}
+  id="main-content"
+  class="mx-auto w-full max-w-3xl px-4 pb-4"
+>
   {
     "titleTransition" in props ? (
       <h1 class="text-2xl font-semibold sm:text-3xl">
@@ -34,3 +41,14 @@ const { props } = Astro;
   <p class="mt-2 mb-6 italic">{props.pageDesc}</p>
   <slot />
 </main>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const mainContent: HTMLElement | null =
+      document.querySelector("#main-content");
+    const backUrl = mainContent?.dataset?.backurl;
+    if (backUrl) {
+      sessionStorage.setItem("backUrl", backUrl);
+    }
+  });
+</script>
