@@ -19,15 +19,19 @@ import { SITE } from "@/config";
   )
 }
 
-<script is:inline data-astro-rerun>
+<script>
   /* Update Search Praam */
   function updateGoBackUrl() {
-    const backButton = document.querySelector("#back-button");
-    const params = new URL(document.location.toString()).searchParams;
+    const backButton: HTMLAnchorElement | null =
+      document.querySelector("#back-button");
 
-    if (params.has("from")) {
-      backButton.href = params.get("from");
+    const backUrl = sessionStorage.getItem("backUrl");
+
+    if (backUrl && backButton) {
+      backButton.href = backUrl;
     }
   }
+
+  document.addEventListener("astro:page-load", updateGoBackUrl);
   updateGoBackUrl();
 </script>
