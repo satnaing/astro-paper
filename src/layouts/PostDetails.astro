@@ -74,6 +74,7 @@ const nextPost =
       "mx-auto w-full max-w-3xl px-4 pb-12",
       { "mt-8": !SITE.showBackButton },
     ]}
+    data-pagefind-body
   >
     <h1
       transition:name={slugifyStr(title)}
@@ -119,7 +120,7 @@ const nextPost =
     <hr class="my-6 border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {
         prevPost && (
           <a
