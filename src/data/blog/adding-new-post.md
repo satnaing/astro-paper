@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2023-12-21T09:12:47.400Z
+modDatetime: 2025-03-08T07:46:00.619Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -30,7 +30,7 @@ Here is the list of frontmatter property for each post.
 | **_pubDatetime_**  | Published datetime in ISO 8601 format.                                                      | required<sup>\*</sup>                         |
 | **_modDatetime_**  | Modified datetime in ISO 8601 format. (only add this property when a blog post is modified) | optional                                      |
 | **_author_**       | Author of the post.                                                                         | default = SITE.author                         |
-| **_slug_**         | Slug for the post. This field is optional but cannot be an empty string. (slug: ""❌)       | default = slugified file name                 |
+| **_slug_**         | Slug for the post. This field is optional.                                                  | default = slugified file name                 |
 | **_featured_**     | Whether or not display this post in featured section of home page                           | default = false                               |
 | **_draft_**        | Mark this post 'unpublished'.                                                               | default = false                               |
 | **_tags_**         | Related keywords for this post. Written in array yaml format.                               | default = others                              |
