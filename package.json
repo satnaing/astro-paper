@@ -1,11 +1,12 @@
 {
-  "name": "astro-paper-v5",
+  "name": "astro-paper",
   "type": "module",
-  "version": "0.0.1",
+  "version": "4.8.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
     "preview": "astro preview",
+    "sync": "astro sync",
     "astro": "astro",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
