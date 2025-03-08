@@ -16,8 +16,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
-
-const backUrl = SITE.showBackButton ? `?from=${Astro.url.pathname}` : "/";
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
@@ -26,7 +24,7 @@ const backUrl = SITE.showBackButton ? `?from=${Astro.url.pathname}` : "/";
     <ul>
       {
         page.data.map(({ data, id }) => (
-          <Card href={`/posts/${id}${backUrl}`} frontmatter={data} />
+          <Card href={`/posts/${id}`} frontmatter={data} />
         ))
       }
     </ul>
