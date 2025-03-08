@@ -3,7 +3,7 @@ author: Sat Naing
 pubDatetime: 2024-01-04T09:30:41.816Z
 title: AstroPaper 4.0
 slug: "astro-paper-v4"
-featured: true
+featured: false
 ogImage: ../../assets/images/AstroPaper-v4.png
 tags:
   - release
@@ -22,7 +22,7 @@ Hello everyone! Wishing you a happy New Year 🎉 and all the best for 2024! We'
 
 AstroPaper now leverages the power and capabilities of Astro v4. However, it’s a subtle upgrade and won’t break most Astro users.
 
-![Astro v4](https://astro.build/_astro/header-astro-4.GLp8HjfV.webp)
+![Astro v4](https://astro.build/_astro/header-astro-4.YunweN9V_OmV0l.webp)
 
 ### Replace `postSlug` with Astro Content `slug` [#197](https://github.com/satnaing/astro-paper/pull/197)
 
