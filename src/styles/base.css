@@ -68,7 +68,7 @@
     @apply hidden;
   }
   .prose span {
-    @apply text-skin-base
+    @apply text-skin-base;
   }
 
   /* ===== scrollbar ===== */
