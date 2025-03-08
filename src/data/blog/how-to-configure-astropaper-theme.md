@@ -101,6 +101,7 @@ You might want to use this option if you want to use an SVG logo.
   ---
   // other imports
   import DummyLogo from "@/assets/dummy-logo.svg";
+  ---
   ```
 
 - Finally, replace `{SITE.title}` with imported logo.
@@ -129,6 +130,7 @@ If your logo is an image but not SVG, you can use Astro's Image component.
   // other imports
   import { Image } from "astro:assets";
   import dummyLogo from "@/assets/dummy-logo.png";
+  ---
   ```
 
 - Then, replace `{SITE.title}` with imported logo.
@@ -138,7 +140,7 @@ If your logo is an image but not SVG, you can use Astro's Image component.
     href="/"
     class="absolute py-1 text-left text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
   >
-    <Image src={dummyLogo} alt="Dummy Blog" class="dark:invert" />
+    <image src="{dummyLogo}" alt="Dummy Blog" class="dark:invert" />
     <!-- {SITE.title} -->
   </a>
   ```
