@@ -10,7 +10,7 @@
   .prose thead th:first-child,
   tbody td:first-child,
   tfoot td:first-child {
-    padding-left: 0.5714286em;
+    padding-inline-start: 0.5714286em !important;
   }
   .prose h2#table-of-contents {
     @apply mb-2;
