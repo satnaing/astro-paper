@@ -23,19 +23,19 @@ Frontmatter is the main place to store some important information about the blog
 
 Here is the list of frontmatter property for each post.
 
-| Property           | Description                                                                                 | Remark                                        |
-| ------------------ | ------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| **_title_**        | Title of the post. (h1)                                                                     | required<sup>\*</sup>                         |
-| **_description_**  | Description of the post. Used in post excerpt and site description of the post.             | required<sup>\*</sup>                         |
-| **_pubDatetime_**  | Published datetime in ISO 8601 format.                                                      | required<sup>\*</sup>                         |
-| **_modDatetime_**  | Modified datetime in ISO 8601 format. (only add this property when a blog post is modified) | optional                                      |
-| **_author_**       | Author of the post.                                                                         | default = SITE.author                         |
-| **_slug_**         | Slug for the post. This field is optional.                                                  | default = slugified file name                 |
-| **_featured_**     | Whether or not display this post in featured section of home page                           | default = false                               |
-| **_draft_**        | Mark this post 'unpublished'.                                                               | default = false                               |
-| **_tags_**         | Related keywords for this post. Written in array yaml format.                               | default = others                              |
-| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO.                              | default = SITE.ogImage or generated OG image  |
-| **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.               | default = `Astro.site` + `Astro.url.pathname` |
+| Property           | Description                                                                                                                          | Remark                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| **_title_**        | Title of the post. (h1)                                                                                                              | required<sup>\*</sup>                          |
+| **_description_**  | Description of the post. Used in post excerpt and site description of the post.                                                      | required<sup>\*</sup>                          |
+| **_pubDatetime_**  | Published datetime in ISO 8601 format.                                                                                               | required<sup>\*</sup>                          |
+| **_modDatetime_**  | Modified datetime in ISO 8601 format. (only add this property when a blog post is modified)                                          | optional                                       |
+| **_author_**       | Author of the post.                                                                                                                  | default = SITE.author                          |
+| **_slug_**         | Slug for the post. This field is optional.                                                                                           | default = slugified file name                  |
+| **_featured_**     | Whether or not display this post in featured section of home page                                                                    | default = false                                |
+| **_draft_**        | Mark this post 'unpublished'.                                                                                                        | default = false                                |
+| **_tags_**         | Related keywords for this post. Written in array yaml format.                                                                        | default = others                               |
+| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO. This can be a remote URL or an image path relative to current folder. | default = `SITE.ogImage` or generated OG image |
+| **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.                                                        | default = `Astro.site` + `Astro.url.pathname`  |
 
 > Tip! You can get ISO 8601 datetime by running `new Date().toISOString()` in the console. Make sure you remove quotes though.
 
@@ -76,7 +76,8 @@ tags:
   - some
   - example
   - tags
-ogImage: ""
+ogImage: ../../assets/images/example.png # src/assets/images/example.png
+# ogImage: "https://example.org/remote-image.png" # remote URL
 description: This is the example description of the example post.
 canonicalURL: https://example.org/my-article-was-already-posted-here
 ---
