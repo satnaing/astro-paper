@@ -16,4 +16,5 @@ export const SITE = {
     text: "Suggest Changes",
     appendFilePath: true,
   },
+  dynamicOgImage: true,
 } as const;
