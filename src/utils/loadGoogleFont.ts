@@ -15,7 +15,7 @@ async function loadGoogleFont(
   ).text();
 
   const resource = css.match(
-    /src: url\((.+)\) format\('(opentype|truetype)'\)/
+    /src: url\((.+?)\) format\('(opentype|truetype)'\)/
   );
 
   if (!resource) throw new Error("Failed to download dynamic font");
@@ -26,8 +26,7 @@ async function loadGoogleFont(
     throw new Error("Failed to download dynamic font. Status: " + res.status);
   }
 
-  const fonts: ArrayBuffer = await res.arrayBuffer();
-  return fonts;
+  return res.arrayBuffer();
 }
 
 async function loadGoogleFonts(
@@ -44,7 +43,7 @@ async function loadGoogleFonts(
     },
     {
       name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono:wght@700",
+      font: "IBM+Plex+Mono",
       weight: 700,
       style: "bold",
     },
