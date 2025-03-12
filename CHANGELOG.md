@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.0.1 (2025-03-12)
+
+### Fix
+
+- update docker-compose (#475)
+- update import location in giscus example (#474)
+- add an option to disable dynamic OG image generation (#476)
+- remove unused `ogImage` size validation (#462)
+- correct Google Fonts API URL construction for proper weight fetching
+- align vertically in header nav (#460)
+- add font-weight param in og image card style (#453)
+
+### Docs
+
+- update giscus integration guide for AstroPaper v5 (#472)
+- update color schemes guide for AstroPaper v5 (#469)
+- update LaTeX equations guide in Astro blog posts (#461)
+
 ## v5.0.0 (2025-03-08)
 
 ### Feat

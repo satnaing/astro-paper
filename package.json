@@ -1,7 +1,7 @@
 {
   "name": "astro-paper",
   "type": "module",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
