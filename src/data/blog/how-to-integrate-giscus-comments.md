@@ -110,7 +110,7 @@ Then we create a new `Comments.tsx` React component in `src/components`:
 
 ```tsx
 import Giscus, { type Theme } from "@giscus/react";
-import { GISCUS } from "@/config";
+import { GISCUS } from "@/constants";
 import { useEffect, useState } from "react";
 
 interface CommentsProps {
@@ -164,7 +164,7 @@ export default function Comments({
 
 This _React_ component not only wraps the native _Giscus_ component, but also introduces additional props, namely `lightTheme` and `darkTheme`. Leveraging two event listeners, the _Giscus_ comments will align with the site's theme, dynamically switching between dark and light themes whenever the site or browser theme is changed.
 
-We also need to define the `GISCUS` config, for which the optimal location is in `src/config.ts`:
+We also need to define the `GISCUS` config, for which the optimal location is in `src/constants.ts`:
 
 ```ts
 import type { GiscusProps } from "@giscus/react";
