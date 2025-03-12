@@ -1,7 +1,7 @@
 ---
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
-modDatetime: 2024-09-25T12:07:53Z
+modDatetime: 2025-03-12T12:28:53Z
 title: How to integrate Giscus comments into AstroPaper
 slug: how-to-integrate-giscus-comments
 featured: false
@@ -103,14 +103,14 @@ The embedded script tag in the layout is quite static, with the _Giscus_ configu
 Firstly, we are going to install the [React component](https://www.npmjs.com/package/@giscus/react) for _Giscus_:
 
 ```bash
-npm i @giscus/react
+npm i @giscus/react && npx astro add react
 ```
 
 Then we create a new `Comments.tsx` React component in `src/components`:
 
 ```tsx
 import Giscus, { type Theme } from "@giscus/react";
-import { GISCUS } from "@config";
+import { GISCUS } from "@/config";
 import { useEffect, useState } from "react";
 
 interface CommentsProps {
@@ -190,12 +190,14 @@ Note that specifying a `theme` here will override the `lightTheme` and `darkThem
 To complete the process, add the new Comments component to `src/layouts/PostDetails.astro` (replacing the `script` tag from the previous step).
 
 ```diff
-+ import Comments from "@components/Comments";
++ import Comments from "@/components/Comments";
 
       <ShareLinks />
     </div>
 
-+    <Comments client:only="react" />
++   <Comments client:only="react" />
+
+    <hr class="my-6 border-dashed" />
 
   </main>
   <Footer />
