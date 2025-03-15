@@ -4,12 +4,12 @@ import type { CollectionEntry } from "astro:content";
 import Datetime from "./Datetime.astro";
 
 export interface Props {
+  variant?: "h2" | "h3";
   href?: string;
   frontmatter: CollectionEntry<"blog">["data"];
-  secHeading?: boolean;
 }
 
-const { href, frontmatter, secHeading = true } = Astro.props;
+const { href, frontmatter, variant = "h2" } = Astro.props;
 
 const { title, pubDatetime, modDatetime, description } = frontmatter;
 
@@ -25,13 +25,13 @@ const headerProps = {
     class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
   >
     {
-      secHeading ? (
+      variant === "h2" ? (
         <h2 {...headerProps}>{title}</h2>
       ) : (
         <h3 {...headerProps}>{title}</h3>
       )
     }
   </a>
-  <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+  <Datetime {pubDatetime} {modDatetime} />
   <p>{description}</p>
 </li>
