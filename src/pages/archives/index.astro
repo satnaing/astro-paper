@@ -69,8 +69,8 @@ const months = [
                             new Date(a.data.pubDatetime).getTime() / 1000
                           )
                       )
-                      .map(({ data, id }) => (
-                        <Card href={`/posts/${id}`} frontmatter={data} />
+                      .map(data => (
+                        <Card {...data} />
                       ))}
                   </ul>
                 </div>

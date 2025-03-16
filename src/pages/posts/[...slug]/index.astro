@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import PostDetails from "@/layouts/PostDetails.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import { getPath } from "@/utils/getPath";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -9,9 +10,8 @@ export interface Props {
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
-
   const postResult = posts.map(post => ({
-    params: { slug: post.id },
+    params: { slug: getPath(post.id, post.filePath, false) },
     props: { post },
   }));
 
