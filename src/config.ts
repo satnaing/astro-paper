@@ -12,7 +12,7 @@ export const SITE = {
   showArchives: true,
   showBackButton: true, // show back button in post detail
   editPost: {
-    url: "https://github.com/satnaing/astro-paper/edit/main/src/content/blog",
+    url: "https://github.com/satnaing/astro-paper/edit/main/src/data/blog",
     text: "Suggest Changes",
     appendFilePath: true,
   },
