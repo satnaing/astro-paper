@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2025-03-08T07:46:00.619Z
+modDatetime: 2025-03-17T17:41:19.776Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -15,7 +15,42 @@ description:
 
 Here are some rules/recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
 
+<figure>
+  <img
+    src="https://images.pexels.com/photos/159618/still-life-school-retro-ink-159618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    alt="Free Classic wooden desk with writing materials, vintage clock, and a leather bag. Stock Photo"
+  />
+    <figcaption class="text-center">
+    Photo by <a href="https://www.pexels.com/photo/brown-wooden-desk-159618/">Pixabay</a>
+  </figcaption>
+</figure>
+
 ## Table of contents
+
+## Creating a Blog Post
+
+To write a new blog post, create a markdown file inside the `src/data/blog/` directory.
+
+> Prior to AstroPaper v5.1.0, all blog posts had to be in `src/data/blog/`, meaning you couldn't organize them into subdirectories.
+
+Starting from AstroPaper v5.1.0, you can now organize blog posts into subdirectories, making it easier to manage your content.
+
+For example, if you want to group posts under `2025`, you can place them in `src/data/blog/2025/`. This also affects the post URL, so `src/data/blog/2025/example-post.md` will be available at `/posts/2025/example-post`.
+
+If you don’t want subdirectories to affect the post URL, just prefix the folder name with an underscore `_`.
+
+```bash
+# Example: blog post structure and URLs
+src/data/blog/very-first-post.md          -> mysite.com/posts/very-first-post
+src/data/blog/2025/example-post.md        -> mysite.com/posts/2025/example-post
+src/data/blog/_2026/another-post.md       -> mysite.com/posts/another-post
+src/data/blog/docs/_legacy/how-to.md      -> mysite.com/docs/how-to
+src/data/blog/Example Dir/Dummy Post.md   -> mysite.com/example-dir/dummy-post
+```
+
+> 💡 Tip: You can override a blog post’s slug in the frontmatter as well. See the next section for more details.
+
+If the subdirectory URL doesn’t appear in the build output, remove node_modules, reinstall packages, and then rebuild.
 
 ## Frontmatter
 
