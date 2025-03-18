@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.1.0 (2025-03-18)
+
+### Feat
+
+- allow blog posts to be organized by subdirectories
+
+### Other
+
+- update blog post creation guide
+- upgrade astro and dependencies
+
 ## v5.0.1 (2025-03-12)
 
 ### Fix
