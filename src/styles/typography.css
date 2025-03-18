@@ -29,9 +29,15 @@
   pre:has(code) {
     @apply border border-border;
   }
-  code,
-  blockquote {
-    word-wrap: break-word;
+
+  .prose code,
+  .prose blockquote {
+    @apply break-words;
+  }
+
+  .prose table code {
+    /* add line breaks whenever necessary for codes under table */
+    @apply break-all;
   }
 
   pre > code {
