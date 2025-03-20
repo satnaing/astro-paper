@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.1.1 (2025-03-20)
+
+### Fix
+
+- initial light mode flash in dark mode (#488)
+- broken editPost link and update editPost logic  (#487)
+- prevent overflow by adding line breaks in table codes (#485)
+
 ## v5.1.0 (2025-03-18)
 
 ### Feat
