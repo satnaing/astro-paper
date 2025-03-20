@@ -30,7 +30,7 @@ const {
   pubDatetime,
   modDatetime,
   tags,
-  editPost,
+  hideEditPost,
 } = post.data;
 
 const { Content } = await render(post);
@@ -103,7 +103,7 @@ const nextPost =
         size="lg"
         class="my-2"
       />
-      <EditPost class="max-sm:hidden" editPost={editPost} postId={post.id} />
+      <EditPost class="max-sm:hidden" {hideEditPost} {post} />
     </div>
     <article id="article" class="mx-auto prose mt-8 max-w-3xl">
       <Content />
@@ -111,7 +111,7 @@ const nextPost =
 
     <hr class="my-8 border-dashed" />
 
-    <EditPost class="sm:hidden" editPost={editPost} postId={post.id} />
+    <EditPost class="sm:hidden" {hideEditPost} {post} />
 
     <ul class="mt-4 mb-8 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}

@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2025-03-17T17:41:19.776Z
+modDatetime: 2025-03-20T03:22:19.075Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -71,6 +71,7 @@ Here is the list of frontmatter property for each post.
 | **_tags_**         | Related keywords for this post. Written in array yaml format.                                                                        | default = others                               |
 | **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO. This can be a remote URL or an image path relative to current folder. | default = `SITE.ogImage` or generated OG image |
 | **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.                                                        | default = `Astro.site` + `Astro.url.pathname`  |
+| **_hideEditPost_** | Hide editPost button under blog title. This applies only to the current blog post.                                                   | default = false                                |
 
 > Tip! You can get ISO 8601 datetime by running `new Date().toISOString()` in the console. Make sure you remove quotes though.
 
