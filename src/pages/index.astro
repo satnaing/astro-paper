@@ -73,7 +73,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     {
       featuredPosts.length > 0 && (
         <>
-          <section id="featured" class="pt-12 pb-6">
+          <section id="featured" class="posts pt-12 pb-6">
             <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
             <ul>
               {featuredPosts.map(data => (
@@ -88,7 +88,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     {
       recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
+        <section id="recent-posts" class="posts pt-12 pb-6">
           <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
           <ul>
             {recentPosts.map(
