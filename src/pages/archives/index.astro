@@ -53,7 +53,7 @@ const months = [
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
               .map(([month, monthGroup]) => (
-                <div class="flex flex-col sm:flex-row">
+                <div class="posts flex flex-col sm:flex-row">
                   <div class="mt-6 min-w-36 text-lg sm:my-6">
                     <span class="font-bold">{months[Number(month) - 1]}</span>
                     <sup class="text-xs">{monthGroup.length}</sup>

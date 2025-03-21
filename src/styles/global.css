@@ -35,10 +35,7 @@ html[data-theme="dark"] {
     scrollbar-color: var(--color-muted) transparent;
   }
   html {
-    @apply overflow-y-scroll scroll-smooth;
-  }
-  body {
-    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+    @apply h-full overflow-y-scroll scroll-smooth;
   }
   a,
   button {
@@ -48,9 +45,12 @@ html[data-theme="dark"] {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  section,
-  footer {
-    @apply mx-auto max-w-3xl px-4;
+}
+
+body {
+  @apply grid h-full justify-items-center bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+  #box {
+    @apply flex w-full max-w-3xl flex-col px-4;
   }
 }
 

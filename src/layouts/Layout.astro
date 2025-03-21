@@ -130,15 +130,8 @@ const structuredData = {
     <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>
-    <slot />
+    <div id="box">
+      <slot />
+    </div>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
