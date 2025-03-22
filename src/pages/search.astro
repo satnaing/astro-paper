@@ -78,7 +78,14 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     });
   }
 
-  document.addEventListener("astro:after-swap", initSearch);
+  document.addEventListener("astro:after-swap", () => {
+    const pagefindSearch = document.querySelector("#pagefind-search");
+
+    // if pagefind search form already exists, don't initialize search component
+    if (pagefindSearch && pagefindSearch.querySelector("form")) return;
+
+    initSearch();
+  });
   initSearch();
 </script>
 
