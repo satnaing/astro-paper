@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.2.0 (2025-03-22)
+
+### Feat
+
+- add global and per-post timezone support (#491)
+
+### Fix
+
+- adjust nav bar alignment in heading (#492)
+- ensure only one search bar is displayed on nav link clicks (#489)
+
 ## v5.1.1 (2025-03-20)
 
 ### Fix
