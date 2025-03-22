@@ -37,7 +37,7 @@
 
   .prose table code {
     /* add line breaks whenever necessary for codes under table */
-    @apply break-all;
+    @apply break-all sm:break-normal;
   }
 
   pre > code {
