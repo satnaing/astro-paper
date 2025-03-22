@@ -29,6 +29,7 @@ const {
   canonicalURL,
   pubDatetime,
   modDatetime,
+  timezone,
   tags,
   hideEditPost,
 } = post.data;
@@ -97,12 +98,7 @@ const nextPost =
       {title}
     </h1>
     <div class="flex items-center gap-4">
-      <Datetime
-        pubDatetime={pubDatetime}
-        modDatetime={modDatetime}
-        size="lg"
-        class="my-2"
-      />
+      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" class="my-2" />
       <EditPost class="max-sm:hidden" {hideEditPost} {post} />
     </div>
     <article id="article" class="mx-auto prose mt-8 max-w-3xl">
