@@ -18,6 +18,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.0.14",
     "astro": "^5.5.2",
+    "dayjs": "^1.11.13",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
