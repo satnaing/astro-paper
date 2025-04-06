@@ -6,12 +6,20 @@ export interface Props {
   centered?: boolean;
 }
 
+type Social = {
+  href: string;
+  linkTitle: string;
+  name: string;
+  icon: any;
+};
+
+const socialLinks = (SOCIALS.length > 0 ? SOCIALS : []) as unknown as Social[];
 const { centered = false } = Astro.props;
 ---
 
 <div class:list={["flex-wrap justify-center gap-1", { flex: centered }]}>
   {
-    SOCIALS.map(social => (
+    socialLinks.map(social => (
       <LinkButton
         href={social.href}
         class="p-2 hover:rotate-6 sm:p-1"
