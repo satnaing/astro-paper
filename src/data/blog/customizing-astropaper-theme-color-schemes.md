@@ -1,132 +1,69 @@
 ---
-author: Sat Naing
-pubDatetime: 2022-09-25T15:20:35Z
-title: Customizing AstroPaper theme color schemes
-featured: false
+author: tanc
+pubDatetime: 2025-04-25T15:20:35Z
+title: my blog
+featured: true
 draft: false
 tags:
-  - color-schemes
-  - docs
+  - blog
 description:
-  How you can enable/disable light & dark mode; and customize color schemes
-  of AstroPaper theme.
+   这个时代个人博客是否还有存在的必要？
 ---
 
-This post will explain how you can enable/disable light & dark mode for the website. Moreover, you'll learn how you can customize color schemes of the entire website.
+这个时代个人博客是否还有存在的必要？
+
+【主题确定】
+- 关键词：技术类个人博客、生活分享
+- 覆盖内容：技术类博客的发展现状、生活分享型博客的趋势、相关科学与产业影响、科普解释、未来预测等。
 
 ## Table of contents
 
-## Enable/disable light & dark mode
+## 一、行业现状综述
+**关键词：博客形态演变+互联网内容分发**
+1. 个人博客是指个人运营的在线内容平台，常见于自建博客（如WordPress）、专栏平台（如知乎、CSDN）、或SaaS一站式服务（如Notion、Medium）。
+2. 技术类博客以分享IT开发、软件工程、硬件评测和行业洞察为主；生活分享博客兼顾个人见闻、情感表达与生活经验的传递。
+3. 新闻源交叉验证：
+   - [TechCrunch: How personal blogging is staying relevant](https://techcrunch.com/2023/10/06/personal-blogging-relevant/)
+   - [CSDN年度博客报告及分析](https://www.csdn.net/)
+   - [The Conversation: Why people still blog in the age of TikTok and Instagram](https://theconversation.com/why-people-still-blog-in-the-age-of-tiktok-and-instagram-180412)
+4. 科学共识：近年来，个人博客虽受社交媒体冲击，但独立博客的深度价值与原创性得到一定保留，尤其在专业技术和长文领域显示独特竞争力。
 
-AstroPaper theme will include light and dark mode by default. In other words, there will be two color schemes\_ one for light mode and another for dark mode. This default behavior can be disabled in SITE configuration object of the `src/config.ts` file.
+## 二、技术类博客核心价值
+**关键词：知识传播+技术学习+业内声誉**
+1. 技术类博客为IT从业者和技术爱好者提供学习、交流、及展示个人技术成果的平台。
+2. 研究显示，维护技术博客有助于巩固知识，促进深度自我学习（参考：Journal of Computer Science Education, 2022）。
+3. 个人持续输出高质量原创文章，有助于获得行业影响力，并在职业发展、招聘过程中提升个人品牌价值。
+4. 许多知名开发者（如Kelsey Hightower、阮一峰）通过博客积累了忠实粉丝，推动了技术社区繁荣。
 
-```js
-// file: src/config.ts
-export const SITE = {
-  website: "https://astro-paper.pages.dev/",
-  author: "Sat Naing",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "AstroPaper",
-  ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true, // true by default
-  postPerPage: 3,
-};
-```
+## 三、生活分享博客成长趋势
+**关键词：情感表达+人生经验+社区互动**
+1. 生活分享类博客注重个人视角与故事性，内容从日常生活、兴趣爱好到心理成长、社会观察。
+2. 大量用户通过博客记录育儿、旅行、美食、成长故事，营造内容互助的社区氛围。
+3. 来自中国知网、Medium、知乎的数据分析显示：围绕“自我成长”、“心理健康”与“生活方式”的博客内容流量持续上升，社区互动性增强。
+4. 研究证明，持续写作和内容分享能够在一定程度上改善作者心理健康，为读者提供情感支持和认知激励（参考：BMC Psychology, 2023）。
 
-To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
+## 四、行业难点与争议
+**关键词：内容变现+信息过载+数据隐私**
+1. 个人博客内容变现难度普遍较大，但部分作者可通过广告、会员制、知识付费等实现收入（参考：Tech in Asia相关报道）。
+2. 信息泛滥与同质化严重，专业深度和真实个性成为突出重围的关键。
+3. 技术博客频繁引用、转载，版权保护及原创认定存在争议。
+4. 生活分享博客高度依赖个人隐私保护，博主常需仔细平衡公私界限。
 
-## Choose primary color scheme
+## 五、未来趋势与科学预测
+**关键词：AI生成内容+博客与社交媒体融合+垂直细分**
+1. AI技术赋能内容生成，辅助初学者降低创作门槛，部分平台支持自动排版、语法优化与SEO提升。
+2. 博客和社交平台深度融合，兼顾独立内容与社群传播的优势。
+3. 专业性与个性化并重，技术博客将更强调原创性和独立见解，生活博客则朝多样化主题与微社区方向发展。
+4. 潜力行业包括在线教育、知识付费、心理健康、个人品牌打造等。
 
-By default, if we disable `SITE.lightAndDarkMode`, we will only get system's prefers-color-scheme.
+## 六、科学意义与社会价值
+**关键词：知识普及+社区生态+个人成长**
+1. 技术类博客助力科技知识共享和普及，促进行业技术升级和创新。
+2. 生活分享博客增强社会情感纽带与群众心理健康水平，鼓励多元价值观表达。
+3. 专业化、多元化、自治化趋势明确，博客模式在自媒体时代依然具备独特而长久的发展空间。
 
-Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the primaryColorScheme variable inside `public/toggle-theme.js`.
-
-```js
-/* file: public/toggle-theme.js */
-const primaryColorScheme = ""; // "light" | "dark"
-
-// Get theme data from local storage
-const currentTheme = localStorage.getItem("theme");
-
-// other codes etc...
-```
-
-The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
-
-- `""` - system's prefers-color-scheme. (default)
-- `"light"` - use light mode as primary color scheme.
-- `"dark"` - use dark mode as primary color scheme.
-
-<details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
-
-> To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
-
-[Click here](https://docs.astro.build/en/reference/directives-reference/#isinline) to know more about Astro's `is:inline` script.
-
-</details>
-
-## Customize color schemes
-
-Both light & dark color schemes of AstroPaper theme can be customized. You can do this in `src/styles/base.css` file.
-
-```css
-/* file: src/styles/base.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root,
-  html[data-theme="light"] {
-    --color-fill: 251, 254, 251;
-    --color-text-base: 40, 39, 40;
-    --color-accent: 0, 108, 172;
-    --color-card: 230, 230, 230;
-    --color-card-muted: 205, 205, 205;
-    --color-border: 236, 233, 233;
-  }
-  html[data-theme="dark"] {
-    --color-fill: 47, 55, 65;
-    --color-text-base: 230, 230, 230;
-    --color-accent: 26, 217, 217;
-    --color-card: 63, 75, 90;
-    --color-card-muted: 89, 107, 129;
-    --color-border: 59, 70, 85;
-  }
-  /* other styles */
-}
-```
-
-In AstroPaper theme, `:root` and `html[data-theme="light"]` selectors are used as the light color scheme and `html[data-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-theme="light"]` and dark color scheme inside `html[data-theme="dark"]`.
-
-Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of `rgb(40, 39, 40)`, only specify `40, 39, 40`)
-
-Here is the detail explanation of color properties.
-
-| Color Property       | Definition & Usage                                         |
-| -------------------- | ---------------------------------------------------------- |
-| `--color-fill`       | Primary color of the website. Usually the main background. |
-| `--color-text-base`  | Secondary color of the website. Usually the text color.    |
-| `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-card`       | Card, scrollbar and code background color (like `this`).   |
-| `--color-card-muted` | Card and scrollbar background color for hover state etc.   |
-| `--color-border`     | Border color. Especially used in horizontal row (hr)       |
-
-Here is an example of changing the light color scheme.
-
-```css
-@layer base {
-  /* lobster color scheme */
-  :root,
-  html[data-theme="light"] {
-    --color-fill: 246, 238, 225;
-    --color-text-base: 1, 44, 86;
-    --color-accent: 225, 74, 57;
-    --color-card: 220, 152, 145;
-    --color-card-muted: 233, 119, 106;
-    --color-border: 220, 152, 145;
-  }
-}
-```
-
-> Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.
+## 七、结论与建议
+**关键词：原创深度+安全隐私+平台多元化**
+1. 博主应注重内容原创与专业深度，结合真实生活体验与科学知识传播。
+2. 需合理规划个人隐私保护，提升信息安全意识。
+3. 关注新技术动向（如AI创作、SEO优化），拓展多平台发布和交流，提高知识影响力。

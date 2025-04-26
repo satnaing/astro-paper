@@ -5,7 +5,7 @@ modDatetime: 2025-03-22T06:25:46.734Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
-draft: false
+draft: true
 tags:
   - docs
 description:
@@ -27,182 +27,115 @@ Here are some rules/recommendations, tips & ticks for creating new posts in Astr
 
 ## Table of contents
 
-## Creating a Blog Post
 
-To write a new blog post, create a markdown file inside the `src/data/blog/` directory.
+## 内容信息
 
-> Prior to AstroPaper v5.1.0, all blog posts had to be in `src/data/blog/`, meaning you couldn't organize them into subdirectories.
+读书人的命运总是多舛。
 
-Starting from AstroPaper v5.1.0, you can now organize blog posts into subdirectories, making it easier to manage your content.
+政治、权力、自由、民主，这类概念混合在一起的时候，才能看到真正的人性的东西。
 
-For example, if you want to group posts under `2025`, you can place them in `src/data/blog/2025/`. This also affects the post URL, so `src/data/blog/2025/example-post.md` will be available at `/posts/2025/example-post`.
+两边对待读书人的方式，是否造就现在两边差异的主要原因呢？ 个人感觉他们更加开放，反观我们处于一个闭关的情况。
 
-If you don’t want subdirectories to affect the post URL, just prefix the folder name with an underscore `_`.
+### Highlights
 
-```bash
-# Example: blog post structure and URLs
-src/data/blog/very-first-post.md          -> mysite.com/posts/very-first-post
-src/data/blog/2025/example-post.md        -> mysite.com/posts/2025/example-post
-src/data/blog/_2026/another-post.md       -> mysite.com/posts/another-post
-src/data/blog/docs/_legacy/how-to.md      -> mysite.com/docs/how-to
-src/data/blog/Example Dir/Dummy Post.md   -> mysite.com/example-dir/dummy-post
-```
+#### 第四章 流亡岁月
 
-> 💡 Tip: You can override a blog post’s slug in the frontmatter as well. See the next section for more details.
+> 故宫博物院集中的13427箱零64包外，另有古物陈列所、太庙、颐和园、国子监，以及奉天、热河两行宫等处文物6066箱，由国民政府委托故宫博物院派员一起将其南迁——这便是中国近代史上著名的第一次国宝南迁大行动。1948年底，这批宝物中的相当一部分精品随蒋介石政府迁往台湾，成为台北故宫博物院的镇院之宝。
 
-If the subdirectory URL doesn’t appear in the build output, remove node_modules, reinstall packages, and then rebuild.
+> 11月11日，淞沪战场上的国民党军队已苦苦支撑达三个月之久。此次战役，中日双方共投入兵力约103万人，日本动用了28万海军陆战队与陆军精锐部队，挟4艘航空母舰、34艘大型军舰、400余架飞机与近400辆战车，与约75万中国军队进行了一场空前惨烈的大兵团会战。中日双方死伤俱重，日方阵亡达10万人，中方阵亡约30万。以规模与死伤人数论，此次战役是整个二次世界大战中最大型的会战之一，无论是后来闻名欧洲的诺曼底登陆，还是太平洋战场的硫黄岛大血战，都无法与之匹敌。由于装备与兵员素质等诸方面的差距悬殊，中国军队在苦战三个月后伤亡过重，力不能敌，被迫从苏州河南岸撤出。
 
-## Frontmatter
+#### 第五章 弦诵在山城
 
-Frontmatter is the main place to store some important information about the blog post (article). Frontmatter lies at the top of the article and is written in YAML format. Read more about frontmatter and its usage in [astro documentation](https://docs.astro.build/en/guides/markdown-content/).
+> 在泸县以南的叙永设立分校
 
-Here is the list of frontmatter property for each post.
+> 中央研究院在昆明的几个研究所，连同相关的中央博物院筹备处、中国营造学社等学术机构，与驻昆的同济大学一道，又开始了一次大规模迁徙，目标是一个“在地图上找不到的地方”——四川南溪李庄。
 
-| Property           | Description                                                                                                                           | Remark                                         |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **_title_**        | Title of the post. (h1)                                                                                                               | required<sup>\*</sup>                          |
-| **_description_**  | Description of the post. Used in post excerpt and site description of the post.                                                       | required<sup>\*</sup>                          |
-| **_pubDatetime_**  | Published datetime in ISO 8601 format.                                                                                                | required<sup>\*</sup>                          |
-| **_modDatetime_**  | Modified datetime in ISO 8601 format. (only add this property when a blog post is modified)                                           | optional                                       |
-| **_author_**       | Author of the post.                                                                                                                   | default = SITE.author                          |
-| **_slug_**         | Slug for the post. This field is optional.                                                                                            | default = slugified file name                  |
-| **_featured_**     | Whether or not display this post in featured section of home page                                                                     | default = false                                |
-| **_draft_**        | Mark this post 'unpublished'.                                                                                                         | default = false                                |
-| **_tags_**         | Related keywords for this post. Written in array yaml format.                                                                         | default = others                               |
-| **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO. This can be a remote URL or an image path relative to current folder.  | default = `SITE.ogImage` or generated OG image |
-| **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on other source.                                                         | default = `Astro.site` + `Astro.url.pathname`  |
-| **_hideEditPost_** | Hide editPost button under blog title. This applies only to the current blog post.                                                    | default = false                                |
-| **_timezone_**     | Specify a timezone in IANA format for the current blog post. This will override the `SITE.timezone` config for the current blog post. | default = `SITE.timezone`                      |
+#### 第七章 陶孟和逼上“梁山”
 
-> Tip! You can get ISO 8601 datetime by running `new Date().toISOString()` in the console. Make sure you remove quotes though.
+> 既然是朋友，就要为其两肋插刀，排忧解难，时为号称大学生“毕业即是失业”之时，找份工作谈何容易。兴致中的胡老师想来想去，找不到一把合适的椅子供这位年轻的新朋友来坐，最后一拍脑门，终于想到了陶孟和的社会调查所，顺手提笔修书一封，让千家驹揣在怀里上门求职。
 
-Only `title`, `description` and `pubDatetime` fields in frontmatter must be specified.
+==又是毕业即失业的年份==
 
-Title and description (excerpt) are important for search engine optimization (SEO) and thus AstroPaper encourages to include these in blog posts.
+#### 第十四章 南渡自应思往事
 
-`slug` is the unique identifier of the url. Thus, `slug` must be unique and different from other posts. The whitespace of `slug` should to be separated with `-` or `_` but `-` is recommended. Slug is automatically generated using the blog post file name. However, you can define your `slug` as a frontmatter in your blog post.
+> 读史早知今日事
 
-For example, if the blog file name is `adding-new-post.md` and you don't specify the slug in your frontmatter, Astro will automatically create a slug for the blog post using the file name. Thus, the slug will be `adding-new-post`. But if you specify the `slug` in the frontmatter, this will override the default slug. You can read more about this in [Astro Docs](https://docs.astro.build/en/guides/content-collections/#defining-custom-slugs).
+#### 第二章 小镇故事多
 
-If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `/src/content/config.ts` file.
+> 1933年2月，萧伯纳受中国民权保障同盟总会几位大佬的邀请，尽管有不屑踏上中国领土的念头，但最终还是于2月17日由香港到上海登陆做了短暂停留，并与宋庆龄、蔡元培、鲁迅、杨杏佛、林语堂等名流匆匆见了一面。萧氏之意“本来玩玩的”（鲁迅语），但还是以西方人的自傲自大，以不屑的神情，居高临下地对中国及中国文化咕噜了几句洋话，大放了一通厥词，谓“中国固无文化可言，有之也在中国的乡间田野”云云。后来中国许多各揣不可告人之目的，或稀里糊涂，大肆迷信和吹捧萧伯纳，将其视为哲人、世界人类的大救星，并借此抬高与其有一面之缘的中国同盟几位大佬的身价。
 
-```ts
-// src/content/config.ts
-export const blogSchema = z.object({
-  // ---
-  draft: z.boolean().optional(),
-  tags: z.array(z.string()).default(["others"]), // replace "others" with whatever you want
-  // ---
-});
-```
+> 按傅斯年的说法，中共紧随苏联其后，学斯大林那一套，搞的不是民主而是专制，有一套不讲事理不重人性的办法。￼因而一旦共产党掌权，社会秩序就将大乱，甚至认为人民的自由也会被剥夺，文化会变成一片荒漠等。
 
-### Sample Frontmatter
+> 按傅斯年的说法，中共紧随苏联其后，学斯大林那一套，搞的不是民主而是专制，有一套不讲事理不重人性的办法。因而一旦共产党掌权，社会秩序就将大乱，甚至认为人民的自由也会被剥夺，文化会变成一片荒漠等。
 
-Here is the sample frontmatter for a post.
+==一语成谶==
 
-```yaml
-# src/content/blog/sample-post.md
----
-title: The title of the post
-author: your name
-pubDatetime: 2022-09-21T05:17:19Z
-slug: the-title-of-the-post
-featured: true
-draft: false
-tags:
-  - some
-  - example
-  - tags
-ogImage: ../../assets/images/example.png # src/assets/images/example.png
-# ogImage: "https://example.org/remote-image.png" # remote URL
-description: This is the example description of the example post.
-canonicalURL: https://example.org/my-article-was-already-posted-here
----
-```
+#### 第四章 胜利的前夜
 
-## Adding table of contents
+> 他认为当时延安的作风纯粹是专制愚民的作风， 也就是反自由、反民主的作风。他和毛泽东因为旧曾相识的关系， 单独聊了一夜天。上天下地地谈开了，谈到中国的小说，他发现毛泽东对于坊间各种小说，连低级兴趣的小说在内，都看得非常之熟。毛泽东从这些材料里去研究民众心理，去利用民众心理的弱点，所以至多不过宋江一流。毛泽东和他漫步到礼堂里，看见密密层层的锦旗，各处向毛献的。孟真讽刺地赞道：‘堂哉皇哉！’毛泽东有点感觉到。
 
-By default, a post (article) does not include any table of contents (toc). To include toc, you have to specify it in a specific way.
+#### 第五章 北大春秋
 
-Write `Table of contents` in h2 format (## in markdown) and place it where you want it to be appeared on the post.
+> 按照古代对社会各阶层的划分，在三教九流中，儒生列入九流之“中流”阶层。到了元朝，政府按人们所从事的职业，把被征服的臣民划分为十个等级即“十流”：一官、二吏、三僧、四道、五医、六工、七匠、八娼、九儒、十丐。此时的儒生已经成为地地道道的“臭老九”，位列娼妓之后，连一个妓女的地位都不如
 
-For instance, if you want to place your table of contents just under the intro paragraph (like I usually do), you can do that in the following way.
+#### 第十二章 闻一多之死
 
-```md
----
-# some frontmatter
----
+> 另据统计，二战末期，苏联在东北地区共掠夺战利品损失为1946年币值的53.4亿日元，折合当时美元13.6亿元。尚不含没有折价的白金32401.55克、白银1866549.69克和钻石741.0662克。1946年国民政府发表的抗战期间财产损失133亿美元，而仅苏军从东北掠走的财产即价值13亿美元。也就是说，1945至1946年，苏联从东北掠夺的物资，相当于中国抗战八年所有财产损失的十分之一。至于苏军在东北地区肆意蹂躏中国同胞，强奸妇女，更是不在话下。面对苏军的种种恶行，国人早已恨之入骨，欲啖之而后快，只是鉴于当时国际国内的敏感形势，以及蒋介石此前坚持的“忍气吞声，负重致远”（日记）的精神，一直忍而未发。
 
-Here are some recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
+#### 第十三章 残阳如血
 
-## Table of contents
+> 飞鸟尽，良弓藏；敌国破，谋臣亡。
 
-<!-- the rest of the post -->
-```
+> 一手把美国拖入太平洋战争的空前杰作
 
-## Headings
+#### 第十六章 山河崩裂
 
-There's one thing to note about headings. The AstroPaper blog posts use title (title in the frontmatter) as the main heading of the post. Therefore, the rest of the heading in the post should be using h2 \~ h6.
+> 胡适旗帜鲜明另加斩钉截铁地让来使告诉吴晗三句话：“在苏俄，有面包没有自由；在美国，又有面包又有自由；他们来了，没有面包也没有自由。”
 
-This rule is not mandatory, but highly recommended for visual, accessibility and SEO purposes.
+#### 第一章 浮海说三千弟子
 
-## Storing Images for Blog Content
+> 据当时统计，“中央研究院”第一届院士81人中，留在大陆者58人，去世4人；退迁台湾6人；在美国12人，加拿大1人（南按：吴大猷，后来出任过台湾“中央研究院”院长）。
 
-Here are two methods for storing images and displaying them inside a markdown file.
+#### 第三章 胜利的牺牲品
 
-> Note! If it's a requirement to style optimized images in markdown you should [use MDX](https://docs.astro.build/en/guides/images/#images-in-mdx-files).
+> 1959年，作为新任“中央研究院”院长、学界领袖的胡适，公开反对蒋介石连任“总统”，对蒋氏为谋求连任而冒天下之大不韪，置党章“国法”于不顾，欲强行“修宪”的做法更是大加声讨。
 
-### Inside `src/assets/` directory (recommended)
+#### 第七章 最难风雨故人来
 
-You can store images inside `src/assets/` directory. These images will be automatically optimized by Astro through [Image Service API](https://docs.astro.build/en/reference/image-service-reference/).
+> 与此相关的“殷墟的殉葬者是奴隶，商、周是奴隶社会”这一“铁案”，在大中小学生教科书中连篇累牍地大规模出现，郭氏之说遂成为牢不可破的生铁铸成的坚硬的历史文化瑰宝，大有撼山易，撼郭氏“铁案”难之威势。
 
-You can use relative path or alias path (`@/assets/`) to serve these images.
+==有点忘记教材中的内容了==
 
-Example: Suppose you want to display `example.jpg` whose path is `/src/assets/images/example.jpg`.
+#### 第八章 池南旧事不堪记
 
-```md
-![something](@/assets/images/example.jpg)
+> 几十年后的2004年，一个捡垃圾的老汉在北京某地一个废墟中，捡到一麻袋文件，经中国社会科学院近代史研究所李学通等专家鉴定，正是当年陶孟和等人在李庄时期所撰成的抗日战争期间中国损失调查报告。而对这堆“废物”做何处理，仍无人理会。
 
-<!-- OR -->
+==有点意思，穿越时空的感觉==
 
-![something](../../assets/images/example.jpg)
+#### 第九章 高才短命人谁惜
 
-<!-- Using img tag or Image component won't work ❌ -->
-<img src="@/assets/images/example.jpg" alt="something">
-<!-- ^^ This is wrong -->
-```
+> 凡一种文化，值此衰落之时，为此文化所化之人，必感苦痛……殆非出于自杀，无以求一己之心安而义尽也
 
-> Technically, you can store images inside any directory under `src`. In here, `src/assets` is just a recommendation.
+#### 第十章 “铁证”下的亡灵
 
-### Inside `public` directory
+> 其时只有10岁的养子吴彰与养女小彦，立即用平板车把母亲拉到医院，由于袁是吴晗的家属，同时又是没摘帽的“右派分子”，院方将其视为阶级敌人而拒绝接收抢救。熬到翌日凌晨，躺在医院大厅一角冰冷水泥地上的袁震，于惨淡的星光映照中，撇下了两个未成年的孩子撒手归天。
 
-You can store images inside the `public` directory. Keep in mind that images stored in the `public` directory remain untouched by Astro, meaning they will be unoptimized and you need to handle image optimization by yourself.
+==有点意思==
 
-For these images, you should use an absolute path; and these images can be displayed using [markdown annotation](https://www.markdownguide.org/basic-syntax/#images-1) or [HTML img tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img).
+#### 第十一章 简编桀犬恣雌黄
 
-Example: Assume `example.jpg` is located at `/public/assets/images/example.jpg`.
+> 中共高层只是令有关方面对其多加照顾，并把杨振宁的岳父、在淮海战役中被俘的前线总指挥杜聿明将军作为“特赦”战犯从监狱里放出来，以示给杨振宁一点面子和争取的砝码。
 
-```md
-![something](/assets/images/example.jpg)
+==还有这层关系==
 
-<!-- OR -->
+#### 第十二章 百年驹隙过如驰
 
-<img src="/assets/images/example.jpg" alt="something">
-```
+> 就整个20世纪而言，李政道、杨振宁、王瑞駪等三人，外加一个金岳霖弟子、哲学家王浩，是西南联大走出去的学生中真正具有国际影响且对人类科学文化事业做出杰出贡献的伟大学人。李、杨、王、王等四人，称得上是当之无愧的西南联大学生的“光荣代表”。
 
-## Bonus
+==可以关注下==
 
-### Image compression
+#### 第十三章 风流总被雨打风吹去
 
-When you put images in the blog post (especially for images under `public` directory), it is recommended that the image is compressed. This will affect the overall performance of the website.
+> 这是1984来了。这么快。
 
-My recommendation for image compression sites.
-
-- [TinyPng](https://tinypng.com/)
-- [TinyJPG](https://tinyjpg.com/)
-
-### OG Image
-
-The default OG image will be placed if a post does not specify the OG image. Though not required, OG image related to the post should be specify in the frontmatter. The recommended size for OG image is **_1200 X 640_** px.
-
-> Since AstroPaper v1.4.0, OG images will be generated automatically if not specified. Check out [the announcement](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/).
+==1984 是啥时候出版的呀==
