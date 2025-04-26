@@ -4,7 +4,7 @@ pubDatetime: 2022-12-28T04:59:04.866Z
 modDatetime: 2025-03-12T13:39:20.763Z
 title: Dynamic OG image generation in AstroPaper blog posts
 slug: dynamic-og-image-generation-in-astropaper-blog-posts
-featured: false
+featured: true
 draft: false
 tags:
   - docs
