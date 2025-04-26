@@ -1,22 +1,20 @@
 export const SITE = {
-  website: "https://www.tanctalk.com/", // replace this with your deployed domain
+  website: "https://www.tanctalk.com/",
   author: "tanc",
   profile: "https://www.tanctalk.com",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  desc: "A personal blog about coding, life and pets.",
   title: "tanc-talk",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  scheduledPostMargin: 15 * 60 * 1000,
   showArchives: true,
-  showBackButton: true, // show back button in post detail
+  showBackButton: true,
   editPost: {
-    enabled: false,
-    text: "Suggest Changes",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
+    enabled: false
   },
   dynamicOgImage: true,
-  lang: "en", // html lang code. Set this empty and default will be "en"
+  lang: "en",
   timezone: "Asia/Shanghai",
 } as const;
