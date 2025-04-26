@@ -3,7 +3,7 @@ author: tanc
 pubDatetime: 2025-04-25T15:20:35Z
 title: my blog
 featured: true
-draft: false
+draft: true
 tags:
   - blog
 description:

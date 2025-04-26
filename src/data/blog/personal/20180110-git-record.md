@@ -1,8 +1,8 @@
 ---
-author: Barry Dong
+author: tanc
 pubDatetime: 2018-01-10T16:00:00+08:00
 modDatetime: 2018-01-10T16:25:46.734+08:00
-title: Git First Experience
+title: Git 操作初体验
 slug: personal/20180110-git-record
 featured: false
 draft: false
@@ -10,7 +10,7 @@ tags:
   - blog
   - git
 description:
-  A record of a Git operation error.
+  Git 操作初体验，记录一次错误的操作。
 ---
 
 事情是这样的，我在本地创建了一个 Git 库，并且进行了一次提交 A，同时在 Github 上面创建了一个库，产生了一次初始提交 B。

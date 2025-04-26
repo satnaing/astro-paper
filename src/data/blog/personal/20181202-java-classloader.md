@@ -1,5 +1,5 @@
 ---
-author: Barry Dong
+author: tanc
 pubDatetime: 2018-12-02T14:00:00+08:00
 modDatetime: 2018-12-02T14:00:00+08:00
 title: Java 类加载机制详解

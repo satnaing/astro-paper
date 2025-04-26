@@ -5,7 +5,7 @@ modDatetime: 2025-04-19T14:25:46.734+08:00
 title: first-try
 slug: personal/20250419-raycast-intro-01
 featured: true
-draft: false
+draft: true
 tags:
   - blog
 description:
