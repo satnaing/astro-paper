@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
 import "@/styles/global.css";
+import "katex/dist/katex.min.css";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -53,7 +54,10 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -95,6 +99,9 @@ const structuredData = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
+    <!-- Mastodon -->
+    <meta name="fediverse:creator" content="@lhasarider@mastodon.social">
+
     <!-- Google JSON-LD Structured data -->
     <script
       type="application/ld+json"
@@ -126,8 +133,20 @@ const structuredData = {
     }
 
     <ClientRouter />
-
     <script is:inline src="/toggle-theme.js"></script>
+    <link href="https://cos.lhasa.icu/assets/Artalk.css" rel="stylesheet" />
+    <script is:inline src="https://cos.lhasa.icu/assets/Artalk.js"></script>
+    
+    <!-- Baidu Analytics -->
+    <script defer is:inline>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?2f325d81a4b600b2b4be3c277d6fa88a";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
   </head>
   <body>
     <slot />

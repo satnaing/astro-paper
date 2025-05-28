@@ -1,0 +1,187 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2020-12-18T11:46+08:00
+title: 爱上Go语言：变量定义与内建变量类型
+slug: golang-variable
+ogImage: https://cos.lhasa.icu/ArticlePictures/golang.jpg_81
+tags:
+  - Goland
+  - 变量
+  - 类型
+  
+description: 常量，一经定义不可改变的量...
+---
+
+import Img from "@/components/Img.astro";
+
+## 变量的定义
+
+```go
+package main
+
+import "fmt"
+
+func variableZeroValue() {
+	// var 关键字表示定义变量，定义变量时，名在前，类型在后
+	// int默认值为0，string为空字符串
+	var a int
+	var s string
+	fmt.Printf("%d %q\n", a, s)
+}
+
+func variableInitialValue() {
+	// Golang语法严格，定义的变量必须被使用，否则报错：declared but not used
+	var a, b int = 3, 4
+	var s string = "abc"
+	fmt.Println(a, b, s)
+}
+func variableTtypeDeduction() {
+	// 定义多个变量的同时，也可以给其定义类型
+	var a, b, c, s = 3, 4, true, "def"
+	fmt.Println(a, b, c, s)
+}
+
+func variableShorter() {
+	// : 冒号也表示定义变量，注意定义变量时才用！！！
+	a, b, c, s := 3, 4, true, "def"
+	// 若变量重复定义则会报错：no new variables on left side of :=
+	b = 5
+	fmt.Println(a, b, c, s)
+}
+
+// 在函数内定义的变量，它作用域只在函数内，但函数外也可以定义变量
+// 不管函数内还是函数外都可以使用 var() 集中定义变量
+var (
+	id   = 1
+	user = "achuan"
+)
+
+// 需要注意的是，在函数外定义变量只可以用var关键字进行定义，不能使用冒号
+// 否则报错：syntax error: non-declaration statement outside function body
+//ges := 20
+
+// 注意上面定义的id，user变量，它们的作用域不是"全局变量"，而是包内部的变量
+// Golang没有全局变量这个说法，只是包内部的
+
+func main() {
+	fmt.Println("Hi achuan")
+	variableZeroValue()
+	variableInitialValue()
+	variableTtypeDeduction()
+	variableShorter()
+	fmt.Println(id, user)
+}
+```
+
+## 内建变量类型
+
+### 布尔与字符串
+
+* bool、string
+
+bool再了解不过了吧，它的值只有两种：true、false，if和for语句的条件部分都是布尔的值，并且`==`和`<`等比较操作也会产生bool值
+
+string是一个不可改变的字节序列，字符串可以包含任意的数据
+
+
+
+### 整数型
+
+* (u)int、(u)int8、(u)int16、(u)int32、(u)int64、uintptr
+
+加（u）是无符号整数，不加（u）是有符号整数，有符号整数还分两类，一类规定长度的，如int8、int32、int64。还有一类是不规定长度的，不规定长度的是根据操作系统来，在32位操作系统里面它就是32位，在64位系统它就是64位
+
+还要一个uintptr类型，这个ptr就是指针，这个指针的长度也是跟着操作系统来的
+
+uintptr类型是无符号整型，用于存放一个指针，等过几天再详细学一下
+
+
+
+### 字符型
+
+* byte、rune
+
+Golang字符型有两种，一种是uint8，另一种就是rune
+
+byte就是uint8的别名，即一个字节长度，常用来处理ASCII字符
+
+rune同等于int32，代表一个UTF-8字符，即4个字节吗，常用于处理中文或其他复合字符
+
+
+
+### 浮点型
+
+* float32、float64
+
+Golang提供了两种浮点型：float32和float64，它们的算术规范是由[IEEE754国际标准](https://zh.wikipedia.org/zh-cn/IEEE_754)定义，现代CPU都实现来这个规范。
+
+
+
+浮点数能够表示的极限范围可以在`math`包中获取，`math.MaxFloat32`表示float32的最大值，约3.4e38，`math.MaxFloat64`大约是1.8e308，两个类型最小的非负值大约是1.4e-45和4.9e-324
+
+
+
+float32大约可以提供小数点后6位的精度，而float64可以提供小数点后15位的精度。
+
+
+
+Golang也提供了两种大小的复数：complex64和complex128，分别由float32和float64组成。内置函数`complex`从指定的实部和虚部构建复数，内置函数`real`和`imag`用来获取复数的实部和虚部
+
+例如[欧拉公式：](https://zh.wikipedia.org/zh-hans/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F)
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+	"math/cmplx"
+)
+
+func euler() {
+	fmt.Printf(cmplx.Exp(1i*math.Pi)+1)
+}
+
+func main() {
+	euler()
+}
+```
+
+
+
+## 强制类型转换
+
+Golang是一种强类型语言，不同类型的数据不能赋值，不能在函数中传参，我个人是很喜欢这种。因很多错误在编译期间就被揪出来来，不像PHP等弱类型语言，很多错误只有运行时才能被发现，如下面这个例子：
+
+用Golang求出直角三角形斜边值`5`
+
+<Img src={`${IMAGES}/example.png`} alt="用Golang求出直角三角形斜边值" exif={false} />
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func triangle() {
+	var a, b int = 3, 4
+	var c int
+	// 参数类型不一致报错：cannot use a * a + b * b (type int) as type float64 in argument to math.Sqrt
+	// c = int(math.Sqrt(a*a + b*b))
+	// 因为Sqrt参数要求float64类型，Golang语法严格，必须强制性转换
+	c = int(math.Sqrt(float64(a*a + b*b)))
+	fmt.Println(c)
+}
+
+func main() {
+	triangle()
+}
+
+// 5
+```
+

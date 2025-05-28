@@ -1,0 +1,746 @@
+@charset "utf-8";
+
+/* colors.scss */
+/* 总次数和总距离字体 */
+:root {
+  --primary-color: #242428;
+  --date-underline-color: #242428;
+  --gray-color: #333;
+  --light-gray-color: #EBE6F2;
+  --light-gray-border-color: #DFD7E9;
+  --no-activity-color: gray;
+
+  --cycling-color: #EBE6F2;
+  --cycling-border-color: #DFD7E9;
+
+  --running-color: #D5E5D3;
+  --running-border-color: #BDD6BA;
+
+  --background-color: #333;
+  --text-color: #fff;
+}
+
+/* 黑暗模式配色 */
+html[data-theme="dark"] {
+  --primary-color: var(--accent);
+  --date-underline-color: var(--accent);
+  --gray-color: var(--foreground);
+  --light-gray-color: var(--muted);
+  --light-gray-border-color: var(--border);
+  --no-activity-color: #64748b;
+
+  --cycling-color: rgba(255, 107, 1, 0.2);
+  --cycling-border-color: var(--accent);
+
+  --running-color: rgba(16, 185, 129, 0.2);
+  --running-border-color: #10b981;
+
+  --background-color: var(--background);
+  --text-color: var(--foreground);
+}
+
+/* base.scss */
+.container {
+  display: flex;
+  margin: 24px auto 0px auto;
+}
+
+#totalActivities {
+  width: 200px;
+  height: 178px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+@media (min-width: 739px) {
+  #totalActivities {
+    margin-left: 20px;
+  }
+}
+
+#calendar {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+/* MODIFIED .sports style for pagination fix */
+.sports {
+  opacity: 0;
+  /* transform: translateX(-10px); */ /* REMOVED to prevent slide on pagination hide */
+  transition: opacity 0.6s ease-in-out; /* REMOVED transform from transition for general case */
+}
+
+/* 加载完成后的状态 */
+#totalActivities.loaded,
+#calendar.loaded,
+.sports.loaded { /* Combined .loaded styles */
+  opacity: 1;
+  transform: translateX(0); /* This will apply to #totalActivities and #calendar */
+}
+
+/* Specifically for .sports.loaded, ensure transform is reset if it was ever set, or not applied if not needed */
+.sports.loaded {
+    opacity: 1;
+    transform: none; /* Or translateX(0) if it needs to counteract a specific initial transform not present anymore */
+}
+
+.total-title {
+  font-size: 16px;
+  text-align: center;
+}
+
+.total-count, .total-distance {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.total-count {
+  font-size: 33px;
+}
+
+.total-distance {
+  font-size: 33px;
+}
+
+.total-label {
+  font-size: 16px;
+  text-align: center;
+}
+
+@keyframes growFromLeft {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--bar-width);
+  }
+}
+
+@keyframes slideInText {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #totalActivities,
+  #calendar,
+  .sports {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  /* 移动端从上到下的滑入效果 */
+  #totalActivities {
+    transform: translateY(-30px);
+  }
+  
+  #calendar {
+    transform: translateY(-20px);
+  }
+  
+  .sports {
+    transform: translateY(-10px);
+  }
+  
+  #totalActivities.loaded,
+  #calendar.loaded,
+  .sports.loaded {
+    transform: translateY(0);
+  }
+  
+  .icon-container {
+    justify-content: center;
+  }
+  
+  .icon-svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* calendar.scss */
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 249px;
+  height: 178px;
+  margin-left: 42px;
+  overflow: visible; /* 允许球动画超出边界 */
+  position: relative;
+  padding: 0 35px 0 0px;
+}
+
+.day-container {
+  position: relative;
+  padding: 10px;
+  text-align: center;
+  height: 30px;
+  width: 14.28%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; /* 允许球从外部滚动进来 */
+}
+
+.calendar-week-header {
+  width: 14.28%;
+  padding: 0px 0px 10px 0px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.today {
+  font-weight: bold;
+}
+
+.date-number {
+  position: relative;
+  font-size: 14px;
+  color: black;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--date-underline-color);
+}
+
+.activity-indicator {
+  position: absolute;
+  background: black;
+  border-radius: 50%;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  z-index: 0;
+  display: block;
+  transform: translate(-50%, -50%);
+  min-width: 2px;
+  min-height: 2px;
+  max-width: 30px;
+  max-height: 30px;
+}
+
+/* 球滚动动画样式 */
+.activity-indicator.ball-rolling {
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  filter: brightness(1.1);
+}
+
+/* 不同方向的滚动效果增强 */
+.activity-indicator.roll-from-top {
+  animation: rollBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.activity-indicator.roll-from-right {
+  animation: rollSlide 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.activity-indicator.roll-from-bottom {
+  animation: rollBounceUp 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.activity-indicator.roll-from-left {
+  animation: rollSlideLeft 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 增强的滚动动画关键帧 */
+@keyframes rollBounce {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  30% {
+    transform: translate(-50%, -50%) scale(0.8) rotate(120deg);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.15) rotate(240deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(0.95) rotate(300deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rollSlide {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(0.9) rotate(180deg);
+    opacity: 0.8;
+    filter: blur(0.5px);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(270deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rollBounceUp {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(0.85) rotate(140deg);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  65% {
+    transform: translate(-50%, -50%) scale(1.12) rotate(260deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  85% {
+    transform: translate(-50%, -50%) scale(0.96) rotate(320deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rollSlideLeft {
+  0% {
+    transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(0.92) rotate(200deg);
+    opacity: 0.8;
+    filter: blur(0.5px);
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.08) rotate(290deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+/* 悬停效果现在由JavaScript处理，确保更好的控制 */
+
+.activity-indicator.no-activity {
+  background-color: var(--no-activity-color);
+}
+
+/* 黑暗模式下的日历样式优化 */
+html[data-theme="dark"] .date-number {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+html[data-theme="dark"] .activity-indicator {
+  background: var(--accent);
+}
+
+html[data-theme="dark"] .activity-indicator.no-activity {
+  background-color: var(--accent);
+}
+
+/* 黑暗模式下的球滚动动画增强 */
+html[data-theme="dark"] .activity-indicator.ball-rolling {
+  box-shadow: 0 4px 12px rgba(255, 107, 1, 0.6);
+  filter: brightness(1.2) drop-shadow(0 0 4px var(--accent));
+}
+
+/* bar-chart.scss */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 207px;
+  flex: 1;
+}
+
+.bar-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.bar {
+  background-color: var(--cycling-color, #3b82f6);
+  height: 16.8px;
+  transition: width 1s ease-out;
+  margin-top: 12px;
+  border: 1px solid var(--light-gray-border-color, #e5e7eb);
+  position: relative;
+
+}
+
+.cycling-kilometer {
+  font-size: 12px;
+  color: var(--gray-color, #6b7280);
+  position: absolute;
+  right: -63px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* 黑暗模式下的柱状图样式 */
+html[data-theme="dark"] .bar {
+  background-color: var(--cycling-color);
+  border-color: var(--cycling-border-color);
+}
+
+html[data-theme="dark"] .cycling-kilometer {
+  color: var(--foreground);
+}
+
+/* sports.scss */
+.sports {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 178px;
+  margin-left: 11px;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 8px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.4s ease-in-out 0.3s; /* Fade in with a 0.3s delay relative to .sports.loaded */
+}
+
+.sports.loaded .icon-container {
+    opacity: 1; /* Become visible when .sports is loaded */
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-svg {
+  width: 25px;
+  height: 25px;
+  stroke: currentColor;
+  fill: none;
+}
+
+.icon-svg.cycling {
+  color: var(--cycling-color, #3b82f6);
+}
+
+.icon-svg.running {
+  color: var(--running-color, #ef4444);
+}
+
+.road_bike_color,
+.running_color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.road_bike_color {
+  background: var(--cycling-color, #3b82f6);
+  border: 1px solid var(--cycling-border-color, #2563eb);
+}
+
+.running_color {
+  background: var(--running-color, #ef4444);
+  border: 1px solid var(--running-border-color, #dc2626);
+}
+
+/* message-box.scss */
+.message-box, .click-message-box {
+  position: absolute;
+  left: 100%;
+  margin-left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.message-box {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.message-box.show {
+  display: block;
+  opacity: 1;
+}
+
+.click-message-box {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* 黑暗模式下的图标和消息框样式 */
+html[data-theme="dark"] .icon-svg.cycling {
+  color: var(--accent);
+}
+
+html[data-theme="dark"] .icon-svg.running {
+  color: #10b981;
+}
+
+html[data-theme="dark"] .road_bike_color {
+  background: var(--cycling-color);
+  border-color: var(--cycling-border-color);
+}
+
+html[data-theme="dark"] .running_color {
+  background: var(--running-color);
+  border-color: var(--running-border-color);
+}
+
+html[data-theme="dark"] .message-box,
+html[data-theme="dark"] .click-message-box {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* Ensure sports section has a transition for the .loaded class */
+/* These styles were previously in Sports.astro and are moved here */
+/* Note: .sports and .sports.loaded opacity transition is already handled at the top of this file */
+
+@keyframes totalStatsCrashBounce {
+  0% {
+    transform: translateX(500%); /* Increased: Start further off-screen to the right */
+    opacity: 0;
+  }
+  40% { /* Major impact and overshoot */
+    transform: translateX(-15%) scaleX(0.8) scaleY(1.2);
+    opacity: 1;
+  }
+  60% { /* First bounce back (right), overshoot */
+    transform: translateX(8%) scaleX(1.15) scaleY(0.9);
+  }
+  75% { /* Second bounce (left) */
+    transform: translateX(-4%) scaleX(0.95) scaleY(1.05);
+  }
+  90% { /* Third smaller bounce (right) */
+    transform: translateX(2%) scaleX(1.02) scaleY(0.98);
+  }
+  100% { /* Settle to final position */
+    transform: translateX(0%) scaleX(1) scaleY(1);
+    opacity: 1;
+  }
+}
+
+.total-activities-crash-bounce {
+  /* Animation duration and a more impactful easing function */
+  animation: totalStatsCrashBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Add styles for .calendar-week-header if you want to ensure they are part of the layout flow correctly */
+.calendar-week-header {
+    /* Example: ensure they take up space and are centered, adjust as per your design */
+    text-align: center;
+    /* other styles like padding, font-size etc. */
+}
+
+/* Activity Details Popup Styles */
+.activity-details-popup {
+    position: absolute;
+    background-color: var(--popover, #fff); /* Changed for light mode */
+    border: 1px solid var(--light-gray-border-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    padding: 12px 18px;
+    z-index: 1000;
+    width: 300px; /* Slightly wider for more content */
+    opacity: 0; 
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    transform: translateY(8px); 
+    font-size: 14px; /* Base font size for popup */
+}
+
+.activity-details-popup.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Arrow pointing up (when popup is below the element) */
+.activity-details-popup::before {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Position arrow at the top of the popup */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--popover, #fff); /* Changed for light mode */
+    filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05)); /* Subtle shadow for arrow */
+}
+
+/* Arrow pointing down (when popup is above the element) */
+.activity-details-popup.popup-above::before {
+    bottom: auto;
+    top: 100%;
+    border-bottom: none;
+    border-top: 8px solid var(--popover, #fff); /* Changed for light mode */
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+}
+
+.activity-details-popup h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.2em; /* Slightly larger title */
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--light-gray-border-color);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.activity-details-popup h3 svg { /* If using SVG icon in h3 */
+    margin-right: 8px;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.activity-details-popup p {
+    margin: 5px 0;
+    line-height: 1.6;
+    color: var(--gray-color);
+}
+
+.activity-details-popup p strong {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.activity-details-popup .heart-rate-section {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--light-gray-border-color);
+}
+
+.activity-details-popup .heart-rate-section h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.activity-details-popup .strava-link {
+    margin-top: 12px;
+    text-align: right;
+}
+
+.activity-details-popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.8em; /* Slightly larger close button */
+    line-height: 1;
+    color: var(--gray-color);
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Dark theme adjustments */
+html[data-theme="dark"] .activity-details-popup {
+    background-color: #2f3542; /* A custom dark color, adjust as needed */
+    border-color: #4a4a4a;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="dark"] .activity-details-popup::before {
+    border-bottom-color: #2f3542;
+     filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.1));
+}
+html[data-theme="dark"] .activity-details-popup.popup-above::before {
+    border-top-color: #2f3542;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+html[data-theme="dark"] .activity-details-popup h3 {
+    color: var(--accent-light, #bbe1fa);
+    border-bottom-color: #4a4a4a;
+}
+
+html[data-theme="dark"] .activity-details-popup p {
+    color: #bdc3c7; /* Lighter gray for text */
+}
+
+html[data-theme="dark"] .activity-details-popup p strong {
+    color: #e0e0e0; /* Even lighter for strong text */
+}
+
+html[data-theme="dark"] .activity-details-popup .heart-rate-section {
+    border-top-color: #4a4a4a;
+}
+html[data-theme="dark"] .activity-details-popup .heart-rate-section h4 {
+    color: var(--accent-light, #bbe1fa);
+}
+
+html[data-theme="dark"] .activity-details-popup .close-btn {
+    color: #bdc3c7;
+}
+
+html[data-theme="dark"] .activity-details-popup .close-btn:hover {
+    color: var(--accent-light, #bbe1fa);
+}
+
+html[data-theme="dark"] .activity-details-popup a {
+    color: var(--accent, #3282f7); /* Standard accent for links */
+}

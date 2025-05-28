@@ -29,20 +29,37 @@ const months = [
   "November",
   "December",
 ];
+
+// 配置懒加载参数
+const INITIAL_YEARS_TO_SHOW = 2;
+const YEARS_PER_PAGE = 1;
+
+// 按年份分组并排序
+const yearGroups = getPostsByGroupCondition(posts, post =>
+  post.data.pubDatetime.getFullYear()
+);
+const sortedYears = Object.entries(yearGroups)
+  .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA));
+
+// 准备客户端数据
+const archivesDataForClient = {
+  allPosts: posts,
+  siteTimezone: SITE.timezone,
+  initialYearCount: INITIAL_YEARS_TO_SHOW,
+  yearsPerPage: YEARS_PER_PAGE,
+};
+
+// 获取初始显示的年份
+const initialYears = sortedYears.slice(0, INITIAL_YEARS_TO_SHOW);
 ---
 
 <Layout title={`Archives | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
-    {
-      Object.entries(
-        getPostsByGroupCondition(posts, post =>
-          post.data.pubDatetime.getFullYear()
-        )
-      )
-        .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
-        .map(([year, yearGroup]) => (
-          <div>
+  <Main pageTitle="Archives" pageDesc="">
+    <div id="archives-container">
+      {
+        initialYears.map(([year, yearGroup]) => (
+          <div class="year-section" data-year={year}>
             <span class="text-2xl font-bold">{year}</span>
             <sup class="text-sm">{yearGroup.length}</sup>
             {Object.entries(
@@ -58,7 +75,7 @@ const months = [
                     <span class="font-bold">{months[Number(month) - 1]}</span>
                     <sup class="text-xs">{monthGroup.length}</sup>
                   </div>
-                  <ul>
+                  <ul class="month-posts" data-month={month}>
                     {monthGroup
                       .sort(
                         (a, b) =>
@@ -70,14 +87,42 @@ const months = [
                           )
                       )
                       .map(data => (
-                        <Card {...data} />
+                        <Card {...data} showDescription={false} imageClass={"w-[55px] h-[55px] object-cover rounded-md group-hover:opacity-90 transition-opacity duration-300"} />
                       ))}
                   </ul>
                 </div>
               ))}
           </div>
         ))
-    }
+      }
+    </div>
+    {sortedYears.length > INITIAL_YEARS_TO_SHOW && (
+      <div id="load-more-trigger" class="h-10"></div>
+    )}
   </Main>
   <Footer />
 </Layout>
+
+<div id="archives-data-json-container" data-json={JSON.stringify(archivesDataForClient)} style="display: none;"></div>
+
+<script>
+  import { initArchives } from '@/scripts/archives.js';
+
+  document.addEventListener('astro:page-load', () => {
+    const dataElement = document.getElementById('archives-data-json-container');
+
+    if (dataElement && dataElement.dataset.json) {
+      try {
+        const clientData = JSON.parse(dataElement.dataset.json);
+        initArchives(
+          clientData.allPosts,
+          clientData.siteTimezone,
+          clientData.initialYearCount,
+          clientData.yearsPerPage
+        );
+      } catch (e) {
+        console.error("Failed to parse archives client data or initialize archives:", e);
+      }
+    }
+  });
+</script>

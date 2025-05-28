@@ -1,9 +1,21 @@
 services:
-  app:
-    image: node:lts
+  artalk:
+    image: artalk/artalk-go
+    container_name: artalk
     ports:
-      - 4321:4321
-    working_dir: /app
-    command: npm run dev -- --host 0.0.0.0
+      - 9999:23366
+    environment:
+      TZ: Asia/Shanghai
+      ATK_LOCALE: zh-CN
+      ATK_SITE_DEFAULT: 游钓四方的博客
+      ATK_SITE_URL: https://lhasa.icu
     volumes:
-      - ./:/app
+      - ./data:/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lhasa-app
+    ports:
+      - 4321:80

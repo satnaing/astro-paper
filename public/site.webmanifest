@@ -1,0 +1,24 @@
+{
+  "name": "lhasa's Blog",
+  "short_name": "lhasa's Blog",
+  "description": "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐、茶叶爱好者",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f2937",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["blog", "technology", "sports", "lifestyle"],
+  "lang": "zh-CN",
+  "orientation": "portrait-primary"
+} 

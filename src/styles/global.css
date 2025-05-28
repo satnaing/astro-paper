@@ -1,3 +1,4 @@
+@import "https://cos.lhasa.icu/assets/fonts/TsangerJinKai01-W04/result.css";
 @import "tailwindcss";
 @import "./typography.css";
 
@@ -39,6 +40,7 @@ html[data-theme="dark"] {
   }
   body {
     @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+    font-family: Consolas,TsangerJinKai01 W04;
   }
   a,
   button {

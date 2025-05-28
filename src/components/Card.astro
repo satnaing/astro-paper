@@ -6,31 +6,71 @@ import Datetime from "./Datetime.astro";
 
 export interface Props extends CollectionEntry<"blog"> {
   variant?: "h2" | "h3";
+  showDescription?: boolean;
+  imageClass?: string;
+  fallbackOgImage?: string;
 }
 
-const { variant = "h2", data, id, filePath } = Astro.props;
+const { variant = "h2", data, id, filePath, showDescription = true, imageClass, fallbackOgImage } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone } = data;
+const { title, description, pubDatetime, modDatetime, timezone, ogImage } = data;
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
   class: "text-lg font-medium decoration-dashed hover:underline",
 };
+
+const defaultImageClass = "w-[76px] sm:w-[81.78px] h-auto object-cover rounded-md aspect-square group-hover:opacity-90 transition-opacity duration-300";
+
+let imgSrc = typeof ogImage === 'string' ? ogImage : (ogImage as any)?.src;
+
+if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
+  imgSrc = fallbackOgImage;
+}
 ---
 
-<li class="my-6">
-  <a
-    href={getPath(id, filePath)}
-    class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
-  >
-    {
-      variant === "h2" ? (
-        <h2 {...headerProps}>{title}</h2>
-      ) : (
-        <h3 {...headerProps}>{title}</h3>
-      )
-    }
-  </a>
-  <Datetime {pubDatetime} {modDatetime} {timezone} />
-  <p>{description}</p>
+<li class="my-6 flex flex-row gap-6 items-start">
+  {imgSrc && (
+    <a href={getPath(id, filePath)} class="shrink-0">
+      <img
+        src={imgSrc}
+        alt={title}
+        class={`${imageClass || defaultImageClass} mx-auto my-auto`}
+        loading="lazy"
+        onerror={fallbackOgImage ? `this.onerror=null; this.src='${fallbackOgImage}';` : undefined}
+      />
+    </a>
+  )}
+  <div class="flex-grow mx-auto my-auto">
+    <a
+      href={getPath(id, filePath)}
+      class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+    >
+      {
+        variant === "h2" ? (
+          <h2 {...headerProps}>{title}</h2>
+        ) : (
+          <h3 {...headerProps}>{title}</h3>
+        )
+      }
+    </a>
+    <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
+    {showDescription && (
+      <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 hidden sm:block">
+        {description.length > 40
+          ? description.substring(0, 40) + "..."
+          : description}
+      </p>
+    )}
+  </div>
 </li>
+
+<style>
+  /* You can add additional custom styles here if needed */
+  /* For example, to ensure consistent image height if aspect-video doesn't work as expected in all browsers */
+  /* 
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  */
+</style>

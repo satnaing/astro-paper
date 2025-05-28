@@ -2,8 +2,30 @@
 
 @layer base {
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-foreground prose-h3:italic prose-p:!text-foreground prose-a:!text-foreground prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-accent prose-blockquote:!border-l-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-foreground prose-figcaption:opacity-70 prose-strong:!text-foreground prose-code:rounded prose-code:bg-muted/75 prose-code:p-1 prose-code:!text-foreground prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-foreground prose-ul:overflow-x-clip prose-ul:!text-foreground prose-li:marker:!text-accent prose-table:text-foreground prose-th:border prose-th:border-border prose-td:border prose-td:border-border prose-img:mx-auto prose-img:!my-2 prose-img:border-2 prose-img:border-border prose-hr:!border-border;
+    @apply prose-headings:!mb-3 prose-headings:!text-foreground prose-h3:italic prose-p:!text-foreground prose-a:!text-foreground prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-accent prose-blockquote:!border-l-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-foreground prose-figcaption:opacity-70 prose-strong:!text-foreground prose-code:rounded prose-code:bg-muted/75 prose-code:p-1 prose-code:!text-foreground prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-foreground prose-ul:overflow-x-clip prose-ul:!text-foreground prose-li:marker:!text-accent prose-table:text-foreground prose-th:border prose-th:border-border prose-td:border prose-td:border-border prose-img:mx-auto prose-img:!my-2 prose-hr:!border-border;
   }
+  
+  /* 自定义图片组件的特殊处理 */
+  .prose .img-container {
+    /* 覆盖默认的prose图片样式，确保自定义组件正确显示 */
+    margin: 1.5rem auto !important;
+    max-width: 100% !important;
+    /* 确保在prose容器内不会超出边界 */
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .prose .img-container figure {
+    /* 防止嵌套figure元素的样式冲突 */
+    margin: 0 !important;
+  }
+  
+  .prose .img-container img {
+    /* 确保图片在prose容器内的正确显示 */
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
   .prose a {
     @apply break-words hover:!text-accent;
   }

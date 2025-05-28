@@ -3,7 +3,7 @@ title: Tailwind Typography Plugin
 author: Sat Naing
 pubDatetime: 2022-07-05T02:05:51Z
 featured: false
-draft: false
+draft: true
 tags:
   - TypeScript
   - Astro
@@ -66,7 +66,7 @@ Something a wise person once told me about typography is:
 > It's probably important that images look okay here by default as well:
 
 <figure>
-  <img
+  <Img
     src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
     alt=""
   />

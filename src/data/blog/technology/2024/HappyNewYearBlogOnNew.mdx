@@ -1,0 +1,87 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2024-02-11T05:35+08:00
+title: 初一大吉，博客上上新
+slug: HappyNewYearBlogOnNew
+ogImage: https://cos.lhasa.icu/ArticlePictures/update.jpg_81
+tags:
+  - Update
+  - WebPack
+  - 新年
+  - 字体分包
+  
+description: 前几天Fooleap留言建议我用cn-font-split把字体做一下分包处理，分包后原18M变1M不到...
+---
+
+import Img from "@/components/Img.astro";
+
+## 图片预览
+
+```javascript
+var preview = document.getElementById("preview");
+var previewImage = document.getElementById("previewImage");
+
+var previewImageTitle = <figcaption class="previewImageTitle"> + image.title[i] + </figcaption>;
+previewImage.setAttribute('src', image.url[i]);
+preview.style.display = 'flex';
+
+var previousPreviewImageTitle = document.querySelector('.previewImageTitle');
+if (previousPreviewImageTitle) {
+    previousPreviewImageTitle.parentNode.removeChild(previousPreviewImageTitle);
+}
+previewImage.insertAdjacentHTML('afterend', previewImageTitle);
+
+preview.addEventListener("click", function() {
+    this.style.display = 'none';
+});
+```
+
+markdown太丧心病狂了，js的代码块在转换的过程中给我生效了，大多方法都不能阻止这段代码不生效，把代码删删减减让我足足花了5分钟去注释这段代码.....
+
+<Img src={`${IMAGES}/MountTaranaki-NewZealand.jpg`} alt="点开试试" exif={false} />
+
+前几天Fooleap留言建议我用cn-font-split把字体做一下分包处理，分包后原18M变1M不到，一篇千文的文章才几百KB，加载速度没得说。
+
+<Img src={`${IMAGES}/cn-font-splitfenbao.png`} alt="cn-font-split 分包后的效果" exif={false} />
+
+```bash
+Haibao@DESKTOP-IB7LLPB MINGW64 /d/lhasa.github.io (master)
+$ bundle exec npm run build
+
+> fooleap@1.0.0 build D:\lhasa.github.io
+> webpack -p && jekyll b
+
+Hash: 470f4b7c37655d2798f9
+Version: webpack 4.47.0
+Time: 2347ms
+Built at: 2024/02/11 上午5:27:39
+       Asset      Size  Chunks             Chunk Names
+main.min.css  27.2 KiB       0  [emitted]  main
+ main.min.js   156 KiB       0  [emitted]  main
+[0] ./src/main.js 25.7 KiB {0} [built]
+[3] ./src/sass/main.scss 39 bytes {0} [built]
+    + 3 hidden modules
+Configuration file: D:/lhasa.github.io/_config.yml
+To use retry middleware with Faraday v2.0+, install `faraday-retry` gem
+            Source: D:/lhasa.github.io
+       Destination: D:/lhasa.github.io/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating...
+                    done in 7.403 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+```
+
+这些天我把webPack临时学了一手，也是半斤八两，普通打个包是没问题，就是不知道这分包后的字体能不能用webPack打包，我还没试过。
+
+因为网站在Github pages，这加载速度也快到顶了。目前还缺少一个已备案的域名，我想把腾讯云的COS用CDN来加速一下，这样的话静态资源应该会更快点，博客也没啥访问量，按流量计费，也花不了几个钱。
+
+
+## 2024/2/14 更新
+后来注意到URL包含了腾讯图片处理样式后缀，这里用正则做一下处理
+
+```javascript
+image.url[i] = image.url[i].replace(/\.(jpg|jpeg|png|gif)[^/]*$/, '.$1');
+```

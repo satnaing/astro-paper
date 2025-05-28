@@ -6,6 +6,8 @@ export interface Props {
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 const {
@@ -15,7 +17,21 @@ const {
   ariaLabel,
   title,
   disabled = false,
+  target: propTarget,
+  rel: propRel,
 } = Astro.props;
+
+let targetToApply = propTarget;
+let relToApply = propRel;
+
+if (href && href.startsWith("mailto:")) {
+  targetToApply = undefined;
+  relToApply = undefined;
+} else if (href && propTarget === "_blank") {
+  // For non-mailto links, if target is _blank, ensure rel is set
+  targetToApply = "_blank";
+  relToApply = propRel || "noopener noreferrer";
+}
 ---
 
 {
@@ -35,6 +51,8 @@ const {
       class:list={["group inline-block hover:text-accent", className]}
       aria-label={ariaLabel}
       title={title}
+      target={targetToApply}
+      rel={relToApply}
     >
       <slot />
     </a>

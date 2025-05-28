@@ -1,0 +1,74 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+
+const INITIAL_ITEMS_TO_SHOW = 4;
+const FALLBACK_OG_IMAGE = "https://cos.lhasa.icu/LinksAvatar/default.png";
+
+const feedsDataForClient = {
+  siteTimezone: SITE.timezone,
+  fallbackOgImage: FALLBACK_OG_IMAGE,
+  initialItemCount: INITIAL_ITEMS_TO_SHOW,
+  itemsPerPage: 4,
+  dataSourceUrl: "https://cos.lhasa.icu/lhasaRSS/data.json"
+};
+---
+
+<Layout title={`Feeds | ${SITE.title}`}>
+  <Header />
+    <Main pageTitle="Feeds" pageDesc="">
+      <section id="feeds-list-section" class="px-0">
+        <div id="feeds-loading" class="my-6 text-center">
+          <p>正在加载 Feeds...</p>
+        </div>
+        <div id="feeds-error" class="my-6 text-center text-red-700 hidden">
+          <p>加载 Feeds 失败，请稍后重试或检查网络连接。</p>
+        </div>
+        <div id="feeds-no-content" class="my-6 text-center hidden">
+          <p>暂无内容。</p>
+        </div>
+        <ul id="feeds-list" class="list-none p-0">
+        </ul>
+        <div id="load-more-trigger" class="h-10" style="display: none;"></div>
+      </section>
+    </Main>
+  <Footer />
+</Layout>
+
+<div id="feeds-data-json-container" data-json={JSON.stringify(feedsDataForClient)} style="display: none;"></div>
+
+<script>
+  import { initFeeds } from '@/scripts/feeds.js';
+
+  document.addEventListener('astro:page-load', () => {
+    const dataElement = document.getElementById('feeds-data-json-container');
+
+    if (dataElement && dataElement.dataset.json) {
+      try {
+        const clientData = JSON.parse(dataElement.dataset.json);
+        initFeeds(
+          clientData.siteTimezone,
+          clientData.fallbackOgImage,
+          clientData.initialItemCount,
+          clientData.itemsPerPage,
+          clientData.dataSourceUrl
+        );
+      } catch (e) {
+        console.error("Failed to parse feeds client data or initialize feeds:", e);
+        const errorContainer = document.getElementById('feeds-error');
+        const loadingContainer = document.getElementById('feeds-loading');
+        if (errorContainer) errorContainer.classList.remove('hidden');
+        if (loadingContainer) loadingContainer.classList.add('hidden');
+      }
+    }
+  });
+</script>
+
+<style>
+  #feeds-list-section {
+    padding-inline: 0;
+  }
+</style>

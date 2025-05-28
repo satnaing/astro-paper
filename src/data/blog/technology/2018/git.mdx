@@ -1,0 +1,374 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2018-10-25T08:31+08:00
+modDatetime: 2019-04-28T10:21+08:00
+title: 开源分布式管理控制系统 —— Git 笔记
+slug: git
+ogImage: https://cos.lhasa.icu/ArticlePictures/git.jpg_81
+tags:
+  - Git
+  - 分布式
+  
+description: 故事是自2002年开始，林纳斯·托瓦兹决定使用BitKeeper作为Linux内核版本控制系统了...
+---
+
+import Img from "@/components/Img.astro";
+
+## Git的诞生  
+故事是自2002年开始，[林纳斯·托瓦兹][1]决定使用[BitKeeper][2]作为[Linux内核][3]版本控制系统，用于维护代码。你想想BitKeeper是[专有软件][4]，
+
+人家靠这玩意挣钱，这个决定社群中长期遭受质疑。不过还是有人主张使用开源软件。我dalao（林纳斯·托瓦兹）何尝没有想过（如[Monotone][5]），
+
+但是这些软件都存在一些问题，特别是性能不佳。现成的方案，如[CVS][6]的架构，不过dalao并不喜欢连同痛批了一顿。  
+
+2005年的时候有个叫[安德鲁·垂鸠][7]破解了BitKeeper（这么做的不止他一个），BitMover公司决定收回Linux社区的免费使用权。事后双方公司进行过磋商，
+
+结果可想而知。事后dalao以十天的时间，用C撸出来一个分布式版本控制系统，它就是Git的第一个版本！于2005年以[GPL][8]发布。至于这个名字嘛，
+
+dalao自嘲地取了这个名字“**Git**”，该词源自英国俚语，意思大约是“混账”。不过Git刚面世的时候，世界上开源社群反对声音不少，
+
+最大的理由是Git太艰涩难懂？（博主：一个程序员难道不该有钻研精神吗？）  
+
+2016年IT界报道，Git统治编程社区11年后，BitKeeper宣布开源。挑战Linux内核开发者？dalao反手一掏Git灭掉BitMover。（这段让我看的热血沸腾，抽颗烟压压惊）
+
+在学习之前我门先学习一下四个专业术语  
+
+<Img src={`${IMAGES}/flow%20chart.jpg`} alt="Git 数据流程图" exif={false} />
+
+ * **Workspace**：工作区
+ * **lndex/Stage**：暂存区（又名索引）
+ * **Repository**：仓库区（又名本地仓库、储存库）
+ * **Remote**：远程仓库
+
+开源分布式管理控制系统——Git笔记
+开源分布式管理控制系统——Git笔记是工作区。  
+开源分布式管理控制系统——Git笔记态。  
+开源分布式管理控制系统——Git笔记库）。  
+
+远程仓库：这个很简单但我却不知道怎么表达...可以说成云端仓库吧。  
+
+## 主要功能
+Git主要用于Linux内核开发的版本控制系统，与[CVS][6]或[Subversion][9]这一类集中式版本控制系统的不同采用了分布式版本。
+
+它没有服务器端，就可以运行版本控制，这使得源码的发布与修改极其方便。git速度也是很给力。
+
+## 实现原理
+Git和其他版本控制系统（如[CVS][6]）有不少的差别，Git本身关心文件的整体性是否有改变，但多数的版本控制系统如[CVS][6]或[Subversion][9]系统则在乎文件内容的差异。  
+
+我觉得Git更像一个文件系统，直接在本机上获取数据，不必连线到主机端获取数据。 每个开发者都可有全部开发历史的本地副本，
+
+changes从这种本地repository复制给其他开发者。这些changes作为新增的分支被导入，可以与本地分支合并。  
+
+Git是用C语言开发的，以追求最高的性能。Git自动完成[垃圾回收][10]（也可以用 git gc --prune 调用）。  
+Git服务器典型的TCP监听，端口为9418。
+
+
+
+## Git的安装
+Git平台支持有[POSIX][11]、[Windows][12]、[OS X][13]，不过今天我们重点讲Linux。  
+
+Git安装有许多种，主要分为两种：通过编译源代码、平台预编译安装包，源代码安装至少可以安装最新版本，不过Git慢慢壮大，不会出现安装包版本落后问题，这里也就不说了。  
+
+在装软件之前我都会习惯的更新源
+
+```bash
+$ sudo apt-get update
+```
+
+基于二进制安装Git
+
+```bash
+$ sudo yum install git
+```
+
+ubuntu发行版
+
+```bash
+$ sudo apt-get install  git
+```
+
+查看Git当前版本
+
+```bash
+$ git version
+```
+
+## 初始化仓库
+
+```bash
+# 初始化当前目录为仓库
+$ git init
+```
+
+## 克隆到本地仓库
+
+```bash
+#　第二个参数克隆到指定目录，可带可不带
+$ git clone [项目链接] [指定本地目录]
+# 帮助
+$ git clone -h
+```
+
+## 增加/删除文件
+
+```bash
+# 提交新文件（new）和被修改（modified）文件，不包括被删除（deleted）文件
+$ git add .
+# 提交新文件（new）和已被删除（deleted）文件，不包括新文件
+$ git add -u
+# 提交所有变化。cunz
+$ git add -A
+# 提交当前目录.png后缀文件
+$　git add *png
+# 帮助
+$ git add -h
+```
+
+## 检查工作目录/暂存区状态
+
+```bash
+# 检查工作目录与暂存区的状态
+$ git status
+# 只列出已被Git管理且被修改没提交的文件
+$ git status -uno
+# 帮助
+$ git status -h
+```
+
+## 获得远程仓库权限
+
+```bash
+# Git是分布式管理控制系统，基于SSH，所以我们要生成SSH公钥，然后它让输入的话就 Enter
+$ ssh-keygen
+
+# 之后切换到主目录下的 ~/.ssh 并找到 .pub 且复制文件内容（Windows在：C:/Users/当前用户名/.ssh/id_rsa.pub）
+$ cd ~/.ssh && ls
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+# 在Github页面 找到 Settigs -> SSH and GPG keys ->New SSH key 然后给这个秘钥取个名字，然后把Key填入并保存
+
+# 当新文件添加到暂存区后，我们现在就准备创建第一个提交与注释了，不过在这之前我们要绑定Git账户，之后进行push操作需要填写账号\密码
+$ git config --global user.email "achuan@achuan.io"
+$ git config --global user.name "achuanya"
+```
+
+## 提交代码并注释
+
+```bash
+$ git commit -m "这是一个测试"
+# 参数：
+        # 自动检测修改文件
+        -a
+        # # 提交
+        -m
+# 帮助。
+$ git commit -h
+```
+
+## 查看日志详情
+
+```bash
+# 显示当前分支的版本历史
+$ git log
+# 显示commit历史，以及每次commit发生变化的文件
+$ git log --stat
+# 搜索提交历史，根据关键词
+$ git log -S [key Word]
+# 显示某个文件的版本历史，包括文件改名
+$ git log --follow [file]
+# 显示过去的5次提交
+$ git log -5 --pretty --oneline
+# 帮助
+$ git log -h
+```
+
+## 提交到远程仓库
+
+```bash
+# 提交到远程仓库，master即为分支
+$ git push origin master
+# 强行提交
+$ git push -u origin master
+# 上传本地指定分支到远程仓库（分支操作后面会说到）
+$ git push [remote] [branch]
+# 推送所有分支到远程仓库
+$ git push [remote] --all
+# 强行推送当前指定分支到远程仓库（即使有冲突）
+$ git push [remote] --force
+# 帮助
+$ git push -h
+```
+
+## 移动、重命名与删除文件
+
+```bash
+# 移动与重命名道理是一样的
+$ git mv
+
+# 继linux命令一样。
+$ git rm
+```
+
+<Img src={`${IMAGES}/rename.png`} alt="重命名操作" exif={false} />
+
+## 撤销修改/切换分支
+git checkout 主要用于撤销修改或切换分支，它是一条较为常用的的命令，同时也很危险，因为这条命令会重新工作区！
+
+```bash
+# 恢复修改过的指定文件到工作区
+$ git checkout [branch Name]
+# 恢复暂存区所有文件到工作区
+$ git checkout .
+# 新建一个分支，并切换到该分支（切换分支不带参数 -b）
+$ git checkout -b [name]
+# 切换到上一个分支
+$ git checkout -
+```
+
+## 管理分支
+Git分支，好比一包零食，你可以选择和其他小伙伴一起吃一包，也可以自己吃一包，他们吃他们的，你吃你的相互之间没有影响，作为这包零食的主人，你也可以随时可以让两包零食放在一起（合并）。
+​
+```bash
+# 现在让我们创建一包零食，不不不...一个新分支
+$ git branch [name]
+# 查看本地所有分支（当前分支前有个 * 号）
+$ git branch
+# 查看远程分支
+$ git branch -r
+# 查看本地和远程所有分支
+$ git branch -a
+# 重命名分支
+$ git branch -m [name] [modify Name]
+# 删除分支（ -D 强行删除）
+$ git branch -d [name]
+注：删除远程分支需要 git push 操作
+$ git push origin :[name]
+######################### 合并分支
+
+# 把现有demo分支合并到master上
+$ git metge [branch Name]
+
+root@achuan-pc:/home/github/demo# git branch
+demo
+* master
+root@achuan-pc:/home/github/demo# git merge demo
+Updating d46f35e..b17d20e
+Fast-forward
+README.txt | 1 +
+1 file changed, 1 insertion(+)
+
+# 注意上面的合并信息 fasht-forward 意思是这次合并是快进模式，也就是直接吧master指向demo的当前提交，所以合并速度非常快。 
+```
+
+## Git常用命令
+上面说的都是一些基本操作，下面也是一些常用命令，出于个人用途可能存在有些命令不全面，不过我往后学习中会进行添加，还请见谅。
+
+### 查看信息
+
+```bash
+# 显示所有提交过的用户，按提交次数排序
+$ git shortlog -sn
+# 显示指定文件是什么人在什么时间修改过
+$ git blame [file]
+# 显示暂存区和工作区的差异
+$ git diff
+# 显示暂存区和上一个commit的差异
+$ git diff --cached [file]
+# 显示工作区与当前分支最新commit之间的差异
+$ git diff HEAD
+# 显示两次提交之间的差异
+$ git diff [first Branch]...[second Branch]
+# 显示今天你写了多少行代码
+$ git diff --shortstat "@{0 day ago}"
+# 显示某次提交的元数据和内容变化
+$ git show [commit]
+# 显示某次提交发生变化的文件
+$ git show --name-only [commit]
+# 显示某次提交时，某个文件的内容
+$ git show [commit]:[filename]
+# 显示当前分支的最近几次提交
+$ git reflog
+```
+
+### 远程仓库的一些操作
+
+```bash
+# 下载远程仓库的所有变动
+$ git fetch [remore Name]
+# 跟踪存储库，不带参数，列出已存在的远程分支。
+$ git remote
+# 显示所有远程仓库
+$ git remote -v
+# 显示某个远程仓库的信息
+$ gitremote shou [remote Name]
+# 添加一个新的远程仓库，并命名
+$ git remote add [shortname][url]
+# 取远程仓库与本地分支合并  
+$ git pull [remote] [branch]
+```
+
+## 拓展知识
+### 克隆下载某项目中的单个文件（文件夹）
+
+```bash
+$ wget https://github.com/acversionuanya/achuanya.github.io/blob/master/README.mdjinxing
+```
+
+### Github Chrome插件
+
+[Octotree][14]，很直观的查看不同级文件夹，也方便进行文件跳转操作。  
+[Octo Mate][15]，增强你Githubt体验，它主要功能有四点：一键以.zip格式下载文件、
+一键打开项目的Github Pages、显示仓库大小、显示未读消息数。
+
+
+### 文件状态
+
+```bash
+未跟踪（untrack）：新增加文件。
+已修改（modified）：已修改但为写入到暂存区。
+已暂存（staged）：已经添加到暂存区。
+已提交（committed）：已经添加到远程仓库。
+```
+
+### Git专业术语中英文对照表
+
+<Img src={`${IMAGES}/terminology.png`} alt="Git 专业术语中英文对照表" exif={false} />
+
+<br />
+ok写完了！通过这段时间的学习，关于Git命令我用到的差不多就这么多，可能存在有些命令不全面，不过我往后学习中会进行添加
+
+还请见谅。我现在真高兴当初出写博客这个决定，它让我每天学习都很有动力，有目标。最主要的是能把自己学会的知识分享给大家
+
+也能让这个知识点记的更加牢固。再过半年就要入职场了，压力也是不小。不过不能让压力阻止我向前跨步！下次文章关于“LAMP/LNMP架构”的相关内容
+
+### 2019-04-28 更新
+
+```bash
+# 撤销所有
+git reset HEAD -- .
+
+# 撤销指定文件
+git reset HEAD -- filename [文件名]
+
+# 将文件从缓存中删除
+git rm -cached filepath [文件名]
+```
+
+[1]: https://zh.wikipedia.org/wiki/%E6%9E%97%E7%BA%B3%E6%96%AF%C2%B7%E6%89%98%E7%93%A6%E5%85%B9
+[2]: https://zh.wikipedia.org/wiki/BitKeeper
+[3]: https://zh.wikipedia.org/wiki/Linux%E5%86%85%E6%A0%B8
+[4]: https://zh.wikipedia.org/wiki/%E4%B8%93%E6%9C%89%E8%BD%AF%E4%BB%B6
+[5]: https://zh.wikipedia.org/wiki/Monotone
+[6]: https://zh.wikipedia.org/wiki/%E5%8D%94%E4%BD%9C%E7%89%88%E6%9C%AC%E7%B3%BB%E7%B5%B1
+[7]: https://zh.wikipedia.org/wiki/%E5%AE%89%E5%BE%B7%E9%AD%AF%C2%B7%E5%9E%82%E9%B3%A9
+[8]: https://zh.wikipedia.org/wiki/GNU%E9%80%9A%E7%94%A8%E5%85%AC%E5%85%B1%E8%AE%B8%E5%8F%AF%E8%AF%81
+[10]: https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8)
+[9]: https://zh.wikipedia.org/wiki/Subversion
+[11]: https://zh.wikipedia.org/wiki/POSIX
+[12]: https://zh.wikipedia.org/wiki/Microsoft_Windows
+[13]: https://zh.wikipedia.org/wiki/MacOS
+[14]: https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc/related
+[15]: https://chrome.google.com/webstore/detail/octo-mate/baggcehellihkglakjnmnhpnjmkbmpkf

@@ -1,0 +1,112 @@
+---
+author: 游钓四方
+draft: true
+featured: false
+category: technology
+pubDatetime: 2025-01-20T10:00+08:00
+title: 图片说明组件使用示例
+slug: img-caption-example
+ogImage: https://cos.lhasa.icu/ArticlePictures/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/20250426_054229.webp_81
+tags:
+  - 示例
+  - 组件
+  - 图片说明
+
+description: 展示如何使用带有可控制说明的图片组件，支持长文本和短标签两种样式
+---
+
+import Img from "@/components/Img.astro";
+
+## 图片说明组件使用示例
+
+### 不显示说明的图片
+
+通过设置 `caption={false}` 来不显示说明：
+
+<Img src={`${IMAGES}/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/20250426_054229.webp`} alt="这是一张示例图片，但不会显示说明" caption={false} />
+
+### 长文本样式说明（默认样式）
+
+默认情况下会显示长文本横条样式：
+
+<Img 
+  src={`${IMAGES}/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/20250426_054229.webp`} 
+  alt="出小区准备吃饭" 
+/>
+
+### 短标签样式说明
+
+通过设置 `caption="short"` 来使用短标签样式：
+
+<Img 
+  src={`${IMAGES}/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/20250430_151655.webp`} 
+  alt="杭州·九堡大桥" 
+  caption="short"
+/>
+
+### 更多示例
+
+长文本样式适合较长的说明文字（默认样式）：
+
+<Img 
+  src={`${IMAGES}/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/95046624bd6b0c84a79bde3b17d49ec.webp`} 
+  alt="客运公司开始收割 - 长途骑行路上的风景" 
+/>
+
+短标签样式适合简短的标题：
+
+<Img 
+  src={`${IMAGES}/2025-05-07-yilu-xiang-nan-qi-jian-jiang-nan/2a1b525ee02.webp`} 
+  alt="晒伤脱皮" 
+  caption="short"
+/>
+
+## 使用方法
+
+```astro
+import Img from "@/components/Img.astro";
+
+<!-- 显示长文本样式说明（默认） -->
+<Img src="图片路径" alt="图片描述" />
+
+<!-- 不显示说明 -->
+<Img src="图片路径" alt="图片描述" caption={false} />
+
+<!-- 显示短标签样式说明 -->
+<Img src="图片路径" alt="图片描述" caption="short" />
+
+<!-- 显式指定长文本样式 -->
+<Img src="图片路径" alt="图片描述" caption="long" />
+
+<!-- 带自定义样式 -->
+<Img 
+  src="图片路径" 
+  alt="图片描述" 
+  caption="long"
+  class="my-custom-class"
+/>
+```
+
+## 两种样式对比
+
+### 长文本样式 (long) - 默认样式
+- ✅ 适合较长的说明文字
+- ✅ 覆盖整个图片底部
+- ✅ 类似视频字幕效果
+- ✅ 更加醒目
+
+### 短标签样式 (short)
+- ✅ 适合简短的标题
+- ✅ 位于图片左下角
+- ✅ 简洁的标签设计
+- ✅ 更加精致
+
+## 新特性
+
+- ✅ **默认显示**: 现在默认显示长文本样式说明
+- ✅ **两种样式**: 长文本样式和短标签样式
+- ✅ **高对比度**: 黑色半透明背景确保文字清晰可读
+- ✅ **文字阴影**: 增强文字在各种背景下的可读性
+- ✅ **悬停效果**: 鼠标悬停时背景变深，标签有上移效果
+- ✅ **响应式**: 在移动设备上自动调整字体大小和内边距
+- ✅ **模糊效果**: 使用 backdrop-filter 增强视觉效果 

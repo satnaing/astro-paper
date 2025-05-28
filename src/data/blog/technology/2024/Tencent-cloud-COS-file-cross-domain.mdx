@@ -1,0 +1,46 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2024-02-05T17:33+08:00
+title: 腾讯云COS文件跨域
+slug: Tencent-cloud-COS-file-cross-domain
+ogImage: https://cos.lhasa.icu/ArticlePictures/Tencent-cloud-COS-file-cross-domains.png_81
+tags:
+  - COS
+  - 跨域
+  
+description: 今天换博客主要文字了，"仓耳今楷",字体更美观更适合阅读。但是过程中遇到点问题
+---
+
+import Img from "@/components/Img.astro";
+
+今天换博客主要文字了，"仓耳今楷",字体更美观更适合阅读。但是过程中遇到点问题
+
+```css
+@font-face {
+    font-family: 仓耳今楷01-W04;
+    src: url("https://api.lhasa.icu/assets/font/tsanger01W04.ttf")  format("truetype");
+}
+```
+
+这段CSS写的是没有问题的，但是不生效，控制台报错跨域
+
+* has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+腾讯云COS跨域访问CORS配置如下：
+
+<Img src={`${IMAGES}/Tencent%20cloud%20cos%20cross-domain%20configuration.jpg`} alt="腾讯云COS跨域访问CORS设置" exif={false} />
+
+配置好后又遇到麻烦了，字体太大了，一个字体文件17.9M！网站都脱垮了
+
+<Img src={`${IMAGES}/Textloading.jpg`} alt="网站被拖垮了" exif={false} />
+
+这里做一下处理，取子集压缩文字，需要用到 [FontSmaller][1] 和 现代汉语常用3500汉字
+
+取子集压缩之后字体文件大小为1.94M
+
+<Img src={`${IMAGES}/Textloading2.png`} alt="取子集压缩后的效果" exif={false} />
+
+[1]: https://fontsmaller.github.io/

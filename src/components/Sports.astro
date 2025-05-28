@@ -1,0 +1,1017 @@
+---
+import IconBike from "@/assets/icons/IconBike.svg";
+import IconRunner from "@/assets/icons/IconRunner.svg";
+import "../styles/sports.css";
+---
+  
+<div class="container mx-auto max-w-[736px]">
+  <div id="totalActivities">
+      <div id="totalTitle" class="total-title"></div>
+      <div id="totalCount" class="total-count">
+          <span id="ridingTimeThisYearValue">0</span>
+          <div class="loading-spinner"></div>
+      </div>
+      <div id="totalLabel" class="total-label">骑行总公里数</div>
+      <div id="milesRiddenThisYear" class="total-distance">
+          <span id="milesRiddenThisYearValue">0</span>
+          <div class="loading-spinner"></div>
+      </div>
+  </div>
+  <div id="calendar-wrapper" class="calendar-wrapper relative">
+    <button id="calendar-prev-btn" class="calendar-nav-btn prev-btn hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-background/70 hover:bg-background/90 p-2 rounded-full shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div id="calendar" class="calendar"></div>
+    <button id="calendar-next-btn" class="calendar-nav-btn next-btn hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-background/70 hover:bg-background/90 p-2 rounded-full shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+  <div class="sports">
+      <div class="icon-container">
+          <div class="icon-item">
+              <div class="road_bike_color"></div>
+              <IconBike class="icon-svg cycling" />
+          </div>
+          <div class="icon-item">
+              <div class="running_color"></div>
+              <IconRunner class="icon-svg running" />
+          </div>
+      </div>
+      <div id="barChart" class="bar-chart"></div>
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+(function() {
+    // 单例模式存储 Sports 实例状态
+    window.sportsInstance = window.sportsInstance || null;
+
+    // 销毁现有实例
+    function destroySports() {
+        if (window.sportsInstance) {
+            try {
+                // 清理定时器和事件监听器
+                if (window.sportsInstance.timers) {
+                    window.sportsInstance.timers.forEach(timer => clearTimeout(timer));
+                    window.sportsInstance.timers.forEach(timer => clearInterval(timer));
+                }
+                
+                // 清理元素上的动画引用
+                const ridingTimeElement = document.getElementById('ridingTimeThisYearValue');
+                const milesElement = document.getElementById('milesRiddenThisYearValue');
+                if (ridingTimeElement) {
+                    if (ridingTimeElement._animationInterval) clearInterval(ridingTimeElement._animationInterval);
+                    if (ridingTimeElement._animationTimeout) clearTimeout(ridingTimeElement._animationTimeout);
+                }
+                if (milesElement) {
+                    if (milesElement._animationInterval) clearInterval(milesElement._animationInterval);
+                    if (milesElement._animationTimeout) clearTimeout(milesElement._animationTimeout);
+                }
+                
+                window.sportsInstance = null;
+                console.log('Sports 实例已销毁');
+            } catch (err) {
+                console.error('销毁Sports失败:', err);
+            }
+        }
+        
+        // 清理主题观察器
+        if (window._sportsThemeObserver) {
+            window._sportsThemeObserver.disconnect();
+            window._sportsThemeObserver = null;
+        }
+    }
+
+    // 初始化 Sports 实例
+    function initSports() {
+        const calendarElement = document.getElementById('calendar');
+        const barChartElement = document.getElementById('barChart');
+        
+        if (!calendarElement || !barChartElement) return;
+
+        window.sportsInstance = {
+            timers: [],
+            processedActivities: [],
+            allActivities: [], 
+            currentCalendarOffsetWeeksBlocks: 0, 
+            currentCalendarViewStartDate: null, 
+            isCalendarLoading: false,
+            totalActivitiesHasAnimatedIn: false,
+            activeDetailsPopup: null, // For the activity details popup
+            globalClickListenerForPopup: null // To store the click outside listener
+        };
+
+        const calendarWrapper = document.getElementById('calendar-wrapper');
+        const prevCalBtn = document.getElementById('calendar-prev-btn');
+        const nextCalBtn = document.getElementById('calendar-next-btn');
+
+        // 日历
+        function generateCalendar(activities, startDate, numWeeks, callback = null) {
+            const calendarElement = document.getElementById('calendar');
+            calendarElement.innerHTML = ''; 
+            
+            const daysOfWeek = ['一', '二', '三', '四', '五', '六', '日']; 
+            
+            async function animateHeaders() {
+                for (let i = 0; i < daysOfWeek.length; i++) {
+                    const dayText = daysOfWeek[i];
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-week-header';
+                    dayElement.innerText = dayText; // Set text directly
+                    
+                    // Initial position: above and transparent
+                    dayElement.style.opacity = '0';
+                    dayElement.style.transform = 'translateY(-30px)'; // Start 30px above
+                    dayElement.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease-out';
+                    
+                    calendarElement.appendChild(dayElement);
+                    
+                    await new Promise(resolve => {
+                        const timer = setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                // Final position: drops into place and becomes opaque
+                                dayElement.style.opacity = '1';
+                                dayElement.style.transform = 'translateY(0)';
+                            });
+                            resolve(null);
+                        }, 75 * i); // Stagger appearance of each header
+                        if (window.sportsInstance) window.sportsInstance.timers.push(timer);
+                    });
+                }
+            }
+
+            const todayStr = getChinaTime().toISOString().split('T')[0];
+            let currentDate = new Date(startDate);
+            currentDate.setUTCHours(0, 0, 0, 0);
+
+            // 清空处理过的活动数据
+            window.sportsInstance.processedActivities = [];
+            let todayContainer = null;
+
+            // 添加球的滚动动画
+            function addBallRollAnimation(ball, container) {
+                // 定义四个方向的起始位置和动画参数
+                const directions = [
+                    { name: 'top', x: '50%', y: '-80px', rotate: 0, duration: 600 },
+                    { name: 'right', x: '150px', y: '50%', rotate: 90, duration: 700 },
+                    { name: 'bottom', x: '50%', y: '150px', rotate: 180, duration: 650 },
+                    { name: 'left', x: '-80px', y: '50%', rotate: 270, duration: 750 }
+                ];
+                
+                // 随机选择一个方向
+                const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+                
+                // 设置初始位置（在容器外）
+                ball.style.left = randomDirection.x;
+                ball.style.top = randomDirection.y;
+                ball.style.transform = `translate(-50%, -50%) rotate(${randomDirection.rotate}deg) scale(0.3)`;
+                ball.style.transition = 'none';
+                ball.style.opacity = '0';
+                
+                // 添加滚动动画类
+                ball.classList.add('ball-rolling', `roll-from-${randomDirection.name}`);
+                
+                // 强制重绘
+                ball.offsetHeight;
+                
+                // 延迟一点时间后开始动画
+                setTimeout(() => {
+                    const duration = randomDirection.duration;
+                    ball.style.transition = `left ${duration}ms cubic-bezier(0.34, 1.56, 0.64, 1), top ${duration}ms cubic-bezier(0.34, 1.56, 0.64, 1), transform ${duration}ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity ${duration * 0.3}ms ease-out`;
+                    ball.style.left = '50%';
+                    ball.style.top = '50%';
+                    ball.style.opacity = '1';
+                    
+                    // 添加旋转和弹跳效果
+                    const rotations = Math.floor(Math.random() * 2) + 1; // 1-2圈旋转
+                    ball.style.transform = `translate(-50%, -50%) rotate(${randomDirection.rotate + (360 * rotations)}deg) scale(1)`;
+                    
+                    // 动画完成后移除滚动类
+                    setTimeout(() => {
+                        ball.classList.remove('ball-rolling', `roll-from-${randomDirection.name}`);
+                        ball.style.transform = 'translate(-50%, -50%)';
+                        ball.style.transition = 'opacity 0.3s ease, transform 0.5s ease';
+                        // 确保球在动画完成后是可见的
+                        ball.style.opacity = '1';
+                    }, duration);
+                }, Math.random() * 100 + 50); // 随机延迟50-150ms
+            }
+
+            // 创建日历
+            function createDayContainer(date, activities) {
+                const dayContainer = document.createElement('div');
+                dayContainer.className = 'day-container';
+
+                const dateNumber = document.createElement('span');
+                dateNumber.className = 'date-number';
+                dateNumber.innerText = date.getUTCDate();
+                dayContainer.appendChild(dateNumber);
+
+                const activity = activities.find(activity => activity.start_date_local === date.toISOString().split('T')[0]);
+                if (activity) window.sportsInstance.processedActivities.push(activity);
+
+                const ballSize = activity ? Math.min(parseFloat(activity.distance) / 4, 24) : 2;
+                const ball = document.createElement('div');
+                ball.className = 'activity-indicator';
+                ball.style.width = `${ballSize}px`;
+                ball.style.height = `${ballSize}px`;
+                if (!activity) {
+                    ball.classList.add('no-activity');
+                } else {
+                    // Add click listener to the ball/container if there is an activity
+                    dayContainer.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Prevent triggering body click if popup is part of dayContainer
+                        showActivityDetailsPopup(activity, dayContainer);
+                    });
+                }
+                
+                dayContainer.appendChild(ball);
+                addBallRollAnimation(ball, dayContainer);
+
+                const isToday = date.toDateString() === new Date().toDateString();
+                let isAnimating = true;
+
+                if (isToday) {
+                    dayContainer.classList.add('today');
+                    todayContainer = dayContainer;
+                    dateNumber.style.opacity = '0'; // Initially hidden for animation
+                } else {
+                    dateNumber.style.opacity = '0'; // Hidden for other days during ball animation
+                }
+                
+                if (isToday) {
+                    dayContainer.addEventListener('mouseenter', () => {
+                        if (!isAnimating) {
+                            dateNumber.style.opacity = '0';
+                            ball.style.opacity = '1';
+                        }
+                    });
+                    dayContainer.addEventListener('mouseleave', () => {
+                        if (!isAnimating) {
+                            dateNumber.style.opacity = '1';
+                            ball.style.opacity = '0';
+                        }
+                    });
+                } else {
+                    dayContainer.addEventListener('mouseenter', () => {
+                        if (!isAnimating) {
+                            dateNumber.style.opacity = '1';
+                            ball.style.opacity = '0';
+                        }
+                    });
+                    dayContainer.addEventListener('mouseleave', () => {
+                        if (!isAnimating) {
+                            dateNumber.style.opacity = '0';
+                            ball.style.opacity = '1';
+                        }
+                    });
+                }
+
+                const postAnimationTimer = setTimeout(() => {
+                    isAnimating = false;
+                    if (isToday) {
+                        ball.style.opacity = '0'; // Hide ball for today's default
+                        dateNumber.style.transition = 'opacity 0.5s ease-in-out 0.2s'; // Add transition for number
+                        dateNumber.style.opacity = '1'; // Animate number in
+                    } else {
+                        dateNumber.style.opacity = '0'; // Ensure number hidden
+                        ball.style.opacity = '1';   // Ensure ball visible
+                    }
+                }, 1000); 
+                window.sportsInstance.timers.push(postAnimationTimer);
+                return dayContainer;
+            }
+
+            // 异步显示,模仿打字机效果
+            async function displayCalendar() {
+                // Wait for headers to animate first if it's the initial load or a full re-render
+                // For pagination, we might not want to re-animate headers every time, 
+                // but the current structure re-clears calendarElement.innerHTML, so headers will always re-animate.
+                await animateHeaders(); // Animate headers before day cells
+
+                for (let week = 0; week < numWeeks; week++) {
+                    for (let day = 0; day < 7; day++) {
+                        const currentDateStr = currentDate.toISOString().split('T')[0];
+                        // 不再计算超过今天的日期
+                        if (currentDateStr > todayStr) return;
+                        
+                        const dayContainer = createDayContainer(currentDate, activities);
+                        calendarElement.appendChild(dayContainer);
+
+                        // 速度控制
+                        await new Promise(resolve => {
+                            const timer = setTimeout(resolve, 80);
+                            window.sportsInstance.timers.push(timer);
+                        });
+                        currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+                    }
+                }
+            }
+            // 显示日历并在结束后调用回调
+            displayCalendar().then(() => {
+                if (callback) callback();
+            });
+        }
+
+        // Helper function to format duration from seconds to Hh Mm Ss
+        function formatDuration(totalSeconds) {
+            totalSeconds = Math.round(totalSeconds);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            let parts = [];
+            if (hours > 0) parts.push(`${hours}h`);
+            if (minutes > 0) parts.push(`${minutes}m`);
+            if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`); // Show seconds if it's the only unit or > 0
+            return parts.join(' ') || '0s';
+        }
+
+        // Helper function to format distance from meters to km
+        function formatDistance(meters) {
+            return (meters / 1000).toFixed(2) + " km";
+        }
+
+        // Function to remove the activity details popup
+        function removeActivityDetailsPopup() {
+            if (window.sportsInstance && window.sportsInstance.activeDetailsPopup) {
+                window.sportsInstance.activeDetailsPopup.remove();
+                window.sportsInstance.activeDetailsPopup = null;
+            }
+            if (window.sportsInstance && window.sportsInstance.globalClickListenerForPopup) {
+                document.removeEventListener('click', window.sportsInstance.globalClickListenerForPopup);
+                window.sportsInstance.globalClickListenerForPopup = null;
+            }
+        }
+
+        // Function to show activity details popup
+        function showActivityDetailsPopup(activity, clickedElement) {
+            removeActivityDetailsPopup(); // Remove any existing popup
+
+            const popup = document.createElement('div');
+            popup.className = 'activity-details-popup';
+            setTimeout(() => popup.classList.add('loaded'), 10);
+
+            popup.addEventListener('click', (event) => event.stopPropagation());
+
+            const activityDate = new Date(activity.start_date_local);
+            const formattedDate = `${activityDate.getFullYear()}年${String(activityDate.getMonth() + 1).padStart(2, '0')}月${String(activityDate.getDate()).padStart(2, '0')}日`;
+
+            // --- Data Parsing and Formatting based on new user specifications ---
+
+            // 用时 (moving_time): Expected format like "05.33" for 5 hours 33 minutes
+            let movingTimeFormatted = "N/A";
+            if (activity.moving_time && typeof activity.moving_time === 'string') {
+                const parts = activity.moving_time.split('.');
+                if (parts.length === 2) {
+                    const hours = parseInt(parts[0], 10);
+                    const minutes = parseInt(parts[1], 10);
+                    if (!isNaN(hours) && !isNaN(minutes)) {
+                        movingTimeFormatted = `${hours}小时${minutes}分钟`;
+                    } else {
+                        // Fallback if parsing fails, treat as raw string if it looks like pre-formatted, or use original formatDuration for seconds
+                        // For now, if it's not HH.MM, we might need to reconsider or rely on a different field/format if available
+                        // If a purely numeric value is encountered, assume seconds and use formatDuration
+                        movingTimeFormatted = formatDuration(parseFloat(activity.moving_time)); 
+                    }
+                }
+            } else if (typeof activity.moving_time === 'number') { // if it's a number, assume seconds
+                movingTimeFormatted = formatDuration(activity.moving_time);
+            }
+
+            // 距离 (distance): Expected in km directly
+            const distanceKm = activity.distance ? `${parseFloat(activity.distance).toFixed(2)} km` : "N/A";
+
+            // 平均速度 (average_speed): Expected in km/h directly
+            const avgSpeedKmh = activity.average_speed ? `${parseFloat(activity.average_speed).toFixed(1)} km/h` : "N/A";
+            
+            // 最高速度 (max_speed): Expected in km/h directly
+            const maxSpeedKmh = activity.max_speed ? `${parseFloat(activity.max_speed).toFixed(1)} km/h` : "N/A";
+            
+            // --- End of new Data Parsing ---
+
+            const totalElevationGain = activity.total_elevation_gain ? activity.total_elevation_gain.toFixed(1) + " 米" : "N/A";
+            const calories = activity.calories ? activity.calories.toFixed(1) + " 大卡" : "N/A";
+            const avgHeartrate = activity.average_heartrate ? activity.average_heartrate.toFixed(0) + " bpm" : "N/A";
+            const maxHeartrate = activity.max_heartrate ? activity.max_heartrate.toFixed(0) + " bpm" : "N/A";
+
+            // Prepare activity name, linking if URL exists
+            let activityNameHtml = activity.name;
+            if (activity.url) {
+                activityNameHtml = `<a href="${activity.url}" title="STRAVA GO！" target="_blank" rel="noopener noreferrer">${activity.name}</a>`;
+            }
+
+            popup.innerHTML = `
+                <button class="close-btn">&times;</button>
+                <h3>${activityNameHtml}</h3> 
+                <p><strong>📅 日期:</strong> ${formattedDate}</p>
+                <p><strong>⏱️ 用时:</strong> ${movingTimeFormatted}</p>
+                <p><strong>📍 距离:</strong> ${distanceKm}</p>
+                <p><strong>🚴‍♀️ 平均速度:</strong> ${avgSpeedKmh}</p>
+                <p><strong>💨 最高速度:</strong> ${maxSpeedKmh}</p>
+                <p><strong>⛰️ 总爬升:</strong> ${totalElevationGain}</p>
+                <p><strong>💓 平均心率:</strong> ${avgHeartrate}</p>
+                <p><strong>💥 最高心率:</strong> ${maxHeartrate}</p>
+                <p><strong>🔥 卡路里:</strong> ${calories}</p>
+                ${activity.id ? `<p class="strava-link"><a href="https://www.strava.com/activities/${activity.id}" target="_blank" rel="noopener noreferrer">在 Strava 查看</a></p>` : ''}
+            `;
+
+            document.body.appendChild(popup);
+            window.sportsInstance.activeDetailsPopup = popup;
+
+            const rect = clickedElement.getBoundingClientRect();
+            const popupRect = popup.getBoundingClientRect(); // Get dimensions after content is set
+            
+            // Always position below the clicked element
+            let top = rect.bottom + window.scrollY + 10; // 10px below the element
+            let left = rect.left + window.scrollX + (rect.width / 2) - (popupRect.width / 2);
+
+            // Adjust if popup goes off-screen horizontally
+            if (left < window.scrollX + 5) { // If too far left
+                left = window.scrollX + 5;
+            }
+            const screenWidth = document.documentElement.clientWidth;
+            if (left + popupRect.width > window.scrollX + screenWidth - 5) { // If too far right
+                left = window.scrollX + screenWidth - popupRect.width - 5;
+            }
+            // Adjust if popup goes off-screen vertically (bottom)
+            const screenHeight = document.documentElement.clientHeight;
+            if (top + popupRect.height > window.scrollY + screenHeight - 5) {
+                // If it goes off the bottom, try to position it above instead as a fallback
+                // This slightly deviates from "always below" but prevents content being inaccessible
+                let topAbove = rect.top + window.scrollY - popupRect.height - 10;
+                if (topAbove > window.scrollY + 5) { // Check if there's space above
+                    top = topAbove;
+                    popup.classList.add('popup-above'); // Add class for arrow direction if needed
+                } else {
+                    // If no space above either, stick to bottom of screen with some padding
+                    top = window.scrollY + screenHeight - popupRect.height - 5;
+                }
+            }
+
+            popup.style.top = `${top}px`;
+            popup.style.left = `${left}px`;
+            // Opacity and transform for entry animation are now handled by adding .loaded class via CSS
+
+            popup.querySelector('.close-btn').addEventListener('click', removeActivityDetailsPopup);
+            
+            window.sportsInstance.globalClickListenerForPopup = (event) => {
+                if (window.sportsInstance.activeDetailsPopup && !window.sportsInstance.activeDetailsPopup.contains(event.target)) {
+                    removeActivityDetailsPopup();
+                }
+            };
+            setTimeout(() => {
+                 if (window.sportsInstance) document.addEventListener('click', window.sportsInstance.globalClickListenerForPopup);
+            }, 0);
+        }
+
+        // 生成柱形图
+        function generateBarChart() {
+            const barChartElement = document.getElementById('barChart');
+            if (!barChartElement) return;
+            barChartElement.innerHTML = '';
+
+            const viewStartDate = window.sportsInstance.currentCalendarViewStartDate;
+            if (!viewStartDate) {
+                console.error("Bar chart cannot be generated, viewStartDate is not set.");
+                return;
+            }
+
+            const weeklyData = {};
+            let currentWeekStartForIteration = new Date(viewStartDate);
+            currentWeekStartForIteration.setUTCHours(0, 0, 0, 0);
+
+            for (let i = 0; i < 4; i++) { 
+                const weekStart = new Date(currentWeekStartForIteration);
+                const weekEnd = new Date(weekStart);
+                weekEnd.setUTCDate(weekStart.getUTCDate() + 6);
+                const weekKey = `${weekStart.toISOString().split('T')[0]} - ${weekEnd.toISOString().split('T')[0]}`;
+                weeklyData[weekKey] = 0;
+                currentWeekStartForIteration.setUTCDate(currentWeekStartForIteration.getUTCDate() + 7);
+            }
+            
+            window.sportsInstance.processedActivities.forEach(activity => {
+                const activityDate = new Date(activity.start_date_local);
+                const weekStart = getWeekStartDate(activityDate); 
+                const weekEnd = new Date(weekStart);
+                weekEnd.setUTCDate(weekStart.getUTCDate() + 6);
+
+                const weekKey = `${weekStart.toISOString().split('T')[0]} - ${weekEnd.toISOString().split('T')[0]}`;
+                if (weeklyData[weekKey] !== undefined) {
+                    weeklyData[weekKey] += parseFloat(activity.distance);
+                }
+            });
+
+            const maxDistance = Math.max(...Object.values(weeklyData).filter(val => typeof val === 'number' && !isNaN(val)), 0);
+            let animationDelay = 0; // Initial delay for the first bar
+            const delayIncrement = 150; // Delay increment for each subsequent bar (in ms)
+
+            Object.keys(weeklyData).forEach((week, index) => {
+                const distance = weeklyData[week]; 
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+
+                const width = maxDistance > 0 ? (distance / maxDistance) * 190 : 0;
+                
+                const distanceText = document.createElement('div');
+                distanceText.className = 'cycling-kilometer';
+                distanceText.innerText = '0 km';
+                distanceText.style.opacity = '0'; // Start hidden, will fade in with bar
+
+                const messageBox = createMessageBox();
+                const clickMessageBox = createMessageBox();
+
+                barContainer.style.position = 'relative';
+                bar.appendChild(distanceText);
+                barContainer.appendChild(bar);
+                barContainer.appendChild(messageBox);
+                barContainer.appendChild(clickMessageBox);
+                barChartElement.appendChild(barContainer);
+                
+                bar.style.width = '0'; // Start animation from 0 width
+                
+                // Apply staggered animation using setTimeout and the current animationDelay
+                const barAnimationTimer = setTimeout(() => {
+                    requestAnimationFrame(() => { // Ensure DOM is updated for transition
+                        bar.style.transition = 'width 1s ease-out';
+                        bar.style.width = `${width}px`;
+                        distanceText.style.transition = 'opacity 0.5s ease-in-out 0.3s'; // Fade in slightly after bar starts growing
+                        distanceText.style.opacity = '1';
+                    });
+                    animateText(distanceText, 0, distance, 1000, true);
+                    setupBarInteractions(bar, messageBox, clickMessageBox, distance);
+                }, animationDelay);
+                if (window.sportsInstance) window.sportsInstance.timers.push(barAnimationTimer);
+                
+                animationDelay += delayIncrement; // Increment delay for the next bar
+            });
+        }
+
+        // 动态文本显示
+        function animateText(element, startValue, endValue, duration, isDistance = false) {
+            const startTime = performance.now();
+            function update() {
+                const elapsed = performance.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const currentValue = (progress * endValue).toFixed(2);
+                element.innerText = isDistance ? `${currentValue} km` : `${currentValue}h`;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.innerText = isDistance ? `${endValue.toFixed(2)} km` : `${endValue.toFixed(2)}h`;
+                }
+            }
+            update();
+        }
+
+        // 计算总公里数
+        function calculateTotalKilometers(activities) {
+            return activities.reduce((total, activity) => total + parseFloat(activity.distance) || 0, 0);
+        }
+
+        // 显示总活动数和总公里数 (MODIFIED)
+        async function displayTotalActivities(activities, animateIn = false) {
+            const totalActivitiesContainer = document.getElementById('totalActivities');
+            const ridingTimeThisYear = document.getElementById('totalCount');
+            const milesRiddenThisYear = document.getElementById('milesRiddenThisYear');
+            const totalTitleElement = document.getElementById('totalTitle');
+
+            if (!totalActivitiesContainer || !ridingTimeThisYear || !milesRiddenThisYear || !totalTitleElement) {
+                console.error("Missing total activities elements");
+                return;
+            }
+
+            const ridingTimeThisYearValue = ridingTimeThisYear.querySelector('#ridingTimeThisYearValue');
+            const milesRiddenThisYearValue = milesRiddenThisYear.querySelector('#milesRiddenThisYearValue');
+            const totalCountSpinner = ridingTimeThisYear.querySelector('.loading-spinner');
+            const milesRiddenThisYearSpinner = milesRiddenThisYear.querySelector('.loading-spinner');
+
+            if (!ridingTimeThisYearValue || !milesRiddenThisYearValue || !totalCountSpinner || !milesRiddenThisYearSpinner) {
+                console.error("Missing total activities value/spinner elements");
+                return;
+            }
+            
+            const currentYear = new Date().getFullYear();
+            totalTitleElement.textContent = `${currentYear} 骑行总时长`;
+            const filteredActivities = activities.filter(activity => new Date(activity.start_date_local).getFullYear() === currentYear);
+            const totalMovingTime = filteredActivities.reduce((total, activity) => total + parseFloat(activity.moving_time) || 0, 0);
+            const totalKilometers = calculateTotalKilometers(filteredActivities);
+
+            totalActivitiesContainer.classList.add('loaded'); 
+
+            if (animateIn && !window.sportsInstance.totalActivitiesHasAnimatedIn) {
+                // Clear any inline styles that might interfere with the animation class
+                totalActivitiesContainer.style.transform = '';
+                totalActivitiesContainer.style.opacity = '';
+                totalActivitiesContainer.style.transition = '';
+
+                totalCountSpinner.classList.add('active');
+                milesRiddenThisYearSpinner.classList.add('active');
+
+                return new Promise(resolve => {
+                    function animationEndHandler() {
+                        totalActivitiesContainer.removeEventListener('animationend', animationEndHandler);
+                        // Keep final state of animation (translateX(0%) opacity(1) scale(1))
+                        // The 'forwards' in animation fill mode should handle this.
+                        totalCountSpinner.classList.remove('active');
+                        milesRiddenThisYearSpinner.classList.remove('active');
+                        window.sportsInstance.totalActivitiesHasAnimatedIn = true;
+                        resolve();
+                    }
+                    totalActivitiesContainer.addEventListener('animationend', animationEndHandler);
+                    
+                    totalActivitiesContainer.classList.add('total-activities-crash-bounce');
+                    
+                    const countAnimationTimer = setTimeout(() => {
+                        animateCount(ridingTimeThisYearValue, totalMovingTime, 1000, 50, false);
+                        animateCount(milesRiddenThisYearValue, totalKilometers, 1000, 50, true);
+                    }, 150); // Start number animation slightly after crash animation begins
+                    if(window.sportsInstance) window.sportsInstance.timers.push(countAnimationTimer);
+                });
+            } else {
+                totalActivitiesContainer.classList.remove('total-activities-crash-bounce');
+                totalActivitiesContainer.style.transform = 'translateX(0%)';
+                totalActivitiesContainer.style.opacity = '1';
+                totalActivitiesContainer.style.transition = 'none';
+
+                ridingTimeThisYearValue.textContent = `${totalMovingTime.toFixed(2)} h`;
+                milesRiddenThisYearValue.textContent = `${totalKilometers.toFixed(2)} km`;
+                totalCountSpinner.classList.remove('active');
+                milesRiddenThisYearSpinner.classList.remove('active');
+                if (!window.sportsInstance.totalActivitiesHasAnimatedIn && animateIn === false) { // If displayed statically for the first time
+                     window.sportsInstance.totalActivitiesHasAnimatedIn = true;
+                }
+                return Promise.resolve();
+            }
+        }
+
+        // 获取一周的开始日期
+        function getWeekStartDate(date) {
+            const day = date.getDay();
+            const diff = (day === 0 ? -6 : 1) - day;
+            const weekStart = new Date(date);
+            weekStart.setDate(weekStart.getDate() + diff);
+            return weekStart;
+        }
+
+        // 获取中国时间 UTC+8
+        function getChinaTime() {
+            const now = new Date();
+            const offset = 8 * 60 * 60 * 1000;
+            return new Date(now.getTime() + offset);
+        }
+
+        // 手搓JSON
+        async function loadActivityData() {
+            const response = await fetch('https://cos.lhasa.icu/assets/strava_data.json');
+            return response.json();
+        }
+
+        // 创建消息框
+        function createMessageBox() {
+            const messageBox = document.createElement('div');
+            messageBox.className = 'message-box';
+            return messageBox;
+        }
+
+        // 获取起始时间（从周一开始）
+        function getStartDate(today, daysOffset) {
+            const currentDayOfWeek = today.getUTCDay();
+            const daysToMonday = (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1);
+            const startDate = new Date(today);
+            startDate.setUTCDate(today.getUTCDate() - daysToMonday - daysOffset);
+            return startDate;
+        }
+
+        // 动态更新计数器
+        function animateCount(element, totalValue, duration, intervalDuration, isDistance = false) {
+            // 清除可能存在的之前的动画
+            if (element._animationInterval) {
+                clearInterval(element._animationInterval);
+            }
+            if (element._animationTimeout) {
+                clearTimeout(element._animationTimeout);
+            }
+            
+            const step = totalValue / (duration / intervalDuration);
+            let count = 0;
+            
+            const interval = setInterval(() => {
+                count += step;
+                if (count >= totalValue) {
+                    count = totalValue;
+                    clearInterval(interval);
+                    element._animationInterval = null;
+                    // 确保最终值正确
+                    element.textContent = isDistance ? `${totalValue.toFixed(2)} km` : `${totalValue.toFixed(2)} h`;
+                } else {
+                    element.textContent = isDistance ? `${count.toFixed(2)} km` : `${count.toFixed(2)} h`;
+                }
+            }, intervalDuration);
+            
+            // 存储引用以便清理
+            element._animationInterval = interval;
+            window.sportsInstance.timers.push(interval);
+        }
+
+        // 柱形图交互
+        function setupBarInteractions(bar, messageBox, clickMessageBox, weeklyData) {
+            let mouseLeaveTimeout;
+            let autoHideTimeout;
+
+            bar.addEventListener('mouseenter', () => {
+                clearTimeout(mouseLeaveTimeout);
+                clearTimeout(autoHideTimeout);
+
+                const message = weeklyData > 70 ? '骑行出发吧！' : '偷懒了';
+                messageBox.innerText = message;
+                messageBox.classList.add('show');
+
+                autoHideTimeout = setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, 700);
+                window.sportsInstance.timers.push(autoHideTimeout);
+            });
+
+            bar.addEventListener('mouseleave', () => {
+                mouseLeaveTimeout = setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, 700);
+                window.sportsInstance.timers.push(mouseLeaveTimeout);
+            });
+
+            bar.addEventListener('click', () => {
+                clickMessageBox.innerText = '你也感兴趣吗';
+                clickMessageBox.classList.add('show');
+                const timer = setTimeout(() => {
+                    clickMessageBox.classList.remove('show');
+                }, 700);
+                window.sportsInstance.timers.push(timer);
+
+                messageBox.classList.remove('show');
+                clearTimeout(mouseLeaveTimeout);
+                clearTimeout(autoHideTimeout);
+            });
+        }
+
+        // 加载数据并生成日历
+        (async function() {
+            try {
+                const activities = await loadActivityData();
+                window.sportsInstance.allActivities = activities;
+                
+                // Initial Load Sequence
+                // 1. Calendar
+                const todayForCalendar = getChinaTime();
+                // Calculate the start date for the initial 4-week view ending with the current week.
+                // getStartDate calculates based on 'today' and an offset from Monday of 'today's' week.
+                // To show the 4 weeks _ending_ with the current week, we need the Monday 3 weeks prior to current week's Monday.
+                // The getStartDate function with an offset of 21 days (3 weeks) should give the Monday of the first week in the 4-week block.
+                const initialViewStartDate = getStartDate(todayForCalendar, 21); 
+                window.sportsInstance.currentCalendarViewStartDate = initialViewStartDate;
+                window.sportsInstance.currentCalendarOffsetWeeksBlocks = 0;
+
+                const calendarEl = document.getElementById('calendar');
+                if (calendarEl) calendarEl.innerHTML = ''; // Clear previous calendar content
+                // true for isInitialLoad for generateCalendarWithDelay's internal timing
+                await generateCalendarWithDelay(activities, initialViewStartDate, 4, true); 
+
+                // 2. Total Activities (animated slide-in)
+                // true for animateIn to trigger the slide animation
+                await displayTotalActivities(activities, true); 
+
+                // 3. Bar Chart
+                const barChartEl = document.getElementById('barChart');
+                if (barChartEl) barChartEl.innerHTML = ''; // Clear previous bar chart content
+                // true for isInitialLoad for generateBarChartWithDelay's internal timing
+                await generateBarChartWithDelay(true); 
+
+                setupCalendarPaginationControls(); 
+                
+                if (calendarWrapper && calendarWrapper.matches(':hover')) {
+                    if(prevCalBtn) prevCalBtn.classList.remove('hidden');
+                    if(nextCalBtn && window.sportsInstance.currentCalendarOffsetWeeksBlocks > 0) {
+                       nextCalBtn.classList.remove('hidden');
+                    }
+                    updatePaginationButtonsState();
+                }
+                
+                console.log('Sports 初始化完成');
+            } catch (error) {
+                console.error('加载运动数据失败:', error);
+            }
+        })();
+
+        function setupCalendarPaginationControls() {
+            if (!calendarWrapper || !prevCalBtn || !nextCalBtn || !window.sportsInstance) return;
+        
+            calendarWrapper.addEventListener('mouseenter', () => {
+                if (!window.sportsInstance || window.sportsInstance.isCalendarLoading) return;
+                prevCalBtn.classList.remove('hidden');
+                // Next button visibility depends on current offset
+                if (window.sportsInstance.currentCalendarOffsetWeeksBlocks > 0) {
+                    nextCalBtn.classList.remove('hidden');
+                }
+                updatePaginationButtonsState(); // Also call this to set disabled/enabled state correctly
+            });
+        
+            calendarWrapper.addEventListener('mouseleave', () => {
+                prevCalBtn.classList.add('hidden');
+                nextCalBtn.classList.add('hidden');
+            });
+        
+            prevCalBtn.addEventListener('click', async () => {
+                if (!window.sportsInstance || window.sportsInstance.isCalendarLoading) return;
+                window.sportsInstance.isCalendarLoading = true;
+                prevCalBtn.disabled = true; // Disable during load
+                nextCalBtn.disabled = true; // Disable during load
+
+                window.sportsInstance.currentCalendarOffsetWeeksBlocks++;
+                await triggerCalendarAndChartRender(false); 
+                window.sportsInstance.isCalendarLoading = false;
+                updatePaginationButtonsState(); // Update after load
+                 // If mouse is still over, ensure buttons are visible based on new state
+                if (calendarWrapper.matches(':hover')) {
+                    prevCalBtn.classList.remove('hidden');
+                    if (window.sportsInstance.currentCalendarOffsetWeeksBlocks > 0) {
+                        nextCalBtn.classList.remove('hidden');
+                    } else {
+                        nextCalBtn.classList.add('hidden');
+                    }
+                }
+            });
+        
+            nextCalBtn.addEventListener('click', async () => {
+                if (!window.sportsInstance || window.sportsInstance.isCalendarLoading) return;
+                if (window.sportsInstance.currentCalendarOffsetWeeksBlocks > 0) {
+                    window.sportsInstance.isCalendarLoading = true;
+                    prevCalBtn.disabled = true; // Disable during load
+                    nextCalBtn.disabled = true; // Disable during load
+
+                    window.sportsInstance.currentCalendarOffsetWeeksBlocks--;
+                    await triggerCalendarAndChartRender(false); 
+                    window.sportsInstance.isCalendarLoading = false;
+                    updatePaginationButtonsState(); // Update after load
+                    // If mouse is still over, ensure buttons are visible based on new state
+                    if (calendarWrapper.matches(':hover')) {
+                        prevCalBtn.classList.remove('hidden');
+                        if (window.sportsInstance.currentCalendarOffsetWeeksBlocks > 0) {
+                            nextCalBtn.classList.remove('hidden');
+                        } else {
+                             nextCalBtn.classList.add('hidden'); // Hide if now at current week
+                        }
+                    }
+                }
+            });
+        }
+
+        function updatePaginationButtonsState() {
+            if (!nextCalBtn || !prevCalBtn || !window.sportsInstance) return;
+        
+            // Previous button state
+            prevCalBtn.disabled = window.sportsInstance.isCalendarLoading;
+            if(window.sportsInstance.isCalendarLoading){
+                 prevCalBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                 prevCalBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Next button state
+            if (window.sportsInstance.currentCalendarOffsetWeeksBlocks === 0 || window.sportsInstance.isCalendarLoading) {
+                nextCalBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                nextCalBtn.disabled = true;
+                // If mouse is NOT over wrapper and it's the current week, ensure it's hidden.
+                // This handles the case where it becomes disabled while the mouse is over.
+                if (window.sportsInstance.currentCalendarOffsetWeeksBlocks === 0 && !calendarWrapper.matches(':hover')) {
+                    nextCalBtn.classList.add('hidden');
+                }
+            } else {
+                nextCalBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextCalBtn.disabled = false;
+            }
+        }
+        
+        async function triggerCalendarAndChartRender(isInitialLoad = false) { 
+            if (!window.sportsInstance) return;
+            window.sportsInstance.isCalendarLoading = true; 
+            if(prevCalBtn) prevCalBtn.disabled = true;
+            if(nextCalBtn) nextCalBtn.disabled = true;
+
+            const today = getChinaTime();
+            const daysToShift = window.sportsInstance.currentCalendarOffsetWeeksBlocks * 28; 
+            const currentDaysOffset = 21 + daysToShift; 
+            
+            const viewStartDate = getStartDate(today, currentDaysOffset);
+            window.sportsInstance.currentCalendarViewStartDate = viewStartDate;
+        
+            const calendarEl = document.getElementById('calendar');
+            const barChartEl = document.getElementById('barChart');
+            const sportsEl = document.querySelector('.sports');
+
+            if (calendarEl) calendarEl.innerHTML = ''; 
+            if (barChartEl) barChartEl.innerHTML = ''; 
+            if (sportsEl && !isInitialLoad) sportsEl.classList.remove('loaded'); // Hide sports section for pagination repaint
+
+            await generateCalendarWithDelay(window.sportsInstance.allActivities, viewStartDate, 4, false);
+            await displayTotalActivities(window.sportsInstance.allActivities, false); 
+            await generateBarChartWithDelay(false); // Pass false for isInitialLoad
+            
+            window.sportsInstance.isCalendarLoading = false; 
+            updatePaginationButtonsState(); 
+        }
+
+        // 带延迟的日历生成（中间）
+        async function generateCalendarWithDelay(activities, startDate, numWeeks, isInitialLoad = false) {
+            return new Promise((resolve) => {
+                const calendar = document.getElementById('calendar');
+                if (calendar) {
+                    calendar.classList.add('loaded');
+                }
+                const delay = isInitialLoad ? 800 : 50; // Shorter delay for pagination
+                
+                setTimeout(() => {
+                     if (window.sportsInstance) { // Ensure instance exists
+                        generateCalendar(activities, startDate, numWeeks, resolve);
+                     } else {
+                         resolve(); // Resolve if instance is gone
+                     }
+                }, delay);
+            });
+        }
+
+        // 带延迟的柱形图生成（右侧）
+        async function generateBarChartWithDelay(isInitialLoad = false) {
+            return new Promise((resolve) => {
+                const sportsEl = document.querySelector('.sports');
+                const delay = isInitialLoad ? 300 : 100; // Slightly adjusted delay for pagination
+                
+                setTimeout(() => {
+                    if (window.sportsInstance) { 
+                        generateBarChart();
+                    }
+                    // Ensure sports section is visible for its animation
+                    if (sportsEl) {
+                        sportsEl.classList.add('loaded');
+                    }
+                    resolve();
+                }, delay);
+            });
+        }
+    }
+
+    // 页面生命周期管理
+    function handlePageLoad() {
+        destroySports();
+        initSports();
+    }
+
+    // 主题切换处理
+    function handleThemeChange() {
+        console.log('主题切换，重新初始化 Sports 组件');
+        destroySports();
+        // 延迟一点时间确保 CSS 变量已更新
+        setTimeout(() => {
+            initSports();
+        }, 50);
+    }
+
+    // 单次绑定事件监听
+    function setupSports() {
+        if (window._sportsInitialized) return;
+        window._sportsInitialized = true;
+
+        // 页面切换事件
+        document.addEventListener('astro:before-swap', destroySports);
+        document.addEventListener('astro:after-swap', handlePageLoad);
+
+        // 监听主题切换
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    handleThemeChange();
+                }
+            });
+        });
+
+        // 观察 html 元素的 data-theme 属性变化
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+
+        // 存储观察器以便清理
+        window._sportsThemeObserver = observer;
+
+        // 初始加载
+        if (document.readyState === 'complete') {
+            handlePageLoad();
+        } else {
+            document.addEventListener('DOMContentLoaded', handlePageLoad);
+        }
+    }
+
+    setupSports();
+})();
+</script>

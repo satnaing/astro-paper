@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
+import { getBlogStats } from "@/utils/getBlogStats";
 
 export interface Props {
   frontmatter: {
@@ -13,6 +14,7 @@ export interface Props {
 }
 
 const { frontmatter } = Astro.props;
+const blogStats = await getBlogStats();
 ---
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
@@ -21,8 +23,106 @@ const { frontmatter } = Astro.props;
   <main id="main-content">
     <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+      <div id="blog-stats-data" 
+           data-running-days={blogStats.runningDays}
+           data-total-posts={blogStats.totalPosts}
+           data-total-words={blogStats.totalWordsInWan}
+           data-start-year="2018"
+           data-start-month="8"
+           data-start-day="31"
+           style="display: none;">
+      </div>
       <slot />
     </section>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  // 数字动画函数
+  function animateNumber(element: HTMLElement, targetValue: number, duration: number = 2000, isDecimal: boolean = false) {
+    const startValue = 0;
+    const startTime = performance.now();
+    
+    function updateNumber(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // 使用缓动函数让动画更自然
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = startValue + (targetValue - startValue) * easeOutQuart;
+      
+      if (isDecimal) {
+        element.textContent = currentValue.toFixed(1);
+      } else {
+        element.textContent = Math.floor(currentValue).toString();
+      }
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateNumber);
+      } else {
+        // 确保最终值准确
+        if (isDecimal) {
+          element.textContent = targetValue.toFixed(1);
+        } else {
+          element.textContent = targetValue.toString();
+        }
+      }
+    }
+    
+    requestAnimationFrame(updateNumber);
+  }
+
+  // 启动所有数字动画
+  function startAnimations() {
+    const statsData = document.getElementById('blog-stats-data');
+    if (!statsData) return;
+    
+    const runningDays = parseInt(statsData.dataset.runningDays || '0');
+    const totalPosts = parseInt(statsData.dataset.totalPosts || '0');
+    const totalWords = parseFloat(statsData.dataset.totalWords || '0');
+    const startYear = parseInt(statsData.dataset.startYear || '2018');
+    const startMonth = parseInt(statsData.dataset.startMonth || '8');
+    const startDay = parseInt(statsData.dataset.startDay || '31');
+    
+    // 查找并动画化所有数字元素
+    const elements = [
+      { id: 'start-year', value: startYear, duration: 1000 },
+      { id: 'start-month', value: startMonth, duration: 800 },
+      { id: 'start-day', value: startDay, duration: 600 },
+      { id: 'running-days', value: runningDays, duration: 2000 },
+      { id: 'total-posts', value: totalPosts, duration: 1500 },
+      { id: 'total-words', value: totalWords, duration: 2500, isDecimal: true }
+    ];
+    
+    elements.forEach((item, index) => {
+      const element = document.getElementById(item.id);
+      if (element) {
+        // 为每个元素添加不同的延迟，创造连续动画效果
+        setTimeout(() => {
+          animateNumber(element, item.value, item.duration, item.isDecimal || false);
+        }, index * 200);
+      }
+    });
+  }
+
+  // 页面加载完成后直接启动动画
+  function initializeAnimations() {
+    // 添加短暂延迟确保DOM完全渲染
+    setTimeout(() => {
+      startAnimations();
+    }, 300);
+  }
+
+  // 初始化
+  document.addEventListener('astro:page-load', () => {
+    initializeAnimations();
+  });
+
+  // 兼容非Astro环境
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAnimations);
+  } else {
+    initializeAnimations();
+  }
+</script>

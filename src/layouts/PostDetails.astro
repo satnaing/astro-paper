@@ -32,6 +32,7 @@ const {
   timezone,
   tags,
   hideEditPost,
+  category,
 } = post.data;
 
 const { Content } = await render(post);
@@ -68,9 +69,10 @@ const layoutProps = {
 
 /* ========== Prev/Next Posts ========== */
 
-const allPosts = posts.map(({ data: { title }, id }) => ({
+const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   slug: id,
   title,
+  filePath,
 }));
 
 const currentPostIndex = allPosts.findIndex(a => a.slug === post.id);
@@ -81,7 +83,7 @@ const nextPost =
 ---
 
 <Layout {...layoutProps}>
-  <Header />
+  <Header currentCategory={category} />
   <BackButton />
   <main
     id="main-content"
@@ -99,7 +101,7 @@ const nextPost =
     </h1>
     <div class="flex items-center gap-4">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" class="my-2" />
-      <EditPost class="max-sm:hidden" {hideEditPost} {post} />
+      <!-- <EditPost class="max-sm:hidden" {hideEditPost} {post} /> -->
     </div>
     <article id="article" class="mx-auto prose mt-8 max-w-3xl">
       <Content />
@@ -134,7 +136,7 @@ const nextPost =
       {
         prevPost && (
           <a
-            href={`/posts/${prevPost.slug}`}
+            href={getPath(prevPost.slug, prevPost.filePath)}
             class="flex w-full gap-1 hover:opacity-75"
           >
             <IconChevronLeft class="inline-block flex-none" />
@@ -148,7 +150,7 @@ const nextPost =
       {
         nextPost && (
           <a
-            href={`/posts/${nextPost.slug}`}
+            href={getPath(nextPost.slug, nextPost.filePath)}
             class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
             <div>
@@ -160,10 +162,11 @@ const nextPost =
         )
       }
     </div>
+    <br />
+    <div id="Comments"></div>
   </main>
   <Footer />
 </Layout>
-
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
@@ -284,4 +287,111 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  // Artalk
+  (function () {
+    // 单例模式存储 Artalk 实例
+    window.artalkInstance = window.artalkInstance || null;
+
+    // 基本配置
+    const artalkConfig = {
+      el: "#Comments",
+      server: "https://artalk.lhasa.icu",
+      site: "游钓四方的博客",
+      pageKey: window.location.pathname,
+      vote: false,
+
+    };
+
+    function destroyArtalk() {
+      if (window.artalkInstance) {
+        try {
+          window.artalkInstance.destroy();
+          document
+            .querySelectorAll(".atk-sidebar, .atk-layer-wrap")
+            .forEach(el => el.remove());
+          window.artalkInstance = null;
+          console.log("Artalk 实例已销毁", window.location.pathname);
+        } catch (err) {
+          console.error("销毁失败:", err);
+        }
+      }
+    }
+
+    // 初始化 Artalk 实例
+    function initArtalk() {
+      const container = document.getElementById("Comments");
+      if (!container || container.querySelector(".atk-app")) return;
+
+      // 获取当前主题
+      const isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+
+      // 更新配置
+      artalkConfig.pageKey = window.location.pathname;
+      artalkConfig.darkMode = isDark;
+
+      // 创建新实例
+      window.artalkInstance = Artalk.init(artalkConfig);
+      console.log("Artalk 初始化完成", window.location.pathname);
+    }
+
+    // 监听主题切换
+    function handleThemeChange() {
+      const themeBtn = document.querySelector("#theme-btn");
+      if (!themeBtn) return;
+
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+          if (mutation.attributeName === "aria-label") {
+            const isDark =
+              mutation.target.getAttribute("aria-label") === "dark";
+            if (window.artalkInstance) {
+              window.artalkInstance.setDarkMode(isDark);
+            }
+          }
+        });
+      });
+
+      observer.observe(themeBtn, {
+        attributes: true,
+        attributeFilter: ["aria-label"],
+      });
+    }
+
+    // 页面生命周期管理
+    function handlePageLoad() {
+      destroyArtalk();
+      initArtalk();
+      handleThemeChange();
+    }
+
+    // 单次绑定事件监听
+    function setupArtalk() {
+      if (window._artalkInitialized) return;
+      window._artalkInitialized = true;
+
+      // 页面切换事件
+      document.addEventListener("astro:before-swap", destroyArtalk);
+      document.addEventListener("astro:after-swap", handlePageLoad);
+
+      // 初始加载
+      if (document.readyState === "complete") {
+        handlePageLoad();
+      } else {
+        document.addEventListener("DOMContentLoaded", handlePageLoad);
+      }
+
+      // 监听系统主题变化
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", ({ matches }) => {
+          if (window.artalkInstance) {
+            window.artalkInstance.setDarkMode(matches);
+          }
+        });
+    }
+
+    setupArtalk();
+  })();
 </script>

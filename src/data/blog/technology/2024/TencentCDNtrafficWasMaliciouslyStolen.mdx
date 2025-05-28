@@ -1,0 +1,58 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2024-07-25T00:44+08:00
+title: Tencent CDN 流量被恶意盗刷
+slug: TencentCDNtrafficWasMaliciouslyStolen
+ogImage: https://cos.lhasa.icu/ArticlePictures/1721836926102.jpg_81
+tags:
+  - CDN
+  - WEB安全
+  - 流量
+  
+description: 看到这张图的时候，我很震惊。这个CDN流量包是我昨天凌晨刚买的，直到此刻才发现我的CDN流量被恶意盗刷了
+---
+
+import Img from "@/components/Img.astro";
+
+<Img src={`${IMAGES}/1721837126591.jpg`} alt="来自腾讯云的邮件" exif={false} />
+
+看到这张图的时候，我很震惊。这个CDN流量包是我昨天凌晨刚买的，直到此刻才发现我的CDN流量被恶意盗刷了。
+
+事情是这样的，前天23号我在写新功能，本地调试调用了很多资源，当时看到消耗了90G的流量，我没有在意，以为是调试的问题。因为那天我写了一天代码，不停地调用Tencent COS，而COS还套了一层Tencent CDN。当时我以为是正常消耗，眼看流量不够，我又充了一个CDN加速包。
+
+然而就在今晚22:45，我骑行回来关闭了免打扰模式，邮箱忽然弹出通知，腾讯云提示我CDN流量不足？我当时非常震惊，因为这是我24号凌晨刚买的流量包啊！
+
+<Img src={`${IMAGES}/1721836262452.jpg`} alt="腾讯云 数据分析控制台" exif={false} />
+
+看到这张图时，我火了，在独立博客圈彻底火了，2天内请求数42万？赶超月光博客！
+
+<Img src={`${IMAGES}/1721836283806.jpg`} alt="腾讯云 访问分布" exif={false} />
+
+<Img src={`${IMAGES}/1721836308939.jpg`} alt="TOP ONE 60.221.195.144" exif={false} />
+
+回想过去，我在博客圈认识的人一只手能数过来，更谈不上得罪谁。这事也怪我，之前COS没有任何防护，几乎处于裸奔状态。
+
+由于我的博客托管在Github Pages，主机问题大可不必考虑，我能做的只有设置黑白名单和周期限流。
+
+不再裸奔，已老实。
+
+## UPDATE 凌晨 02:32
+
+知道怎么回事了，24年后，大陆境内出现一窝狗，利用PCDN恶意流量攻击！
+
+* 攻击的主要IP来源于山西、江苏和安徽联通等地的固定网段
+
+* 攻击时间非常规律，集中在19:50到23:00之间
+
+* 攻击者会针对体积较大的静态文件进行持续攻击
+
+自7月初以来，已转头无差别地对大陆中小型网站展开攻击。
+
+建议将山西等地的IP段暂时屏蔽，减少恶意流量的影响。
+
+目前，GitHub上已经有相关项目 [ban-pcdn-ip][1] 用于收集这些恶意IP段。
+
+[1]: https://github.com/unclemcz/ban-pcdn-ip?tab=readme-ov-file

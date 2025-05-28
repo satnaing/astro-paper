@@ -9,6 +9,11 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 
+export interface Props {
+  currentCategory?: string;
+}
+
+const { currentCategory } = Astro.props;
 const { pathname } = Astro.url;
 
 // Remove trailing slash from current pathname if exists
@@ -16,6 +21,15 @@ const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
 const isActive = (path: string) => {
+  // 如果有当前文章的分类信息，根据分类判断
+  if (currentCategory) {
+    if (path === "/posts" && currentCategory === "technology") return true;
+    if (path === "/sports" && currentCategory === "sports") return true;
+    if (path === "/posts" && currentCategory === "life") return true;
+    return false;
+  }
+  
+  // 原有的路径匹配逻辑
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
 
@@ -69,17 +83,22 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
+            <a href="/posts/" class:list={{ "active-nav": isActive("/posts") }}>
               Posts
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
-              Tags
+            <a href="/sports/" class:list={{ "active-nav": isActive("/sports") }}>
+              Sports
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+            <a href="/feeds/" class:list={{ "active-nav": isActive("/feeds") }}>
+              Feeds
+            </a>
+          </li>
+          <li class="col-span-2">
+            <a href="/about/" class:list={{ "active-nav": isActive("/about") }}>
               About
             </a>
           </li>
@@ -87,7 +106,7 @@ const isActive = (path: string) => {
             SITE.showArchives && (
               <li class="col-span-2">
                 <LinkButton
-                  href="/archives"
+                  href="/archives/"
                   class:list={[
                     "focus-outline flex justify-center p-3 sm:p-1",
                     {
@@ -105,7 +124,7 @@ const isActive = (path: string) => {
           }
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
-              href="/search"
+              href="/search/"
               class:list={[
                 "focus-outline flex p-3 sm:p-1",
                 { "[&>svg]:stroke-accent": isActive("/search") },
