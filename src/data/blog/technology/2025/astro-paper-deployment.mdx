@@ -1,0 +1,418 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2025-05-31T03:12+08:00
+title: 基于 Astro Paper 的个人博客：深度定制于和部署实践
+slug: astro-paper-deployment
+ogImage: https://cos.lhasa.icu/ArticlePictures/astro-paper-deployment/astro-paper-deployment.svg
+tags:
+  - 开源
+  - Astro
+  - Astro Paper
+  - JavaScript
+  - Cloudflare
+
+description: 今天是我独立博客走过的第八个年头。还记得那一年怀着对独立站的疑问，给孔令贤发邮件，
+---
+
+import Img from "@/components/Img.astro";
+
+今天是我独立博客走过的第八个年头。还记得那一年怀着对独立站的疑问，给孔令贤发邮件，询问是否可以使用他写的轮子，就是从他回复我那一刻起，我掉进了 WEB 深渊。
+
+独立博客这个词，在 2025 年这个年代确实足够小众，但其中的快乐和对生活的态度，想必也只有博友能理解。
+
+正是为了这第八个年头，才有了今天这全新的博客。从年初用 Jekyll 从零开始写，后来又用 Recat 写个半成品。最终阴差阳错选择了开源的 Astro Paper。
+
+Astro Paper 这款主题性能极强，可拓展性也非常高，这也得益于 Astro 的静态特性和原作者优越设计。
+
+经过一段时间的二次开发，这个博客差不多达到了我理想的样子。
+
+在全站无缝刷新的基础下，我把博客全站的图片都做了懒加载，订阅和归档模块也做了滚动懒加载。
+
+再加上页面内链的预加载处理，无论你点击哪个页面，都是一种享受。
+
+## Lighthouse 评分
+
+<Img src={`${IMAGES}/${frontmatter.slug}/AstroPaper-lighthouse-score.webp`} alt="Lighthouse 评分" exif={false} caption={false} />
+
+下面就把新增的功能一一道来。
+
+## 分类路由支持
+
+Astro Paper 原生不支持平铺式 URL，也不能把文章进行分类：
+
+* https://lhasa.icu/posts/astro-paper-deployment/
+
+改进后:
+
+1. 文章可按分类（技术、生活、运动等）划分路由。
+2. 支持按年份归档，且不会影响已有 URL 访问。
+3. URL 更加简洁：
+* https://lhasa.icu/astro-paper-deployment/
+
+分类路由结构如下，可在`/src/pages/`中按需创建：
+
+```bash
+blog/
+  ├── _releases/
+  ├── examples/
+  ├── life/
+  │   ├── 2024/
+  │   └── 2025/
+  ├── sports/
+  │   ├── 2024/
+  │   └── 2025/
+  └── technology/
+      ├── 2024/
+      └── 2025/
+```
+
+## 路由中间件处理
+
+在不用 Artalk 评论系统的情况下，这个功能其实可有可无。但 Artalk 在路径识别上，存在很大的问题（带斜杠与不带斜杠会被视为不同页面），存在一定的隐患。
+
+* https://lhasa.icu/sports
+* https://lhasa.icu/sports/
+
+其实使用 Nginx 会更方便一些。
+
+```typescript
+import { defineMiddleware } from "astro:middleware";
+
+export const onRequest = defineMiddleware((context, next) => {
+  const url = context.url;
+  const pathname = url.pathname;
+  
+  const staticExtensions = [
+    '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico',
+    '.css', '.js', '.json', '.xml', '.txt', '.pdf',
+    '.woff', '.woff2', '.ttf', '.eot', '.otf'
+  ];
+  
+  const isStaticResource = staticExtensions.some(ext => 
+    pathname.toLowerCase().endsWith(ext)
+  );
+  
+  // 如果是静态资源，不处理尾部斜杠
+  if (isStaticResource) {
+    return next();
+  }
+  
+  // 如果URL不以斜杠结尾且不是根路径，则重定向到带斜杠的版本
+  if (pathname !== "/" && !pathname.endsWith("/")) {
+    const newUrl = new URL(pathname + "/" + url.search + url.hash, url.origin);
+    return Response.redirect(newUrl.toString(), 301);
+  }
+  
+  return next();
+}); 
+```
+
+## 运动数据可视化
+
+接入 Strava Riding Api 做了运动数据的可视化。
+
+1. 光标悬浮可切换月数据
+2. 点击日期可查看当天运动详情
+
+<Img src={`${IMAGES}/${frontmatter.slug}/sportsdonghua.webp`} alt="EasyFill·我的信息" exif={false} caption={false} />
+
+## EXIF 元数据显示
+
+借助腾讯云数据万象 API，默认自动启用。
+
+1. 参数为 Boolean 类型，false 可禁用
+2. 光标悬浮显示两秒
+3. 解析失败会自动生成合理参数并缓存
+
+```jsx
+import Img from "@/components/Img.astro";
+
+<Img src={`${IMAGES}/${frontmatter.slug}/20250524003018.jpg`} />
+```
+
+<Img src={`${IMAGES}/rain-ride-scarlet-maple/20250524003018.jpg`} alt="EXIF 示例" caption={false} />
+
+## 图片标签
+
+所有图片默认使用长标签，支持切换为短标签或禁用标签
+
+<Img src={`${IMAGES}/${frontmatter.slug}/20250530173339.jpg`} alt="义乌美术馆一角" />
+
+<Img src={`${IMAGES}/${frontmatter.slug}/20250530173339.jpg`} alt="义乌美术馆一角" caption="short" />
+
+若想在文章中启用 EXIF，需要将 .md 改为 .mdx，并引入组件：
+
+```jsx
+import Img from "@/components/Img.astro";
+
+<Img 
+  src={`${IMAGES}/${frontmatter.slug}/20250530173339.jpg`}
+  alt="义乌美术馆一角"
+  caption="short" // false 表示不显示
+/>
+```
+
+## 悬停提示（tooltip）效果
+
+图片的 title 属性不必声明，只要有 alt 属性，Img.astro 组件就会自动读取并渲染到页面中。
+
+## 数学公式支持
+
+通过 KaTeX 集成 支持了数学公式。纯静态渲染，无性能问题。示例：
+
+$$
+\text{骑行里程} = \text{均速} \times \text{时间}
+$$
+
+```bash
+$$
+\text{骑行里程} = \text{均速} \times \text{时间}
+$$
+```
+
+## Artalk 集成
+
+说到评论系统，首先感谢 Disqus PHP API 开源作者 Fooleap，感谢好大哥这些年来帮我在境外挂着接口...
+
+Artalk 官方提供了简单的配置文件，不过足够了
+
+```yml
+services:
+  artalk:
+    container_name: artalk
+    image: artalk/artalk-go
+    restart: unless-stopped
+    ports:
+      - 9998:23366
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Asia/Shanghai
+      - ATK_LOCALE=zh-CN
+      - ATK_SITE_DEFAULT=游钓四方的博客
+      - ATK_SITE_URL=https://lhasa.icu
+```
+
+创建容器运行 Artalk：
+
+```bash
+docker-compose up -d
+
+# 执行命令创建管理员账户
+docker exec -it artalk artalk admin
+```
+
+再使用 Nginx 反代 9998 端口就可以实现域名访问了。
+
+由于我是 Disqus 迁移过来的，需要把格式转换为 Artrans，然后再导入 Artalk。
+
+由于无缝刷新的存在，就单单评论来说，调试花了不少时间，踩了很多坑，这里还把 Artalk 随着主题变化适配了配色。
+
+```js
+<script is:inline data-astro-rerun>
+(function () {
+  // 单例模式存储 Artalk 实例
+  window.artalkInstance = window.artalkInstance || null;
+
+  const artalkConfig = {
+    el: "#Comments",
+    server: "https://artalk.lhasa.icu",
+    site: "游钓四方的博客",
+    pageKey: window.location.pathname,
+    vote: false,
+
+  };
+
+  function destroyArtalk() {
+    if (window.artalkInstance) {
+      try {
+        window.artalkInstance.destroy();
+        document
+          .querySelectorAll(".atk-sidebar, .atk-layer-wrap")
+          .forEach(el => el.remove());
+        window.artalkInstance = null;
+        console.log("Artalk 实例已销毁", window.location.pathname);
+      } catch (err) {
+        console.error("销毁失败:", err);
+      }
+    }
+  }
+
+  // 初始化 Artalk 实例
+  function initArtalk() {
+    const container = document.getElementById("Comments");
+    if (!container || container.querySelector(".atk-app")) return;
+
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+
+    artalkConfig.pageKey = window.location.pathname;
+    artalkConfig.darkMode = isDark;
+
+    window.artalkInstance = Artalk.init(artalkConfig);
+    console.log("Artalk 初始化完成", window.location.pathname);
+  }
+
+  function handleThemeChange() {
+    const themeBtn = document.querySelector("#theme-btn");
+    if (!themeBtn) return;
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName === "aria-label") {
+          const isDark =
+            mutation.target.getAttribute("aria-label") === "dark";
+          if (window.artalkInstance) {
+            window.artalkInstance.setDarkMode(isDark);
+          }
+        }
+      });
+    });
+
+    observer.observe(themeBtn, {
+      attributes: true,
+      attributeFilter: ["aria-label"],
+    });
+  }
+
+  function handlePageLoad() {
+    destroyArtalk();
+    initArtalk();
+    handleThemeChange();
+  }
+
+  function setupArtalk() {
+    if (window._artalkInitialized) return;
+    window._artalkInitialized = true;
+
+    document.addEventListener("astro:before-swap", destroyArtalk);
+    document.addEventListener("astro:after-swap", handlePageLoad);
+
+    if (document.readyState === "complete") {
+      handlePageLoad();
+    } else {
+      document.addEventListener("DOMContentLoaded", handlePageLoad);
+    }
+
+    // 监听主题
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", ({ matches }) => {
+        if (window.artalkInstance) {
+          window.artalkInstance.setDarkMode(matches);
+        }
+      });
+  }
+
+  setupArtalk();
+})();
+</script>
+```
+
+Artalk 自带的验证码不好用，这里强烈推荐 Cloudflare Turnstile。无感验证，很省心。
+
+在 Cloudflare 控制台主页可以看到 Turnstile，在填完域名后可以申请到`Site Key`和`Secret Key`。
+
+随后打开 Artalk 控制中心，填入相应参数后，`captcha_type`选择`turnstile`即可。
+
+## 本地开发
+
+纯净版 Astro Paper：
+
+```bash
+# pnpm
+pnpm create astro@latest --template satnaing/astro-paper
+
+# npm
+npm create astro@latest -- --template satnaing/astro-paper
+
+# yarn
+yarn create astro --template satnaing/astro-paper
+```
+
+或者直接使用我的扩展版本：
+
+```bash
+git clone https://github.com/achuanya/Blog.git
+```
+
+然后通过安装依赖启动开发环境
+
+```bash
+# 安装依赖
+pnpm install
+
+# 启动开发环境
+pnpm dev
+```
+
+## Docker 部署
+
+用于生产环境的 Docker 配置已经写好了，可以直接构建镜像。
+
+```bash
+# 构建生产镜像
+docker build -t astropaper .
+
+# 启动生产环境，端口为 4321
+docker run -p 4321:80 astropaper
+```
+
+配合 Nginx 反代：
+
+```nginx
+server {
+    listen 80;
+    server_name lhasa.icu;
+
+    # 404
+    error_page 404 /404.html;
+    location = /404.html {
+        root /home/github/Blog/dist;
+        internal;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:4321;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+不想折腾，建议安装宝塔Linux面板，随便点击几下，两分钟上线
+
+```bash
+if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ed8484bec
+```
+
+## Github + Vercel 部署
+
+ * https://vercel.com/templates/blog/astro-paper
+
+只需点击 Deploy 按钮，按提示一步步即可上线。
+
+
+## 下一步
+
+目前来说，还有很多地方没有完善，细节没有做到位：
+
+1. Strava Riding Api 还没有实现完全自动化，更新数据还是需要人工
+2. Img.astro 组件没有封装到位，还有细节需要把控
+3. Sports 在移动端时的表现还需要好好想想
+4. 给 Feeds 做个后台管理，先把头像显示问题解决了。当然，有邮箱最好
+5. 吃透 Astro Paper 无缝刷新机制
+
+## 参考文档
+
+- [Astro](https://docs.astro.build/)
+- [Artalk](https://artalk.js.org/zh/guide/deploy.html)
+- [博客源码](https://github.com/achuanya/Blog)
+- [Strava API](https://developers.strava.com/)
+- [Astro Paper](https://github.com/satnaing/astro-paper)
+- [Strava Riding Api](https://github.com/achuanya/Strava-Riding-Api)
+- [Cloudflare Turnstile](https://www.cloudflare.com/zh-cn/application-services/products/turnstile/)
