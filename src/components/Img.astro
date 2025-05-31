@@ -1,18 +1,34 @@
 ---
+// 声明全局常量类型
+declare const IMAGES: string;
+declare const EXIF: string;
+
 export interface Props {
   src: string;
   alt: string;
   class?: string;
   style?: string;
   caption?: false | 'long' | 'short';
-  exif?: string | false;
+  exif?: boolean;
   showExif?: boolean;
 }
 
-const { src, alt, class: className, style, caption = "long", exif, showExif = true } = Astro.props;
+const { src, alt, class: className, style, caption = "long", exif = true, showExif = true } = Astro.props;
 
 // 确定是否显示 EXIF
 const shouldShowExif = showExif && exif !== false;
+
+// 自动生成 EXIF URL：将 src 中的 IMAGES 替换为 EXIF
+const generateExifUrl = (imageSrc: string): string => {
+  // 如果 src 包含 IMAGES 路径，替换为 EXIF 路径
+  if (imageSrc.includes('https://cos.lhasa.icu/ArticlePictures')) {
+    return imageSrc.replace('https://cos.lhasa.icu/ArticlePictures', 'https://lhasa-1253887673.cos.ap-shanghai.myqcloud.com/ArticlePictures');
+  }
+  // 如果使用的是 IMAGES 常量，直接替换为 EXIF 常量
+  return imageSrc.replace(IMAGES, EXIF);
+};
+
+const exifUrl = shouldShowExif ? generateExifUrl(src) : undefined;
 ---
 
 <figure class={`img-container ${className || ''}`} style={style}>
@@ -23,7 +39,7 @@ const shouldShowExif = showExif && exif !== false;
       title={alt} 
       loading="lazy" 
       class="img-main" 
-      data-exif-url={shouldShowExif && typeof exif === 'string' ? exif + "?exif" : undefined}
+      data-exif-url={exifUrl ? exifUrl + "?exif" : undefined}
       data-show-exif={shouldShowExif}
     />
     {caption && (
