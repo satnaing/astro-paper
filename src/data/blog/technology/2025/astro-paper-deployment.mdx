@@ -396,6 +396,27 @@ if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_pa
 
 只需点击 Deploy 按钮，按提示一步步即可上线。
 
+## 相关命令
+
+| Command                              | Action                                                                                                                           |
+| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm install`                            | 安装依赖项                                                                                                                                                  |
+| `pnpm run dev`                            | 启动本地开发服务器，访问地址为 `localhost:4321`                                                                                                             |
+| `pnpm run build`                          | 将生产环境网站构建到 `./dist/` 目录                                                                                                                          |
+| `pnpm run preview`                        | 本地预览生产环境构建的站点，部署前检查效果                                                                                                                    |
+| `pnpm run format:check`                   | 使用 Prettier 检查代码格式                                                                                                                                    |
+| `pnpm run format`                         | 使用 Prettier 格式化代码                                                                                                                                     |
+| `pnpm run sync`                           | 为所有 Astro 模块生成 TypeScript 类型。 [了解更多](https://docs.astro.build/en/reference/cli-reference/#astro-sync)。                                         |
+| `pnpm run lint`                           | 使用 ESLint 进行代码检查                                                                                                                                     |
+| `docker compose up -d`                    | 使用 Docker 运行 AstroPaper，可通过 `dev` 命令中相同的主机名和端口进行访问                                                                                     |
+| `docker compose run app npm install`      | 在 Docker 容器中执行任意上述命令                                                                                                                              |
+| `docker build -t astropaper .`            | 为 AstroPaper 构建 Docker 镜像                                                                                                                                 |
+| `docker run -p 4321:80 astropaper`        | 在 Docker 中运行 AstroPaper。网站可通过 `http://localhost:4321` 访问                                                                                          |
+
+> **注意！**  
+> Windows PowerShell 用户如果想在开发期间运行诊断（例如 `astro check --watch & astro dev`），可能需要安装 [concurrently 包](https://www.npmjs.com/package/concurrently)。  
+> 更多信息请参考 [这个 issue](https://github.com/satnaing/astro-paper/issues/113)。
+
 
 ## 下一步
 
