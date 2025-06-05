@@ -1,0 +1,96 @@
+---
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+
+/*
+In #btt-btn-container, left position is `left-[calc((var(--container-3xl)/2)+50%+1rem)]`.
+This is because we use `max-w-3xl` in `PostDetails.astro`.
+If `max-width` in `PostDetails.astro` get updated, make sure to update the `var(--container-3xl)` as well.
+max-w-3xl => var(--container-3xl)
+max-w-4xl => var(--container-4xl)
+max-w-5xl => var(--container-5xl) 
+etc...
+*/
+---
+
+<div
+  id="btt-btn-container"
+  class:list={[
+    "fixed right-4 bottom-8 xl:right-auto xl:left-[calc((var(--container-3xl)/2)+50%+1rem)]",
+    "translate-y-14 opacity-0 transition-all duration-500",
+  ]}
+>
+  <button
+    data-button="back-to-top"
+    class:list={[
+      "group relative",
+      "size-14 rounded-full px-2 py-1 shadow-xl lg:h-8 lg:w-fit lg:rounded-md lg:shadow-none",
+      "bg-background lg:bg-transparent",
+    ]}
+  >
+    <span
+      id="progress-indicator"
+      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent lg:hidden lg:h-8 lg:rounded-md"
+    ></span>
+    <IconChevronLeft class="inline-block rotate-90 lg:hidden" />
+    <span
+      class="sr-only underline decoration-dashed decoration-2 underline-offset-4 group-hover:text-accent lg:not-sr-only"
+    >
+      <span class="text-xl" tabindex="0">&uarr;</span> Back To Top
+    </span>
+  </button>
+</div>
+
+<script is:inline data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script>
