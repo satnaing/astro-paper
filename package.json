@@ -2,6 +2,7 @@
   "name": "astro-paper",
   "type": "module",
   "version": "5.2.0",
+  "packageManager": "pnpm@10.11.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
