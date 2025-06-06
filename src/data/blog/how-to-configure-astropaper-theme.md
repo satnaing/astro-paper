@@ -170,6 +170,12 @@ export const SOCIALS = [
     linkTitle: `Send an email to ${SITE.title}`,
     icon: IconMail,
   },
+  {
+    name: "Bluesky",
+    href: "https://bsky.app/profile/username",
+    linkTitle: `${SITE.title} on Bluesky`,
+    icon: IconBluesky,
+  },
 ] as const;
 ```
 
