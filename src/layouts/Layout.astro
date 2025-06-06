@@ -68,7 +68,11 @@ const structuredData = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={socialImageURL} />
+    <meta
+      property="og:image"
+      content={socialImageURL}
+      data-pagefind-default-meta="image[content]"
+    />
 
     <!-- Article Published/Modified time -->
     {
