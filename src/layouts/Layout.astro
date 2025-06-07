@@ -1,9 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
-
-const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export interface Props {
   title?: string;
@@ -117,10 +116,10 @@ const structuredData = {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
       // include google-site-verification tag in the heading
       // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
-      googleSiteVerification && (
+      PUBLIC_GOOGLE_SITE_VERIFICATION && (
         <meta
           name="google-site-verification"
-          content={googleSiteVerification}
+          content={PUBLIC_GOOGLE_SITE_VERIFICATION}
         />
       )
     }
