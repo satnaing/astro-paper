@@ -14,11 +14,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.1",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.0.14",
-    "astro": "^5.5.2",
+    "astro": "^5.9.1",
     "dayjs": "^1.11.13",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",

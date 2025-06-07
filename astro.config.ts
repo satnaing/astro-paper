@@ -30,7 +30,7 @@ export default defineConfig({
   image: {
     // Used for all Markdown images; not configurable per-image
     // Used for all `<Image />` and `<Picture />` components unless overridden with a prop
-    experimentalLayout: "responsive",
+    experimentalLayout: "constrained",
   },
   env: {
     schema: {
@@ -42,7 +42,6 @@ export default defineConfig({
     },
   },
   experimental: {
-    svg: true,
     responsiveImages: true,
     preserveScriptOrder: true,
   },
