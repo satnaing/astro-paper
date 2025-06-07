@@ -67,6 +67,25 @@ window.onload = () => {
   document.addEventListener("astro:after-swap", setThemeFeature);
 };
 
+function simpleSetTheme(newDocument){
+
+  const bgColor = document
+    .querySelector("meta[name='theme-color']")
+    ?.getAttribute("content");
+
+  newDocument
+    .querySelector("meta[name='theme-color']")
+    ?.setAttribute("content", bgColor);
+
+}
+
+document.addEventListener('astro:before-swap', event => {
+
+  // Pass the incoming document to set the theme on it
+  simpleSetTheme(event.newDocument);
+
+})
+
 // sync with system changes
 window
   .matchMedia("(prefers-color-scheme: dark)")
