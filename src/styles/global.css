@@ -50,8 +50,12 @@ html[data-theme="dark"] {
   }
   section,
   footer {
-    @apply mx-auto max-w-3xl px-4;
+    @apply mx-auto max-w-app px-4;
   }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
 }
 
 .active-nav {
