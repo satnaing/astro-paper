@@ -1,6 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
+modDatetime: 2025-06-09T07:42:54.791Z
 title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
@@ -92,45 +93,36 @@ html[data-theme="dark"] {
   --muted: #343f60bf;
   --border: #ab4b08;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-}
 /* other styles */
 ```
 
-In AstroPaper theme, `:root` and `html[data-theme="light"]` selectors are used as the light color scheme and `html[data-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-theme="light"]` and dark color scheme inside `html[data-theme="dark"]`.
+In the AstroPaper theme, the `:root` and `html[data-theme="light"]` selectors define the light color scheme, while `html[data-theme="dark"]` defines the dark color scheme.
 
-Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of `rgb(40, 39, 40)`, only specify `40, 39, 40`)
+To customize your own color scheme, specify your light colors inside `:root, html[data-theme="light"]`, and your dark colors inside `html[data-theme="dark"]`.
 
 Here is the detail explanation of color properties.
 
-| Color Property       | Definition & Usage                                         |
-| -------------------- | ---------------------------------------------------------- |
-| `--color-background` | Primary color of the website. Usually the main background. |
-| `--color-foreground` | Secondary color of the website. Usually the text color.    |
-| `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-muted`      | Card and scrollbar background color for hover state etc.   |
-| `--color-border`     | Border color. Especially used in horizontal row (hr)       |
+| Color Property | Definition & Usage                                         |
+| -------------- | ---------------------------------------------------------- |
+| `--background` | Primary color of the website. Usually the main background. |
+| `--foreground` | Secondary color of the website. Usually the text color.    |
+| `--accent`     | Accent color of the website. Link color, hover color etc.  |
+| `--muted`      | Card and scrollbar background color for hover state etc.   |
+| `--border`     | Border color. Especially used in horizontal row (hr)       |
 
 Here is an example of changing the light color scheme.
 
 ```css
-@layer base {
-  /* lobster color scheme */
-  :root,
-  html[data-theme="light"] {
-    --background: #f6eee1;
-    --foreground: #012c56;
-    --accent: #e14a39;
-    --muted: #efd8b0;
-    --border: #dc9891;
-  }
+/* other styles */
+:root,
+html[data-theme="light"] {
+  --background: #f6eee1;
+  --foreground: #012c56;
+  --accent: #e14a39;
+  --muted: #efd8b0;
+  --border: #dc9891;
 }
+/* other styles */
 ```
 
 > Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.
