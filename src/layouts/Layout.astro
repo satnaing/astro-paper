@@ -48,7 +48,11 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang=`${SITE.lang ?? "en"}` class={`${scrollSmooth && "scroll-smooth"}`}>
+<html
+  dir={SITE.dir}
+  lang=`${SITE.lang ?? "en"}`
+  class={`${scrollSmooth && "scroll-smooth"}`}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
