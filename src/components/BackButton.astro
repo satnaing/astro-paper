@@ -6,9 +6,11 @@ import { SITE } from "@/config";
 
 {
   SITE.showBackButton && (
-    <div class="mx-auto flex w-full max-w-app items-center justify-start px-2">
+    <div
+      id="back-button"
+      class="mx-auto flex w-full max-w-app items-center justify-start px-2"
+    >
       <LinkButton
-        id="back-button"
         href="/"
         class="focus-outline mt-8 mb-2 flex hover:text-foreground/75"
       >
