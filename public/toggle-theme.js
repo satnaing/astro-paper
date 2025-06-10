@@ -67,6 +67,18 @@ window.onload = () => {
   document.addEventListener("astro:after-swap", setThemeFeature);
 };
 
+// Set theme-color value before page transition
+// to avoid navigation bar color flickering in Android dark mode
+document.addEventListener("astro:before-swap", event => {
+  const bgColor = document
+    .querySelector("meta[name='theme-color']")
+    ?.getAttribute("content");
+
+  event.newDocument
+    .querySelector("meta[name='theme-color']")
+    ?.setAttribute("content", bgColor);
+});
+
 // sync with system changes
 window
   .matchMedia("(prefers-color-scheme: dark)")
