@@ -46,7 +46,7 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
       const search = new PagefindUI({
         element: "#pagefind-search",
         showSubResults: true,
-        showImages: false,
+        showImages: true,
         processTerm: function (term: string) {
           params.set("q", term); // Update the `q` parameter in the URL
           history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading

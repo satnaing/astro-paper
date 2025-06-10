@@ -69,6 +69,19 @@ Here are SITE configuration options
 | `lang`                | Used as HTML ISO Language code in `<html lang"en">`. Default is `en`.                                                                                                                                                                                                                                                                                                                                                             |
 | `timezone`            | This option allows you to specify your timezone using the [IANA format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Setting this ensures consistent timestamps across your localhost and deployed site, eliminating time differences.                                                                                                                                                                          |
 
+## Update layout width
+
+The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd like to change it, you can easily update the `max-w-app` utility in your `src/styles/global.css` file:
+
+```css
+@utility max-w-app {
+  @apply max-w-4xl xl:max-w-5xl;
+  /* eg: max-w-4xl xl:max-w-5xl */
+}
+```
+
+You can explore more `max-width` values in the [Tailwind CSS docs](https://tailwindcss.com/docs/max-width).
+
 ## Configuring logo or title
 
 Prior to AstroPaper v5, you can update your site name/logo in `LOGO_IMAGE` object inside `src/config.ts` file. However, in AstroPaper v5, this option has been removed in favor of Astro's built-in SVG and Image components.
