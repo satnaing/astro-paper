@@ -110,17 +110,13 @@ const nextPost =
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
+    <ul class="mt-4 mb-8 sm:my-8">
+      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+    </ul>
+
     <BackToTopButton />
 
-    <div
-      class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-start sm:gap-8"
-    >
-      <ul class="self-start">
-        {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-      </ul>
-
-      <ShareLinks />
-    </div>
+    <ShareLinks />
 
     <hr class="my-6 border-dashed" />
 

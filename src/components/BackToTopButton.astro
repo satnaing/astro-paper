@@ -1,41 +1,33 @@
 ---
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-
-/*
-In #btt-btn-container, left position is `left-[calc((var(--container-3xl)/2)+50%+1rem)]`.
-This is because we use `max-w-3xl` in `PostDetails.astro`.
-If `max-width` in `PostDetails.astro` get updated, make sure to update the `var(--container-3xl)` as well.
-max-w-3xl => var(--container-3xl)
-max-w-4xl => var(--container-4xl)
-max-w-5xl => var(--container-5xl) 
-etc...
-*/
+import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
 ---
 
 <div
   id="btt-btn-container"
   class:list={[
-    "fixed right-4 bottom-8 xl:right-auto xl:left-[calc((var(--container-3xl)/2)+50%+1rem)]",
-    "translate-y-14 opacity-0 transition-all duration-500",
+    "fixed right-4 bottom-8 z-50",
+    "md:sticky md:right-auto md:float-end md:mr-1",
+    "translate-y-14 opacity-0 transition duration-500",
   ]}
 >
   <button
     data-button="back-to-top"
     class:list={[
-      "group relative",
-      "size-14 rounded-full px-2 py-1 shadow-xl lg:h-8 lg:w-fit lg:rounded-md lg:shadow-none",
-      "bg-background lg:bg-transparent",
+      "group relative bg-background px-2 py-1",
+      "size-14 rounded-full shadow-xl",
+      "md:h-8 md:w-fit md:rounded-md md:shadow-none",
+      "md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg",
     ]}
   >
     <span
       id="progress-indicator"
-      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent lg:hidden lg:h-8 lg:rounded-md"
+      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"
     ></span>
-    <IconChevronLeft class="inline-block rotate-90 lg:hidden" />
-    <span
-      class="sr-only underline decoration-dashed decoration-2 underline-offset-4 group-hover:text-accent lg:not-sr-only"
-    >
-      <span class="text-xl" tabindex="0">&uarr;</span> Back To Top
+    <IconChevronLeft class="inline-block rotate-90 md:hidden" />
+    <span class="sr-only text-sm group-hover:text-accent md:not-sr-only">
+      <IconArrowNarrowUp class="inline-block size-4" />
+      Back To Top
     </span>
   </button>
 </div>
