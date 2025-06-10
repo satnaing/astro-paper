@@ -5,7 +5,7 @@ modDatetime: 2024-01-04T09:09:06Z
 title: Predefined color schemes
 slug: predefined-color-schemes
 featured: false
-draft: false
+draft: true
 tags:
   - color-schemes
 description:
