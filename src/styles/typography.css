@@ -23,21 +23,34 @@
       padding-inline-start: 0.5714286em !important;
     }
   }
-  .prose details {
-    @apply inline-block cursor-pointer text-foreground select-none;
-  }
-  .prose summary {
-    @apply focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent focus-visible:outline-dashed;
-  }
-  .prose h2#table-of-contents + p {
-    @apply hidden;
-  }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
-  pre:has(code) {
-    @apply border border-border;
+  .astro-code {
+    @apply border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
   }
 
+  html[data-theme="dark"] .astro-code {
+    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+  }
+
+  /* Styles for Shiki transformers */
+  /* https://shiki.style/packages/transformers */
+  .astro-code {
+    .line.diff.add {
+      @apply relative *:bg-green-500/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
+    }
+    .line.diff.remove {
+      @apply relative *:bg-red-500/30 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+    }
+    .line.highlighted {
+      @apply *:!bg-slate-400/20;
+    }
+    .highlighted-word {
+      @apply rounded-sm border border-border px-0.5 py-px;
+    }
+  }
+
+  /* Break words in code and blockqoute */
   .prose code,
   .prose blockquote {
     @apply break-words;
@@ -46,19 +59,5 @@
   .prose table code {
     /* add line breaks whenever necessary for codes under table */
     @apply break-all sm:break-normal;
-  }
-
-  pre > code {
-    white-space: pre;
-  }
-
-  /* Apply Dark Theme (if multi-theme specified) */
-  html[data-theme="dark"] pre:has(code),
-  html[data-theme="dark"] pre:has(code) span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 }
