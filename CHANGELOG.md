@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.3.0 (2025-06-11)
+
+### Feat
+
+- improve back-to-top button behavior (#520)(#527)
+
+### Fix
+
+- navigation flicker on Android when in dark mode (#494)
+- add scroll offset for anchor targets (#506)
+- add types for constants to avoid type errors when empty (#501)
+- update heading alignment and font-size (#473)
+
+### Refactor
+
+- extract redundant max-width into utility (#525)
+- use new astro env (#507)
+
 ## v5.2.0 (2025-03-22)
 
 ### Feat
