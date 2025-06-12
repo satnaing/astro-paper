@@ -117,7 +117,7 @@ window
   .addEventListener("change", ({ matches: isDark }) => {
     // 只有当用户没有手动设置主题且当前不在夜间时间段时，才根据系统变化同步
     if (!isUserPreferenceSet() && !shouldUseDarkThemeByTime()) {
-      themeValue = isDark ? "dark" : "light";
+    themeValue = isDark ? "dark" : "light";
       setPreference(false); // 系统同步不标记为用户手动设置
     }
   });

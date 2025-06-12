@@ -1,0 +1,124 @@
+---
+author: 游钓四方
+draft: false
+featured: true
+category: technology
+pubDatetime: 2025-06-13T02:03+08:00
+title: 博客功能更新-2025(3)：智能主题切换
+slug: BlogFunctionUpdate2025(3)
+ogImage: https://cos.lhasa.icu/StylePictures/update.webp
+tags:
+  - 功能更新
+  - Astro
+  - JavaScript
+
+description: ...
+---
+
+> 6月13日
+
+### 智能主题切换
+
+现在，博客将根据本地时间自动调整主题，体验会好一些（我更喜欢深色）
+
+* 夜间模式：每天傍晚 6 点至次日清晨 7 点，自动切换到的深色模式（dark）
+
+* 日间模式：其他时间则恢复为明亮的浅色模式（light）
+
+* 系统适配：如果电脑系统为深色主题，博客会一直保持深色模式（在不进行人工干预的情况下）
+
+* 自行选择：如果手动设置了主题，系统会记住偏好，不再自动切换
+
+<details>
+<summary>public/toggle-theme.js</summary>
+```javascript
+// ...
+
+// Get theme data from local storage
+const currentTheme = localStorage.getItem("theme");
+const userManuallySetTheme = localStorage.getItem("userSetTheme") === "true";
+
+// 检查是否应该根据时间自动使用深色主题
+function shouldUseDarkThemeByTime() {
+  const now = new Date();
+  const hour = now.getHours();
+  // 晚上6点(18:00)到早上7点(07:00)之间使用深色主题
+  return hour >= 18 || hour < 7;
+}
+
+// 检查用户是否手动设置过主题
+function isUserPreferenceSet() {
+  return userManuallySetTheme;
+}
+
+function getPreferTheme() {
+  // 1. 如果用户手动设置过主题，优先使用用户设置
+  if (isUserPreferenceSet() && currentTheme) return currentTheme;
+
+  // 2. 如果没有手动设置，检查是否应该根据时间使用深色主题
+  if (shouldUseDarkThemeByTime()) return "dark";
+
+  // 3. 如果有主题方案设置，使用设置的方案
+  if (primaryColorScheme) return primaryColorScheme;
+
+  // 4. 最后使用用户设备的颜色方案偏好
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+let themeValue = getPreferTheme();
+
+function setPreference(userManualSet = false) {
+  localStorage.setItem("theme", themeValue);
+  
+  // 只有用户手动设置时才标记
+  if (userManualSet) {
+    localStorage.setItem("userSetTheme", "true");
+  }
+  
+  reflectPreference();
+}
+
+window.onload = () => {
+  // ...
+
+  // 用户点击按钮切换主题，标记为用户手动设置
+  document.querySelector("#theme-btn")?.addEventListener("click", () => {
+    themeValue = themeValue === "light" ? "dark" : "light";
+    setPreference(true);
+  });
+  
+  // 如果用户没有手动设置主题，添加定时器检查时间变化
+  if (!isUserPreferenceSet()) {
+    const autoThemeChecker = () => {
+      const shouldBeDark = shouldUseDarkThemeByTime();
+      const currentThemeOnPage = document.firstElementChild.getAttribute("data-theme");
+
+      if (shouldBeDark && currentThemeOnPage === "light") {
+        themeValue = "dark";
+        setPreference(false);
+      } else if (!shouldBeDark && currentThemeOnPage === "dark") {
+        themeValue = "light";
+        setPreference(false);
+      }
+    };
+    
+    autoThemeChecker();
+    setInterval(autoThemeChecker, 60000); // 每分钟检查一次
+  }
+};
+
+// 根据系统颜色方案变化
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", ({ matches: isDark }) => {
+    if (!isUserPreferenceSet() && !shouldUseDarkThemeByTime()) {
+      themeValue = isDark ? "dark" : "light";
+      setPreference(false);
+    }
+  });
+
+// ...
+```
+</details>
