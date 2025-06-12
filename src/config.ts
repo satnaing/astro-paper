@@ -5,6 +5,8 @@ export const SITE = {
   desc: "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐、野生程序员、独立开发者",
   title: "lhasa's Blog",
   ogImage: "https://cos.lhasa.icu/StylePictures/my-photo.jpg",
+  notFoundImage: "https://cos.lhasa.icu/StylePictures/404.gif",
+  notFoundStaticImage: "https://cos.lhasa.icu/StylePictures/404.webp",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,

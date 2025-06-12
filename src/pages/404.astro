@@ -8,14 +8,25 @@ import { SITE } from "@/config";
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
-
   <main
     id="main-content"
     class="mx-auto flex max-w-3xl flex-1 items-center justify-center"
   >
     <div class="mb-14 flex flex-col items-center justify-center">
-      <h1 class="text-9xl font-bold text-accent">404</h1>
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
+      <div id="image-container" class="relative w-[350px] h-[350px]">
+        <img 
+          id="static-image"
+          src={SITE.notFoundStaticImage} 
+          alt="404 Not Found" 
+          class="w-full h-full object-contain absolute top-0 left-0 z-10"
+        />
+        <img 
+          id="animated-image"
+          src={SITE.notFoundImage} 
+          alt="404 Not Found" 
+          class="w-full h-full object-contain absolute top-0 left-0 hidden"
+        />
+      </div>
       <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
       <LinkButton
         href="/"
@@ -25,6 +36,28 @@ import { SITE } from "@/config";
       </LinkButton>
     </div>
   </main>
-
   <Footer />
 </Layout>
+
+<script>
+  // 等待DOM加载完成
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("image-container");
+    const staticImage = document.getElementById("static-image");
+    const animatedImage = document.getElementById("animated-image");
+
+    if (!container || !staticImage || !animatedImage) return;
+
+    // 鼠标悬停时显示动画
+    container.addEventListener("mouseenter", () => {
+      staticImage.style.display = "none";
+      animatedImage.classList.remove("hidden");
+    });
+
+    // 鼠标离开时显示静态图片
+    container.addEventListener("mouseleave", () => {
+      staticImage.style.display = "block";
+      animatedImage.classList.add("hidden");
+    });
+  });
+</script>
