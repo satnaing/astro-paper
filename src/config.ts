@@ -2,7 +2,7 @@ export const SITE = {
   website: "https://lhasa.icu/",
   author: "游钓四方",
   profile: "https://lhasa.icu/",
-  desc: "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐、茶叶爱好者",
+  desc: "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐、野生程序员、独立开发者",
   title: "lhasa's Blog",
   ogImage: "https://cos.lhasa.icu/StylePictures/my-photo.jpg",
   lightAndDarkMode: true,

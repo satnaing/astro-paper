@@ -1,7 +1,7 @@
 {
   "name": "lhasa's Blog",
   "short_name": "lhasa's Blog",
-  "description": "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐、茶叶爱好者",
+  "description": "千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐爱好者、野生程序员、独立开发者",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -18,7 +18,7 @@
       "type": "image/svg+xml"
     }
   ],
-  "categories": ["blog", "technology", "sports", "lifestyle"],
+  "categories": ["blog", "technology", "sports", "life"],
   "lang": "zh-CN",
   "orientation": "portrait-primary"
 } 
