@@ -143,7 +143,7 @@ html[data-theme="dark"] {
   #calendar,
   .sports {
     width: 100%;
-    max-width: 600px;
+    max-width: 300px;
     text-align: center;
   }
   
