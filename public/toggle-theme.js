@@ -2,15 +2,32 @@ const primaryColorScheme = ""; // "light" | "dark"
 
 // Get theme data from local storage
 const currentTheme = localStorage.getItem("theme");
+const userManuallySetTheme = localStorage.getItem("userSetTheme") === "true";
+
+// 检查是否应该根据时间自动使用深色主题
+function shouldUseDarkThemeByTime() {
+  const now = new Date();
+  const hour = now.getHours();
+  // 晚上6点(18:00)到早上7点(07:00)之间使用深色主题
+  return hour >= 18 || hour < 7;
+}
+
+// 检查用户是否手动设置过主题（如果手动设置过，时间规则将不生效）
+function isUserPreferenceSet() {
+  return userManuallySetTheme;
+}
 
 function getPreferTheme() {
-  // return theme value in local storage if it is set
-  if (currentTheme) return currentTheme;
+  // 如果用户手动设置过主题，优先使用用户设置
+  if (userManuallySetTheme && currentTheme) return currentTheme;
 
-  // return primary color scheme if it is set
+  // 如果没有手动设置，检查是否应该根据时间使用深色主题
+  if (shouldUseDarkThemeByTime() && !isUserPreferenceSet()) return "dark";
+
+  // 如果有主题方案设置，使用设置的方案
   if (primaryColorScheme) return primaryColorScheme;
 
-  // return user device's prefer color scheme
+  // 最后使用用户设备的颜色方案偏好
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
@@ -18,8 +35,14 @@ function getPreferTheme() {
 
 let themeValue = getPreferTheme();
 
-function setPreference() {
+function setPreference(userManualSet = false) {
   localStorage.setItem("theme", themeValue);
+  
+  // 只有用户手动设置时才标记为用户设置
+  if (userManualSet) {
+    localStorage.setItem("userSetTheme", "true");
+  }
+  
   reflectPreference();
 }
 
@@ -57,7 +80,7 @@ window.onload = () => {
     // now this script can find and listen for clicks on the control
     document.querySelector("#theme-btn")?.addEventListener("click", () => {
       themeValue = themeValue === "light" ? "dark" : "light";
-      setPreference();
+      setPreference(true); // 用户点击按钮切换主题，标记为用户手动设置
     });
   }
 
@@ -65,12 +88,36 @@ window.onload = () => {
 
   // Runs on view transitions navigation
   document.addEventListener("astro:after-swap", setThemeFeature);
+  
+  // 如果用户没有手动设置主题，添加定时器检查时间变化
+  if (!isUserPreferenceSet()) {
+    // 自动检查时间变化
+    const autoThemeChecker = () => {
+      const shouldBeDark = shouldUseDarkThemeByTime();
+      if (shouldBeDark && themeValue === "light") {
+        themeValue = "dark";
+        setPreference(false); // 自动切换不标记为用户手动设置
+      } else if (!shouldBeDark && themeValue === "dark") {
+        themeValue = "light";
+        setPreference(false); // 自动切换不标记为用户手动设置
+      }
+    };
+    
+    // 立即执行一次检查
+    autoThemeChecker();
+    
+    // 设置每分钟检查一次时间
+    setInterval(autoThemeChecker, 60000);
+  }
 };
 
 // sync with system changes
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", ({ matches: isDark }) => {
-    themeValue = isDark ? "dark" : "light";
-    setPreference();
+    // 只有当用户没有手动设置主题且当前不在夜间时间段时，才根据系统变化同步
+    if (!isUserPreferenceSet() && !shouldUseDarkThemeByTime()) {
+      themeValue = isDark ? "dark" : "light";
+      setPreference(false); // 系统同步不标记为用户手动设置
+    }
   });
