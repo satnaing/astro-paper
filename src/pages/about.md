@@ -23,7 +23,7 @@ title: "About"
 - 2024-01-23 Tencent Cloud 购入域名 lhasa.icu，博客更名：游钓四方的博客
 - 2024-01-31 CSS、JS 和 Images 转移到 Tencent Cloud COS
 - 2024-01-31 完成域名备案，并由 Tencent Cloud CDN 进行全球加速
-- 2024-02-06 引入 Disqus 评论系统，由洛杉矶 VPS，Ningx 反向代理
+- 2024-02-06 引入 Disqus 评论系统，由洛杉矶 VPS，Nginx 反向代理
 - 2024-02-11 CSS 和 JS 由 WebPack 打包，字体进行了分包处理
 - 2024-07-22 Tencent Cloud COS 再套一层 CDN 进行境内加速
 - 2025-05-25 舍弃 Jekyll 架构，Fork Astro Paper
