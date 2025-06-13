@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
-modDatetime: 2025-06-09T07:42:54.791Z
+modDatetime: 2025-06-13T16:46:34.155Z
 title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
@@ -19,19 +19,31 @@ This post will explain how you can enable/disable light & dark mode for the webs
 
 ## Enable/disable light & dark mode
 
-AstroPaper theme will include light and dark mode by default. In other words, there will be two color schemes\_ one for light mode and another for dark mode. This default behavior can be disabled in SITE configuration object of the `src/config.ts` file.
+AstroPaper theme will include light and dark mode by default. In other words, there will be two color schemes\_ one for light mode and another for dark mode. This default behavior can be disabled in `SITE` configuration object.
 
-```js
-// file: src/config.ts
+```js file="src/config.ts"
 export const SITE = {
-  website: "https://astro-paper.pages.dev/",
+  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
   author: "Sat Naing",
+  profile: "https://satnaing.dev/",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
   title: "AstroPaper",
   ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true, // true by default
-  postPerPage: 3,
-};
+  lightAndDarkMode: true, // [!code highlight]
+  postPerIndex: 4,
+  postPerPage: 4,
+  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  showArchives: true,
+  showBackButton: true, // show back button in post detail
+  editPost: {
+    enabled: true,
+    text: "Suggest Changes",
+    url: "https://github.com/satnaing/astro-paper/edit/main/",
+  },
+  dynamicOgImage: true,
+  lang: "en", // html lang code. Set this empty and default will be "en"
+  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+} as const;
 ```
 
 To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
@@ -40,16 +52,15 @@ To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
 
 By default, if we disable `SITE.lightAndDarkMode`, we will only get system's prefers-color-scheme.
 
-Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the primaryColorScheme variable inside `public/toggle-theme.js`.
+Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the `primaryColorScheme` variable inside `toggle-theme.js`.
 
-```js
-/* file: public/toggle-theme.js */
-const primaryColorScheme = ""; // "light" | "dark"
+```js file="public/toggle-theme.js"
+const primaryColorScheme = ""; // "light" | "dark" // [!code hl]
 
 // Get theme data from local storage
 const currentTheme = localStorage.getItem("theme");
 
-// other codes etc...
+// ...
 ```
 
 The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
@@ -58,20 +69,16 @@ The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. Y
 - `"light"` - use light mode as primary color scheme.
 - `"dark"` - use dark mode as primary color scheme.
 
-<details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
-
-> To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
-
-[Click here](https://docs.astro.build/en/reference/directives-reference/#isinline) to know more about Astro's `is:inline` script.
-
+<details>
+<summary>Why primaryColorScheme' is not inside config.ts?</summary>
+To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
 </details>
 
 ## Customize color schemes
 
-Both light & dark color schemes of AstroPaper theme can be customized. You can do this in `src/styles/global.css` file.
+Both light & dark color schemes of AstroPaper theme can be customized in the `global.css` file.
 
-```css
-/* file: src/styles/global.css */
+```css file="src/styles/global.css"
 @import "tailwindcss";
 @import "./typography.css";
 
@@ -93,7 +100,7 @@ html[data-theme="dark"] {
   --muted: #343f60bf;
   --border: #ab4b08;
 }
-/* other styles */
+/* ... */
 ```
 
 In the AstroPaper theme, the `:root` and `html[data-theme="light"]` selectors define the light color scheme, while `html[data-theme="dark"]` defines the dark color scheme.
@@ -112,8 +119,8 @@ Here is the detail explanation of color properties.
 
 Here is an example of changing the light color scheme.
 
-```css
-/* other styles */
+```css file="src/styles/global.css"
+/* ... */
 :root,
 html[data-theme="light"] {
   --background: #f6eee1;
@@ -122,7 +129,7 @@ html[data-theme="light"] {
   --muted: #efd8b0;
   --border: #dc9891;
 }
-/* other styles */
+/* ... */
 ```
 
 > Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.

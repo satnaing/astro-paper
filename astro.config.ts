@@ -3,12 +3,13 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
-import { SITE } from "./src/config";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
+import { transformerFileName } from "./src/utils/transformers/fileName";
+import { SITE } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,9 +27,10 @@ export default defineConfig({
       defaultColor: false,
       wrap: false,
       transformers: [
-        transformerNotationDiff({ matchAlgorithm: "v3" }),
+        transformerFileName(),
         transformerNotationHighlight(),
         transformerNotationWordHighlight(),
+        transformerNotationDiff({ matchAlgorithm: "v3" }),
       ],
     },
   },

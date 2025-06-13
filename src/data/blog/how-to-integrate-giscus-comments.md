@@ -75,9 +75,9 @@ You should now have a script tag that looks like this:
 ></script>
 ```
 
-Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `src/layouts/PostDetails.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post on:` buttons.
+Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `PostDetails.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post on:` buttons.
 
-```astro
+```astro file=src/layouts/PostDetails.astro
 <Layout {...layoutProps}>
   <main>
     <ShareLinks />
@@ -108,7 +108,7 @@ npm i @giscus/react && npx astro add react
 
 Then we create a new `Comments.tsx` React component in `src/components`:
 
-```tsx
+```tsx file=src/components/Comments.tsx
 import Giscus, { type Theme } from "@giscus/react";
 import { GISCUS } from "@/constants";
 import { useEffect, useState } from "react";
@@ -164,9 +164,9 @@ export default function Comments({
 
 This _React_ component not only wraps the native _Giscus_ component, but also introduces additional props, namely `lightTheme` and `darkTheme`. Leveraging two event listeners, the _Giscus_ comments will align with the site's theme, dynamically switching between dark and light themes whenever the site or browser theme is changed.
 
-We also need to define the `GISCUS` config, for which the optimal location is in `src/constants.ts`:
+We also need to define the `GISCUS` config, for which the optimal location is in `constants.ts`:
 
-```ts
+```ts file=src/constants.ts
 import type { GiscusProps } from "@giscus/react";
 
 ...
@@ -187,9 +187,9 @@ export const GISCUS: GiscusProps = {
 
 Note that specifying a `theme` here will override the `lightTheme` and `darkTheme` props, resulting in a static theme setting, similar to the previous approach of embedding _Giscus_ with the `<script>` tag.
 
-To complete the process, add the new Comments component to `src/layouts/PostDetails.astro` (replacing the `script` tag from the previous step).
+To complete the process, add the new Comments component to `PostDetails.astro` (replacing the `script` tag from the previous step).
 
-```jsx
+```jsx file=src/layouts/PostDetails.astro
 // [!code ++:1]
 import Comments from "@/components/Comments";
 
