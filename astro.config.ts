@@ -4,6 +4,11 @@ import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import { SITE } from "./src/config";
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from "@shikijs/transformers";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +23,13 @@ export default defineConfig({
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
-      wrap: true,
+      defaultColor: false,
+      wrap: false,
+      transformers: [
+        transformerNotationDiff({ matchAlgorithm: "v3" }),
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+      ],
     },
   },
   vite: {
