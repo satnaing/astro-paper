@@ -44,8 +44,8 @@ If you don’t want subdirectories to affect the post URL, just prefix the folde
 src/data/blog/very-first-post.md          -> mysite.com/posts/very-first-post
 src/data/blog/2025/example-post.md        -> mysite.com/posts/2025/example-post
 src/data/blog/_2026/another-post.md       -> mysite.com/posts/another-post
-src/data/blog/docs/_legacy/how-to.md      -> mysite.com/docs/how-to
-src/data/blog/Example Dir/Dummy Post.md   -> mysite.com/example-dir/dummy-post
+src/data/blog/docs/_legacy/how-to.md      -> mysite.com/posts/docs/how-to
+src/data/blog/Example Dir/Dummy Post.md   -> mysite.com/posts/example-dir/dummy-post
 ```
 
 > 💡 Tip: You can override a blog post’s slug in the frontmatter as well. See the next section for more details.
@@ -91,6 +91,7 @@ If you omit `tags` in a blog post (in other words, if no tag is specified), the 
 export const blogSchema = z.object({
   // ---
   draft: z.boolean().optional(),
+  // [!code highlight:1]
   tags: z.array(z.string()).default(["others"]), // replace "others" with whatever you want
   // ---
 });
@@ -128,6 +129,7 @@ Write `Table of contents` in h2 format (## in markdown) and place it where you w
 
 For instance, if you want to place your table of contents just under the intro paragraph (like I usually do), you can do that in the following way.
 
+<!-- prettier-ignore-start -->
 ```md
 ---
 # some frontmatter
@@ -135,10 +137,12 @@ For instance, if you want to place your table of contents just under the intro p
 
 Here are some recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
 
+<!-- [!code ++] -->
 ## Table of contents
 
 <!-- the rest of the post -->
 ```
+<!-- prettier-ignore-end -->
 
 ## Headings
 
