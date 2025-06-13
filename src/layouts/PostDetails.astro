@@ -132,7 +132,7 @@ const nextPost =
             href={getPath(prevPost.id, prevPost.filePath)}
             class="flex w-full gap-1 hover:opacity-75"
           >
-            <IconChevronLeft class="inline-block flex-none" />
+            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
               <span>Previous Post</span>
               <div class="text-sm text-accent/85">{prevPost.title}</div>
@@ -144,13 +144,13 @@ const nextPost =
         nextPost && (
           <a
             href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
             <div>
               <span>Next Post</span>
               <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
-            <IconChevronRight class="inline-block flex-none" />
+            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
           </a>
         )
       }
@@ -211,7 +211,7 @@ const nextPost =
       heading.classList.add("group");
       const link = document.createElement("a");
       link.className =
-        "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
+        "heading-link ms-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
       link.href = "#" + heading.id;
 
       const span = document.createElement("span");
@@ -235,7 +235,7 @@ const nextPost =
 
       const copyButton = document.createElement("button");
       copyButton.className =
-        "copy-code absolute right-3 -top-3 rounded bg-muted px-2 py-1 text-xs leading-4 text-foreground font-medium";
+        "copy-code absolute end-3 -top-3 rounded bg-muted px-2 py-1 text-xs leading-4 text-foreground font-medium";
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);

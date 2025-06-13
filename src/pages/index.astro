@@ -37,7 +37,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         <IconRss
           width={20}
           height={20}
-          class="scale-125 stroke-accent stroke-3"
+          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
         />
         <span class="sr-only">RSS Feed</span>
       </a>
@@ -61,7 +61,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
           <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
             <Socials />
           </div>
         )
@@ -103,7 +103,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     <div class="my-8 text-center">
       <LinkButton href="/posts/">
         All Posts
-        <IconArrowRight class="inline-block" />
+        <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
   </main>
