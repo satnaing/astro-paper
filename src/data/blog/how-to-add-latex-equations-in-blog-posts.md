@@ -43,15 +43,15 @@ In this section, you will find instructions on how to add support for LaTeX in y
      // other configs
      markdown: {
        remarkPlugins: [
-         remarkMath, // <- new plugin
+         remarkMath, // [!code ++]
          remarkToc,
          [remarkCollapse, { test: "Table of contents" }],
        ],
-       rehypePlugins: [rehypeKatex], // <- new plugin
+       rehypePlugins: [rehypeKatex], // [!code ++]
        shikiConfig: {
          // For more themes, visit https://shiki.style/themes
          themes: { light: "min-light", dark: "night-owl" },
-         wrap: true,
+         wrap: false,
        },
      },
      // other configs
@@ -71,6 +71,7 @@ In this section, you will find instructions on how to add support for LaTeX in y
    <!-- others... -->
    <script is:inline src="/toggle-theme.js"></script>
 
+   <!-- [!code highlight:4] -->
    <link
      rel="stylesheet"
      href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
@@ -90,6 +91,7 @@ In this section, you will find instructions on how to add support for LaTeX in y
      /* other classes */
 
      /* Katex text color */
+     /* [!code highlight:3] */
      .prose .katex-display {
        @apply text-foreground;
      }

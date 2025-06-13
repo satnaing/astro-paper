@@ -77,18 +77,18 @@ You should now have a script tag that looks like this:
 
 Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `src/layouts/PostDetails.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post on:` buttons.
 
-```diff
-      <ShareLinks />
-    </div>
+```astro
+<Layout {...layoutProps}>
+  <main>
+    <ShareLinks />
 
-+    <script src="https://giscus.app/client.js"
-+        data-repo="[ENTER REPO HERE]"
-+        data-repo-id="[ENTER REPO ID HERE]"
-+        data-category="[ENTER CATEGORY NAME HERE]"
-+        data-category-id="[ENTER CATEGORY ID HERE]"
-+        ...
-+    </script>
-
+    <!-- [!code ++:6] -->
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="[ENTER REPO HERE]"
+      data-repo-id="[ENTER REPO ID HERE]"
+      data-category="[ENTER CATEGORY NAME HERE]"
+      data-category-id="[ENTER CATEGORY ID HERE]"></script>
   </main>
   <Footer />
 </Layout>
@@ -189,19 +189,18 @@ Note that specifying a `theme` here will override the `lightTheme` and `darkThem
 
 To complete the process, add the new Comments component to `src/layouts/PostDetails.astro` (replacing the `script` tag from the previous step).
 
-```diff
-+ import Comments from "@/components/Comments";
+```jsx
+// [!code ++:1]
+import Comments from "@/components/Comments";
 
-      <ShareLinks />
-    </div>
+<ShareLinks />
 
-+   <Comments client:only="react" />
+// [!code ++:1]
+<Comments client:only="react" />
 
-    <hr class="my-6 border-dashed" />
+<hr class="my-6 border-dashed" />
 
-  </main>
-  <Footer />
-</Layout>
+<Footer />
 ```
 
 And that's it!

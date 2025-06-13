@@ -142,15 +142,15 @@ To allow Astro to compile the markdown and do its thing, it needs to know what i
 
 To allow the key to be there with no value we need to edit line 10 to add the `.nullable()` function.
 
-```typescript
+```ts
 const blog = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
       pubDatetime: z.date(),
--     modDatetime: z.date().optional(),
-+     modDatetime: z.date().optional().nullable(),
+      modDatetime: z.date().optional(), // [!code --]
+      modDatetime: z.date().optional().nullable(), // [!code ++]
       title: z.string(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),
@@ -167,25 +167,23 @@ To stop the IDE complaining in the blog engine files I have also done the follow
 
 1. added `| null` to line 15 in `src/layouts/Layout.astro` so that it looks like
 
-```typescript
-export interface Props {
-  title?: string;
-  author?: string;
-  description?: string;
-  ogImage?: string;
-  canonicalURL?: string;
-  pubDatetime?: Date;
-  modDatetime?: Date | null;
-}
-```
-
-<!-- This needs to be 2 as it doesn't pick it up with the code block -->
+   ```typescript
+   export interface Props {
+     title?: string;
+     author?: string;
+     description?: string;
+     ogImage?: string;
+     canonicalURL?: string;
+     pubDatetime?: Date;
+     modDatetime?: Date | null;
+   }
+   ```
 
 2. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
 
-```typescript
-interface DatetimesProps {
-  pubDatetime: string | Date;
-  modDatetime: string | Date | undefined | null;
-}
-```
+   ```typescript
+   interface DatetimesProps {
+     pubDatetime: string | Date;
+     modDatetime: string | Date | undefined | null;
+   }
+   ```
