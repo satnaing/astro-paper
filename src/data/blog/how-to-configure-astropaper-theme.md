@@ -22,8 +22,7 @@ The important configurations resides in `src/config.ts` file. Within that file, 
 
 During development, it's okay to leave `SITE.website` empty. But in production mode, you should specify your deployed url in `SITE.website` option since this will be used for canonical URL, social card URL etc.. which are important for SEO.
 
-```js
-// file: src/config.ts
+```js file=src/config.ts
 export const SITE = {
   website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
   author: "Sat Naing",
@@ -73,12 +72,14 @@ Here are SITE configuration options
 
 ## Update layout width
 
-The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd like to change it, you can easily update the `max-w-app` utility in your `src/styles/global.css` file:
+The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd like to change it, you can easily update the `max-w-app` utility in your `global.css`. For instance:
 
-```css
+```css file=src/styles/global.css
 @utility max-w-app {
+  /* [!code --:1] */
+  @apply max-w-3xl;
+  /* [!code ++:1] */
   @apply max-w-4xl xl:max-w-5xl;
-  /* eg: max-w-4xl xl:max-w-5xl */
 }
 ```
 
@@ -101,11 +102,11 @@ This is the easiest option. You just have to update `SITE.title` in `src/config.
 You might want to use this option if you want to use an SVG logo.
 
 - First add an SVG inside `src/assets` directory. (eg: `src/assets/dummy-logo.svg`)
-- Then import that SVG inside `src/components/Header.astro`
+- Then import that SVG inside `Header.astro`
 
-  ```astro
+  ```astro file=src/components/Header.astro
   ---
-  // other imports
+  // ...
   import DummyLogo from "@/assets/dummy-logo.svg";
   ---
   ```
@@ -129,11 +130,11 @@ The best part of this approach is that you can customize your SVG styles as need
 If your logo is an image but not SVG, you can use Astro's Image component.
 
 - Add your logo inside `src/assets` directory. (eg: `src/assets/dummy-logo.png`)
-- Import `Image` and your logo in `src/components/Header.astro`
+- Import `Image` and your logo in `Header.astro`
 
-  ```astro
+  ```astro file=src/components/Header.astro
   ---
-  // other imports
+  // ...
   import { Image } from "astro:assets";
   import dummyLogo from "@/assets/dummy-logo.png";
   ---
@@ -155,11 +156,11 @@ With this approach, you can still adjust your image's appearance using CSS class
 
 ## Configuring social links
 
-You can configure social links in `SOCIALS` object inside `src/constants.ts`.
-
 ![An arrow pointing at social link icons](https://github.com/user-attachments/assets/8b895400-d088-442f-881b-02d2443e00cf)
 
-```ts
+You can configure social links in `SOCIALS` object inside `constants.ts`.
+
+```ts file=src/constants.ts
 export const SOCIALS = [
   {
     name: "Github",

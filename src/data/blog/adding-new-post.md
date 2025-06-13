@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2025-03-22T06:25:46.734Z
+modDatetime: 2025-06-13T16:52:45.934Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -84,16 +84,15 @@ Title and description (excerpt) are important for search engine optimization (SE
 
 For example, if the blog file name is `adding-new-post.md` and you don't specify the slug in your frontmatter, Astro will automatically create a slug for the blog post using the file name. Thus, the slug will be `adding-new-post`. But if you specify the `slug` in the frontmatter, this will override the default slug. You can read more about this in [Astro Docs](https://docs.astro.build/en/guides/content-collections/#defining-custom-slugs).
 
-If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `/src/content/config.ts` file.
+If you omit `tags` in a blog post (in other words, if no tag is specified), the default tag `others` will be used as a tag for that post. You can set the default tag in the `content.config.ts` file.
 
-```ts
-// src/content/config.ts
+```ts file="src/content.config.ts"
 export const blogSchema = z.object({
-  // ---
+  // ...
   draft: z.boolean().optional(),
   // [!code highlight:1]
   tags: z.array(z.string()).default(["others"]), // replace "others" with whatever you want
-  // ---
+  // ...
 });
 ```
 
@@ -101,8 +100,7 @@ export const blogSchema = z.object({
 
 Here is the sample frontmatter for a post.
 
-```yaml
-# src/content/blog/sample-post.md
+```yaml file="src/data/blog/sample-post.md"
 ---
 title: The title of the post
 author: your name
@@ -132,7 +130,7 @@ For instance, if you want to place your table of contents just under the intro p
 <!-- prettier-ignore-start -->
 ```md
 ---
-# some frontmatter
+# frontmatter
 ---
 
 Here are some recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
@@ -149,6 +147,45 @@ Here are some recommendations, tips & ticks for creating new posts in AstroPaper
 There's one thing to note about headings. The AstroPaper blog posts use title (title in the frontmatter) as the main heading of the post. Therefore, the rest of the heading in the post should be using h2 \~ h6.
 
 This rule is not mandatory, but highly recommended for visual, accessibility and SEO purposes.
+
+## Syntax Highlighting
+
+AstroPaper uses [Shiki](https://shiki.style/) as the default syntax highlighting. Starting from AstroPaper v5.4, [@shikijs/transformers](https://shiki.style/packages/transformers) is used to enhance better fenced code blocks. If you don't want to use it, you can simply remove it like this
+
+```bash
+pnpm remove @shikijs/transformers
+```
+
+```js file="astro.config.ts"
+// ...
+// [!code --:5]
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from "@shikijs/transformers";
+
+export default defineConfig({
+  // ...
+  markdown: {
+    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    shikiConfig: {
+      // For more themes, visit https://shiki.style/themes
+      themes: { light: "min-light", dark: "night-owl" },
+      defaultColor: false,
+      wrap: false,
+      transformers: [
+        transformerFileName(),
+      // [!code --:3]
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        transformerNotationDiff({ matchAlgorithm: "v3" }),
+      ],
+    },
+  },
+  // ...
+}
+```
 
 ## Storing Images for Blog Content
 
