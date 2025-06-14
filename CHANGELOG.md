@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.4.1 (2025-06-14)
+
+### Fix
+
+- make heading anchors in article visible on mobile (#537)
+
+### Refactor
+
+- update tailwind typography css overrides (#538)
+
 ## v5.4.0 (2025-06-14)
 
 ### Feat
