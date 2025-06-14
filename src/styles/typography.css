@@ -2,11 +2,80 @@
 
 @layer base {
   /* ===== Override default Tailwind Typography styles ===== */
-  .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-foreground prose-h3:italic prose-p:!text-foreground prose-a:!text-foreground prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-accent prose-blockquote:!border-l-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-foreground prose-figcaption:opacity-70 prose-strong:!text-foreground prose-code:rounded prose-code:bg-muted/75 prose-code:p-1 prose-code:!text-foreground prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-foreground prose-ul:overflow-x-clip prose-ul:!text-foreground prose-li:marker:!text-accent prose-table:text-foreground prose-th:border prose-th:border-border prose-td:border prose-td:border-border prose-img:mx-auto prose-img:!my-2 prose-img:border-2 prose-img:border-border prose-hr:!border-border;
+  .app-prose {
+    @apply prose;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    th {
+      @apply mb-3 text-foreground;
+    }
+
+    h3 {
+      @apply italic;
+    }
+
+    p,
+    strong,
+    ol,
+    ul,
+    figcaption,
+    table,
+    code {
+      @apply text-foreground;
+    }
 
     a {
-      @apply break-words hover:!text-accent;
+      @apply break-words text-foreground decoration-dashed underline-offset-4 hover:text-accent focus-visible:no-underline;
+    }
+
+    ul {
+      @apply overflow-x-clip;
+    }
+
+    li {
+      @apply marker:text-accent;
+    }
+
+    hr {
+      @apply border-border;
+    }
+
+    img {
+      @apply mx-auto border border-border;
+    }
+
+    figcaption {
+      @apply opacity-75;
+    }
+
+    table {
+      th,
+      td {
+        @apply border border-border p-2;
+      }
+
+      th {
+        @apply py-1.5;
+      }
+
+      code {
+        @apply break-all sm:break-normal;
+      }
+    }
+
+    code {
+      @apply rounded bg-muted/75 p-1 break-words text-foreground before:content-none after:content-none;
+    }
+
+    .astro-code code {
+      @apply bg-inherit;
+    }
+
+    blockquote {
+      @apply border-s-accent/80 break-words opacity-80;
     }
 
     details {
@@ -17,10 +86,8 @@
       @apply focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent focus-visible:outline-dashed;
     }
 
-    thead th:first-child,
-    tbody td:first-child,
-    tfoot td:first-child {
-      padding-inline-start: 0.5714286em !important;
+    pre {
+      @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
     }
   }
 
@@ -48,16 +115,5 @@
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
     }
-  }
-
-  /* Break words in code and blockqoute */
-  .prose code,
-  .prose blockquote {
-    @apply break-words;
-  }
-
-  .prose table code {
-    /* add line breaks whenever necessary for codes under table */
-    @apply break-all sm:break-normal;
   }
 }
