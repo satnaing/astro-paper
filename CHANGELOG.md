@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.4.2 (2025-06-15)
+
+### Fix
+
+- broken typography in about layout (#541)
+- remove extra padding in fenced code blocks (#540)
+
 ## v5.4.1 (2025-06-14)
 
 ### Fix
