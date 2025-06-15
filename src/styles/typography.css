@@ -71,7 +71,7 @@
     }
 
     .astro-code code {
-      @apply bg-inherit;
+      @apply bg-inherit p-0;
     }
 
     blockquote {
