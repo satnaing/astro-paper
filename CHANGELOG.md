@@ -317,7 +317,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * [#133](https://github.com/satnaing/astro-paper/issues/133) update LOCALE config to cover overall locales ([cd02b04](https://github.com/satnaing/astro-paper/commit/cd02b047d2b5e3b4a2940c0ff30568cdebcec0b8))
 * [#72](https://github.com/satnaing/astro-paper/issues/72) replace SITE.website with a URL in astro.config site value ([26ecd17](https://github.com/satnaing/astro-paper/commit/26ecd173ddec1075abb6ede9bbb62572b9f74b33))
-* anchor oveflow on small screen size ([d025c91](https://github.com/satnaing/astro-paper/commit/d025c914d91a9b7969c8db4bd6a700723ef86a39))
+* anchor overflow on small screen size ([d025c91](https://github.com/satnaing/astro-paper/commit/d025c914d91a9b7969c8db4bd6a700723ef86a39))
 * **css:** text wrap in code blocks ([0c92492](https://github.com/satnaing/astro-paper/commit/0c92492959bed20f144d5d949116891d61c8e098))
 * decode unicode tag chars in breadcrumb ([#175](https://github.com/satnaing/astro-paper/issues/175)) ([058c790](https://github.com/satnaing/astro-paper/commit/058c790d26cbeab286679a8a8e3bad6c14042d6d))
 * get og image url correctly ([7f3edbd](https://github.com/satnaing/astro-paper/commit/7f3edbdecdce597d15e562e7d497d69af505d550))

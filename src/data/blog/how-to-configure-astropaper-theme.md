@@ -163,9 +163,9 @@ You can configure social links in `SOCIALS` object inside `constants.ts`.
 ```ts file=src/constants.ts
 export const SOCIALS = [
   {
-    name: "Github",
+    name: "GitHub",
     href: "https://github.com/satnaing/astro-paper",
-    linkTitle: ` ${SITE.title} on Github`,
+    linkTitle: ` ${SITE.title} on GitHub`,
     icon: IconGitHub,
   },
   {
