@@ -29,9 +29,9 @@ The approach is serverless, as the comments are stored on _GitHub_ and dynamical
 
 _Giscus_ can be set up easily on [giscus.app](https://giscus.app/), but I will outline the process shortly still.
 
-### Prequisites
+### Prerequisites
 
-Prequisites to get _Giscus_ working are
+Prerequisites to get _Giscus_ working are
 
 - the repository is [public](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility#making-a-repository-public)
 - the [Giscus app](https://github.com/apps/giscus) is installed
