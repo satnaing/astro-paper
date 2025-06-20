@@ -99,9 +99,10 @@ const nextPost =
     >
       {title}
     </h1>
-    <div class="flex items-center gap-4">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" class="my-2" />
-      <EditPost class="max-sm:hidden" {hideEditPost} {post} />
+    <div class="my-2 flex items-center gap-2">
+      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <span aria-hidden="true" class="max-sm:hidden">|</span>
+      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
     <article
       id="article"
