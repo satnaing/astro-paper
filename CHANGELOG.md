@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.4.3 (2025-06-21)
+
+### Fix
+
+- remove time from post datetime display (#546)
+- update edit post link styling and text (#545)
+- typos across codebase (#543)
+
 ## v5.4.2 (2025-06-15)
 
 ### Fix
