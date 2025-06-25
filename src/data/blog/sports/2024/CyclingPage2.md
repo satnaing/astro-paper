@@ -2,7 +2,7 @@
 author: 游钓四方
 draft: false
 featured: false
-category: technology
+category: sports
 pubDatetime: 2024-08-14T20:40+08:00
 title: 写一个骑行页面(二)
 slug: CyclingPage2
