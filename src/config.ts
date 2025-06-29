@@ -14,7 +14,7 @@ export const SITE = {
   showArchives: true,
   showBackButton: true,
   editPost: {
-    enabled: true,
+    enabled: false,
     text: "Suggest Changes",
     url: "https://github.com/achuanya/lhasa/edit/main/",
   },

@@ -1,0 +1,220 @@
+<div id="Comments"></div>
+
+<script is:inline data-astro-rerun>
+  // Artalk 主题同步组件
+  (function () {
+    // 单例模式存储 Artalk 实例
+    window.artalkInstance = window.artalkInstance || null;
+
+    // 基本配置
+    const artalkConfig = {
+      el: "#Comments",
+      server: "https://artalk.lhasa.icu",
+      site: "游钓四方的博客",
+      pageKey: window.location.pathname,
+      vote: false,
+    };
+
+    // 获取当前主题状态
+    function getCurrentTheme() {
+      // 优先检查 data-theme 属性
+      const htmlDataTheme = document.documentElement.getAttribute("data-theme");
+      if (htmlDataTheme) {
+        return htmlDataTheme === "dark";
+      }
+      
+      // 备选方案：检查主题按钮状态
+      const themeBtn = document.querySelector("#theme-btn");
+      if (themeBtn) {
+        const ariaLabel = themeBtn.getAttribute("aria-label");
+        if (ariaLabel === "dark" || ariaLabel === "light") {
+          return ariaLabel === "dark";
+        }
+      }
+      
+      // 最后备选：检查系统偏好
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    // 销毁 Artalk 实例
+    function destroyArtalk() {
+      if (window.artalkInstance) {
+        try {
+          window.artalkInstance.destroy();
+          // 清理残留的DOM元素
+          document
+            .querySelectorAll(".atk-sidebar, .atk-layer-wrap, .atk-layer")
+            .forEach(el => el.remove());
+          window.artalkInstance = null;
+          console.log("Artalk 实例已销毁");
+        } catch (err) {
+          console.error("销毁Artalk实例失败:", err);
+        }
+      }
+    }
+
+    // 初始化 Artalk 实例
+    function initArtalk() {
+      const container = document.getElementById("Comments");
+      if (!container) {
+        console.warn("Artalk容器未找到");
+        return;
+      }
+
+      // 如果容器已经包含Artalk实例，跳过初始化
+      if (container.querySelector(".atk-app")) {
+        console.log("Artalk实例已存在，跳过初始化");
+        return;
+      }
+
+      // 获取当前主题
+      const isDark = getCurrentTheme();
+      
+      // 更新配置
+      const config = {
+        ...artalkConfig,
+        pageKey: window.location.pathname,
+        darkMode: isDark,
+      };
+
+      try {
+        // 创建新实例
+        window.artalkInstance = Artalk.init(config);
+        console.log(`Artalk 初始化完成 - 页面: ${window.location.pathname}, 主题: ${isDark ? 'dark' : 'light'}`);
+        
+        // 初始化完成后立即同步主题（确保主题正确应用）
+        setTimeout(() => {
+          syncArtalkTheme();
+        }, 100);
+        
+      } catch (err) {
+        console.error("Artalk初始化失败:", err);
+      }
+    }
+
+    // 同步Artalk主题
+    function syncArtalkTheme() {
+      if (!window.artalkInstance) return;
+      
+      const isDark = getCurrentTheme();
+      try {
+        window.artalkInstance.setDarkMode(isDark);
+        console.log(`Artalk主题已同步: ${isDark ? 'dark' : 'light'}`);
+      } catch (err) {
+        console.error("同步Artalk主题失败:", err);
+      }
+    }
+
+    // 设置主题变化监听器
+    function setupThemeObserver() {
+      // 如果观察器已存在，先断开
+      if (window._artalkThemeObserver) {
+        window._artalkThemeObserver.disconnect();
+      }
+
+      // 创建新的观察器
+      window._artalkThemeObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+            console.log('检测到主题变化');
+            // 延迟同步，确保DOM更新完成
+            setTimeout(() => {
+              syncArtalkTheme();
+            }, 50);
+          }
+        });
+      });
+
+      // 观察 html 元素的 data-theme 属性变化
+      window._artalkThemeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+
+      // 额外监听主题按钮变化（作为备选方案）
+      const themeBtn = document.querySelector("#theme-btn");
+      if (themeBtn && !window._artalkBtnObserver) {
+        window._artalkBtnObserver = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === "aria-label") {
+              console.log('检测到主题按钮变化');
+              setTimeout(() => {
+                syncArtalkTheme();
+              }, 50);
+            }
+          });
+        });
+
+        window._artalkBtnObserver.observe(themeBtn, {
+          attributes: true,
+          attributeFilter: ["aria-label"],
+        });
+      }
+    }
+
+    // 页面加载处理
+    function handlePageLoad() {
+      console.log('Artalk页面加载处理开始');
+      
+      // 先销毁旧实例
+      destroyArtalk();
+      
+      // 等待DOM稳定后初始化
+      setTimeout(() => {
+        initArtalk();
+        setupThemeObserver();
+      }, 100);
+    }
+
+    // 清理所有观察器
+    function cleanupObservers() {
+      if (window._artalkThemeObserver) {
+        window._artalkThemeObserver.disconnect();
+        window._artalkThemeObserver = null;
+      }
+      if (window._artalkBtnObserver) {
+        window._artalkBtnObserver.disconnect();
+        window._artalkBtnObserver = null;
+      }
+    }
+
+    // 页面切换前清理
+    function handleBeforeSwap() {
+      console.log('Artalk页面切换前清理');
+      destroyArtalk();
+      cleanupObservers();
+    }
+
+    // 单次设置事件监听
+    function setupArtalk() {
+      if (window._artalkInitialized) return;
+      window._artalkInitialized = true;
+
+      // 页面切换事件
+      document.addEventListener("astro:before-swap", handleBeforeSwap);
+      document.addEventListener("astro:after-swap", handlePageLoad);
+
+      // 监听系统主题变化
+      if (window.matchMedia) {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        mediaQuery.addEventListener("change", (event) => {
+          console.log('系统主题变化:', event.matches ? 'dark' : 'light');
+          setTimeout(() => {
+            syncArtalkTheme();
+          }, 100);
+        });
+      }
+
+      // 初始加载
+      if (document.readyState === "complete") {
+        handlePageLoad();
+      } else {
+        document.addEventListener("DOMContentLoaded", handlePageLoad);
+      }
+    }
+
+    // 启动Artalk
+    setupArtalk();
+  })();
+</script>
+  

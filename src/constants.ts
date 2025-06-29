@@ -1,3 +1,4 @@
+import type { Props } from "astro";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
@@ -9,11 +10,18 @@ import IconDouyin from "@/assets/icons/IconDouyin.svg";
 import IconMastodon from "@/assets/icons/IconMastodon.svg";
 import { SITE } from "@/config";
 
-export const SOCIALS = [
+interface Social {
+  name: string;
+  href: string;
+  linkTitle: string;
+  icon: (_props: Props) => Element;
+}
+
+export const SOCIALS: Social[] = [
   {
     name: "Github",
     href: "https://github.com/achuanya/lhasa",
-    linkTitle: ` ${SITE.title} on Github`,
+    linkTitle: `${SITE.title} on Github`,
     icon: IconGitHub,
   },
   {
@@ -42,7 +50,7 @@ export const SOCIALS = [
   },
 ] as const;
 
-export const SHARE_LINKS = [
+export const SHARE_LINKS: Social[] = [
   // {
   //   name: "WhatsApp",
   //   href: "https://wa.me/?text=",

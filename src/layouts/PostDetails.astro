@@ -8,6 +8,8 @@ import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
+import BackToTopButton from "@/components/BackToTopButton.astro";
+import Artalk from "@/components/Artalk.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -70,12 +72,12 @@ const layoutProps = {
 /* ========== Prev/Next Posts ========== */
 
 const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
-  slug: id,
+  id,
   title,
   filePath,
 }));
 
-const currentPostIndex = allPosts.findIndex(a => a.slug === post.id);
+const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
@@ -99,11 +101,16 @@ const nextPost =
     >
       {title}
     </h1>
+
+    <!-- 文章时间、编辑按钮 -->
     <div class="flex items-center gap-4">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" class="my-2" />
       <!-- <EditPost class="max-sm:hidden" {hideEditPost} {post} /> -->
     </div>
-    <article id="article" class="mx-auto prose mt-8 max-w-3xl">
+    <article 
+      id="article" 
+      class="mx-auto prose mt-8 max-w-3xl"
+    >
       <Content />
     </article>
 
@@ -115,19 +122,9 @@ const nextPost =
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
-    <div
-      class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"
-    >
-      <ShareLinks />
+    <BackToTopButton />
 
-      <button
-        id="back-to-top"
-        class="focus-outline py-1 whitespace-nowrap hover:opacity-75"
-      >
-        <IconChevronLeft class="inline-block rotate-90" />
-        <span>Back to Top</span>
-      </button>
-    </div>
+    <ShareLinks />
 
     <hr class="my-6 border-dashed" />
 
@@ -136,10 +133,10 @@ const nextPost =
       {
         prevPost && (
           <a
-            href={getPath(prevPost.slug, prevPost.filePath)}
+            href={getPath(prevPost.id, prevPost.filePath)}
             class="flex w-full gap-1 hover:opacity-75"
           >
-            <IconChevronLeft class="inline-block flex-none" />
+            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
               <span>Previous Post</span>
               <div class="text-sm text-accent/85">{prevPost.title}</div>
@@ -150,23 +147,24 @@ const nextPost =
       {
         nextPost && (
           <a
-            href={getPath(nextPost.slug, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+            href={getPath(nextPost.id, nextPost.filePath)}
+            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
             <div>
               <span>Next Post</span>
               <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
-            <IconChevronRight class="inline-block flex-none" />
+            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
           </a>
         )
       }
     </div>
     <br />
-    <div id="Comments"></div>
+    <Artalk />
   </main>
   <Footer />
 </Layout>
+
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
@@ -219,7 +217,7 @@ const nextPost =
       heading.classList.add("group");
       const link = document.createElement("a");
       link.className =
-        "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
       link.href = "#" + heading.id;
 
       const span = document.createElement("span");
@@ -243,7 +241,7 @@ const nextPost =
 
       const copyButton = document.createElement("button");
       copyButton.className =
-        "copy-code absolute right-3 -top-3 rounded bg-muted px-2 py-1 text-xs leading-4 text-foreground font-medium";
+        "copy-code absolute end-3 top-3 rounded bg-muted/80 px-2 py-1 text-xs leading-4 text-foreground font-medium";
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);
@@ -273,125 +271,8 @@ const nextPost =
   }
   attachCopyButtons();
 
-  /** Scrolls the document to the top when
-   * the "Back to Top" button is clicked. */
-  function backToTop() {
-    document.querySelector("#back-to-top")?.addEventListener("click", () => {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
-  }
-  backToTop();
-
   /* Go to page start after page swap */
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
-
-  // Artalk
-  (function () {
-    // 单例模式存储 Artalk 实例
-    window.artalkInstance = window.artalkInstance || null;
-
-    // 基本配置
-    const artalkConfig = {
-      el: "#Comments",
-      server: "https://artalk.lhasa.icu",
-      site: "游钓四方的博客",
-      pageKey: window.location.pathname,
-      vote: false,
-
-    };
-
-    function destroyArtalk() {
-      if (window.artalkInstance) {
-        try {
-          window.artalkInstance.destroy();
-          document
-            .querySelectorAll(".atk-sidebar, .atk-layer-wrap")
-            .forEach(el => el.remove());
-          window.artalkInstance = null;
-          console.log("Artalk 实例已销毁", window.location.pathname);
-        } catch (err) {
-          console.error("销毁失败:", err);
-        }
-      }
-    }
-
-    // 初始化 Artalk 实例
-    function initArtalk() {
-      const container = document.getElementById("Comments");
-      if (!container || container.querySelector(".atk-app")) return;
-
-      // 获取当前主题
-      const isDark =
-        document.documentElement.getAttribute("data-theme") === "dark";
-
-      // 更新配置
-      artalkConfig.pageKey = window.location.pathname;
-      artalkConfig.darkMode = isDark;
-
-      // 创建新实例
-      window.artalkInstance = Artalk.init(artalkConfig);
-      console.log("Artalk 初始化完成", window.location.pathname);
-    }
-
-    // 监听主题切换
-    function handleThemeChange() {
-      const themeBtn = document.querySelector("#theme-btn");
-      if (!themeBtn) return;
-
-      const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-          if (mutation.attributeName === "aria-label") {
-            const isDark =
-              mutation.target.getAttribute("aria-label") === "dark";
-            if (window.artalkInstance) {
-              window.artalkInstance.setDarkMode(isDark);
-            }
-          }
-        });
-      });
-
-      observer.observe(themeBtn, {
-        attributes: true,
-        attributeFilter: ["aria-label"],
-      });
-    }
-
-    // 页面生命周期管理
-    function handlePageLoad() {
-      destroyArtalk();
-      initArtalk();
-      handleThemeChange();
-    }
-
-    // 单次绑定事件监听
-    function setupArtalk() {
-      if (window._artalkInitialized) return;
-      window._artalkInitialized = true;
-
-      // 页面切换事件
-      document.addEventListener("astro:before-swap", destroyArtalk);
-      document.addEventListener("astro:after-swap", handlePageLoad);
-
-      // 初始加载
-      if (document.readyState === "complete") {
-        handlePageLoad();
-      } else {
-        document.addEventListener("DOMContentLoaded", handlePageLoad);
-      }
-
-      // 监听系统主题变化
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", ({ matches }) => {
-          if (window.artalkInstance) {
-            window.artalkInstance.setDarkMode(matches);
-          }
-        });
-    }
-
-    setupArtalk();
-  })();
 </script>
