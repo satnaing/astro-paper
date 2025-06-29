@@ -352,13 +352,43 @@ const exifUrl = shouldShowExif ? generateExifUrl(src) : undefined;
       tooltip.addEventListener('mouseenter', cancelHide);
       tooltip.addEventListener('mouseleave', hideTooltip);
       
-      // Touch support for mobile
+      // Touch support for mobile - 优化版本，支持滚动
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+
       img.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        showTooltip();
-        setTimeout(() => {
-          tooltip.classList.remove('show');
-        }, 3000); // Auto hide after 3 seconds on touch
+        // 记录触摸开始的位置和时间，不阻止默认滚动行为
+        const touchEvent = e as TouchEvent;
+        const touch = touchEvent.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchStartTime = Date.now();
+      });
+
+      img.addEventListener('touchend', (e) => {
+        const touchEvent = e as TouchEvent;
+        const touch = touchEvent.changedTouches[0];
+        const touchEndX = touch.clientX;
+        const touchEndY = touch.clientY;
+        const touchEndTime = Date.now();
+        
+        // 计算移动距离和触摸持续时间
+        const moveDistance = Math.sqrt(
+          Math.pow(touchEndX - touchStartX, 2) + 
+          Math.pow(touchEndY - touchStartY, 2)
+        );
+        const touchDuration = touchEndTime - touchStartTime;
+        
+        // 只有在移动距离小且时间短时才认为是点击（而不是滑动）
+        if (moveDistance < 15 && touchDuration < 500) {
+          // 只在确定是点击时才阻止默认行为（避免触发长按菜单等）
+          e.preventDefault();
+          showTooltip();
+          setTimeout(() => {
+            tooltip.classList.remove('show');
+          }, 3000); // Auto hide after 3 seconds on touch
+        }
       });
     });
   }
