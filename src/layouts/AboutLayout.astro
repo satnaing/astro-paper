@@ -21,7 +21,7 @@ const blogStats = await getBlogStats();
   <Header />
   <Breadcrumb />
   <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
+    <section id="about" class="prose mb-28 max-w-app prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
       <div id="blog-stats-data" 
            data-running-days={blogStats.runningDays}
