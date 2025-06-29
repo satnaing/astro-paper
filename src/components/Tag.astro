@@ -20,15 +20,15 @@ const { tag, tagName, size = "sm" } = Astro.props;
     href={`/tags/${tag}/`}
     transition:name={tag}
     class:list={[
-      "relative pr-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1",
+      "relative pe-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 focus-visible:no-underline",
       { "text-sm": size === "sm" },
     ]}
   >
     <IconHash
       class:list={[
         "inline-block opacity-80",
-        { "-mr-3.5 size-4": size === "sm" },
-        { "-mr-5 size-6": size === "lg" },
+        { "-me-3.5 size-4": size === "sm" },
+        { "-me-5 size-6": size === "lg" },
       ]}
     />
     &nbsp;<span>{tagName}</span>

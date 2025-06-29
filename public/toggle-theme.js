@@ -88,6 +88,18 @@ window.onload = () => {
 
   // Runs on view transitions navigation
   document.addEventListener("astro:after-swap", setThemeFeature);
+
+  // Set theme-color value before page transition
+  // to avoid navigation bar color flickering in Android dark mode
+  document.addEventListener("astro:before-swap", event => {
+    const bgColor = document
+      .querySelector("meta[name='theme-color']")
+      ?.getAttribute("content");
+
+    event.newDocument
+      .querySelector("meta[name='theme-color']")
+      ?.setAttribute("content", bgColor);
+  });
   
   // 如果用户没有手动设置主题，添加定时器检查时间变化
   if (!isUserPreferenceSet()) {
