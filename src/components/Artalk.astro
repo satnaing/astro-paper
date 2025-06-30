@@ -194,17 +194,6 @@
       document.addEventListener("astro:before-swap", handleBeforeSwap);
       document.addEventListener("astro:after-swap", handlePageLoad);
 
-      // 监听系统主题变化
-      if (window.matchMedia) {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        mediaQuery.addEventListener("change", (event) => {
-          console.log('系统主题变化:', event.matches ? 'dark' : 'light');
-          setTimeout(() => {
-            syncArtalkTheme();
-          }, 100);
-        });
-      }
-
       // 初始加载
       if (document.readyState === "complete") {
         handlePageLoad();
