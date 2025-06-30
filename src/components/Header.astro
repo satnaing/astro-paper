@@ -1,44 +1,50 @@
 ---
-import Hr from "./Hr.astro";
-import IconX from "@/assets/icons/IconX.svg";
-import IconMoon from "@/assets/icons/IconMoon.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
-import IconArchive from "@/assets/icons/IconArchive.svg";
-import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
-import LinkButton from "./LinkButton.astro";
-import { SITE } from "@/config";
+// 网站头部导航组件 - 包含站点标题、导航菜单、搜索和主题切换功能
+
+import Hr from "./Hr.astro";                           // 水平分割线组件
+import IconX from "@/assets/icons/IconX.svg";          // 关闭图标（用于移动端菜单）
+import IconMoon from "@/assets/icons/IconMoon.svg";    // 月亮图标（深色主题）
+import IconSearch from "@/assets/icons/IconSearch.svg"; // 搜索图标
+import IconArchive from "@/assets/icons/IconArchive.svg"; // 归档图标
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg"; // 太阳图标（浅色主题）
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg"; // 汉堡菜单图标
+import LinkButton from "./LinkButton.astro";           // 链接按钮组件
+import { SITE } from "@/config";                       // 站点配置
 
 export interface Props {
-  currentCategory?: string;
+  currentCategory?: string;  // 当前文章分类（可选）
 }
 
 const { currentCategory } = Astro.props;
-const { pathname } = Astro.url;
+const { pathname } = Astro.url;           // 获取当前页面路径
 
-// Remove trailing slash from current pathname if exists
+// 处理当前路径 - 移除尾部斜杠（除了根路径）
 const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
+// 判断导航项是否为当前激活状态
 const isActive = (path: string) => {
-  // 如果有当前文章的分类信息，根据分类判断
+  // 如果有当前文章的分类信息，根据分类判断导航激活
   if (currentCategory) {
-    if (path === "/posts" && currentCategory === "technology") return true;
-    if (path === "/sports" && currentCategory === "sports") return true;
-    if (path === "/posts" && currentCategory === "life") return true;
-    if (path === "/posts" && currentCategory === "startup") return true;
+    if (path === "/posts" && currentCategory === "technology") return true;  // 技术
+    if (path === "/sports" && currentCategory === "sports") return true;    // 运动
+    if (path === "/posts" && currentCategory === "life") return true;       // 生活
+    if (path === "/posts" && currentCategory === "startup") return true;    // 创业
     return false;
   }
   
-  // 原有的路径匹配逻辑
-  const currentPathArray = currentPath.split("/").filter(p => p.trim());
-  const pathArray = path.split("/").filter(p => p.trim());
+  // 基于路径的匹配逻辑
+  const currentPathArray = currentPath.split("/").filter(p => p.trim());    // 当前路径数组
+  const pathArray = path.split("/").filter(p => p.trim());                 // 目标路径数组
 
+  // 精确匹配或第一级路径匹配
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
 ---
 
+<!-- 网站头部导航区域 -->
 <header>
+  <!-- 无障碍访问：跳转到主内容的链接 -->
   <a
     id="skip-to-content"
     href="#main-content"
@@ -46,25 +52,30 @@ const isActive = (path: string) => {
   >
     Skip to content
   </a>
+  
+  <!-- 导航容器 -->
   <div
     id="nav-container"
     class="mx-auto flex max-w-app flex-col items-center justify-between sm:flex-row"
   >
+    <!-- 顶部导航包装器 -->
     <div
       id="top-nav-wrap"
       class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6"
     >
-      <!-- 左上角标题 -->
+      <!-- 网站标题/Logo -->
       <a
         href="/"
         class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
       >
         {SITE.title}
       </a>
+      <!-- 导航菜单区域 -->
       <nav
         id="nav-menu"
         class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"
       >
+        <!-- 移动端菜单切换按钮 -->
         <button
           id="menu-btn"
           class="focus-outline self-end p-2 sm:hidden"
@@ -72,9 +83,11 @@ const isActive = (path: string) => {
           aria-expanded="false"
           aria-controls="menu-items"
         >
-          <IconX id="close-icon" class="hidden" />
-          <IconMenuDeep id="menu-icon" />
+          <IconX id="close-icon" class="hidden" />      <!-- 关闭图标（默认隐藏） -->
+          <IconMenuDeep id="menu-icon" />               <!-- 汉堡菜单图标 -->
         </button>
+        
+        <!-- 导航菜单项列表 -->
         <ul
           id="menu-items"
           class:list={[
@@ -84,26 +97,34 @@ const isActive = (path: string) => {
             "sm:mt-0 sm:flex sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
           ]}
         >
+          <!-- 文章页面导航链接 -->
           <li class="col-span-2">
             <a href="/posts/" class:list={{ "active-nav": isActive("/posts") }}>
               Posts
             </a>
           </li>
+          
+          <!-- 运动页面导航链接 -->
           <li class="col-span-2">
             <a href="/sports/" class:list={{ "active-nav": isActive("/sports") }}>
               Sports
             </a>
           </li>
+          
+          <!-- 订阅源页面导航链接 -->
           <li class="col-span-2">
             <a href="/feeds/" class:list={{ "active-nav": isActive("/feeds") }}>
               Feeds
             </a>
           </li>
+          
+          <!-- 关于页面导航链接 -->
           <li class="col-span-2">
             <a href="/about/" class:list={{ "active-nav": isActive("/about") }}>
               About
             </a>
           </li>
+          {/* 归档页面链接（根据配置显示/隐藏） */}
           {
             SITE.showArchives && (
               <li class="col-span-2">
@@ -118,12 +139,14 @@ const isActive = (path: string) => {
                   ariaLabel="archives"
                   title="Archives"
                 >
-                  <IconArchive class="hidden sm:inline-block" />
-                  <span class="sm:sr-only">Archives</span>
+                  <IconArchive class="hidden sm:inline-block" />  {/* 归档图标（桌面端显示） */}
+                  <span class="sm:sr-only">Archives</span>        {/* 文本（移动端显示） */}
                 </LinkButton>
               </li>
             )
           }
+          
+          {/* 搜索功能按钮 */}
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
               href="/search/"
@@ -134,10 +157,12 @@ const isActive = (path: string) => {
               ariaLabel="search"
               title="Search"
             >
-              <IconSearch />
-              <span class="sr-only">Search</span>
+              <IconSearch />                              {/* 搜索图标 */}
+              <span class="sr-only">Search</span>        {/* 屏幕阅读器文本 */}
             </LinkButton>
           </li>
+          
+          {/* 主题切换按钮（根据配置显示/隐藏） */}
           {
             SITE.lightAndDarkMode && (
               <li class="col-span-1 flex items-center justify-center">
@@ -148,7 +173,9 @@ const isActive = (path: string) => {
                   aria-label="auto"
                   aria-live="polite"
                 >
+                  {/* 月亮图标（浅色主题时显示） */}
                   <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all [html[data-theme=dark]_&]:scale-0 [html[data-theme=dark]_&]:-rotate-90" />
+                  {/* 太阳图标（深色主题时显示） */}
                   <IconSunHigh class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all [html[data-theme=dark]_&]:scale-100 [html[data-theme=dark]_&]:rotate-0" />
                 </button>
               </li>
@@ -162,28 +189,36 @@ const isActive = (path: string) => {
 </header>
 
 <script>
+  // 移动端导航菜单切换
   function toggleNav() {
-    const menuBtn = document.querySelector("#menu-btn");
-    const menuItems = document.querySelector("#menu-items");
-    const menuIcon = document.querySelector("#menu-icon");
-    const closeIcon = document.querySelector("#close-icon");
+    const menuBtn = document.querySelector("#menu-btn");      // 菜单切换按钮
+    const menuItems = document.querySelector("#menu-items");  // 菜单项容器
+    const menuIcon = document.querySelector("#menu-icon");    // 汉堡菜单图标
+    const closeIcon = document.querySelector("#close-icon");  // 关闭图标
 
+    // 如果任何必需元素不存在，直接返回
     if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
 
+    // 为菜单按钮添加点击事件监听器
     menuBtn.addEventListener("click", () => {
+      // 检查当前菜单是否已打开
       const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
 
+      // 更新ARIA属性以支持无障碍访问
       menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
       menuBtn.setAttribute("aria-label", openMenu ? "Open Menu" : "Close Menu");
 
+      // 切换菜单项的显示/隐藏状态
       menuItems.classList.toggle("hidden");
+      // 切换图标显示状态（汉堡菜单 <-> 关闭图标）
       menuIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
   }
 
+  // 初始化导航切换
   toggleNav();
 
-  // Runs on view transitions navigation
+  // 在Astro页面切换后重新初始化导航
   document.addEventListener("astro:after-swap", toggleNav);
 </script>

@@ -1,22 +1,26 @@
 // 主题切换系统 - 增强版
-// 支持时间自动切换 + 用户手动设置当天有效
+// 功能特性：
+// 1. 支持基于时间的自动主题切换（夜间自动切换到深色主题）
+// 2. 支持用户手动设置主题（当天有效，次日重新启用自动切换）
+// 3. 支持系统主题偏好检测
+// 4. 完整的错误处理和调试功能
 
-const primaryColorScheme = ""; // "light" | "dark"
+const primaryColorScheme = ""; // 主要颜色方案："light" | "dark" | "" (空字符串表示使用自动检测)
 
-// 调试模式 - 生产环境请设置为 false
+// 调试模式配置 - 生产环境请设置为 false
 const DEBUG_THEME = false;
 
-// 调试日志函数
+// 调试日志输出函数
 function debugLog(message, ...args) {
   if (DEBUG_THEME) {
     console.log(`[Theme Debug] ${message}`, ...args);
   }
 }
 
-// 全局错误处理
+// 全局错误处理函数
 function handleThemeError(error, context) {
   console.error(`[Theme Error] ${context}:`, error);
-  // 确保主题系统仍能基本工作
+  // 确保主题系统仍能基本工作，即使出现错误也能恢复
   try {
     reflectPreference();
   } catch (e) {
@@ -25,26 +29,30 @@ function handleThemeError(error, context) {
 }
 
 // 全局变量，用于存储定时器和状态
-let autoThemeTimer = null;
-let systemThemeListener = null;
+let autoThemeTimer = null;        // 自动主题检查定时器
+let systemThemeListener = null;   // 系统主题变化监听器
 
-// 动态获取主题数据，避免缓存过期问题
+// 本地存储操作函数组 - 动态获取主题数据，避免缓存过期问题
+
+// 获取当前存储的主题设置
 function getCurrentThemeFromStorage() {
   return localStorage.getItem("theme");
 }
 
+// 检查用户是否手动设置过主题
 function getUserManuallySetTheme() {
   return localStorage.getItem("userSetTheme") === "true";
 }
 
+// 获取用户设置主题的日期
 function getUserSetThemeDate() {
   return localStorage.getItem("userSetThemeDate");
 }
 
-// 检查是否应该根据时间自动使用深色主题
+// 时间基础的主题判断函数 - 检查是否应该根据时间自动使用深色主题
 function shouldUseDarkThemeByTime() {
   try {
-    // 使用上海时区确保时间判断的一致性
+    // 使用上海时区确保时间判断的一致性（避免服务器和客户端时区差异）
     const now = new Date();
     const shanghaiTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Shanghai"}));
     const hour = shanghaiTime.getHours();
@@ -52,17 +60,17 @@ function shouldUseDarkThemeByTime() {
     return hour >= 18 || hour < 7;
   } catch (error) {
     console.warn("时区转换失败，使用本地时间:", error);
-    // 降级到本地时间
+    // 降级到本地时间（兼容性处理）
     const now = new Date();
     const hour = now.getHours();
     return hour >= 18 || hour < 7;
   }
 }
 
-// 获取今天的日期字符串 (YYYY-MM-DD 格式)
+// 日期工具函数 - 获取今天的日期字符串 (YYYY-MM-DD 格式)
 function getTodayDateString() {
   try {
-    // 使用上海时区确保日期判断的一致性
+    // 使用上海时区确保日期判断的一致性（避免跨时区日期差异）
     const now = new Date();
     const shanghaiTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Shanghai"}));
     return shanghaiTime.getFullYear() + '-' + 
@@ -70,7 +78,7 @@ function getTodayDateString() {
            String(shanghaiTime.getDate()).padStart(2, '0');
   } catch (error) {
     console.warn("时区转换失败，使用本地时间:", error);
-    // 降级到本地时间
+    // 降级到本地时间（兼容性处理）
     const today = new Date();
     return today.getFullYear() + '-' + 
            String(today.getMonth() + 1).padStart(2, '0') + '-' + 
@@ -78,14 +86,15 @@ function getTodayDateString() {
   }
 }
 
-// 检查用户是否手动设置过主题且设置日期是今天
+// 用户偏好有效性检查 - 检查用户是否手动设置过主题且设置日期是今天
 function isUserPreferenceValidToday() {
+  // 如果用户没有手动设置过主题，直接返回false
   if (!getUserManuallySetTheme()) return false;
   
   const today = getTodayDateString();
   const setDate = getUserSetThemeDate();
   
-  // 如果用户设置的日期不是今天，清除手动设置标记
+  // 如果用户设置的日期不是今天，清除手动设置标记（实现"当天有效"功能）
   if (setDate !== today) {
     localStorage.removeItem("userSetTheme");
     localStorage.removeItem("userSetThemeDate");
@@ -96,11 +105,13 @@ function isUserPreferenceValidToday() {
   return true;
 }
 
+// 核心主题获取函数 - 根据优先级顺序确定应该使用的主题
 function getPreferTheme() {
   try {
     // 动态获取当前主题，避免缓存问题
     const currentTheme = getCurrentThemeFromStorage();
     
+    // 调试信息输出
     debugLog("获取主题偏好", {
       currentTheme,
       isValidToday: isUserPreferenceValidToday(),
@@ -108,30 +119,31 @@ function getPreferTheme() {
       primaryScheme: primaryColorScheme
     });
     
-    // 如果用户手动设置过主题且设置日期是今天，优先使用用户设置
+    // 优先级 1: 如果用户手动设置过主题且设置日期是今天，优先使用用户设置
     if (isUserPreferenceValidToday() && currentTheme) {
       debugLog("使用用户手动设置:", currentTheme);
       return currentTheme;
     }
 
-    // 如果没有有效的手动设置，检查是否应该根据时间使用深色主题
+    // 优先级 2: 如果没有有效的手动设置，检查是否应该根据时间使用深色主题
     if (shouldUseDarkThemeByTime()) {
       debugLog("使用时间自动切换: dark");
       return "dark";
     }
 
-    // 如果有主题方案设置，使用设置的方案
+    // 优先级 3: 如果有预设的主题方案，使用预设方案
     if (primaryColorScheme) {
       debugLog("使用主题方案设置:", primaryColorScheme);
       return primaryColorScheme;
     }
 
-    // 最后使用用户设备的颜色方案偏好
+    // 优先级 4: 最后使用用户设备的系统颜色方案偏好
     const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const systemTheme = systemDark ? "dark" : "light";
     debugLog("使用系统偏好:", systemTheme);
     return systemTheme;
   } catch (error) {
+    // 错误处理：如果出现任何错误，默认返回浅色主题
     handleThemeError(error, "getPreferTheme");
     return "light"; // 默认浅色主题
   }

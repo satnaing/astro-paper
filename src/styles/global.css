@@ -1,71 +1,90 @@
-@import "../../public/assets/fonts/TsangerJinKai01-W04/result.css";
-@import "tailwindcss";
-@import "./typography.css";
+@import "../../public/assets/fonts/TsangerJinKai01-W04/result.css"; /* 仓耳今楷字体 */
+@import "tailwindcss";              /* Tailwind CSS 框架 */
+@import "./typography.css";         /* 排版样式 */
 
+/* 定义深色主题的自定义变体选择器 */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* 浅色主题颜色变量定义 */
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #e6e6e6;
-  --border: #ece9e9;
+  --background: #fdfdfd;    /* 背景色 - 浅灰白 */
+  --foreground: #282728;    /* 前景色（文字） - 深灰 */
+  --accent: #006cac;        /* 强调色 - 蓝色 */
+  --muted: #e6e6e6;         /* 静音色（次要元素） - 浅灰 */
+  --border: #ece9e9;        /* 边框色 - 浅灰 */
 }
 
+/* 深色主题颜色变量定义 */
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60bf;
-  --border: #ab4b08;
+  --background: #212737;    /* 背景色 - 深蓝灰 */
+  --foreground: #eaedf3;    /* 前景色（文字） - 浅灰白 */
+  --accent: #ff6b01;        /* 强调色 - 橙色 */
+  --muted: #343f60bf;       /* 静音色（次要元素） - 半透明蓝灰 */
+  --border: #ab4b08;        /* 边框色 - 深橙 */
 }
 
+/* Tailwind 主题颜色映射配置 */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
+  --color-background: var(--background);  /* 背景色映射 */
+  --color-foreground: var(--foreground);  /* 前景色映射 */
+  --color-accent: var(--accent);          /* 强调色映射 */
+  --color-muted: var(--muted);            /* 静音色映射 */
+  --color-border: var(--border);          /* 边框色映射 */
 }
 
+/* 基础样式层 */
 @layer base {
+  /* 全局元素样式重置 */
   * {
-    @apply border-border outline-accent/75;
-    scrollbar-width: auto;
-    scrollbar-color: var(--color-muted) transparent;
+    @apply border-border outline-accent/75;  /* 边框和焦点轮廓样式 */
+    scrollbar-width: auto;                   /* 滚动条宽度 */
+    scrollbar-color: var(--color-muted) transparent; /* 滚动条颜色 */
   }
+  
+  /* HTML 根元素样式 */
   html {
-    @apply overflow-y-scroll scroll-smooth;
+    @apply overflow-y-scroll scroll-smooth;  /* 垂直滚动条和平滑滚动 */
   }
+  
+  /* 页面主体样式 */
   body {
     @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
     font-family: Consolas,TsangerJinKai01 W04;
   }
+  
+  /* 链接和按钮的焦点样式 */
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
+  
+  /* 可交互按钮的鼠标指针样式 */
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  
+  /* 主要区块的布局约束 */
   section,
   footer {
-    @apply mx-auto max-w-app px-4;
+    @apply mx-auto max-w-app px-4;  /* 居中对齐，最大宽度，水平内边距 */
   }
 }
 
+/* 自定义工具类 - 应用最大宽度约束 */
 @utility max-w-app {
-  @apply max-w-3xl;
+  @apply max-w-3xl;  /* 最大宽度设为 3xl（约 48rem/768px） */
 }
 
+/* 激活导航项的样式 */
 .active-nav {
-  @apply underline decoration-wavy decoration-2 underline-offset-4;
+  @apply underline decoration-wavy decoration-2 underline-offset-4;  /* 波浪下划线，2px粗细，4px偏移 */
 }
 
-/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
-/* Anything that has been anchored to should have extra scroll margin */
+/* 锚点滚动样式优化 */
+/* 来源: https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* 为所有锚点目标添加额外的滚动边距，避免内容被固定头部遮挡 */
 :target {
-  scroll-margin-block: 1rem;
+  scroll-margin-block: 1rem;  /* 块方向滚动边距 1rem */
 }

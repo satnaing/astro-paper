@@ -1,16 +1,20 @@
 ---
-import { SOCIALS } from "@/constants";
-import LinkButton from "./LinkButton.astro";
+// 社交媒体链接组件 - 显示社交媒体图标和链接
+import { SOCIALS } from "@/constants";    // 社交媒体配置数据
+import LinkButton from "./LinkButton.astro"; // 链接按钮组件
 
 export interface Props {
-  centered?: boolean;
+  centered?: boolean;   // 是否居中显示（可选，默认false）
 }
 
+// 解构组件属性并设置默认值
 const { centered = false } = Astro.props;
 ---
 
+<!-- 社交媒体链接容器 -->
 <div class:list={["flex-wrap justify-center gap-1", { flex: centered }]}>
   {
+    // 遍历社交媒体配置，为每个平台创建链接按钮
     SOCIALS.map(social => (
       <LinkButton
         href={social.href}
@@ -19,7 +23,10 @@ const { centered = false } = Astro.props;
         target="_blank"
         rel="noopener noreferrer"
       >
+        {/* 社交媒体图标 */}
         <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+        
+        {/* 屏幕阅读器友好的文本（不可见但可被辅助技术读取） */}
         <span class="sr-only">{social.linkTitle}</span>
       </LinkButton>
     ))

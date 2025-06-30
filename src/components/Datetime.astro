@@ -1,46 +1,57 @@
 ---
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import IconCalendar from "@/assets/icons/IconCalendar.svg";
-import { SITE } from "@/config";
+// 日期时间显示组件 - 用于在文章中显示发布和修改时间
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import dayjs from "dayjs";                            // 轻量级日期处理
+import utc from "dayjs/plugin/utc";                   // UTC时间
+import timezone from "dayjs/plugin/timezone";        // 时区处理
+import IconCalendar from "@/assets/icons/IconCalendar.svg"; // 日历图标
+import { SITE } from "@/config";                      // 站点配置
 
+// 扩展dayjs
+dayjs.extend(utc);       // UTC时间
+dayjs.extend(timezone);  // 时区
+
+// 组件属性接口定义
 export interface Props {
-  class?: string;
-  size?: "sm" | "lg";
-  timezone: string | undefined;
-  pubDatetime: string | Date;
-  modDatetime: string | Date | undefined | null;
+  class?: string;                                // 自定义CSS类名
+  size?: "sm" | "lg";                           // 尺寸大小："sm"（小）| "lg"（大）
+  timezone: string | undefined;                 // 时区设置（IANA格式，如"Asia/Shanghai"）
+  pubDatetime: string | Date;                   // 发布
+  modDatetime: string | Date | undefined | null; // 修改时间（可选）
 }
 
+// 解构组件属性并设置默认值
 const {
-  pubDatetime,
-  modDatetime,
-  size = "sm",
-  class: className = "",
-  timezone: postTimezone,
+  pubDatetime,                    // 发布
+  modDatetime,                    // 修改
+  size = "sm",                    // 默认小
+  class: className = "",          // 默认无
+  timezone: postTimezone,         // 文章时区
 } = Astro.props;
 
-/* ========== Formatted Datetime ========== */
+// 判断文章是否已被修改
 const isModified = modDatetime && modDatetime > pubDatetime;
 
+// 使用修改时间或发布时间，并转换到指定时区
 const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
-  postTimezone || SITE.timezone
+  postTimezone || SITE.timezone  // 优先使用文章时区，否则使用站点默认时区
 );
 
-const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
+// 格式化日期为可读格式，例如：'22 Mar, 2025'
+const date = datetime.format("D MMM, YYYY");
 ---
 
+<!-- 日期时间显示容器 -->
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
+  <!-- 日历图标 -->
   <IconCalendar
     class:list={[
-      "inline-block size-6 min-w-[1.375rem]",
-      { "scale-90": size === "sm" },
+      "inline-block size-6 min-w-[1.375rem]",  // 基础尺寸和最小宽度
+      { "scale-90": size === "sm" },            // 小尺寸时缩放90%
     ]}
   />
+  
+  {/* 如果文章已被修改，显示"Updated:" */}
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
@@ -48,9 +59,13 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
       </span>
     )
   }
+  
+  {/* 日期时间 */}
   <time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-    datetime={datetime.toISOString()}>{date}</time
+    datetime={datetime.toISOString()}
   >
+    {date}
+  </time>
 </div>
 

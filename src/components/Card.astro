@@ -1,17 +1,29 @@
 ---
-import { slugifyStr } from "@/utils/slugify";
-import type { CollectionEntry } from "astro:content";
-import { getPath } from "@/utils/getPath";
-import Datetime from "./Datetime.astro";
+// 文章卡片组件 - 用于显示文章预览信息，包括标题、描述、日期和缩略图
 
+import { slugifyStr } from "@/utils/slugify";          // 字符串转换为URL友好格式的工具函数
+import type { CollectionEntry } from "astro:content";  // Astro内容集合类型
+import { getPath } from "@/utils/getPath";             // 获取文章路径的工具函数
+import Datetime from "./Datetime.astro";               // 日期时间显示组件
+
+// 组件属性接口定义
 export interface Props extends CollectionEntry<"blog"> {
-  variant?: "h2" | "h3";
-  showDescription?: boolean;
-  imageClass?: string;
-  fallbackOgImage?: string;
+  variant?: "h2" | "h3";        // 标题标签类型
+  showDescription?: boolean;    // 是否显示描述
+  imageClass?: string;          // 自定义图片样式类
+  fallbackOgImage?: string;     // 备用图片
 }
 
-const { variant = "h2", data, id, filePath, showDescription = true, imageClass, fallbackOgImage } = Astro.props;
+// 解构组件属性并设置默认值
+const { 
+  variant = "h2",              // 默认使用h2
+  data, 
+  id, 
+  filePath, 
+  showDescription = true,      // 默认显示
+  imageClass, 
+  fallbackOgImage 
+} = Astro.props;
 
 const { title, description, pubDatetime, modDatetime, timezone, ogImage } = data;
 
@@ -20,16 +32,21 @@ const headerProps = {
   class: "text-lg font-medium decoration-dashed hover:underline",
 };
 
+// 默认图片样式
 const defaultImageClass = "w-[76px] sm:w-[81.78px] h-auto object-cover rounded-md aspect-square group-hover:opacity-90 transition-opacity duration-300";
 
+// 处理图片
 let imgSrc = typeof ogImage === 'string' ? ogImage : (ogImage as any)?.src;
 
+// 如果没有图片或图片为空，使用备用
 if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
   imgSrc = fallbackOgImage;
 }
 ---
 
+<!-- 文章列表项 -->
 <li class="my-6 flex flex-row gap-6 items-start">
+  {/* 缩略图 */}
   {imgSrc && (
     <a href={getPath(id, filePath)} class="shrink-0">
       <img
@@ -41,11 +58,15 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
       />
     </a>
   )}
+  
+  {/* 文章信息 */}
   <div class="flex-grow mx-auto my-auto">
+    {/* 标题 */}
     <a
       href={getPath(id, filePath)}
       class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
     >
+      {/* 根据variant属性渲染不同级别的标题 */}
       {
         variant === "h2" ? (
           <h2 {...headerProps}>{title}</h2>
@@ -54,11 +75,15 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
         )
       }
     </a>
+    
+    {/* 发布/修改日期 */}
     <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
+    
+    {/* 文章描述（可选显示，仅在桌面端显示） */}
     {showDescription && (
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 hidden sm:block">
         {description.length > 40
-          ? description.substring(0, 40) + "..."
+          ? description.substring(0, 40) + "..."  // 超过40字符时截断并添加省略
           : description}
       </p>
     )}
@@ -66,9 +91,9 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
 </li>
 
 <style>
-  /* You can add additional custom styles here if needed */
-  /* For example, to ensure consistent image height if aspect-video doesn't work as expected in all browsers */
-  /* 
+  /* 自定义样式 */
+  /* 例如：确保图片高度一致性（如果aspect-video在某些浏览器中不工作） */
+  /*
   .aspect-video {
     aspect-ratio: 16 / 9;
   }
