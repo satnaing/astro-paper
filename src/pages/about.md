@@ -11,8 +11,6 @@ title: "About"
 
 ![游钓四方的骑行照](https://cos.lhasa.icu/StylePictures/my-photo.jpg_736 "游钓四方的骑行照")
 
-![游钓四方的微信公众号](https://cos.lhasa.icu/StylePictures/WechatPublicAccount.jpg "生活中从不缺少美，而是缺少发现美的眼睛")
-
 ## 博客进程
 
 - 2018-08-30 Fork 孔令贤的 Jekyll 模板，开始接触个人博客
@@ -37,9 +35,4 @@ title: "About"
 > 本软件可自由使用、复制、修改、分发，前提是保留原始版权声明。  
 > 软件按“原样”提供，不附带任何明示或暗示的担保。
 
-本人对原项目进行了定制与扩展，包括样式调整、组件重构、功能拓展等。
-
-博客中发布的文字内容（包括博文、页面介绍等）采用  
 > <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" target="_blank" rel="noopener noreferrer">CC BY-NC-ND 4.0 国际许可协议</a>，转载请务必注明出处，禁止商用及修改。
-
-内容系本人学习、研究和总结，如有雷同，实属荣幸！
