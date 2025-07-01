@@ -32,14 +32,14 @@ export async function GET(context: any) {
     });
   }
 
-  // Folo 认证
-  const foloItem = `<generator>This message is used to verify that this feed (feedId:55149012216215602) belongs to me (userId:109876092687369216). Join me in enjoying the next generation information browser https://follow.is.</generator>`;
+  // Folo
+  const foloItem = `<generator>This message is used to verify that this feed (feedId:${SITE.folo.feedId}) belongs to me (userId:${SITE.folo.userId}). Join me in enjoying the next generation information browser https://follow.is.</generator>`;
 
   return rss({
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
     items,
-    customData: `<language>${SITE.lang || "zh-CN"}</language>\n${foloItem}`
+    customData: `<language>${SITE.lang || "zh-CN"}</language>\n${foloItem}\n<image>${SITE.logo}</image>`
   });
 }
