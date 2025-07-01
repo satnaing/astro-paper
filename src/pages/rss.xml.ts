@@ -19,14 +19,7 @@ export async function GET(context: any) {
   const container = await AstroContainer.create({ renderers });
 
   // 生成 RSS items，包含全文内容
-  const items = [
-    {
-      link: SITE.website as string,
-      title: 'Feed Ownership Verification',
-      description: 'This message is used to verify that this feed (feedId:55149012216215602) belongs to me (userId:109876092687369216). Join me in enjoying the next generation information browser https://follow.is.',
-      pubDate: new Date(),
-    },
-  ];
+  const items = [];
   for (const post of sortedPosts) {
     const { Content } = await render(post);
     const content = await container.renderToString(Content);
@@ -35,15 +28,18 @@ export async function GET(context: any) {
       link: SITE.website.replace(/\/$/, "") + getPath(post.id, post.filePath),
       description: post.data.description,
       pubDate: new Date(post.data.modDatetime ?? post.data.pubDatetime),
-      ...(content ? { content } : {}), // 仅为文章添加 content 字段
+      ...(content ? { content } : {}),
     });
   }
+
+  // Folo 认证
+  const foloItem = `<generator>This message is used to verify that this feed (feedId:55149012216215602) belongs to me (userId:109876092687369216). Join me in enjoying the next generation information browser https://follow.is.</generator>`;
 
   return rss({
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
     items,
-    customData: `<language>${SITE.lang || "zh-CN"}</language>`
+    customData: `<language>${SITE.lang || "zh-CN"}</language>\n${foloItem}`
   });
 }
