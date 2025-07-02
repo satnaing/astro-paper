@@ -24,9 +24,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-0 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        游钓四方
-      </h1>
+      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">{SITE.author}</h1>
       <a
         target="_blank"
         href="/rss.xml"
@@ -42,7 +40,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         <span class="sr-only">RSS Feed</span>
       </a>
 
-      <p>千禧年小孩、长途骑行小学生、野钓路亚、振出并继、古典乐爱好者、野生程序员、独立开发者</p>
+      <p>{SITE.desc}</p>
       <!-- <p class="mt-2">
         Read the blog posts or check
         <LinkButton
@@ -51,8 +49,8 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         >
           README
         </LinkButton> for more info.     
-      </p> -->
-      <!-- {
+      </p>
+      {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
           <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
