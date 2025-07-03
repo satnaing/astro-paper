@@ -33,7 +33,7 @@ export async function GET(context: any) {
   }
 
   // Folo
-  const foloItem = `<generator>This message is used to verify that this feed (feedId:${SITE.folo.feedId}) belongs to me (userId:${SITE.folo.userId}). Join me in enjoying the next generation information browser https://follow.is.</generator>`;
+  const foloItem = `<generator>This message is used to verify that this feed (feedId:${SITE.folo.feedId}) belongs to me (userId:${SITE.folo.userId}). Join me in enjoying the next generation information browser https://folo.is.</generator>`;
 
   // Image
   const logo = `

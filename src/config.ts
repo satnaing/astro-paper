@@ -19,8 +19,8 @@ export const SITE = {
   dynamicOgImage: true,      // 启用动态生成社交媒体图片
   
   // 分页配置
-  postPerIndex: 4,          // 首页显示的文章数量
-  postPerPage: 4,           // 每页显示的文章数量
+  postPerIndex: 5,          // 首页显示的文章数量
+  postPerPage: 5,           // 每页显示的文章数量
   
   // 定时发布配置
   scheduledPostMargin: 15 * 60 * 1000,  // 定时发布边距时间（15分钟，单位：毫秒）

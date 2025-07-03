@@ -33,7 +33,7 @@ const headerProps = {
 };
 
 // 默认图片样式
-const defaultImageClass = "w-[76px] sm:w-[81.78px] h-auto object-cover rounded-md aspect-square group-hover:opacity-90 transition-opacity duration-300";
+const defaultImageClass = "w-[76px] sm:w-[50px] h-auto object-cover rounded-md aspect-square group-hover:opacity-90 transition-opacity duration-300";
 
 // 处理图片
 let imgSrc = typeof ogImage === 'string' ? ogImage : (ogImage as any)?.src;
@@ -79,14 +79,14 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
     {/* 发布/修改日期 */}
     <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
     
-    {/* 文章描述（可选显示，仅在桌面端显示） */}
-    {showDescription && (
+    {/* 文章描述 */}
+    <!-- {showDescription && (
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 hidden sm:block">
         {description.length > 40
           ? description.substring(0, 40) + "..."  // 超过40字符时截断并添加省略
           : description}
       </p>
-    )}
+    )} -->
   </div>
 </li>
 
