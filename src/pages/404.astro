@@ -4,13 +4,14 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
+import Artalk from "@/components/Artalk.astro";
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
   <main
     id="main-content"
-    class="mx-auto flex max-w-app flex-1 items-center justify-center"
+    class="mx-auto w-full max-w-app px-4 pb-12"
   >
     <div class="mb-14 flex flex-col items-center justify-center">
       <div id="image-container" class="relative w-[350px] h-[350px]">
@@ -27,14 +28,16 @@ import { SITE } from "@/config";
           class="w-full h-full object-contain absolute top-0 left-0 hidden"
         />
       </div>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
-      <LinkButton
+      <p class="mt-4 text-2xl sm:text-3xl">你似乎来到了没有知识存在的荒原</p>
+      <!-- <LinkButton
         href="/"
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
         Go back home
-      </LinkButton>
+      </LinkButton> -->
     </div>
+    <div id="Comments"></div>
+    <Artalk />
   </main>
   <Footer />
 </Layout>

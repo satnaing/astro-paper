@@ -1,5 +1,3 @@
-<div id="Comments"></div>
-
 <script is:inline data-astro-rerun>
   // Artalk 主题同步组件
   (function () {
@@ -14,6 +12,72 @@
       pageKey: window.location.pathname,
       vote: false,
     };
+
+    // 独立的评论数统计加载函数
+    function loadCommentCount() {
+      // 检查是否存在评论数统计元素
+      const countElements = document.querySelectorAll('.artalk-comment-count');
+      if (countElements.length === 0) {
+        console.log('页面无评论数统计元素，跳过加载');
+        return;
+      }
+      
+      // 确保 Artalk 已加载
+      if (typeof Artalk === 'undefined') {
+        console.warn('Artalk 尚未加载，延迟加载评论数统计');
+        // 增加重试次数限制
+        if (!window._artalkCountRetries) window._artalkCountRetries = 0;
+        if (window._artalkCountRetries < 10) {
+          window._artalkCountRetries++;
+          setTimeout(loadCommentCount, 500);
+        } else {
+          console.error('Artalk加载超时，评论数统计加载失败');
+        }
+        return;
+      }
+      
+      try {
+        // 重置重试计数器
+        window._artalkCountRetries = 0;
+        
+        // 验证所有评论数元素都有data-page-key属性
+        let hasValidElements = false;
+        countElements.forEach(el => {
+          const pageKey = el.getAttribute('data-page-key');
+          if (pageKey) {
+            hasValidElements = true;
+          } else {
+            console.warn('发现缺少data-page-key属性的评论数元素:', el);
+            // 为缺少属性的元素设置当前页面路径
+            el.setAttribute('data-page-key', window.location.pathname);
+            hasValidElements = true;
+          }
+        });
+        
+        if (!hasValidElements) {
+          console.warn('未找到有效的评论数统计元素');
+          return;
+        }
+        
+        Artalk.loadCountWidget({
+          server: artalkConfig.server,
+          site: artalkConfig.site,
+          countEl: ".artalk-comment-count",
+          statPageKeyAttr: "data-page-key",
+        });
+        console.log(`评论数统计已加载，共${countElements.length}个元素`);
+      } catch (err) {
+        console.error('加载评论数统计失败:', err);
+        // 尝试重新加载一次
+        if (!window._artalkCountErrorRetry) {
+          window._artalkCountErrorRetry = true;
+          setTimeout(() => {
+            window._artalkCountErrorRetry = false;
+            loadCommentCount();
+          }, 1000);
+        }
+      }
+    }
 
     // 获取当前主题状态
     function getCurrentTheme() {
@@ -43,7 +107,7 @@
           window.artalkInstance.destroy();
           // 清理残留的DOM元素
           document
-            .querySelectorAll(".atk-sidebar, .atk-layer-wrap, .atk-layer")
+            .querySelectorAll(".atk-sidebar, .atk-layer-wrap, .atk-layer, .artalk-comment-count")
             .forEach(el => el.remove());
           window.artalkInstance = null;
           console.log("Artalk 实例已销毁");
@@ -86,7 +150,7 @@
         setTimeout(() => {
           syncArtalkTheme();
         }, 100);
-        
+
       } catch (err) {
         console.error("Artalk初始化失败:", err);
       }
@@ -159,11 +223,37 @@
       // 先销毁旧实例
       destroyArtalk();
       
-      // 等待DOM稳定后初始化
+      // 重置重试计数器
+      window._artalkCountRetries = 0;
+      window._artalkCountErrorRetry = false;
+      
+      // 立即尝试加载评论数统计（无论是否有评论容器）
+      setTimeout(loadCommentCount, 100);
+      
+      // 只有在文章页面才初始化完整的评论系统
+      const container = document.getElementById("Comments");
+      if (container && container.offsetParent !== null) {
+        // 等待DOM稳定后初始化评论系统
+        setTimeout(() => {
+          initArtalk();
+          setupThemeObserver();
+        }, 200);
+      }
+      
+      // 额外的评论数统计加载保险机制
       setTimeout(() => {
-        initArtalk();
-        setupThemeObserver();
-      }, 100);
+        const countElements = document.querySelectorAll('.artalk-comment-count');
+        if (countElements.length > 0) {
+          // 检查是否有元素还显示默认值
+          const needsReload = Array.from(countElements).some(el => 
+            el.textContent === '0' || el.textContent === '' || el.textContent === null
+          );
+          if (needsReload) {
+            console.log('检测到评论数未正确加载，重新尝试');
+            loadCommentCount();
+          }
+        }
+      }, 2000);
     }
 
     // 清理所有观察器
@@ -200,10 +290,22 @@
       } else {
         document.addEventListener("DOMContentLoaded", handlePageLoad);
       }
+      
+      // 页面切换时也重新加载评论数统计
+      document.addEventListener("astro:after-swap", () => {
+        // 重置计数器
+        window._artalkCountRetries = 0;
+        window._artalkCountErrorRetry = false;
+        
+        // 多次尝试确保加载成功
+        setTimeout(loadCommentCount, 100);
+        setTimeout(loadCommentCount, 500);
+        setTimeout(loadCommentCount, 1000);
+      });
     }
 
     // 启动Artalk
     setupArtalk();
+
   })();
 </script>
-  

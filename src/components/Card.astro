@@ -45,7 +45,7 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
 ---
 
 <!-- 文章列表项 -->
-<li class="my-6 flex flex-row gap-6 items-start">
+<li class="my-6 grid grid-cols-[auto_1fr_auto] items-center gap-4">
   {/* 缩略图 */}
   {imgSrc && (
     <a href={getPath(id, filePath)} class="shrink-0">
@@ -58,27 +58,23 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
       />
     </a>
   )}
-  
-  {/* 文章信息 */}
-  <div class="flex-grow mx-auto my-auto">
-    {/* 标题 */}
+
+  {/* 中间内容：文章信息 */}
+  <div>
     <a
       href={getPath(id, filePath)}
       class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
     >
-      {/* 根据variant属性渲染不同级别的标题 */}
-      {
-        variant === "h2" ? (
-          <h2 {...headerProps}>{title}</h2>
-        ) : (
-          <h3 {...headerProps}>{title}</h3>
-        )
-      }
+      {variant === "h2" ? (
+        <h2 {...headerProps}>{title}</h2>
+      ) : (
+        <h3 {...headerProps}>{title}</h3>
+      )}
     </a>
-    
+
     {/* 发布/修改日期 */}
     <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} timezone={timezone} />
-    
+
     {/* 文章描述 */}
     <!-- {showDescription && (
       <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 hidden sm:block">
@@ -88,6 +84,14 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
       </p>
     )} -->
   </div>
+
+  {/* 评论数 */}
+  <a
+    href="#comments"
+    class="block text-center text-white no-underline rounded-[10px] w-[30px] h-[16px] font-medium text-[13px] leading-[16px] opacity-100 bg-[#96d7f5]"
+  >
+    <span class="artalk-comment-count" data-page-key={getPath(id, filePath)}></span>
+  </a>
 </li>
 
 <style>

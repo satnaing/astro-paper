@@ -6,6 +6,7 @@ import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client"; // Google站
 import { SITE } from "@/config";                            // 站点配置
 import "@/styles/global.css";                               // 全局样式
 import "katex/dist/katex.min.css";                          // KaTeX数学公式样式
+import Artalk from "@/components/Artalk.astro";
 
 export interface Props {
   title?: string;           // 页面标题（可选，默认使用站点标题）
@@ -165,6 +166,7 @@ const structuredData = {
   <body>
     <!-- 页面主体内容插槽 -->
     <slot />
+    <Artalk />
   </body>
 </html>
 
