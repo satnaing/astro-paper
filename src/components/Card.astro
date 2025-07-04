@@ -12,6 +12,7 @@ export interface Props extends CollectionEntry<"blog"> {
   showDescription?: boolean;    // 是否显示描述
   imageClass?: string;          // 自定义图片样式类
   fallbackOgImage?: string;     // 备用图片
+  showCommentCount?: boolean;   // 是否显示评论数统计
 }
 
 // 解构组件属性并设置默认值
@@ -22,7 +23,8 @@ const {
   filePath, 
   showDescription = true,      // 默认显示
   imageClass, 
-  fallbackOgImage 
+  fallbackOgImage,
+  showCommentCount = true      // 默认显示评论数
 } = Astro.props;
 
 const { title, description, pubDatetime, modDatetime, timezone, ogImage } = data;
@@ -86,12 +88,14 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
   </div>
 
   {/* artalk 评论数统计 */}
-  <a
-    href={getPath(id, filePath)}
-    class="comment-count-badge block text-center no-underline rounded-[10px] w-[30px] h-[16px] font-medium text-[13px] leading-[16px] opacity-100 transition-colors duration-200"
-  >
-    <span class="artalk-comment-count" data-page-key={getPath(id, filePath)}></span>
-  </a>
+  {showCommentCount && (
+    <a
+      href={getPath(id, filePath)}
+      class="comment-count-badge block text-center no-underline rounded-[10px] w-[30px] h-[16px] font-medium text-[13px] leading-[16px] opacity-100 transition-colors duration-200"
+    >
+      <span class="artalk-comment-count" data-page-key={getPath(id, filePath)}></span>
+    </a>
+  )}
 </li>
 
 <style>
