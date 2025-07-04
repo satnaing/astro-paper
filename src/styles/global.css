@@ -13,6 +13,11 @@ html[data-theme="light"] {
   --accent: #006cac;        /* 强调色 - 蓝色 */
   --muted: #e6e6e6;         /* 静音色（次要元素） - 浅灰 */
   --border: #ece9e9;        /* 边框色 - 浅灰 */
+  
+  /* 评论数统计专用颜色变量 */
+  --comment-count-bg: #96d7f5;      /* 浅蓝色背景 */
+  --comment-count-text: #fff;    /* 深蓝色文字 */
+  --comment-count-hover-bg: #2ea9df; /* 悬停时的背景色 */
 }
 
 /* 深色主题颜色变量定义 */
@@ -22,6 +27,11 @@ html[data-theme="dark"] {
   --accent: #ff6b01;        /* 强调色 - 橙色 */
   --muted: #343f60bf;       /* 静音色（次要元素） - 半透明蓝灰 */
   --border: #ab4b08;        /* 边框色 - 深橙 */
+  
+  /* 评论数统计专用颜色变量 */
+  --comment-count-bg: #374151;      /* 深灰色背景 */
+  --comment-count-text: #e5e7eb;    /* 浅灰色文字 */
+  --comment-count-hover-bg: #4b5563; /* 悬停时的背景色 */
 }
 
 /* Tailwind 主题颜色映射配置 */
@@ -87,4 +97,27 @@ html[data-theme="dark"] {
 /* 为所有锚点目标添加额外的滚动边距，避免内容被固定头部遮挡 */
 :target {
   scroll-margin-block: 1rem;  /* 块方向滚动边距 1rem */
+}
+
+/* 评论数统计样式 */
+.comment-count-badge {
+  background-color: var(--comment-count-bg);
+  color: var(--comment-count-text);
+  border: 1px solid var(--comment-count-bg);
+}
+
+.comment-count-badge:hover {
+  background-color: var(--comment-count-hover-bg);
+  border-color: var(--comment-count-hover-bg);
+}
+
+/* 确保评论数文字在所有主题下都可见 */
+.artalk-comment-count {
+  font-weight: 500;
+}
+
+/* 当评论数为0时的特殊样式 */
+.artalk-comment-count:empty::before {
+  content: "0";
+  opacity: 0.7;
 }

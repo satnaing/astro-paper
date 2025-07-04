@@ -74,9 +74,6 @@ function createArchiveCardHTML(post, siteTimezone) {
           <span class="sr-only">Published:</span>
           <span class="text-sm italic">
             <time datetime="${pubDate.iso}">${pubDate.date}</time>
-            <span aria-hidden="true"> | </span>
-            <span class="sr-only">&nbsp;at&nbsp;</span>
-            <span class="text-nowrap">${pubDate.time}</span>
           </span>
         </div>
       </div>

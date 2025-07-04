@@ -156,6 +156,21 @@
       }
     }
 
+    // 同步评论数统计的主题样式
+    function syncCommentCountTheme() {
+      const countElements = document.querySelectorAll('.comment-count-badge');
+      const isDark = getCurrentTheme();
+      
+      countElements.forEach(element => {
+        // 强制重新应用CSS变量，确保主题切换生效
+        element.style.display = 'none';
+        element.offsetHeight; // 触发重排
+        element.style.display = '';
+      });
+      
+      console.log(`评论数统计主题已同步: ${isDark ? 'dark' : 'light'}`);
+    }
+
     // 同步Artalk主题
     function syncArtalkTheme() {
       if (!window.artalkInstance) return;
@@ -163,6 +178,8 @@
       const isDark = getCurrentTheme();
       try {
         window.artalkInstance.setDarkMode(isDark);
+        // 同时同步评论数统计的主题
+        syncCommentCountTheme();
         console.log(`Artalk主题已同步: ${isDark ? 'dark' : 'light'}`);
       } catch (err) {
         console.error("同步Artalk主题失败:", err);
@@ -226,6 +243,9 @@
       // 重置重试计数器
       window._artalkCountRetries = 0;
       window._artalkCountErrorRetry = false;
+      
+      // 立即同步评论数统计主题
+      setTimeout(syncCommentCountTheme, 50);
       
       // 立即尝试加载评论数统计（无论是否有评论容器）
       setTimeout(loadCommentCount, 100);

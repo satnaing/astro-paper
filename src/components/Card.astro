@@ -85,10 +85,10 @@ if ((!imgSrc || imgSrc.trim() === "") && fallbackOgImage) {
     )} -->
   </div>
 
-  {/* 评论数 */}
+  {/* artalk 评论数统计 */}
   <a
-    href="#comments"
-    class="block text-center text-white no-underline rounded-[10px] w-[30px] h-[16px] font-medium text-[13px] leading-[16px] opacity-100 bg-[#96d7f5]"
+    href={getPath(id, filePath)}
+    class="comment-count-badge block text-center no-underline rounded-[10px] w-[30px] h-[16px] font-medium text-[13px] leading-[16px] opacity-100 transition-colors duration-200"
   >
     <span class="artalk-comment-count" data-page-key={getPath(id, filePath)}></span>
   </a>
