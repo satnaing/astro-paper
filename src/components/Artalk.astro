@@ -14,6 +14,7 @@
     };
 
     // 独立的评论数统计加载函数
+    // 在 loadCommentCount 函数中添加成功标记
     function loadCommentCount() {
       // 检查是否存在评论数统计元素
       const countElements = document.querySelectorAll('.artalk-comment-count');
@@ -65,6 +66,9 @@
           countEl: ".artalk-comment-count",
           statPageKeyAttr: "data-page-key",
         });
+        
+        // 标记加载成功
+        window._artalkCountLoaded = true;
         console.log(`评论数统计已加载，共${countElements.length}个元素`);
       } catch (err) {
         console.error('加载评论数统计失败:', err);
@@ -264,9 +268,9 @@
       setTimeout(() => {
         const countElements = document.querySelectorAll('.artalk-comment-count');
         if (countElements.length > 0) {
-          // 检查是否有元素还显示默认值
+          // 只检查是否有元素还显示空值或null，不检查'0'
           const needsReload = Array.from(countElements).some(el => 
-            el.textContent === '0' || el.textContent === '' || el.textContent === null
+            el.textContent === '' || el.textContent === null || el.textContent === undefined
           );
           if (needsReload) {
             console.log('检测到评论数未正确加载，重新尝试');
@@ -327,5 +331,21 @@
     // 启动Artalk
     setupArtalk();
 
+    // 修改检测逻辑
+    setTimeout(() => {
+      // 如果已经成功加载过，就不再检测
+      if (window._artalkCountLoaded) return;
+      
+      const countElements = document.querySelectorAll('.artalk-comment-count');
+      if (countElements.length > 0) {
+        const needsReload = Array.from(countElements).some(el => 
+          el.textContent === '' || el.textContent === null || el.textContent === undefined
+        );
+        if (needsReload) {
+          console.log('检测到评论数未正确加载，重新尝试');
+          loadCommentCount();
+        }
+      }
+    }, 2000);
   })();
 </script>
