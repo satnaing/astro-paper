@@ -37,9 +37,4 @@ export const SITE = {
   lang: "zh-CN",           // 网站语言代码
   timezone: "Asia/Shanghai", // 默认全局时区（IANA格式）
                             // 时区列表参考: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  // Folo
-  folo: {
-    feedId: "163201180603172864",
-    userId: "109876092687369216",
-  },
 } as const;
