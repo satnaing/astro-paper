@@ -16,7 +16,7 @@ export const SITE = {
   lightAndDarkMode: true,    // 启用浅色/深色主题切换
   showArchives: true,        // 显示归档页面
   showBackButton: true,      // 显示返回按钮
-  dynamicOgImage: true,      // 启用动态生成社交媒体图片
+  dynamicOgImage: false,      // 启用动态生成社交媒体图片
   
   // 分页配置
   postPerIndex: 5,          // 首页显示的文章数量

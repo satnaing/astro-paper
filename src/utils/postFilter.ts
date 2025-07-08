@@ -20,10 +20,15 @@ const postFilter = ({ data }: CollectionEntry<"blog">) => {
     Date.now() >
     new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
   
-  // 过滤条件：
+  // 开发环境下显示所有文章（包括草稿）
+  if (import.meta.env.DEV) {
+    return true;
+  }
+  
+  // 生产环境下的过滤条件：
   // 1. 不是草稿 (!data.draft)
-  // 2. 并且（开发环境 或 发布时间已到达）
-  return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
+  // 2. 并且发布时间已到达
+  return !data.draft && isPublishTimePassed;
 };
 
 export default postFilter;

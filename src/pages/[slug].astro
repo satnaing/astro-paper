@@ -9,7 +9,13 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  // 开发环境下包含草稿文章，生产环境下排除草稿文章
+  const posts = await getCollection("blog", ({ data }) => {
+    if (import.meta.env.DEV) {
+      return true; // 开发环境显示所有文章包括草稿
+    }
+    return !data.draft; // 生产环境排除草稿
+  });
   const postResult = posts.map(post => ({
     params: { slug: getSlugFromPath(post.id, post.filePath) },
     props: { post },
@@ -24,4 +30,4 @@ const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
 ---
 
-<PostDetails post={post} posts={sortedPosts} /> 
+<PostDetails post={post} posts={sortedPosts} />
