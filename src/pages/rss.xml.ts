@@ -61,6 +61,7 @@ export async function GET(context: any) {
     description: SITE.desc,
     site: SITE.website,
     items,
-    customData: `<language>${SITE.lang || "zh-CN"}</language>\n${logo}`
+    customData: `<language>${SITE.lang || "zh-CN"}</language>\n${logo}`,
+    stylesheet: "/style/rss.xsl"
   });
 }

@@ -1,0 +1,129 @@
+---
+author: 游钓四方
+draft: false
+featured: false
+category: technology
+pubDatetime: 2025-07-10T02:26+08:00
+title: 这个 RSS 有意思
+slug: beautify-rss
+ogImage: https://cos.lhasa.icu/ArticlePictures/beautify-rss/beautify-rss.png
+tags:
+  - 软件
+  - 开源
+  - RSS
+  - RSS.Beauty
+
+description: 晚上逛 #UNTAG 发现一个有意思的项目 —— RSS.Beauty
+---
+
+import Img from "@/components/Img.astro";
+
+晚上逛 #UNTAG 发现一个有意思的项目 —— **RSS.Beauty**
+
+一款开源 RSS 美化工具。支持 RSS 2.0 和 Atom 1.0 格式，可将原始订阅源转换加以渲染。
+
+此外，根据项目文档，作者还提供了四种食用方法，包括：
+
+ - 在线美化
+ - 本地 XSL 样式
+ - Base64 内嵌样式
+ - Docker / Node.js 部署
+
+### 一、在线美化 RSS
+
+只需提供 RSS 地址，即可通过服务端转换美化：
+
+```bash
+https://rss.lhasa.icu/rss?url=https://lhasa.icu/rss.xml
+```
+<Img 
+  src={`${IMAGES}/${frontmatter.slug}/8143415125aab.png`}
+  alt="RSS"
+  exif={false}
+  caption={false}
+/>
+
+### 二、食用 XSL 模板
+
+ * XSL 文件必须与 RSS 源在同一域名下，否则会有跨域限制。
+
+下载模板：
+
+```bash
+# RSS 2.0
+wget https://rss.lhasa.icu/rss.xsl
+
+# Atom 1.0
+wget https://rss.lhasa.icu/atom.xsl
+```
+
+在 RSS 文件头部添加如下声明：
+
+```xml
+<?xml-stylesheet href="/style/rss.xsl" type="text/xsl"?>
+```
+
+### 三、Base64 编码
+
+适合不想托管样式文件，可以将样式直接内嵌进 RSS 文件中
+
+步骤如下：
+
+1. 访问:`https://rss.lhasa.icu`
+2. 切换到 “Base64” 选项卡
+3. 根据 RSS / Atom 格式选择对应样式
+4. 将复制的代码插入 RSS 文件中，例如：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="data:text/xsl;base64,PD94bWw..." type="text/xsl"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+```
+
+### 四、Docker 部署
+
+扒拉下来，启动：
+
+```bash
+docker pull ghcr.io/ccbikai/rss.beauty:main
+docker run -d --name rss-beauty -p 4321:4321 ghcr.io/ccbikai/rss.beauty:main
+```
+
+Nginx 反代：
+
+```nginx
+# /etc/nginx/conf.d/rss.conf
+server {
+  listen 80;
+  server_name rss.lhasa.icu;
+  location / {
+      proxy_pass         http://127.0.0.1:4321;
+      proxy_http_version 1.1;
+      proxy_set_header   Host $host;
+      proxy_set_header   X-Real-IP $remote_addr;
+      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto $scheme;
+  }
+}
+
+# 重载 Nginx
+sudo nginx -t && sudo nginx -s reload
+```
+Node.js 部署就不赘述了，天天接触，不新鲜。
+
+我小改了一下配色，不过目前还不支持输出文章配图和全文。等明天下班再来折腾吧。
+
+> [我去看看](https://lhasa.icu/rss.xml)
+
+<Img 
+  src={`${IMAGES}/${frontmatter.slug}/1752084104213.jpg`}
+  alt="RSS"
+  exif={false}
+  caption={false}
+/>
+
+### 相关链接：
+
+[项目主页：RSS.Beauty](https://github.com/ccbikai/rss.beauty)
+
+[官方部署指南](https://github.com/ccbikai/RSS.Beauty/blob/main/docs/deployment-guide.md)
