@@ -71,7 +71,7 @@
     }
 
     .astro-code code {
-      @apply bg-inherit p-0;
+      @apply flex-[1_0_100%] bg-inherit p-0;
     }
 
     blockquote {
@@ -93,7 +93,7 @@
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+    @apply flex border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
   }
 
   html[data-theme="dark"] .astro-code {
@@ -104,13 +104,13 @@
   /* https://shiki.style/packages/transformers */
   .astro-code {
     .line.diff.add {
-      @apply relative *:bg-green-500/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
+      @apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
     }
     .line.diff.remove {
-      @apply relative *:bg-red-500/30 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
     }
     .line.highlighted {
-      @apply *:!bg-slate-400/20;
+      @apply inline-block w-full bg-slate-400/20;
     }
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
