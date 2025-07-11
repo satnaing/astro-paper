@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.5.0 (2025-07-12)
+
+### Feat
+
+- enhance file name transformer with additional options (#555)
+
+### Fix
+
+- update syntax highlighting transformer styles (#558)
+- typo in astro-paper-v5 blog post (#556)
+
 ## v5.4.3 (2025-06-21)
 
 ### Fix
