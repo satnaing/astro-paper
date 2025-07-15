@@ -145,7 +145,8 @@ const exifUrl = shouldShowExif ? generateExifUrl(src) : undefined;
     if (data.Software?.val) {
       let deviceName = data.Software.val;
       // 特殊处理Samsung设备
-      if (deviceName === "S9180ZCU6DYDA") {
+      const s23UltraModels = ["S9180ZCU6DYDA", "S9180ZCS6DYF1"];
+      if (s23UltraModels.includes(deviceName) || deviceName.startsWith("S9180")) {
         deviceName = "Samsung Galaxy S23 Ultra";
       }
       settings.push(deviceName);

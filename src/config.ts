@@ -10,7 +10,7 @@ export const SITE = {
   ogImage: "https://cos.lhasa.icu/StylePictures/my-photo.jpg",          // 社交媒体分享图片
   notFoundImage: "https://cos.lhasa.icu/StylePictures/404.gif",         // 404页面动态图片
   notFoundStaticImage: "https://cos.lhasa.icu/StylePictures/404.webp",  // 404页面静态图片
-  logo: "https://lhasa.icu/apple-touch-icon.png", // 网站logo图片链接
+  logo: "https://cos.lhasa.icu/StylePictures/apple-touch-icon.png", // 网站logo图片链接
   
   // 功能开关配置
   lightAndDarkMode: true,    // 启用浅色/深色主题切换

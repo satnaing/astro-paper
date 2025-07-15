@@ -8,12 +8,12 @@
   "theme_color": "#1f2937",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "https://cos.lhasa.icu/StylePictures/favicon.ico",
       "sizes": "32x32",
       "type": "image/x-icon"
     },
     {
-      "src": "/favicon.svg",
+      "src": "https://cos.lhasa.icu/StylePictures/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
