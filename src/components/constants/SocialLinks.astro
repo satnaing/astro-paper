@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import LinkButton from "@/components/LinkButton.astro";
+import { getSocialIcons } from "./utils";
+import SocialLinksContainer from "./SocialLinksContainer.astro";
+
+const socialsCollection = await getCollection("socials");
+const socials = await getSocialIcons(socialsCollection);
+
+export interface Props {
+  minimal?: boolean;
+  size?: number;
+}
+
+const { minimal = false, size = 26 } = Astro.props;
+---
+
+{
+  socials.length > 0 && (
+    <SocialLinksContainer minimal={minimal}>
+      {socials.map(social => (
+        <LinkButton
+          href={social.href}
+          class="p-2 hover:rotate-6 sm:p-1"
+          title={social.linkTitle}
+        >
+          <social.icon
+            height={size}
+            width={size}
+            class="inline-block size-6 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent max-sm:scale-110"
+          />
+          <span class="sr-only">{social.linkTitle}</span>
+        </LinkButton>
+      ))}
+    </SocialLinksContainer>
+  )
+}

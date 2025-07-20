@@ -1,0 +1,31 @@
+---
+import LinkButton from "@/components/LinkButton.astro";
+import { getCollection } from "astro:content";
+import { getSocialIcons } from "./utils";
+
+const shareLinkCollection = await getCollection("shareLinks");
+
+const shareLinks = await getSocialIcons(shareLinkCollection);
+
+const URL = Astro.url;
+---
+
+{
+  shareLinks.length > 0 && (
+    <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start">
+      <span class="italic">Share this post on:</span>
+      <div class="text-center">
+        {shareLinks.map(shareLink => (
+          <LinkButton
+            href={`${shareLink.href + URL}`}
+            class="scale-90 p-2 hover:rotate-6 sm:p-1"
+            title={shareLink.linkTitle}
+          >
+            <shareLink.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+            <span class="sr-only">{shareLink.linkTitle}</span>
+          </LinkButton>
+        ))}
+      </div>
+    </div>
+  )
+}

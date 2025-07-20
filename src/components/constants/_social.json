@@ -1,0 +1,26 @@
+[
+  {
+    "id": "github",
+    "name": "GitHub",
+    "href": "https://github.com/satnaing/astro-paper",
+    "linkTitle": "{title} on GitHub"
+  },
+  {
+    "id": "x",
+    "name": "X",
+    "href": "https://x.com/username",
+    "linkTitle": "{title} on X"
+  },
+  {
+    "id": "linkedin",
+    "name": "LinkedIn",
+    "href": "https://www.linkedin.com/in/username/",
+    "linkTitle": "{title} on LinkedIn"
+  },
+  {
+    "id": "mail",
+    "name": "Mail",
+    "href": "mailto:yourmail@gmail.com",
+    "linkTitle": "Send an email to {title}"
+  }
+]

@@ -1,0 +1,24 @@
+---
+export interface Props {
+  minimal?: boolean;
+}
+
+const { minimal = false } = Astro.props;
+
+const containerClass = ["flex-wrap justify-center gap-1", { flex: minimal }];
+---
+
+{
+  minimal ? (
+    <div class:list={containerClass}>
+      <slot />
+    </div>
+  ) : (
+    <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
+      <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+      <div class:list={containerClass}>
+        <slot />
+      </div>
+    </div>
+  )
+}
