@@ -1,8 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { SITE } from "@/config";
-
-export const BLOG_PATH = "src/data/blog";
+import { BLOG_PATH, SHARE_LINKS_PATH, SOCIALS_PATH } from "@/constants";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
@@ -30,12 +29,12 @@ const socialSchema = z.object({
 });
 
 const socials = defineCollection({
-  loader: file(`./src/components/constants/_social.json`),
+  loader: file(`./${SOCIALS_PATH}`),
   schema: socialSchema,
 });
 
 const shareLinks = defineCollection({
-  loader: file(`./src/components/constants/_share.json`),
+  loader: file(`./${SHARE_LINKS_PATH}`),
   schema: socialSchema,
 });
 
