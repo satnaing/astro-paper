@@ -14,7 +14,8 @@ import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import LangSwitcher from "@/components/LangSwitcher.astro";
 
-const posts = await getCollection("blog");
+const allPosts = await getCollection("blog");
+const posts = allPosts.filter(p => (p.data as any).lang === "en");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
@@ -60,6 +61,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         >
           README
         </LinkButton> for more info.
+      </p>
+      <p class="mt-2 opacity-75">
+        Viewing English posts. Switch to <a href="/zh-TW/" class="underline decoration-dashed">繁體中文</a> for Traditional Chinese content.
       </p>
       {
         // only display if at least one social link is enabled
