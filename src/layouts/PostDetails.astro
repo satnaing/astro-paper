@@ -35,8 +35,10 @@ const {
   tags,
   hideEditPost,
   lang = "en",
-  slug,
 } = post.data as any;
+
+// Extract slug consistently with OG image generation
+const slug = (post.data as any).slug ?? post.id.split("/").slice(-1)[0];
 
 const { Content, headings } = await render(post);
 
