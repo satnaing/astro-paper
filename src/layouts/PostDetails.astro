@@ -14,6 +14,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import TOC from "@/components/TOC.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -33,9 +34,11 @@ const {
   timezone,
   tags,
   hideEditPost,
-} = post.data;
+  lang = "en",
+  slug,
+} = post.data as any;
 
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 let ogImageUrl: string | undefined;
 
@@ -48,7 +51,8 @@ if (typeof initOgImage === "string") {
 
 // Use dynamic OG image if enabled and no remote|local ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
+  // Prefer new locale-aware og route
+  ogImageUrl = `/og/${lang}/${slug}.png`;
 }
 
 // Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
@@ -106,23 +110,28 @@ const nextPost =
         class:list={[
           "max-sm:hidden",
           { hidden: !SITE.editPost.enabled || hideEditPost },
-        ]}>|</span
-      >
+        ]}
+        >|
+      </span>
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
-    <article
-      id="article"
-      class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
-      <Content />
-    </article>
+
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_auto]">
+      <article
+        id="article"
+        class="app-prose mx-auto max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+      >
+        <Content />
+      </article>
+      <TOC headings={headings} />
+    </div>
 
     <hr class="my-8 border-dashed" />
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
     <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+      {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
     <BackToTopButton />
@@ -285,4 +294,9 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  // Mermaid.js for diagrams
+  import("https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs").then(m => {
+    m.default.initialize({ startOnLoad: true });
+  });
 </script>

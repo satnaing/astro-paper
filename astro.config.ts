@@ -60,4 +60,8 @@ export default defineConfig({
   experimental: {
     preserveScriptOrder: true,
   },
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh-TW"],
+  },
 });

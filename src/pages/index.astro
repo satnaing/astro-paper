@@ -12,8 +12,10 @@ import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
+import LangSwitcher from "@/components/LangSwitcher.astro";
 
-const posts = await getCollection("blog");
+const allPosts = await getCollection("blog");
+const posts = allPosts.filter(p => (p.data as any).lang === "en");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
@@ -24,9 +26,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
-      </h1>
+      <div class="flex items-center justify-between">
+        <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
+          Mingalaba
+        </h1>
+        <LangSwitcher />
+      </div>
       <a
         target="_blank"
         href="/rss.xml"
@@ -56,6 +61,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         >
           README
         </LinkButton> for more info.
+      </p>
+      <p class="mt-2 opacity-75">
+        Viewing English posts. Switch to <a href="/zh-TW/" class="underline decoration-dashed">繁體中文</a> for Traditional Chinese content.
       </p>
       {
         // only display if at least one social link is enabled

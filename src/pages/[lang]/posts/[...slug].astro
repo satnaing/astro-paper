@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import PostDetails from "@/layouts/PostDetails.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { getPath } from "@/utils/getPath";
+
+export interface Props { post: CollectionEntry<'blog'> }
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const locales = ["en", "zh-TW", "zh-tw"] as const;
+  const paths: Array<{ params: { lang: string; slug: string }; props: Props }> = [];
+
+  for (const raw of locales) {
+    const lang = (raw.toLowerCase() === "zh-tw" ? "zh-TW" : "en") as "en" | "zh-TW";
+    const localized = posts.filter(p => ((p.data as any).lang ?? "en") === lang);
+    for (const post of localized) {
+      const slugPath = getPath(post.id, post.filePath, false);
+      paths.push({ params: { lang: raw, slug: slugPath }, props: { post } });
+    }
+  }
+
+  return paths;
+}
+
+function normalizeLang(input: string | undefined) {
+  if (!input) return "en" as const;
+  return input.toLowerCase() === "zh-tw" ? ("zh-TW" as const) : ("en" as const);
+}
+
+const { post } = Astro.props;
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
+const lang = normalizeLang(Astro.params.lang);
+---
+
+<PostDetails post={post} posts={sortedPosts} />

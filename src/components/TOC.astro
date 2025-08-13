@@ -1,0 +1,25 @@
+---
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+const { headings = [] } = Astro.props as { headings: Heading[] };
+---
+<aside class="sticky top-24 ms-8 hidden w-64 shrink-0 self-start md:block" aria-label="Table of contents">
+  <div class="border-s ps-4 max-h-[calc(100svh-6rem)] overflow-auto">
+    <div class="mb-2 font-semibold">On this page</div>
+    <ul class="text-sm space-y-1">
+      {headings
+        .filter(h => h.depth <= 3)
+        .map(h => (
+          <li class:list={[{ "ms-4": h.depth === 3 }]}> 
+            <a href={`#${h.slug}`} class="hover:text-accent">
+              {h.text}
+            </a>
+          </li>
+        ))}
+    </ul>
+  </div>
+</aside>

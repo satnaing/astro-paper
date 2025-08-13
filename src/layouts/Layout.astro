@@ -45,12 +45,14 @@ const structuredData = {
     },
   ],
 };
+
+const htmlLang = SITE.lang ?? "en";
 ---
 
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
+  lang={htmlLang}
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
