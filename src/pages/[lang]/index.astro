@@ -14,10 +14,20 @@ import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
 export async function getStaticPaths() {
-  return [{ params: { lang: "en" } }, { params: { lang: "zh-TW" } }];
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "zh-TW" } },
+    // allow lowercase path as well
+    { params: { lang: "zh-tw" } },
+  ];
 }
 
-const lang = Astro.params.lang as "en" | "zh-TW";
+function normalizeLang(input: string | undefined) {
+  if (!input) return "en" as const;
+  return input.toLowerCase() === "zh-tw" ? ("zh-TW" as const) : ("en" as const);
+}
+
+const lang = normalizeLang(Astro.params.lang) as "en" | "zh-TW";
 const posts = (await getCollection("blog")).filter(p => p.data.lang === lang);
 
 const sortedPosts = getSortedPosts(posts);

@@ -1,17 +1,26 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const locales = ["en", "zh-TW"];
-const currentPath = Astro.url.pathname;
+const locales = [
+  { code: "en", label: "EN" },
+  { code: "zh-TW", label: "繁體中文" },
+];
+
+const pathRef = Astro.url; // current page URL
+const pathname = Astro.url.pathname;
 ---
-<nav aria-label="Language switcher" class="flex gap-2 text-sm">
-  {locales.map((loc) => (
+<nav aria-label="Language switcher" class="flex gap-3 text-sm">
+  {locales.map(({ code, label }) => (
     <a
-      href={getRelativeLocaleUrl(loc, currentPath)}
-      class:list={["underline decoration-dashed underline-offset-4", { "opacity-50 pointer-events-none": currentPath.startsWith(`/${loc}/`) || (loc === "en" && !currentPath.match(/^\/(zh-TW)\//)) && currentPath === "/" }]}
-      aria-current={(currentPath.startsWith(`/${loc}/`) || (loc === "en" && (currentPath === "/" || !currentPath.match(/^\/(zh-TW)\//)))) ? "true" : "false"}
+      href={getRelativeLocaleUrl(code, pathRef)}
+      class="underline decoration-dashed underline-offset-4 hover:text-accent"
+      aria-current={
+        pathname.startsWith(`/${code}/`) || (code === "en" && !pathname.startsWith("/zh-TW/"))
+          ? "true"
+          : "false"
+      }
     >
-      {loc}
+      {label}
     </a>
   ))}
 </nav>
