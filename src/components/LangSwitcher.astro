@@ -3,18 +3,57 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locales = [
   { code: "en", label: "EN" },
-  { code: "zh-TW", label: "繁體中文" },
+  { code: "zh-tw", label: "繁體中文" },
 ];
 
 const pathname = Astro.url.pathname;
+
+// Function to get the correct home page URL for each language
+function getHomePageUrl(langCode: string) {
+  if (langCode === "en") {
+    return "/";
+  } else {
+    return `/${langCode}/`;
+  }
+}
+
+// Function to get the correct URL for the current path in the target language
+function getLocalizedUrl(langCode: string, currentPath: string) {
+  // If we're on the root path, use the home page URL
+  if (currentPath === "/") {
+    return getHomePageUrl(langCode);
+  }
+
+  // If we're on a language-specific path, switch to the other language
+  if (currentPath.startsWith("/en/")) {
+    if (langCode === "zh-tw") {
+      return currentPath.replace("/en/", "/zh-tw/");
+    } else {
+      return currentPath.replace("/en/", "/");
+    }
+  } else if (currentPath.startsWith("/zh-tw/")) {
+    if (langCode === "en") {
+      return currentPath.replace("/zh-tw/", "/");
+    } else {
+      return currentPath;
+    }
+  } else {
+    // For other paths, try to use getRelativeLocaleUrl, fallback to home page
+    try {
+      return getRelativeLocaleUrl(langCode, currentPath);
+    } catch {
+      return getHomePageUrl(langCode);
+    }
+  }
+}
 ---
 <nav aria-label="Language switcher" class="flex gap-3 text-sm">
   {locales.map(({ code, label }) => (
     <a
-      href={getRelativeLocaleUrl(code, pathname)}
+      href={getLocalizedUrl(code, pathname)}
       class="underline decoration-dashed underline-offset-4 hover:text-accent"
       aria-current={
-        pathname.startsWith(`/${code}/`) || (code === "en" && !pathname.startsWith("/zh-TW/"))
+        pathname.startsWith(`/${code}/`) || (code === "en" && !pathname.startsWith("/zh-tw/"))
           ? "true"
           : "false"
       }

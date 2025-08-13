@@ -14,19 +14,26 @@ import { SITE } from "@/config";
 export async function getStaticPaths() {
   return [
     { params: { lang: "en" } },
-    { params: { lang: "zh-TW" } },
-    // allow lowercase path as well
     { params: { lang: "zh-tw" } },
   ];
 }
 
 function normalizeLang(input: string | undefined) {
   if (!input) return "en" as const;
-  return input.toLowerCase() === "zh-tw" ? ("zh-TW" as const) : ("en" as const);
+  return input.toLowerCase() === "zh-tw" ? ("zh-tw" as const) : ("en" as const);
 }
 
-const lang = normalizeLang(Astro.params.lang) as "en" | "zh-TW";
-const posts = (await getCollection("blog")).filter(p => p.data.lang === lang);
+const lang = normalizeLang(Astro.params.lang);
+// Filter posts by file path instead of lang field
+const allPosts = await getCollection("blog");
+const posts = allPosts.filter(p => {
+  const filePath = p.id;
+  if (lang === "zh-tw") {
+    return filePath.startsWith("zh-tw/");
+  } else {
+    return filePath.startsWith("en/") || !filePath.includes("/");
+  }
+});
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
@@ -38,14 +45,14 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        {lang === 'zh-TW' ? '你好' : 'Mingalaba'}
+        {lang === 'zh-tw' ? '你好' : 'Mingalaba'}
       </h1>
       <a target="_blank" href="/rss.xml" class="inline-block" aria-label="rss feed" title="RSS Feed">
         <IconRss width={20} height={20} class="scale-125 stroke-accent stroke-3 rtl:-rotate-90" />
         <span class="sr-only">RSS Feed</span>
       </a>
       <p>
-        {lang === 'zh-TW'
+        {lang === 'zh-tw'
           ? '這是基於 Astro 的極簡部落格主題，提供良好可及性與 SEO。'
           : 'AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme.'}
       </p>
@@ -56,7 +63,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     {featuredPosts.length > 0 && (
       <>
         <section id="featured" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">{lang === 'zh-TW' ? '精選' : 'Featured'}</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">{lang === 'zh-tw' ? '精選' : 'Featured'}</h2>
           <ul>
             {featuredPosts.map(data => (
               <Card variant="h3" {...data} />
@@ -69,7 +76,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     {recentPosts.length > 0 && (
       <section id="recent-posts" class="pt-12 pb-6">
-        <h2 class="text-2xl font-semibold tracking-wide">{lang === 'zh-TW' ? '最新文章' : 'Recent Posts'}</h2>
+        <h2 class="text-2xl font-semibold tracking-wide">{lang === 'zh-tw' ? '最新文章' : 'Recent Posts'}</h2>
         <ul>
           {recentPosts.map((data, index) => index < SITE.postPerIndex && <Card variant="h3" {...data} />)}
         </ul>
@@ -78,7 +85,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     <div class="my-8 text-center">
       <LinkButton href={`/${lang}/posts/`}>
-        {lang === 'zh-TW' ? '所有文章' : 'All Posts'}
+        {lang === 'zh-tw' ? '所有文章' : 'All Posts'}
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>

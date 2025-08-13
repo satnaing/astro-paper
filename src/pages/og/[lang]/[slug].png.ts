@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 export const GET: APIRoute = async ({ params }) => {
-  const lang = params.lang as "en" | "zh-TW";
+  const lang = params.lang as "en" | "zh-tw";
   const slug = params.slug as string;
   const posts = await getCollection("blog");
   const post = posts.find(p => ((p.data as any).lang ?? "en") === lang && (p.data as any).slug === slug);

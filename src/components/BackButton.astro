@@ -2,6 +2,13 @@
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
+
+// Detect locale from URL and build prefix
+const pathname = Astro.url.pathname;
+const firstSeg = pathname.split("/").filter(Boolean)[0] ?? "";
+const currentLocale =
+  firstSeg.toLowerCase() === "zh-tw" ? "zh-tw" : firstSeg === "en" ? "en" : "default";
+const prefix = currentLocale === "default" ? "" : currentLocale === "zh-tw" ? "/zh-tw" : "/en";
 ---
 
 {
@@ -9,7 +16,7 @@ import { SITE } from "@/config";
     <div class="mx-auto flex w-full max-w-app items-center justify-start px-2">
       <LinkButton
         id="back-button"
-        href="/"
+        href={prefix || "/"}
         class="focus-outline mt-8 mb-2 flex hover:text-foreground/75"
       >
         <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />

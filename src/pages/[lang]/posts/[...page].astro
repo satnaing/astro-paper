@@ -12,11 +12,22 @@ import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const locales = ["en", "zh-TW", "zh-tw"] as const;
+  const locales = ["en", "zh-tw"] as const;
+
   return locales.flatMap((raw) => {
-    const lang = (raw.toLowerCase() === "zh-tw" ? "zh-TW" : "en") as "en" | "zh-TW";
+    const lang = raw as "en" | "zh-tw";
+    // Filter posts by file path instead of lang field
+    const filteredPosts = posts.filter(p => {
+      const filePath = p.id;
+      if (lang === "zh-tw") {
+        return filePath.startsWith("zh-tw/");
+      } else {
+        return filePath.startsWith("en/") || !filePath.includes("/");
+      }
+    });
+
     return paginate(
-      getSortedPosts(posts.filter(p => p.data.lang === lang)),
+      getSortedPosts(filteredPosts),
       { pageSize: SITE.postPerPage, params: { lang: raw } }
     );
   });
@@ -24,7 +35,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 function normalizeLang(input: string | undefined) {
   if (!input) return "en" as const;
-  return input.toLowerCase() === "zh-tw" ? ("zh-TW" as const) : ("en" as const);
+  return input.toLowerCase() === "zh-tw" ? ("zh-tw" as const) : ("en" as const);
 }
 
 const { page } = Astro.props as any;
@@ -33,7 +44,7 @@ const lang = normalizeLang(Astro.params.lang);
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
-  <Main pageTitle={lang === 'zh-TW' ? '文章' : 'Posts'} pageDesc={lang === 'zh-TW' ? '所有文章列表' : "All the articles I've posted."}>
+  <Main pageTitle={lang === 'zh-tw' ? '文章' : 'Posts'} pageDesc={lang === 'zh-tw' ? '所有文章列表' : "All the articles I've posted."}>
     <ul>
       {page.data.map((data: any) => <Card {...data} />)}
     </ul>

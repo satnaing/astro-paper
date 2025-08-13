@@ -11,22 +11,27 @@ import { SITE } from "@/config";
 export async function getStaticPaths() {
   return [
     { params: { lang: "en" } },
-    { params: { lang: "zh-TW" } },
-    // allow lowercase path as well
     { params: { lang: "zh-tw" } },
   ];
 }
 
-const langRaw = Astro.params.lang ?? "zh-TW";
-const lang = (langRaw.toLowerCase() === "zh-tw" ? "zh-TW" : "en") as "en" | "zh-TW";
-
-const posts = (await getCollection("blog")).filter(p => (p.data as any).lang === lang);
+const lang = Astro.params.lang as "en" | "zh-tw";
+// Filter posts by file path instead of lang field
+const allPosts = await getCollection("blog");
+const posts = allPosts.filter(p => {
+  const filePath = p.id;
+  if (lang === "zh-tw") {
+    return filePath.startsWith("zh-tw/");
+  } else {
+    return filePath.startsWith("en/") || !filePath.includes("/");
+  }
+});
 let tags = getUniqueTags(posts);
 ---
 
-<Layout title={`${lang === 'zh-TW' ? '標籤' : 'Tags'} | ${SITE.title}`}>
+<Layout title={`${lang === 'zh-tw' ? '標籤' : 'Tags'} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle={lang === 'zh-TW' ? '標籤' : 'Tags'} pageDesc={lang === 'zh-TW' ? '所有文章使用的標籤' : 'All the tags used in posts.'}>
+  <Main pageTitle={lang === 'zh-tw' ? '標籤' : 'Tags'} pageDesc={lang === 'zh-tw' ? '所有文章使用的標籤' : 'All the tags used in posts.'}>
     <ul>
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
     </ul>

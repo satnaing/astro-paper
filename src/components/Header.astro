@@ -19,12 +19,12 @@ const currentPath =
 // Detect locale from URL and build prefix
 const firstSeg = currentPath.split("/").filter(Boolean)[0] ?? "";
 const currentLocale =
-  firstSeg.toLowerCase() === "zh-tw" ? "zh-TW" : firstSeg === "en" ? "en" : "default";
-const prefix = currentLocale === "default" ? "" : currentLocale === "zh-TW" ? "/zh-TW" : "/en";
+  firstSeg.toLowerCase() === "zh-tw" ? "zh-tw" : firstSeg === "en" ? "en" : "default";
+const prefix = currentLocale === "default" ? "" : currentLocale === "zh-tw" ? "/zh-tw" : "/en";
 
 // Simple i18n for nav labels
 const labels =
-  currentLocale === "zh-TW"
+  currentLocale === "zh-tw"
     ? { posts: "文章", tags: "標籤", about: "關於我", archives: "歸檔", search: "搜尋", skip: "跳到內容" }
     : { posts: "Posts", tags: "Tags", about: "About", archives: "Archives", search: "Search", skip: "Skip to content" };
 
@@ -61,7 +61,7 @@ const isActive = (path: string) => {
       class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6"
     >
       <a
-        href="/"
+        href={prefix || "/"}
         class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
       >
         {SITE.title}
