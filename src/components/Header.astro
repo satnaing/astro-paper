@@ -8,6 +8,7 @@ import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
+import LangSwitcher from "./LangSwitcher.astro";
 
 const { pathname } = Astro.url;
 
@@ -103,6 +104,9 @@ const isActive = (path: string) => {
               </li>
             )
           }
+          <li class="col-span-2 flex items-center justify-center">
+            <LangSwitcher />
+          </li>
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
               href="/search"

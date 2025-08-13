@@ -12,6 +12,7 @@ import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
+import LangSwitcher from "@/components/LangSwitcher.astro";
 
 const posts = await getCollection("blog");
 
@@ -24,9 +25,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
-      </h1>
+      <div class="flex items-center justify-between">
+        <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
+          Mingalaba
+        </h1>
+        <LangSwitcher />
+      </div>
       <a
         target="_blank"
         href="/rss.xml"

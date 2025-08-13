@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const locales = ["en", "zh-TW"] as const;
+  return locales.flatMap(lang =>
+    posts
+      .filter(p => ((p.data as any).lang ?? "en") === lang)
+      .map(p => ({
+        params: {
+          lang,
+          slug: (p.data as any).slug ?? p.id.split("/").slice(-1)[0],
+        },
+      }))
+  );
+}
+
+const { lang, slug } = Astro.params as { lang: string; slug: string };
+---
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=/${lang}/posts/${slug}`} />
+  </head>
+  <body>
+    <a href={`/${lang}/posts/${slug}`}>Go to post</a>
+  </body>
+</html>
