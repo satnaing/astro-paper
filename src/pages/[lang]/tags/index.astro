@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Tag from "@/components/Tag.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import getUniqueTags from "@/utils/getUniqueTags";
+import { SITE } from "@/config";
+
+const langRaw = Astro.params.lang ?? "zh-TW";
+const lang = (langRaw.toLowerCase() === "zh-tw" ? "zh-TW" : "en") as "en" | "zh-TW";
+
+const posts = (await getCollection("blog")).filter(p => (p.data as any).lang === lang);
+let tags = getUniqueTags(posts);
+---
+
+<Layout title={`${lang === 'zh-TW' ? '標籤' : 'Tags'} | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle={lang === 'zh-TW' ? '標籤' : 'Tags'} pageDesc={lang === 'zh-TW' ? '所有文章使用的標籤' : 'All the tags used in posts.'}>
+    <ul>
+      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

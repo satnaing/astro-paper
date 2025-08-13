@@ -16,11 +16,31 @@ const { pathname } = Astro.url;
 const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
-const isActive = (path: string) => {
-  const currentPathArray = currentPath.split("/").filter(p => p.trim());
-  const pathArray = path.split("/").filter(p => p.trim());
+// Detect locale from URL and build prefix
+const firstSeg = currentPath.split("/").filter(Boolean)[0] ?? "";
+const currentLocale =
+  firstSeg.toLowerCase() === "zh-tw" ? "zh-TW" : firstSeg === "en" ? "en" : "default";
+const prefix = currentLocale === "default" ? "" : currentLocale === "zh-TW" ? "/zh-TW" : "/en";
 
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+// Simple i18n for nav labels
+const labels =
+  currentLocale === "zh-TW"
+    ? { posts: "文章", tags: "標籤", about: "關於我", archives: "歸檔", search: "搜尋", skip: "跳到內容" }
+    : { posts: "Posts", tags: "Tags", about: "About", archives: "Archives", search: "Search", skip: "Skip to content" };
+
+// Normalize paths by stripping leading locale segment for comparison
+const stripLocale = (p: string) => {
+  const parts = p.split("/").filter(Boolean);
+  if (parts[0] === "en" || parts[0]?.toLowerCase() === "zh-tw") parts.shift();
+  return "/" + parts.join("/");
+};
+
+const isActive = (path: string) => {
+  const now = stripLocale(currentPath);
+  const target = path; // pass normalized path like "/posts"
+  const nowHead = now.split("/").filter(Boolean)[0] ?? "";
+  const tgtHead = target.split("/").filter(Boolean)[0] ?? "";
+  return now === target || nowHead === tgtHead;
 };
 ---
 
@@ -30,7 +50,7 @@ const isActive = (path: string) => {
     href="#main-content"
     class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
   >
-    Skip to content
+    {labels.skip}
   </a>
   <div
     id="nav-container"
@@ -70,25 +90,25 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-              Posts
+            <a href={`${prefix}/posts`} class:list={{ "active-nav": isActive("/posts") }}>
+              {labels.posts}
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
-              Tags
+            <a href={`${prefix}/tags`} class:list={{ "active-nav": isActive("/tags") }}>
+              {labels.tags}
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-              About
+            <a href={`${prefix}/about`} class:list={{ "active-nav": isActive("/about") }}>
+              {labels.about}
             </a>
           </li>
           {
             SITE.showArchives && (
               <li class="col-span-2">
                 <LinkButton
-                  href="/archives"
+                  href={`${prefix}/archives`}
                   class:list={[
                     "focus-outline flex justify-center p-3 sm:p-1",
                     {
@@ -96,10 +116,10 @@ const isActive = (path: string) => {
                     },
                   ]}
                   ariaLabel="archives"
-                  title="Archives"
+                  title={labels.archives}
                 >
                   <IconArchive class="hidden sm:inline-block" />
-                  <span class="sm:sr-only">Archives</span>
+                  <span class="sm:sr-only">{labels.archives}</span>
                 </LinkButton>
               </li>
             )
@@ -109,16 +129,16 @@ const isActive = (path: string) => {
           </li>
           <li class="col-span-1 flex items-center justify-center">
             <LinkButton
-              href="/search"
+              href={`${prefix}/search`}
               class:list={[
                 "focus-outline flex p-3 sm:p-1",
                 { "[&>svg]:stroke-accent": isActive("/search") },
               ]}
               ariaLabel="search"
-              title="Search"
+              title={labels.search}
             >
               <IconSearch />
-              <span class="sr-only">Search</span>
+              <span class="sr-only">{labels.search}</span>
             </LinkButton>
           </li>
           {
