@@ -20,7 +20,7 @@ const prefix = currentLocale === "default" ? "" : currentLocale === "zh-tw" ? "/
         class="focus-outline mt-8 mb-2 flex hover:text-foreground/75"
       >
         <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />
-        <span>Go back</span>
+        <span>{currentLocale === 'zh-tw' ? '返回' : 'Go back'}</span>
       </LinkButton>
     </div>
   )

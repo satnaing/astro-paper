@@ -1,8 +1,7 @@
 ---
+title: 在 Go 中以共享記憶體溝通的方式與範例
 author: 你
 pubDatetime: 2025-08-13T08:00:00.000Z
-title: 在 Go 中以共享記憶體溝通的方式與範例
-slug: shared-memory-between-go-routines
 description: 介紹在 Go 中多個 goroutine 之間安全共享記憶體的方法，包含鎖、原子操作與以 channel 轉移所有權的模式。
 tags: [go, 併發, 記憶體]
 lang: zh-tw
