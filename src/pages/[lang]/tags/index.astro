@@ -8,6 +8,15 @@ import Footer from "@/components/Footer.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 import { SITE } from "@/config";
 
+export async function getStaticPaths() {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "zh-TW" } },
+    // allow lowercase path as well
+    { params: { lang: "zh-tw" } },
+  ];
+}
+
 const langRaw = Astro.params.lang ?? "zh-TW";
 const lang = (langRaw.toLowerCase() === "zh-tw" ? "zh-TW" : "en") as "en" | "zh-TW";
 

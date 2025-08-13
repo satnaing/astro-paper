@@ -6,13 +6,12 @@ const locales = [
   { code: "zh-TW", label: "繁體中文" },
 ];
 
-const pathRef = Astro.url; // current page URL
 const pathname = Astro.url.pathname;
 ---
 <nav aria-label="Language switcher" class="flex gap-3 text-sm">
   {locales.map(({ code, label }) => (
     <a
-      href={getRelativeLocaleUrl(code, pathRef)}
+      href={getRelativeLocaleUrl(code, pathname)}
       class="underline decoration-dashed underline-offset-4 hover:text-accent"
       aria-current={
         pathname.startsWith(`/${code}/`) || (code === "en" && !pathname.startsWith("/zh-TW/"))

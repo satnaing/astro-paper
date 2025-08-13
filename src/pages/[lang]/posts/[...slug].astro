@@ -23,15 +23,9 @@ export async function getStaticPaths() {
   return paths;
 }
 
-function normalizeLang(input: string | undefined) {
-  if (!input) return "en" as const;
-  return input.toLowerCase() === "zh-tw" ? ("zh-TW" as const) : ("en" as const);
-}
-
 const { post } = Astro.props;
 const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
-const lang = normalizeLang(Astro.params.lang);
 ---
 
 <PostDetails post={post} posts={sortedPosts} />
