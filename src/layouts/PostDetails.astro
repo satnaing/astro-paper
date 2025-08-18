@@ -234,7 +234,9 @@ const nextPost =
    * allowing users to copy code easily. */
   function attachCopyButtons() {
     const copyButtonLabel = "Copy";
-    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+    const codeBlocks = Array.from(
+      document.querySelectorAll("pre:not(.mermaid)")
+    );
 
     for (const codeBlock of codeBlocks) {
       const wrapper = document.createElement("div");
@@ -285,4 +287,54 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+</script>
+
+<script>
+  import mermaid from "mermaid";
+
+  async function renderMermaidDiagrams() {
+    const mermaidElements = document.querySelectorAll("pre.mermaid");
+    if (mermaidElements.length === 0) {
+      return;
+    }
+
+    const currentThemeValue =
+      document.documentElement.getAttribute("data-theme") || "light";
+    const mermaidTheme = currentThemeValue === "dark" ? "dark" : "default";
+
+    mermaid.initialize({
+      startOnLoad: false, // To prevent mermaid.run to be triggered on load.
+      theme: mermaidTheme,
+      // securityLevel: "sandbox", // strict is default
+    });
+    // mermaid.run() removes the original source text from the element.
+    // Manually calling mermaid.render() to re-render diagrams after a theme change.
+
+    mermaidElements.forEach(async (element, index) => {
+      if (!(element instanceof HTMLElement)) return;
+      if (!element.dataset.mermaidSource) {
+        element.dataset.mermaidSource = element.textContent || "";
+      }
+
+      const sourceCode = element.dataset.mermaidSource;
+      if (!sourceCode) return;
+
+      const id = `mermaid-svg-${Date.now()}-${index}`;
+
+      const { svg, bindFunctions } = await mermaid.render(id, sourceCode);
+
+      // Note on security: While using .innerHTML can introduce an XSS risk,
+      // it's accepted here because the author can already execute scripts via Markdown/MDX.
+      // The primary trust boundary is at the content authoring level, not here.
+      //
+      // For enhanced security, consider setting `securityLevel: 'sandbox'` in the Mermaid config.
+      // https://mermaid.js.org/config/schema-docs/config.html#securitylevel
+      element.innerHTML = svg;
+      bindFunctions?.(element);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderMermaidDiagrams);
+  document.addEventListener("astro:after-swap", renderMermaidDiagrams);
+  document.addEventListener("themechange", renderMermaidDiagrams);
 </script>
