@@ -9,7 +9,7 @@ draft: false
 tags:
   - docs
 description:
-  Some rules & recommendations for creating or adding new posts using AstroPaper
+  Some rules & recommendations for creating or adding new posts using AstroPaperr
   theme.
 ---
 
