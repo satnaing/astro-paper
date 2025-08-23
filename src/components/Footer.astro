@@ -30,14 +30,22 @@ const { noMarginTop = false } = Astro.props;
     
     <!-- 版权和备案信息 -->
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
+
+      <!-- Umami统计 -->
+      <span>
+        <a href="https://umami.lhasa.icu/share/2egt0xnq9huiUNnl/lhasa.icu" target="_blank">Umami</a>
+      </span>
+
+      <!-- 分隔符（移动端不显示） -->
+      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
+
       <!-- 版权信息 -->
       <span>
         <a href="/about/" target="_blank">&#169;2018&nbsp;-&nbsp;{currentYear}</a>
       </span>
-      
-      <!-- 分隔符（桌面端显示） -->
+    
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      
+
       <!-- ICP备案信息 -->
       <span>
         <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2024046152号-1</a>
