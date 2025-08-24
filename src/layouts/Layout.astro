@@ -144,11 +144,10 @@ const structuredData = {
       )
     }
 
-    <!-- Astro 客户端路由器和第三方脚本 -->
-    <ClientRouter />                                        <!-- Astro 页面转换 -->
-    <script is:inline src="/toggle-theme.js"></script>     <!-- 主题切换脚本 -->
+    <ClientRouter />
+    <script is:inline src="/toggle-theme.js"></script>
     
-    <!-- Artalk 评论系统资源 -->
+    <!-- Artalk 评论系统 -->
     <link href="https://cos.lhasa.icu/assets/artalk/Artalk.css" rel="stylesheet" />
     <script is:inline src="https://cos.lhasa.icu/assets/artalk/Artalk.js"></script>
     
@@ -156,18 +155,17 @@ const structuredData = {
     <script defer is:inline src="https://umami.lhasa.icu/script.js" data-website-id="47e9f99d-a36d-4ff7-acdf-3d7eafd0a3ca"></script>
   </head>
   <body>
-    <!-- 页面主体内容插槽 -->
+    <!-- 页面主体 -->
     <slot />
     <Artalk />
   </body>
 </html>
 
 <style>
-  /* 确保HTML和body元素占满整个视口 */
   html,
   body {
-    margin: 0;      /* 移除默认边距 */
-    width: 100%;    /* 全宽 */
-    height: 100%;   /* 全高 */
+    margin: 0;
+    width: 100%;
+    height: 100%;
   }
 </style>
