@@ -33,3 +33,6 @@ public/pagefind
 node_modules
 
 Artalk.astro
+
+.pnpm-store/
+
