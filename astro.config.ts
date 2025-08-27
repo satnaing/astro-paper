@@ -83,7 +83,7 @@ export default defineConfig({
       // 代码转换器配置
       transformers: [
         // 显示文件名
-        transformerFileName(),              
+        transformerFileName({ style: "v2", hideDot: false }),              
         // 高亮指定行
         transformerNotationHighlight(),     
         // 高亮指定词汇
