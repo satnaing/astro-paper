@@ -335,6 +335,6 @@ const nextPost =
   }
 
   document.addEventListener("DOMContentLoaded", renderMermaidDiagrams);
-  document.addEventListener("astro:after-swap", renderMermaidDiagrams);
+  document.addEventListener("astro:page-load", renderMermaidDiagrams);
   document.addEventListener("themechange", renderMermaidDiagrams);
 </script>
