@@ -44,6 +44,11 @@ function reflectPreference() {
       .querySelector("meta[name='theme-color']")
       ?.setAttribute("content", bgColor);
   }
+
+  const event = new CustomEvent("themechange", {
+    detail: { theme: themeValue },
+  });
+  document.dispatchEvent(event);
 }
 
 // set early so no page flashes / CSS is made aware

@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import rehypeMermaid from "rehype-mermaid";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -20,6 +21,13 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    syntaxHighlight: {
+      type: "shiki",
+      excludeLangs: ["mermaid"],
+    },
+    // Use the "pre-mermaid" strategy to output a <pre class="mermaid"> tag instead of rendering on the server.
+    // This allows for client-side rendering and avoids the need for Playwright.
+    rehypePlugins: [[rehypeMermaid, { strategy: "pre-mermaid" }]],
     remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
