@@ -5,7 +5,7 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fafcfc;
+  --background: #fffdfd;
   --foreground: #222e36;
   --accent: #d3006a;
   --muted: #f1bad4;
@@ -18,6 +18,17 @@ html[data-theme="dark"] {
   --accent: #ff78c8;
   --muted: #715566;
   --border: #86436b;
+}
+
+@font-face {
+  font-family: space;
+  src: local('PingFang SC'), local("Microsoft Yahei");
+  unicode-range: U+0020, U+00A0;
+}
+
+body {
+  /* font-family: space, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif; */
+  font-family: -apple-system, 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 @theme inline {
