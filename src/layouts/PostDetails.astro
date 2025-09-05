@@ -3,6 +3,7 @@ import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Comments from "@/components/Comments";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
@@ -162,6 +163,10 @@ const nextPost =
         )
       }
     </div>
+
+    <hr class="my-6 border-dashed" />
+
+    <Comments client:only="react" />
   </main>
   <Footer />
 </Layout>

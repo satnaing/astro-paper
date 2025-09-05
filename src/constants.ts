@@ -1,4 +1,6 @@
 import type { Props } from "astro";
+import type { GiscusProps } from "@giscus/react";
+
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
@@ -8,6 +10,21 @@ import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
 // import IconTelegram from "@/assets/icons/IconTelegram.svg";
 // import IconPinterest from "@/assets/icons/IconPinterest.svg";
 import { SITE } from "@/config";
+
+export const GISCUS: GiscusProps = {
+  repo: "DuMengjie/astro-paper",
+  repoId: "R_kgDOPnMZsQ",
+  category: "Announcements",
+  categoryId: "DIC_kwDOPnMZsc4Cu1PP",
+  mapping: "pathname",
+  strict: "0",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "top",
+  // theme: "preferred_color_scheme",
+  lang: "zh-CN",
+  loading: "lazy",
+};
 
 interface Social {
   name: string;

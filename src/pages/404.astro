@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
+import cuteBear from "@/assets/images/cute_bear.png";
 import { SITE } from "@/config";
 ---
 
@@ -13,15 +16,16 @@ import { SITE } from "@/config";
     id="main-content"
     class="mx-auto flex max-w-app flex-1 items-center justify-center"
   >
-    <div class="mb-14 flex flex-col items-center justify-center">
-      <h1 class="text-9xl font-bold text-accent">404</h1>
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+    <div class="my-10 flex flex-col items-center justify-center md:my-0">
+      <h1 class="text-6xl font-bold text-accent">什么都没有</h1>
+
+      <Image src={cuteBear} alt="A Cute Bear." height="400" />
+
       <LinkButton
         href="/"
-        class="my-6 text-lg underline decoration-dashed underline-offset-8"
+        class="mt-6 text-lg underline decoration-dashed underline-offset-8"
       >
-        Go back home
+        返回首页
       </LinkButton>
     </div>
   </main>

@@ -21,6 +21,8 @@ qiankun 孵化自蚂蚁金融科技基于微前端架构的云产品统一接入
 
 目前 qiankun 已在蚂蚁内部服务了超过 2000 个线上应用，在易用性和完整性上，绝对是值得信赖的。
 
+footnote效果测试(powered by remark-gfm)[^1]
+
 ## 💡 什么是微前端？
 
 > 微前端是一种通过独立发布功能来让多个团队共同构建现代 Web 应用的方式。 -- 微前端
@@ -68,17 +70,41 @@ qiankun 的核心设计理念是**去中心化运行时**，这意味着：
 
 ## 🏗️ 架构图
 
-```mermaid
-graph TD
-    A[主应用] --> B[qiankun]
-    B --> C[微应用 A]
-    B --> D[微应用 B]
-    B --> E[微应用 C]
-    
-    F[路由] --> A
-    G[资源加载] --> B
-    H[生命周期] --> B
-    I[沙箱隔离] --> B
+```javascript
+/**
+ * @import {Handle} from 'micromark-extension-directive'
+ * @import {CompileContext} from 'micromark-util-types'
+ */
+
+import fs from 'node:fs/promises'
+import {micromark} from 'micromark'
+import {directive, directiveHtml} from 'micromark-extension-directive'
+
+const output = micromark(await fs.readFile('example.md'), {
+  extensions: [directive()],
+  htmlExtensions: [directiveHtml({abbr})]
+})
+
+console.log(output)
+
+/**
+ * @this {CompileContext}
+ * @type {Handle}
+ * @returns {false | undefined}
+ */
+function abbr(d) {
+  if (d.type !== 'textDirective') return false
+
+  this.tag('<abbr')
+
+  if (d.attributes && 'title' in d.attributes) {
+    this.tag(' title="' + this.encode(d.attributes.title) + '"')
+  }
+
+  this.tag('>')
+  this.raw(d.label || '')
+  this.tag('</abbr>')
+}
 ```
 
 qiankun 基于以下核心能力：
@@ -143,3 +169,5 @@ qiankun 特别适合以下场景：
 - [核心概念](/zh-CN/guide/concepts) - 理解 qiankun 的设计原理
 - [主应用](/zh-CN/guide/main-app) - 如何配置主应用
 - [微应用](/zh-CN/guide/micro-app) - 如何改造现有应用 
+
+[^1]: remark-gfmgithub地址：[https://github.com/remarkjs/remark-gfm](https://github.com/remarkjs/remark-gfm).
