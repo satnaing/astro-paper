@@ -13,6 +13,7 @@ const { centered = false } = Astro.props;
   {
     SOCIALS.map(social => (
       <LinkButton
+        redirect={false}
         href={social.href}
         class="p-2 hover:rotate-6 sm:p-1"
         title={social.linkTitle}

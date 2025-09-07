@@ -7,9 +7,9 @@ import Comments from "@/components/Comments";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
-import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
-import BackToTopButton from "@/components/BackToTopButton.astro";
+// import ShareLinks from "@/components/ShareLinks.astro";
+// import BackToTopButton from "@/components/BackToTopButton.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -118,19 +118,20 @@ const nextPost =
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
+    <!-- <hr class="my-8 border-dashed" /> -->
 
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
+    <!-- <EditPost class="sm:hidden" {hideEditPost} {post} /> -->
+
+    <hr class="my-6 border-dashed" />
 
     <ul class="mt-4 mb-8 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
-    <BackToTopButton />
+    <!-- <BackToTopButton /> -->
 
-    <ShareLinks />
+    <!-- <ShareLinks /> -->
 
-    <hr class="my-6 border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -138,13 +139,10 @@ const nextPost =
         prevPost && (
           <a
             href={getPath(prevPost.id, prevPost.filePath)}
-            class="flex w-full gap-1 hover:opacity-75"
+            class="flex items-center w-full gap-1 hover:opacity-75"
           >
             <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
-            </div>
+            <div class="text-sm text-accent/85">{prevPost.title}</div>
           </a>
         )
       }
@@ -152,12 +150,9 @@ const nextPost =
         nextPost && (
           <a
             href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
+            class="flex items-center w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
-            </div>
+            <div class="text-sm text-accent/85">{nextPost.title}</div>
             <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
           </a>
         )

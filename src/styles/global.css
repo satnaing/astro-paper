@@ -20,14 +20,7 @@ html[data-theme="dark"] {
   --border: #86436b;
 }
 
-@font-face {
-  font-family: space;
-  src: local('PingFang SC'), local("Microsoft Yahei");
-  unicode-range: U+0020, U+00A0;
-}
-
 body {
-  /* font-family: space, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif; */
   font-family: -apple-system, 'Poppins', Arial, Helvetica, sans-serif;
 }
 

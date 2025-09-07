@@ -1,4 +1,11 @@
 ---
+const titlePathMap: Record<string, string> = {
+  posts: "文章",
+  tags: "标签",
+  about: "关于",
+  archives: "归档",
+};
+const pathTitleMap = Object.fromEntries(Object.entries(titlePathMap).map(([key, value]) => [value, key]))
 // Remove current url path and remove trailing slash if exists
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
@@ -6,29 +13,36 @@ const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
 const breadcrumbList = currentUrlPath.split("/").slice(1);
 
+// 将英文path替换为中文
+if (titlePathMap[breadcrumbList[0]]) {
+  breadcrumbList.splice(0, 1, titlePathMap[breadcrumbList[0]]);
+}
+
 // if breadcrumb is Home > Posts > 1 <etc>
 // replace Posts with Posts (page number)
-if (breadcrumbList[0] === "posts") {
-  breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
+if (breadcrumbList[0] === "文章" && !isNaN(Number(breadcrumbList[1]))) {
+  breadcrumbList.splice(
+    1,
+    1,
+  );
 }
 
 // if breadcrumb is Home > Tags > [tag] > [page] <etc>
 // replace [tag] > [page] with [tag] (page number)
-if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
+if (breadcrumbList[0] === "标签" && !isNaN(Number(breadcrumbList[2]))) {
   breadcrumbList.splice(
+    2,
     1,
-    3,
-    `${breadcrumbList[1]} ${Number(breadcrumbList[2]) === 1 ? "" : "(page " + breadcrumbList[2] + ")"}`
   );
 }
 ---
 
-<nav class="mx-auto mt-8 mb-1 w-full max-w-app px-4" aria-label="breadcrumb">
+<nav class="mx-auto mt-8 mb-2 w-full max-w-app px-4" aria-label="breadcrumb">
   <ul
-    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
+    class="font-normal [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">Home</a>
+      <a href="/" class="opacity-80">首页</a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
@@ -45,7 +59,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
+            <a href={`/${pathTitleMap[breadcrumb]}/`} class="capitalize opacity-70">
               {breadcrumb}
             </a>
             <span aria-hidden="true">&raquo;</span>

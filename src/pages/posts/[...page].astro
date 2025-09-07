@@ -16,11 +16,15 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+
+// 获取真实的文章数量
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const totalPostsCount = allPosts.length;
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<Layout title={`文章 | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+  <Main pageTitle="文章" pageDesc={`已发布的文章，共 ${totalPostsCount} 篇。`}>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>
