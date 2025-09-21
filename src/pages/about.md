@@ -3,35 +3,37 @@ layout: ../layouts/AboutLayout.astro
 title: "关于我"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+嗨👋，
 
-![Astro Paper](public/astropaper-og.jpg)
+我是**Doit**，也是**杜伊特**，一名爱折腾的前端开发工程师🧑‍💻。
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+在这里，我会分享自己生活日常和技术探索，记录所思、所见、所想。
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+### what i'm doing
 
-## Features
+- 搬砖
+- 学习全栈开发
+- 写博客
+- 持续完善博客功能
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+### what i like
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+- 足球⚽️
+- 音乐🎸
+- 摄影📷
 
-and so much more.
+### 联系我
 
-## Show your support
+- 邮箱：doit10241024@gmail.com
+- Github：https://github.com/doit1024
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+## 关于本博客
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+- 地址：https://blog.doooit.me
+- 框架：[Astro](https://astro.build)
+- 主题：[astro-paper](https://github.com/satnaing/astro-paper)
+- 代码仓库：[doit-blog](https://github.com/doit1024/doit-blog)
+- 评论系统：[giscus](https://giscus.app)
+- 域名 & DNS: [Cloudflare](https://www.cloudflare.com/)
+- 部署 & 托管: [Cloudflare Pages](https://www.cloudflare.com/products/pages/)
+- 图床: [Cloudflare R2](https://www.cloudflare.com/products/r2/) + [WebP Cloud](https://webp.cloud/)

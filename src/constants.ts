@@ -19,7 +19,7 @@ export const GISCUS: GiscusProps = {
   strict: "0",
   reactionsEnabled: "1",
   emitMetadata: "0",
-  inputPosition: "top",
+  inputPosition: "bottom",
   // theme: "preferred_color_scheme",
   lang: "zh-CN",
   loading: "lazy",
@@ -36,7 +36,7 @@ export const SOCIALS: Social[] = [
   {
     name: "GitHub",
     href: "https://github.com/doit1024",
-    linkTitle: '访问Doit的GitHub主页',
+    linkTitle: "访问Doit的GitHub主页",
     icon: IconGitHub,
   },
   // {
@@ -54,15 +54,15 @@ export const SOCIALS: Social[] = [
   {
     name: "Mail",
     href: "mailto:doit10241024@gmail.com",
-    linkTitle: '给Doit发送邮件',
+    linkTitle: "给Doit发送邮件",
     icon: IconMail,
   },
   {
-    name: 'Rss',
+    name: "Rss",
     href: "/rss.xml",
-    linkTitle: '订阅Doit的博客',
+    linkTitle: "订阅Doit的博客",
     icon: IconRss,
-  }
+  },
 ] as const;
 
 export const SHARE_LINKS: Social[] = [

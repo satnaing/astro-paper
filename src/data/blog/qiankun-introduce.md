@@ -4,8 +4,8 @@ pubDatetime: 2022-09-23T15:22:00Z
 modDatetime: 2025-06-13T16:52:45.934Z
 title: Qiankun Introduce
 slug: qiankun-introduce
-featured: true
-draft: false
+featured: false
+draft: true
 tags:
   - docs
 description:
@@ -21,9 +21,9 @@ qiankun 孵化自蚂蚁金融科技基于微前端架构的云产品统一接入
 
 目前 qiankun 已在蚂蚁内部服务了超过 2000 个线上应用，在易用性和完整性上，绝对是值得信赖的。
 
-## Table of contents
-
 footnote效果测试(powered by remark-gfm)[^1]
+
+## Table of contents
 
 ## 💡 什么是微前端？
 
@@ -78,16 +78,16 @@ qiankun 的核心设计理念是**去中心化运行时**，这意味着：
  * @import {CompileContext} from 'micromark-util-types'
  */
 
-import fs from 'node:fs/promises'
-import {micromark} from 'micromark'
-import {directive, directiveHtml} from 'micromark-extension-directive'
+import fs from "node:fs/promises";
+import { micromark } from "micromark";
+import { directive, directiveHtml } from "micromark-extension-directive";
 
-const output = micromark(await fs.readFile('example.md'), {
+const output = micromark(await fs.readFile("example.md"), {
   extensions: [directive()],
-  htmlExtensions: [directiveHtml({abbr})]
-})
+  htmlExtensions: [directiveHtml({ abbr })],
+});
 
-console.log(output)
+console.log(output);
 
 /**
  * @this {CompileContext}
@@ -95,34 +95,38 @@ console.log(output)
  * @returns {false | undefined}
  */
 function abbr(d) {
-  if (d.type !== 'textDirective') return false
+  if (d.type !== "textDirective") return false;
 
-  this.tag('<abbr')
+  this.tag("<abbr");
 
-  if (d.attributes && 'title' in d.attributes) {
-    this.tag(' title="' + this.encode(d.attributes.title) + '"')
+  if (d.attributes && "title" in d.attributes) {
+    this.tag(' title="' + this.encode(d.attributes.title) + '"');
   }
 
-  this.tag('>')
-  this.raw(d.label || '')
-  this.tag('</abbr>')
+  this.tag(">");
+  this.raw(d.label || "");
+  this.tag("</abbr>");
 }
 ```
 
 qiankun 基于以下核心能力：
 
 ### 🔄 生命周期管理
+
 每个微应用都有完整的生命周期：
+
 - **bootstrap** - 应用初始化
 - **mount** - 应用挂载
 - **unmount** - 应用卸载
 - **update** - 应用更新（可选）
 
 ### 🛡️ 沙箱隔离
+
 - **JS 隔离** - 提供多种沙箱方案，确保应用间 JS 互不影响
 - **CSS 隔离** - 通过样式作用域或 Shadow DOM 实现样式隔离
 
 ### 📡 资源加载
+
 - **HTML Entry** - 通过 HTML 作为入口加载微应用
 - **预加载** - 支持应用资源预加载，提升用户体验
 - **缓存** - 智能资源缓存策略
@@ -165,11 +169,13 @@ qiankun 特别适合以下场景：
 
 准备开始使用 qiankun？查看我们的[快速开始](/zh-CN/guide/quick-start)指南，几分钟内构建你的第一个微前端应用！
 
+![这是图片](https://d28ebb3.webp.li/Chinese%20Zodiac%20LEGO%20Celebration%20Scene.png "乐高十二生肖主题")
+
 ## 📚 深入学习
 
 - [教程](/zh-CN/guide/tutorial) - 从零开始的详细教程
 - [核心概念](/zh-CN/guide/concepts) - 理解 qiankun 的设计原理
 - [主应用](/zh-CN/guide/main-app) - 如何配置主应用
-- [微应用](/zh-CN/guide/micro-app) - 如何改造现有应用 
+- [微应用](/zh-CN/guide/micro-app) - 如何改造现有应用
 
 [^1]: remark-gfmgithub地址：[https://github.com/remarkjs/remark-gfm](https://github.com/remarkjs/remark-gfm).

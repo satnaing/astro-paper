@@ -13,6 +13,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.5",
     "@astrojs/react": "^4.3.0",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
@@ -26,6 +27,7 @@
     "lodash.kebabcase": "^4.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "rehype-figure-title": "^1.0.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.15.2",

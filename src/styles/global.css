@@ -71,3 +71,7 @@ body {
 :target {
   scroll-margin-block: 1rem;
 }
+
+.figure-image figcaption {
+  @apply text-center;
+}

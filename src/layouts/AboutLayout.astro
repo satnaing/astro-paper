@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
+import Comments from "@/components/Comments";
 
 export interface Props {
   frontmatter: {
@@ -18,11 +19,13 @@ const { frontmatter } = Astro.props;
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
   <Header />
   <Breadcrumb />
-  <main id="main-content">
-    <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
+  <main id="main-content" class="max-w-app mx-auto w-full px-4 pb-12">
+    <section id="about" class="app-prose m-0 p-0 prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
       <slot />
     </section>
+    <hr class="my-6 border-dashed" />
+    <Comments client:only="react" />
   </main>
   <Footer />
 </Layout>

@@ -26,17 +26,17 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6 flex gap-12 items-center">
       <div>
-        <h1 class="my-2 inline-block text-3xl font-bold sm:my-4 sm:text-4xl text-accent">
+        <h1 class="mt-0 mb-2 inline-block text-3xl font-bold sm:mb-4 sm:text-4xl text-accent">
           Doit 杜伊特
         </h1>
 
-        <p class="italic text-foreground/80">
+        <p class="italic text-foreground/80 text-balance">
         "To see the world, things dangerous to come to, to see behind walls, to draw closer, to find each other and to feel. That is the purpose of life."
         </p>
         {
           // only display if at least one social link is enabled
           SOCIALS.length > 0 && (
-            <div class="mt-4">
+            <div class="mt-2 sm:mt-4">
               <Socials />
             </div>
           )

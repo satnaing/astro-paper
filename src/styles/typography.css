@@ -27,6 +27,10 @@
       @apply text-foreground;
     }
 
+    strong {
+      @apply text-accent;
+    }
+
     a {
       @apply break-words text-foreground decoration-dashed underline-offset-4 hover:text-accent focus-visible:no-underline;
     }

@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import rehypeFigureTitle from "rehype-figure-title";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -13,14 +14,17 @@ import { SITE } from "./src/config";
 
 import react from "@astrojs/react";
 
+import mdx from "@astrojs/mdx";
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [sitemap({
     filter: page => SITE.showArchives || !page.endsWith("/archives"),
-  }), react()],
+  }), react(), mdx()],
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    rehypePlugins: [[rehypeFigureTitle, { className: "figure-image" }]],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "github-light", dark: "dark-plus" },
