@@ -1,7 +1,7 @@
 export const SITE = {
   website: "https://pporeddy.com", // your domain
   author: "Prithvi Poreddy",
-  profile: "https://www.linkedin.com/in/pporeddy/, // optional
+  profile: "https://www.linkedin.com/in/pporeddy/", // optional
   desc: "Writing about Identity security, Cyber Security, AI Governace & Security and Personal Finace.",
   title: "Prithvi Poreddy",
   ogImage: "astropaper-og.jpg", // leave default
