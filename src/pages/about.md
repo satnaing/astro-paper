@@ -1,5 +1,4 @@
 ---
-title: "About"
 description: "What I explore, why I write, and how I make sense of the world."
 layout: "@/layouts/AboutLayout.astro"
 ---
