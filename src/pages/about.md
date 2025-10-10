@@ -1,7 +1,7 @@
 ---
 title: "About"
 description: "Who I am, why I built this site, and what I’m exploring next."
-layout: "@/layouts/Layout.astro"
+layout: "@/layouts/AboutLayout.astro"
 ---
 
 # About
