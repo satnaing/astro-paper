@@ -1,37 +1,64 @@
 ---
-layout: ../layouts/AboutLayout.astro
 title: "About"
+description: "Who I am, why I built this site, and what I’m exploring next."
+layout: "@/layouts/Layout.astro"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+# About
 
-![Astro Paper](public/astropaper-og.jpg)
+Hi, I’m **Prithvi Poreddy** — I work at the intersection of **Identity, Access, and AI systems**.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+For most of my career, my writing has lived inside architecture decks, design docs, and long Slack threads.  
+This space is different — it’s where I can slow down and think out loud about what I’ve been building, breaking, and learning.
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+If you’ve followed my posts on LinkedIn, you know I spend a lot of time in the intersection of **Identity & Access Management (IAM)**, **governance systems**, and increasingly, **AI-driven automation**.  
+These are the kinds of problems that rarely have clean answers — they evolve with people, incentives, and context.
 
-## Features
+**pporeddy.com** is my way of capturing that evolution in public — not polished, but intentional.
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+After years of writing in private docs, I realized the best conversations happen when you share works-in-progress, not just finished solutions.
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+I wanted a place to:
 
-and so much more.
+1. **Own my content** — not tied to any platform’s algorithm  
+2. **Go deeper** — share longer-form technical content with context  
+3. **Archive my thinking** — document my journey and lessons  
+4. **Think out loud** — about design trade-offs, governance friction, and human-centered security systems  
 
-## Show your support
+---
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+Sometimes you’ll find code snippets and experiments like:
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+```python
+def translate_role_name(role_name: str) -> str:
+    """What your role names actually mean."""
+    translations = {
+        "PowerUser": "Admin but we're scared to call it that",
+        "SuperUser": "Admin but the CEO has it so we can't remove it",
+        "TemporaryAccess": "Permanent access we forgot to revoke in 2019",
+        "ReadOnly": "ReadWrite but compliance doesn't audit closely",
+        "Developer": "Root access with extra steps",
+        "Contractor": "Full admin because onboarding is hard",
+        "ServiceAccount_Prod": "We have no idea what this does but we're afraid to touch it",
+        "Legacy_Migration": "Created during a migration in 2014, still here, still granting access",
+    }
+    return translations.get(role_name, "A role someone created at 2am and never documented")```
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+Other times, it’ll just be quiet notes about design trade-offs, governance friction, or lessons from working with complex systems.
 
-Kyay zuu! 🙏🏼
+---
+
+### Topics I’ll write about
+
+- **Identity Security** — IAM patterns, access governance, and the politics of permissions  
+- **AI Governance** — How to govern AI systems without killing innovation  
+- **Cybersecurity** — Broader lessons from the security trenches  
+- **Personal Finance** — Because financial security matters too  
+- **Code & Experiments** — Python snippets, tools, and patterns from the field  
+
+---
+
+If there’s one through-line, it’s this:  
+**Identity isn’t about access — it’s about accountability, context, and trust.**
+
+> *I think, therefore IAM.*

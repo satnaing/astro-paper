@@ -49,14 +49,18 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 </p>
 
 <p class="mt-2">
-  This isn’t a marketing blog — it’s a living notebook for ideas, technical
-  experiments, and frameworks that push identity security forward.
-</p>
-
-<p class="mt-2">
   You’ll find thoughts on IAM patterns, access governance, AI accountability,
   and the invisible politics of permissions. Occasionally, some code too.
 </p>
+
+<section id="recent-posts" class="pt-12 pb-6">
+  <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+  <ul>
+    {recentPosts.map(data => (
+      <Card variant="h3" {...data} />
+    ))}
+  </ul>
+</section>
       
       {
         // only display if at least one social link is enabled
