@@ -1,65 +1,71 @@
 ---
 title: "About"
-description: "Who I am, why I built this site, and what I’m exploring next."
+description: "What I explore, why I write, and how I make sense of the world."
 layout: "@/layouts/AboutLayout.astro"
 ---
+# Hola! 👋
 
-# About
+I’m **Prithvi Poreddy** — equal parts builder, observer, and writer.  
+My curiosity lives at the edges where **technology, behavior, and structure** meet.  
+Some days that means designing identity systems or thinking about AI governance; other days, it’s economics, markets, or a late-night thought about Saturn’s rings.
 
-Hi, I’m **Prithvi Poreddy** — I work at the intersection of **Identity, Access, and AI systems**.
+I’ve spent years leading in identity and security, but the work has always been about something bigger: understanding **how systems hold together — and why they fail**.  
+The same principles echo in finance, governance, software, and philosophy.  
+When I find overlaps, I like to pause and re-explore them.
 
-For most of my career, my writing has lived inside architecture decks, design docs, and long Slack threads.  
-This space is different — it’s where I can slow down and think out loud about what I’ve been building, breaking, and learning.
+---
 
-If you’ve followed my posts on LinkedIn, you know I spend a lot of time in the intersection of **Identity & Access Management (IAM)**, **governance systems**, and increasingly, **AI-driven automation**.  
-These are the kinds of problems that rarely have clean answers — they evolve with people, incentives, and context.
+## Why This Space Exists
 
-**pporeddy.com** is my way of capturing that evolution in public — not polished, but intentional.
+Most of my writing used to stay private — buried in design docs, architecture decks, and long internal threads.  
+This site is my way of moving slower and thinking out loud.  
 
-After years of writing in private docs, I realized the best conversations happen when you share works-in-progress, not just finished solutions.
+It isn’t meant to be polished; it’s meant to be honest.  
+I write to connect dots, to understand ideas across disciplines, and to see what patterns repeat themselves when the context changes.
 
 I wanted a place to:
 
-1. **Own my content** — not tied to any platform’s algorithm  
-2. **Go deeper** — share longer-form technical content with context  
-3. **Archive my thinking** — document my journey and lessons  
-4. **Think out loud** — about design trade-offs, governance friction, and human-centered security systems  
+1. **Own my content** — beyond algorithms and fleeting feeds  
+2. **Go deeper** — follow a thread until it hits bedrock  
+3. **Document my thinking** — to learn from earlier versions of myself  
+4. **Explore intersections** — where identity meets AI, or economics meets philosophy  
 
 ---
 
-Sometimes you’ll find code snippets and experiments like:
+## What I Explore
 
-```python
-def translate_role_name(role_name: str) -> str:
-    """What your role names actually mean."""
-    translations = {
-        "PowerUser": "Admin but we're scared to call it that",
-        "SuperUser": "Admin but the CEO has it so we can't remove it",
-        "TemporaryAccess": "Permanent access we forgot to revoke in 2019",
-        "ReadOnly": "ReadWrite but compliance doesn't audit closely",
-        "Developer": "Root access with extra steps",
-        "Contractor": "Full admin because onboarding is hard",
-        "ServiceAccount_Prod": "We have no idea what this does but we're afraid to touch it",
-        "Legacy_Migration": "Created during a migration in 2014, still here, still granting access",
-    }
-    return translations.get(role_name, "A role someone created at 2am and never documented")
-```
+**Identity & Systems**  
+Identity is a framework I return to often — not because it defines everything, but because it reveals how we define *anything*.  
+It’s a practical lens for understanding trust, accountability, and structure.
 
-Other times, it’ll just be quiet notes about design trade-offs, governance friction, or lessons from working with complex systems.
+**Artificial Intelligence**  
+AI raises new questions about agency and governance.  
+I’m drawn to its design challenges and its human implications — not just how models work, but how we decide what “working” means.
 
----
+**Systems & Architecture**  
+I’m fascinated by the trade-offs that make large systems resilient or brittle.  
+Every design decision is a small bet on what we think will remain true.
 
-### Topics I’ll write about
+**Economics & Finance**  
+Markets are the purest form of feedback loops.  
+They teach risk, incentives, and the uncomfortable symmetry between freedom and consequence.
 
-- **Identity Security** — IAM patterns, access governance, and the politics of permissions  
-- **AI Governance** — How to govern AI systems without killing innovation  
-- **Cybersecurity** — Broader lessons from the security trenches  
-- **Personal Finance** — Because financial security matters too  
-- **Code & Experiments** — Python snippets, tools, and patterns from the field  
+**Astronomy & Philosophy**  
+These are my reminders of scale and stillness.  
+Astronomy grounds me in perspective; philosophy helps me choose direction.  
+Together, they keep everything else in proportion.
 
 ---
 
-If there’s one through-line, it’s this:  
-**Identity isn’t about access — it’s about accountability, context, and trust.**
+### What You’ll Find Here
 
-> *I think, therefore IAM.*
+Notes, essays, and small experiments — sometimes technical, sometimes reflective.  
+You might see code beside philosophy, or an identity model next to a musing on incentives.  
+That mix is the point.
+
+---
+
+If there’s a single thread connecting it all, it’s curiosity — the need to understand *how things connect, adapt, and endure*.  
+
+> *I think, therefore IAM.*  
+> *And sometimes, just I think.*
