@@ -42,7 +42,8 @@ def translate_role_name(role_name: str) -> str:
         "ServiceAccount_Prod": "We have no idea what this does but we're afraid to touch it",
         "Legacy_Migration": "Created during a migration in 2014, still here, still granting access",
     }
-    return translations.get(role_name, "A role someone created at 2am and never documented")```
+    return translations.get(role_name, "A role someone created at 2am and never documented")
+```
 
 Other times, it’ll just be quiet notes about design trade-offs, governance friction, or lessons from working with complex systems.
 
