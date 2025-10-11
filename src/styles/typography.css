@@ -120,7 +120,7 @@
   .tag,
   a.tag {
     position: relative;
-    padding-left: 0.4em; /* adds space between # and text */
+    padding-left: 0.5em; /* adds space between # and text */
     text-decoration: none;
   }
 
