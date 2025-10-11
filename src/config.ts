@@ -10,6 +10,12 @@ export const SITE = {
   postPerPage: 4,
   showArchives: true,
   showBackButton: true, // show back button in post detail
+  editPost: {
+    enabled: false, // true if you want "Edit this post on GitHub" links
+    url: "https://github.com/prithvikrishnab4u/pporeddy-site/blob/main/src/content/post/",
+    text: "Edit this post",
+  },
+  scheduledPostMargin: 0, 
   dir: "ltr",
   lang: "en",
   timezone: "America/Los_Angeles", // optional but correct for you
