@@ -44,7 +44,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         SOCIALS.length > 0 && (
           <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
             <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            {<Socials />}
+            {<div class="mt-8 text-center">
+  <Socials />
+</div>}
           </div>
         )
       }
@@ -68,8 +70,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
 
     {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
           <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
           <ul>
             {recentPosts.map(
