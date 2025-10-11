@@ -42,12 +42,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            {<div class="mt-8 text-center">
+          <div class="mt-8 text-center">
+  <p class="mb-2 font-medium">Social Links:</p>
   <Socials />
-</div>}
-          </div>
+</div>
         )
       }
     </section>
@@ -66,18 +64,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
             </ul>
           </section>
         </>
-      )
-    }
-
-    {
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
       )
     }
 
