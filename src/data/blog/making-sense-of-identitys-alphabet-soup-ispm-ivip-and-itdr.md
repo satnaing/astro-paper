@@ -3,7 +3,7 @@ title: "Making Sense of Identity’s Alphabet Soup: ISPM, IVIP, and ITDR"
 description: "Exploring how ISPM, IVIP, and ITDR form the modern defense layer of identity security built on IAM and governance systems."
 pubDatetime: 2025-10-08
 updatedDatetime: 2025-10-08
-tags: ["identity", "cybersecurity", "governance", "ispm", "ivip", "itdr", "architecture"]
+tags: ["IdentitySecurity", "IAM", "IVIP", "ITDR", "ISPM", "Cybersecurity", "IdentityFabric", "Visibility", "ZeroTrust"]
 draft: false
 featured: false
 ---
