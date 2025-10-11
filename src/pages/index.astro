@@ -23,35 +23,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 <Layout>
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-<h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-  I think, therefore IAM.
-</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-      <p>
-  Hi, I’m <strong>Prithvi Poreddy</strong> — I work at the intersection of 
-  <strong>Identity, Access, and AI systems</strong>. This space is where I
-  unpack what I’ve been building, breaking, and learning about modern identity
-  security, governance models, and systems thinking.
-</p>
-
-<p class="mt-2">
-  You’ll find thoughts on IAM patterns, access governance, AI accountability,
-  and the invisible politics of permissions. Occasionally, some code too.
-</p>
+    <section id="hero" class="pt-12 pb-8 text-center">
+  <h1 class="text-4xl font-bold sm:text-5xl">prithvi poreddy</h1>
+  <p class="mt-3 text-base text-neutral-500 dark:text-neutral-400">
+    notes on identity, ai security, systems, and the occasional detour into economics, astronomy, and philosophy.
+  </p>
+</section>
 
 <section id="recent-posts" class="pt-12 pb-6">
   <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
