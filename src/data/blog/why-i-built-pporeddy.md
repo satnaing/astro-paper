@@ -1,9 +1,11 @@
 ---
 title: "Why I Built pporeddy.com"
 description: "Turning quiet reflections on IAM, AI, and systems thinking into a public logbook."
-pubDate: 2025-10-09
-updatedDate: 2025-10-09
+pubDatetime: 2025-10-09
+updatedDatetime: 2025-10-09
 tags: ["identity", "security", "ai", "reflection"]
+draft: false
+featured: true
 ---
 
 ## Welcome! 👋
