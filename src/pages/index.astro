@@ -23,48 +23,64 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 <Layout>
   <Header />
   <main id="main-content" data-layout="index">
-    <!-- Hero -->
     <section id="hero" class="pt-12 pb-8 text-center">
-      <p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">
-        notes on identity, ai security, systems, and the occasional detour into economics, astronomy, and philosophy.
-      </p>
+  <!-- <h1 class="text-4xl font-semibold sm:text-5xl">prithvi poreddy</h1> -->
+<p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-neutral-500 dark:text-neutral-400">
+  notes on identity, ai security, systems, and the occasional detour into economics, astronomy, and philosophy.
+</p>
+</section>
+
+<section id="recent-posts" class="pt-12 pb-6">
+  <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+  <ul>
+    {recentPosts.map(data => (
+      <Card variant="h3" {...data} />
+    ))}
+  </ul>
+</section>
+      
+      {
+        // only display if at least one social link is enabled
+        SOCIALS.length > 0 && (
+          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+            {<div class="mt-8 text-center">
+  <Socials />
+</div>}
+          </div>
+        )
+      }
     </section>
-
-    <!-- Recent Posts -->
-    {recentPosts.length > 0 && (
-      <section id="recent-posts" class="pt-12 pb-6">
-        <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-        <ul>
-          {recentPosts.map(data => (
-            <Card variant="h3" {...data} />
-          ))}
-        </ul>
-      </section>
-    )}
-
-    <!-- Social Links -->
-    {SOCIALS.length > 0 && (
-      <div class="mt-8 text-center">
-        <p class="mb-2 font-medium">Social Links:</p>
-        <Socials />
-      </div>
-    )}
 
     <Hr />
 
-    <!-- Featured -->
-    {featuredPosts.length > 0 && (
-      <section id="featured" class="pt-12 pb-6">
-        <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-        <ul>
-          {featuredPosts.map(data => (
-            <Card variant="h3" {...data} />
-          ))}
-        </ul>
-      </section>
-    )}
+    {
+      featuredPosts.length > 0 && (
+        <>
+          <section id="featured" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+            <ul>
+              {featuredPosts.map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+        </>
+      )
+    }
 
-    <!-- All Posts Button -->
+    {
+          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+          <ul>
+            {recentPosts.map(
+              (data, index) =>
+                index < SITE.postPerIndex && <Card variant="h3" {...data} />
+            )}
+          </ul>
+        </section>
+      )
+    }
+
     <div class="my-8 text-center">
       <LinkButton href="/posts/">
         All Posts
@@ -77,7 +93,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const indexLayout = document.querySelector("#main-content")?.dataset?.layout;
-    if (indexLayout) sessionStorage.setItem("backUrl", "/");
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
   });
 </script>
