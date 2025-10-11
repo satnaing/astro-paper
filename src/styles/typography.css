@@ -116,4 +116,25 @@
       @apply rounded-sm border border-border px-0.5 py-px;
     }
   }
+.tag,
+a.tag {
+  position: relative;
+  padding-left: 0.4em; /* adds space between # and text */
+  text-decoration: none;
+}
+
+.tag::before,
+a.tag::before {
+  content: "#";
+  position: absolute;
+  left: 0;
+  color: var(--color-foreground);
+  opacity: 0.85;
+}
+
+/* Optional hover style for nicer feel */
+a.tag:hover {
+  text-decoration: underline dashed var(--color-accent);
+  text-underline-offset: 2px;
+}
 }
