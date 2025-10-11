@@ -117,24 +117,19 @@
     }
   } /* 👈 closes .astro-code */
   /* ===== Fix overlapping # in tag links ===== */
-  .tag,
-  a.tag {
-    position: relative;
-    padding-left: 0.5em; /* adds space between # and text */
-    text-decoration: none;
-  }
+a[href*="/tags/"] span {
+  margin-right: 0.25em; /* space between # and text */
+  display: inline-block;
+}
 
-  .tag::before,
-  a.tag::before {
-    content: "#";
-    position: absolute;
-    left: 0;
-    color: var(--color-foreground);
-    opacity: 0.85;
-  }
+a[href*="/tags/"] {
+  text-decoration: none;
+  color: var(--color-foreground);
+  font-weight: 500;
+}
 
-  a.tag:hover {
-    text-decoration: underline dashed var(--color-accent);
-    text-underline-offset: 2px;
-  }
+a[href*="/tags/"]:hover {
+  text-decoration: underline dashed var(--color-accent);
+  text-underline-offset: 2px;
+}
 } /* 👈 closes @layer base */
