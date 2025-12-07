@@ -36,20 +36,20 @@ const time = datetime.format("hh:mm A"); // e.g., '08:30 PM'
 <div class:list={["flex items-end space-x-2 opacity-80", className]}>
   <IconCalendar
     class:list={[
-      "inline-block size-6 min-w-[1.375rem]",
+      "inline-block size-6 min-w-[1.375rem] text-accent-secondary",
       { "scale-90": size === "sm" },
     ]}
   />
   {
     modDatetime && modDatetime > pubDatetime ? (
-      <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
+      <span class:list={["text-sm italic text-accent-secondary", { "sm:text-base": size === "lg" }]}>
         Updated:
       </span>
     ) : (
       <span class="sr-only">Published:</span>
     )
   }
-  <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
+  <span class:list={["text-sm italic text-foreground", { "sm:text-base": size === "lg" }]}>
     <time datetime={datetime.toISOString()}>{date}</time>
     <span aria-hidden="true"> | </span>
     <span class="sr-only">&nbsp;at&nbsp;</span>

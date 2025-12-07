@@ -12,7 +12,7 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 <Layout title={`Search | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Search" pageDesc="Search any article ...">
-    <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
+    <div id="pagefind-search" transition:persist data-backurl={backUrl} class="neon-border p-4 rounded-md"></div>
   </Main>
   <Footer />
 </Layout>
@@ -93,9 +93,10 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
   #pagefind-search {
     --pagefind-ui-font: var(--font-mono);
     --pagefind-ui-text: var(--foreground);
-    --pagefind-ui-background: var(--background);
+    --pagefind-ui-background: var(--card-bg);
     --pagefind-ui-border: var(--border);
     --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-secondary: var(--accent-secondary);
     --pagefind-ui-tag: var(--background);
     --pagefind-ui-border-radius: 0.375rem;
     --pagefind-ui-border-width: 1px;
@@ -109,16 +110,25 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     input {
       font-weight: 400;
       border: 1px solid var(--border);
+      background-color: var(--card-bg);
+      color: var(--foreground);
     }
 
     input:focus-visible {
       outline: 1px solid var(--accent);
+      box-shadow: 0 0 5px rgba(255, 45, 109, 0.3);
     }
 
     .pagefind-ui__result-title a {
       color: var(--accent);
       outline-offset: 1px;
       outline-color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .pagefind-ui__result-title a:hover {
+      color: var(--accent-secondary);
+      text-shadow: 0 0 5px currentColor;
     }
 
     .pagefind-ui__result-title a:focus-visible,
@@ -128,12 +138,51 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
       outline-style: dashed;
     }
 
+    .pagefind-ui__result {
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(26, 26, 46, 0.2);
+    }
+    
+    .pagefind-ui__result:hover {
+      background-color: rgba(26, 26, 46, 0.4);
+    }
+
     .pagefind-ui__result:last-of-type {
       border-bottom: 0;
     }
 
     .pagefind-ui__result-nested .pagefind-ui__result-link:before {
       font-family: system-ui;
+    }
+    
+    .pagefind-ui__result-excerpt {
+      color: var(--foreground);
+      opacity: 0.9;
+    }
+    
+    .pagefind-ui__result-link {
+      color: var(--foreground);
+      opacity: 0.8;
+    }
+    
+    .pagefind-ui__result-link:hover {
+      color: var(--accent-secondary);
+      opacity: 1;
+    }
+    
+    .pagefind-ui__search-clear {
+      background-color: var(--muted);
+      color: var(--foreground);
+    }
+    
+    .pagefind-ui__search-clear:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    .pagefind-ui__filter {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
     }
   }
 </style>

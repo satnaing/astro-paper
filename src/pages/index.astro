@@ -22,34 +22,36 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index">
+  <main id="main-content" data-layout="index" class="scan-line">
     <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Tanctalk
-      </h1>
+      <div class="relative">
+        <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl cyberpunk-title" data-text="Tanctalk">
+          Tanctalk
+        </h1>
+      </div>
       <a
         target="_blank"
         href="/rss.xml"
-        class="inline-block"
+        class="inline-block text-accent hover:text-accent-secondary transition-all duration-300"
         aria-label="rss feed"
         title="RSS Feed"
       >
         <IconRss
           width={20}
           height={20}
-          class="scale-125 stroke-accent stroke-3"
+          class="scale-125"
         />
         <span class="sr-only">RSS Feed</span>
       </a>
 
-      <p>
+      <p class="text-foreground opacity-90 max-w-lg">
         Hi there, this is tanc, welcome to my personal blog.
       </p>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
           <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0 text-accent-secondary">Social Links:</div>
             <Socials />
           </div>
         )
@@ -62,10 +64,14 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       featuredPosts.length > 0 && (
         <>
           <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
+            <h2 class="text-2xl font-semibold tracking-wide text-accent-secondary cyberpunk-title" data-text="Featured">
+              Featured
+            </h2>
+            <ul class="mt-4 space-y-4">
               {featuredPosts.map(data => (
-                <Card variant="h3" {...data} />
+                <li class="neon-border">
+                  <Card variant="h3" {...data} />
+                </li>
               ))}
             </ul>
           </section>
@@ -77,11 +83,17 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     {
       recentPosts.length > 0 && (
         <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
+          <h2 class="text-2xl font-semibold tracking-wide text-accent cyberpunk-title" data-text="Recent Posts">
+            Recent Posts
+          </h2>
+          <ul class="mt-4 space-y-4">
             {recentPosts.map(
               (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
+                index < SITE.postPerIndex && (
+                  <li class="neon-border">
+                    <Card variant="h3" {...data} />
+                  </li>
+                )
             )}
           </ul>
         </section>
@@ -89,9 +101,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
 
     <div class="my-8 text-center">
-      <LinkButton href="/posts/">
+      <LinkButton href="/posts/" class="neon-border px-6 py-3 text-accent hover:text-accent-secondary transition-all duration-300">
         All Posts
-        <IconArrowRight class="inline-block" />
+        <IconArrowRight class="inline-block ml-2" />
       </LinkButton>
     </div>
   </main>

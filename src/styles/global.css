@@ -5,27 +5,36 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #e6e6e6;
-  --border: #ece9e9;
+  --background: #0a0a0f;
+  --foreground: #e0e0ff;
+  --accent: #ff2d6d;
+  --accent-secondary: #00f5ff;
+  --muted: #1a1a2e;
+  --border: #2d2d44;
+  --glow-color: #ff2d6d;
+  --card-bg: #151522;
 }
 
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60bf;
-  --border: #ab4b08;
+  --background: #0a0a0f;
+  --foreground: #e0e0ff;
+  --accent: #ff2d6d;
+  --accent-secondary: #00f5ff;
+  --muted: #1a1a2e;
+  --border: #2d2d44;
+  --glow-color: #ff2d6d;
+  --card-bg: #151522;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-glow: var(--glow-color);
+  --color-card-bg: var(--card-bg);
 }
 
 @layer base {
@@ -35,11 +44,20 @@ html[data-theme="dark"] {
     scrollbar-color: var(--color-muted) transparent;
   }
   html {
-    @apply overflow-y-scroll scroll-smooth;
+    background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+    scroll-behavior: smooth;
   }
   body {
-    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+    @apply bg-background font-mono text-foreground selection:bg-accent selection:text-background;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(255, 45, 109, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
+  
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
@@ -52,8 +70,90 @@ html[data-theme="dark"] {
   footer {
     @apply mx-auto max-w-3xl px-4;
   }
+  
+  /* Cyberpunk glitch effect for headings */
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+  }
+  
+  .cyberpunk-title {
+    position: relative;
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-glow);
+  }
+  
+  .cyberpunk-title::before,
+  .cyberpunk-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .cyberpunk-title::before {
+    animation: glitch 2s infinite;
+    color: var(--color-accent-secondary);
+    z-index: -1;
+  }
+  
+  .cyberpunk-title::after {
+    animation: glitch 3s infinite;
+    color: #8a2be2;
+    z-index: -2;
+  }
+  
+  /* Neon border effect */
+  .neon-border {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 
+      0 0 5px rgba(255, 45, 109, 0.5),
+      inset 0 0 5px rgba(255, 45, 109, 0.1);
+  }
+  
+  /* Scanning line effect */
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scan-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    animation: scan 3s infinite linear;
+  }
+  
+  @keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+  }
 }
 
 .active-nav {
-  @apply underline decoration-wavy decoration-2 underline-offset-4;
+  @apply relative;
+  text-decoration: none;
+}
+
+.active-nav::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
+  box-shadow: 0 0 10px var(--color-accent);
 }

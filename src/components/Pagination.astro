@@ -18,17 +18,17 @@ const { page } = Astro.props;
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        class:list={["mr-4 select-none", { "opacity-50": !page.url.prev }]}
+        class:list={["mr-4 select-none neon-border px-4 py-2 text-accent hover:text-accent-secondary", { "opacity-50": !page.url.prev }]}
         ariaLabel="Previous"
       >
         <IconArrowLeft class="inline-block" />
         Prev
       </LinkButton>
-      {page.currentPage} / {page.lastPage}
+      <span class="px-4 py-2 text-accent-secondary font-bold">{page.currentPage} / {page.lastPage}</span>
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        class:list={["ml-4 select-none", { "opacity-50": !page.url.next }]}
+        class:list={["ml-4 select-none neon-border px-4 py-2 text-accent hover:text-accent-secondary", { "opacity-50": !page.url.next }]}
         ariaLabel="Next"
       >
         Next

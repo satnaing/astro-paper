@@ -18,9 +18,9 @@ const { frontmatter } = Astro.props;
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
   <Header />
   <Breadcrumb />
-  <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+  <main id="main-content" class="scan-line">
+    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0 p-6 rounded-md bg-card-bg/50 backdrop-blur-sm border border-border/50">
+      <h1 class="text-2xl tracking-wider sm:text-3xl cyberpunk-title" data-text={frontmatter.title}>{frontmatter.title}</h1>
       <slot />
     </section>
   </main>

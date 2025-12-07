@@ -8,5 +8,5 @@ const { noPadding = false, ariaHidden = true } = Astro.props;
 ---
 
 <div class={`max-w-3xl mx-auto ${noPadding ? "px-0" : "px-4"}`}>
-  <hr class="border-border" aria-hidden={ariaHidden} />
+  <hr class="border-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent shadow-[0_0_10px_var(--color-accent)]" aria-hidden={ariaHidden} />
 </div>

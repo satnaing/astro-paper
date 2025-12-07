@@ -2,10 +2,86 @@
 
 @layer base {
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-foreground prose-h3:italic prose-p:!text-foreground prose-a:!text-foreground prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-accent prose-blockquote:!border-l-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-foreground prose-figcaption:opacity-70 prose-strong:!text-foreground prose-code:rounded prose-code:bg-muted/75 prose-code:p-1 prose-code:!text-foreground prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-foreground prose-ul:overflow-x-clip prose-ul:!text-foreground prose-li:marker:!text-accent prose-table:text-foreground prose-th:border prose-th:border-border prose-td:border prose-td:border-border prose-img:mx-auto prose-img:!my-2 prose-img:border-2 prose-img:border-border prose-hr:!border-border;
+    @apply prose-headings:!mb-3 prose-headings:!text-foreground prose-h3:italic prose-p:!text-foreground prose-a:!text-accent prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:!text-accent-secondary prose-blockquote:!border-l-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-foreground prose-figcaption:opacity-70 prose-strong:!text-accent prose-code:rounded prose-code:bg-muted/75 prose-code:p-1 prose-code:!text-foreground prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-foreground prose-ul:overflow-x-clip prose-ul:!text-foreground prose-li:marker:!text-accent prose-table:text-foreground prose-th:border prose-th:border-border prose-td:border prose-td:border-border prose-img:mx-auto prose-img:!my-2 prose-img:border-2 prose-img:border-border prose-hr:!border-border;
+    /* Cyberpunk specific enhancements */
+  }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply relative;
+    text-shadow: 0 0 5px rgba(255, 45, 109, 0.3);
+  }
+  .prose h1 {
+    @apply text-4xl font-bold;
+    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .prose h2 {
+    @apply text-3xl;
+    color: var(--color-accent-secondary);
+  }
+  .prose h3 {
+    @apply text-2xl;
+    color: var(--color-accent);
   }
   .prose a {
-    @apply break-words hover:!text-accent;
+    @apply break-words relative transition-all duration-300;
+    text-shadow: 0 0 5px currentColor;
+  }
+  .prose a:hover {
+    text-shadow: 0 0 10px currentColor;
+  }
+  .prose blockquote {
+    @apply relative;
+    background: rgba(26, 26, 46, 0.5);
+    border-left: 3px solid var(--color-accent);
+    box-shadow: 
+      -5px 0 10px rgba(255, 45, 109, 0.2),
+      inset 0 0 10px rgba(255, 45, 109, 0.05);
+  }
+  .prose code {
+    @apply relative;
+    font-family: 'Courier New', monospace;
+    color: var(--color-accent-secondary);
+    box-shadow: 
+      0 0 5px rgba(0, 245, 255, 0.2),
+      inset 0 0 5px rgba(0, 245, 255, 0.05);
+  }
+  .prose pre {
+    @apply relative;
+    background: rgba(21, 21, 34, 0.9);
+    border: 1px solid var(--color-border);
+    box-shadow:
+      0 0 15px rgba(0, 245, 255, 0.2),
+      inset 0 0 15px rgba(0, 245, 255, 0.05);
+    padding-top: 1.5rem;
+    border-radius: 0.375rem;
+  }
+  .prose table {
+    @apply relative;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(26, 26, 46, 0.3);
+  }
+  .prose th, .prose td {
+    @apply border border-border;
+    border-color: rgba(45, 45, 68, 0.7);
+  }
+  .prose th {
+    @apply bg-muted/50;
+    color: var(--color-accent-secondary);
+  }
+  .prose img {
+    @apply relative;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    border-color: var(--color-accent-secondary);
+  }
+  .prose hr {
+    @apply relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    border: none;
+    box-shadow: 0 0 5px var(--color-accent);
   }
   .prose thead th:first-child,
   tbody td:first-child,
@@ -48,9 +124,42 @@
   html[data-theme="dark"] pre:has(code),
   html[data-theme="dark"] pre:has(code) span {
     color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
+    background-color: rgba(21, 21, 34, 0.9) !important;
     font-style: var(--shiki-dark-font-style) !important;
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+  
+  /* Apply Light Theme (if multi-theme specified) */
+  html[data-theme="light"] pre:has(code),
+  html[data-theme="light"] pre:has(code) span {
+    color: var(--shiki-light) !important;
+    background-color: rgba(21, 21, 34, 0.9) !important;
+    font-style: var(--shiki-light-font-style) !important;
+    font-weight: var(--shiki-light-font-weight) !important;
+    text-decoration: var(--shiki-light-text-decoration) !important;
+  }
+  
+  /* Copy button styles */
+  .copy-code {
+    transition: all 0.2s ease;
+    opacity: 0.7;
+  }
+  
+  .copy-code:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Ensure code blocks have enough padding for the copy button */
+  .prose pre {
+    position: relative;
+    padding-top: 3rem !important;
+  }
+  
+  /* Code block wrapper to ensure proper positioning */
+  .prose pre > div {
+    position: relative;
   }
 }

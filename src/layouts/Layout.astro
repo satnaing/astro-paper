@@ -26,7 +26,7 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.url),
   pubDatetime,
   modDatetime,
-  scrollSmooth = false,
+  scrollSmooth = true,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.url);
@@ -111,7 +111,7 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
+    <meta name="theme-color" content="#0a0a0f" />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
@@ -135,10 +135,78 @@ const structuredData = {
 </html>
 
 <style>
-  html,
+  html {
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+  }
+  
   body {
     margin: 0;
     width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    position: relative;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(255, 45, 109, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, rgba(255, 45, 109, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 45, 109, 0.03) 3px);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  /* Cyberpunk glitch animation */
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+  }
+  
+  /* Neon glow effect */
+  .neon-glow {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px var(--color-accent);
+  }
+  
+  /* Scanning line effect */
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scan-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    animation: scan 3s infinite linear;
+    opacity: 0.7;
+  }
+  
+  @keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
   }
 </style>
