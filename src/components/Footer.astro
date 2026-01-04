@@ -1,16 +1,20 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
 
 const currentYear = new Date().getFullYear();
 
-export interface Props {
+type Props = {
   noMarginTop?: boolean;
-}
+} & HTMLAttributes<"footer">;
 
-const { noMarginTop = false } = Astro.props;
+const { noMarginTop = false, class: className, ...attrs } = Astro.props;
 ---
 
-<footer class:list={["app-layout", { "mt-auto": !noMarginTop }]}>
+<footer
+  class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
+  {...attrs}
+>
   <div
     class:list={[
       "py-6 sm:py-4",

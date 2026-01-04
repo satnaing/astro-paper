@@ -8,13 +8,13 @@ import { SITE } from "@/config";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export interface Props {
+type Props = {
   class?: string;
   size?: "sm" | "lg";
-  timezone: string | undefined;
   pubDatetime: string | Date;
-  modDatetime: string | Date | undefined | null;
-}
+  timezone?: string;
+  modDatetime?: string | Date | null;
+};
 
 const {
   pubDatetime,
@@ -37,7 +37,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
   <IconCalendar
     class:list={[
-      "inline-block size-6 min-w-[1.375rem]",
+      "inline-block size-6 min-w-5.5",
       { "scale-90": size === "sm" },
     ]}
   />
