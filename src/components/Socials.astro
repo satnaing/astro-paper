@@ -1,15 +1,9 @@
 ---
 import { SOCIALS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
-
-export interface Props {
-  centered?: boolean;
-}
-
-const { centered = false } = Astro.props;
 ---
 
-<div class:list={["flex-wrap justify-center gap-1", { flex: centered }]}>
+<div class="flex flex-wrap items-center gap-1">
   {
     SOCIALS.map(social => (
       <LinkButton

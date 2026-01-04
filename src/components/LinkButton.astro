@@ -22,7 +22,7 @@ const {
   disabled ? (
     <span
       id={id}
-      class:list={["group inline-block", className]}
+      class:list={["group inline-flex items-center gap-1", className]}
       title={title}
       aria-disabled={disabled}
     >
@@ -32,7 +32,10 @@ const {
     <a
       id={id}
       {href}
-      class:list={["group inline-block hover:text-accent", className]}
+      class:list={[
+        "group inline-flex items-center gap-1 hover:text-accent",
+        className,
+      ]}
       aria-label={ariaLabel}
       title={title}
     >
