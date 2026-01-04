@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
-modDatetime: 2025-06-13T16:46:34.155Z
+modDatetime: 2026-01-04T11:27:37.761Z
 title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
@@ -109,13 +109,13 @@ To customize your own color scheme, specify your light colors inside `:root, htm
 
 Here is the detail explanation of color properties.
 
-| Color Property | Definition & Usage                                         |
-| -------------- | ---------------------------------------------------------- |
-| `--background` | Primary color of the website. Usually the main background. |
-| `--foreground` | Secondary color of the website. Usually the text color.    |
-| `--accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--muted`      | Card and scrollbar background color for hover state etc.   |
-| `--border`     | Border color. Especially used in horizontal row (hr)       |
+| Color Property | Definition & Usage                                            |
+| -------------- | ------------------------------------------------------------- |
+| `--background` | Primary color of the website. Usually the main background.    |
+| `--foreground` | Secondary color of the website. Usually the text color.       |
+| `--accent`     | Accent color of the website. Link color, hover color etc.     |
+| `--muted`      | Card and scrollbar background color for hover state etc.      |
+| `--border`     | Border color. Used for border utilities and visual separation |
 
 Here is an example of changing the light color scheme.
 
