@@ -48,14 +48,14 @@ html[data-theme="dark"] {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  section,
-  footer {
-    @apply mx-auto max-w-app px-4;
-  }
 }
 
 @utility max-w-app {
   @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply mx-auto w-full max-w-app px-4;
 }
 
 .active-nav {
