@@ -97,8 +97,8 @@ const isActive = (path: string) => {
                     "active-nav [&>svg]:stroke-accent": isActive("/archives"),
                   },
                 ]}
-                ariaLabel="archives"
                 title="Archives"
+                aria-label="archives"
               >
                 <IconArchive class="hidden sm:inline-block" />
                 <span class="sm:sr-only">Archives</span>
@@ -113,8 +113,8 @@ const isActive = (path: string) => {
               "focus-outline flex p-3 sm:p-1",
               { "[&>svg]:stroke-accent": isActive("/search") },
             ]}
-            ariaLabel="search"
             title="Search"
+            aria-label="search"
           >
             <IconSearch />
             <span class="sr-only">Search</span>
