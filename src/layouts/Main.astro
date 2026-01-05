@@ -2,18 +2,10 @@
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import { SITE } from "@/config";
 
-interface StringTitleProp {
-  pageTitle: string;
-  pageDesc?: string;
-}
+type StringTitle = { pageTitle: string };
+type ArrayTitle = { pageTitle: [string, string]; titleTransition: string };
 
-interface ArrayTitleProp {
-  pageTitle: [string, string];
-  titleTransition: string;
-  pageDesc?: string;
-}
-
-export type Props = StringTitleProp | ArrayTitleProp;
+type Props = (StringTitle | ArrayTitle) & { pageDesc?: string };
 
 const { props } = Astro;
 

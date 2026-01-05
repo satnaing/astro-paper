@@ -5,9 +5,9 @@ import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import LinkButton from "./LinkButton.astro";
 
-export interface Props {
+type Props = {
   page: Page<CollectionEntry<"blog">>;
-}
+};
 
 const { page } = Astro.props;
 ---
