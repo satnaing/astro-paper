@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v5.5.1 (2026-01-08)
+
+### Fix
+
+- improve Tag component by making it entire component clickable (#598)
+- **og-images**: wrap Buffer in Uint8Array for Response body (#568)
+- make post header vertical bar respect global settings (#562)
+- skip invalid code block metadata without key-value pairs (#561)
+
+### Refactor
+
+- update component props and improve types (#600)
+- improve props usage and dynamic rendering in LinkButton (#599)
+- improve semantic by replacing decorative hr with borders (#597)
+
 ## v5.5.0 (2025-07-12)
 
 ### Feat
