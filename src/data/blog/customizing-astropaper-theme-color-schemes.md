@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
-modDatetime: 2026-01-04T11:27:37.761Z
+modDatetime: 2026-01-09T15:00:15.170Z
 title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
@@ -48,30 +48,43 @@ export const SITE = {
 
 To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
 
-## Choose primary color scheme
+## Choose initial color scheme
 
 By default, if we disable `SITE.lightAndDarkMode`, we will only get system's prefers-color-scheme.
 
-Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the `primaryColorScheme` variable inside `toggle-theme.js`.
+Thus, to choose an initial color scheme instead of prefers-color-scheme, we have to set color scheme in the `initialColorScheme` variable inside `theme.ts`.
 
-```js file="public/toggle-theme.js"
-const primaryColorScheme = ""; // "light" | "dark" // [!code hl]
+```ts file="src/scripts/theme.ts"
+// Initial color scheme
+// Can be "light", "dark", or empty string for system's prefers-color-scheme
+const initialColorScheme = ""; // "light" | "dark" // [!code hl]
 
-// Get theme data from local storage
-const currentTheme = localStorage.getItem("theme");
+function getPreferTheme(): string {
+  // get theme data from local storage (user's explicit choice)
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme) return currentTheme;
+
+  // return initial color scheme if it is set (site default)
+  if (initialColorScheme) return initialColorScheme;
+
+  // return user device's prefer color scheme (system fallback)
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
 
 // ...
 ```
 
-The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
+The **initialColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify an initial color scheme.
 
 - `""` - system's prefers-color-scheme. (default)
-- `"light"` - use light mode as primary color scheme.
-- `"dark"` - use dark mode as primary color scheme.
+- `"light"` - use light mode as initial color scheme.
+- `"dark"` - use dark mode as initial color scheme.
 
 <details>
-<summary>Why primaryColorScheme' is not inside config.ts?</summary>
-To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
+<summary>Why initialColorScheme is not inside config.ts?</summary>
+To avoid color flickering on page reload, we have to place the theme initialization JavaScript code as early as possible when the page loads. The theme script is split into two parts: a minimal inline script in the `<head>` that sets the theme immediately, and the full script that loads asynchronously. This approach prevents FOUC (Flash of Unstyled Content) while maintaining optimal performance.
 </details>
 
 ## Customize color schemes
