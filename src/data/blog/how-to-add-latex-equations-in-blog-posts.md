@@ -68,7 +68,8 @@ In this section, you will find instructions on how to add support for LaTeX in y
    ---
 
    <!doctype html>
-   <!-- others... -->
+   <!-- Other elements  -->
+   <meta property="og:image" content={socialImageURL} />
 
    <!-- [!code highlight:4] -->
    <link

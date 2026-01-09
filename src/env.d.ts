@@ -7,4 +7,3 @@ interface Window {
     setTheme: (val: string) => void;
   };
 }
-
