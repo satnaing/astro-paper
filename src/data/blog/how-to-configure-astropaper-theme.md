@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2025-03-20T03:15:57.792Z
+modDatetime: 2026-01-10T13:04:53.851Z
 title: How to configure AstroPaper theme
 slug: how-to-configure-astropaper-theme
 featured: true
@@ -194,6 +194,76 @@ export const SOCIALS = [
 You can configure share links in `SHARE_LINKS` object inside `src/constants.ts`.
 
 ![An arrow pointing at share link icons](https://github.com/user-attachments/assets/4f930b68-b625-45df-8c41-e076dd2b838e)
+
+## Configuring fonts
+
+AstroPaper uses Astro's [experimental fonts API](https://docs.astro.build/en/reference/experimental-flags/fonts/) with [Google Sans Code](https://fonts.google.com/specimen/Google+Sans+Code) as the default font. This provides consistent typography across all platforms with automatic font optimizations including preloading and caching.
+
+### Using the default font
+
+The font is automatically configured in `astro.config.ts` and loaded in `Layout.astro`. No additional configuration is needed to use the default Google Sans Code font.
+
+### Customizing the font
+
+To use a different font, you need to update three places:
+
+1. **Update the font configuration in `astro.config.ts`:**
+
+```ts file=astro.config.ts
+import { defineConfig, fontProviders } from "astro/config";
+
+export default defineConfig({
+  // ...
+  experimental: {
+    fonts: [
+      {
+        name: "Your Font Name", // [!code highlight]
+        cssVariable: "--font-your-font", // [!code highlight]
+        provider: fontProviders.google(),
+        fallbacks: ["monospace"],
+        weights: [300, 400, 500, 600, 700],
+        styles: ["normal", "italic"],
+      },
+    ],
+  },
+});
+```
+
+1. **Update the Font component in `Layout.astro`:**
+
+```astro file=src/layouts/Layout.astro
+---
+import { Font } from "astro:assets";
+// ...
+---
+
+<head>
+  <!-- ... -->
+  // [!code highlight:4]
+  <Font
+    cssVariable="--font-your-font"
+    preload={[{ subset: "latin", weight: 400, style: "normal" }]}
+  />
+  <!-- ... -->
+</head>
+```
+
+1. **Update the CSS variable mapping in `global.css`:**
+
+```css file=src/styles/global.css
+@theme inline {
+  --font-app: var(--font-your-font); /* [!code highlight] */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+```
+
+The `--font-app` variable is used throughout the theme via the `font-app` Tailwind utility class, so updating this single variable will apply your custom font everywhere.
+
+> **Note**: Make sure the font name matches exactly as it appears on [Google Fonts](https://fonts.google.com). For other font providers or local fonts, refer to the [Astro Experimental Fonts API documentation](https://docs.astro.build/en/reference/experimental-flags/fonts/).
 
 ## Conclusion
 
