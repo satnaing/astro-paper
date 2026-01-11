@@ -2,6 +2,14 @@
 
 > Guidelines for AI coding agents working in this Astro blog theme repository.
 
+## Outils CLI préférés
+
+- `rg` (ripgrep) — jamais `grep`
+- `fd` — jamais `find`
+- `uv` — jamais `python3` directement
+- `bun` — jamais `npm/pnpm`
+- **Screenshot**: `ls -lt ~/Documents/screenshots | head -2`
+
 ## Project Overview
 
 AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
