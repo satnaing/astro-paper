@@ -3,7 +3,7 @@ import { SOCIALS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 ---
 
-<div class="flex flex-wrap items-center gap-1">
+<div class="flex flex-wrap items-center gap-1 text-muted-foreground/70">
   {
     SOCIALS.map(social => (
       <LinkButton
@@ -11,7 +11,7 @@ import LinkButton from "./LinkButton.astro";
         class="p-2 hover:rotate-6 sm:p-1"
         title={social.linkTitle}
       >
-        <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+        <social.icon class="inline-block size-5 fill-transparent stroke-current stroke-2 group-hover:fill-transparent" />
         <span class="sr-only">{social.linkTitle}</span>
       </LinkButton>
     ))
