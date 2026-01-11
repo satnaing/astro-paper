@@ -1,5 +1,6 @@
 import type { Props } from "astro";
 import IconMail from "@/assets/icons/IconMail.svg";
+import IconRss from "@/assets/icons/IconRss.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
 import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
@@ -46,6 +47,12 @@ export const SOCIALS: Social[] = [
     href: "https://github.com/firepress-org",
     linkTitle: `FirePress on GitHub`,
     icon: IconGitHub,
+  },
+  {
+    name: "RSS",
+    href: "/rss.xml",
+    linkTitle: `RSS Feed`,
+    icon: IconRss,
   },
 ] as const;
 
