@@ -20,6 +20,10 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [],
+    syntaxHighlight: {
+      type: "shiki",
+      excludeLangs: ["mermaid"],
+    },
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       // Using css-variables theme to inherit colors from the active theme

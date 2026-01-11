@@ -34,6 +34,7 @@ const {
   timezone,
   tags,
   hideEditPost,
+  mermaid,
 } = post.data;
 
 const { Content, headings } = await render(post);
@@ -283,3 +284,5 @@ const nextPost =
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
 </script>
+
+{mermaid && <script src="@/scripts/mermaid.ts"></script>}
