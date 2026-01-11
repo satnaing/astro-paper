@@ -7,6 +7,7 @@ import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconPascalAndy from "@/assets/icons/IconPascalAndy.svg";
+import IconChessKnight from "@/assets/icons/IconChessKnight.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 
@@ -79,9 +80,20 @@ const isActive = (path: string) => {
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-            About
-          </a>
+          <LinkButton
+            href="/about"
+            class:list={[
+              "focus-outline flex justify-center p-3 sm:p-1",
+              {
+                "active-nav [&>svg]:stroke-accent": isActive("/about"),
+              },
+            ]}
+            title="About"
+            aria-label="about"
+          >
+            <IconChessKnight class="hidden size-5 sm:inline-block" />
+            <span class="sm:sr-only">About</span>
+          </LinkButton>
         </li>
         <li class="col-span-2">
           <LinkButton
