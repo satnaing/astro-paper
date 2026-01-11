@@ -10,6 +10,18 @@
 - `bun` — jamais `npm/pnpm`
 - **Screenshot**: `ls -lt ~/Documents/screenshots | head -2`
 
+## Git Workflow
+
+**Always use atomic commits** - one logical change per commit.
+
+When the user asks to commit:
+1. Analyze all changes with `git status` and `git diff --stat`
+2. Group changes by logical purpose (not by file type)
+3. Create separate commits for each logical group
+4. Never combine unrelated changes in a single commit
+
+If a commit message needs "and" to describe what it does, split it into multiple commits.
+
 ## Project Overview
 
 AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
