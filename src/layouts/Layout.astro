@@ -2,7 +2,7 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
-import { SITE } from "@/config";
+import { SITE, THEMES, ACTIVE_THEME } from "@/config";
 import "@/styles/global.css";
 
 type Props = {
@@ -46,6 +46,28 @@ const structuredData = {
     },
   ],
 };
+
+// Generate theme CSS from config
+const theme = THEMES[ACTIVE_THEME];
+
+function themeToCSS(colors: Record<string, string>): string {
+  return Object.entries(colors)
+    .map(([key, value]) => `--${key}: ${value};`)
+    .join("\n      ");
+}
+
+const lightCSS = themeToCSS(theme.light);
+const darkCSS = themeToCSS(theme.dark);
+
+const themeStyleContent = `
+      :root,
+      html[data-theme="light"] {
+        ${lightCSS}
+      }
+      html[data-theme="dark"] {
+        ${darkCSS}
+      }
+    `;
 ---
 
 <!doctype html>
@@ -60,6 +82,9 @@ const structuredData = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Theme Variables (generated from src/config.ts) -->
+    <style is:inline set:html={themeStyleContent}></style>
 
     <!-- Load Font -->
     <Font

@@ -95,7 +95,7 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     --pagefind-ui-text: var(--foreground);
     --pagefind-ui-background: var(--background);
     --pagefind-ui-border: var(--border);
-    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-primary: var(--primary);
     --pagefind-ui-tag: var(--background);
     --pagefind-ui-border-radius: 0.375rem;
     --pagefind-ui-border-width: 1px;
@@ -112,13 +112,13 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     }
 
     input:focus-visible {
-      outline: 1px solid var(--accent);
+      outline: 1px solid var(--primary);
     }
 
     .pagefind-ui__result-title a {
-      color: var(--accent);
+      color: var(--primary);
       outline-offset: 1px;
-      outline-color: var(--accent);
+      outline-color: var(--primary);
       text-decoration-style: dashed;
       text-underline-offset: 4px;
     }
