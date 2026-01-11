@@ -21,7 +21,7 @@ const tocHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
       <summary class="cursor-pointer">
         Table of Contents
       </summary>
-      <ul class="mt-2 space-y-1 text-muted-foreground">
+      <ul class="mt-2 space-y-1 border border-border/50 bg-(--astro-code-background) p-4 text-muted-foreground">
         {tocHeadings.map(heading => (
           <li class:list={[heading.depth === 3 && "ml-4"]}>
             <a href={`#${heading.slug}`} class="hover:text-foreground">
