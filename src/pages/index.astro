@@ -23,7 +23,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 <Layout>
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
-    <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
+    <section id="hero" class="pt-8 pb-6">
       <img
         src={bannerImage.src}
         alt="Pascal Andy"
@@ -42,29 +42,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         Bienvenue dans mon monde,<br />
         <span class="font-semibold">Pascal</span>
       </p>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="mt-4 inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent stroke-3"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
     </section>
 
     {
@@ -88,12 +65,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 
 
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+
   </main>
   <Footer />
 </Layout>
