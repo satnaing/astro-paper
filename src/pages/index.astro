@@ -3,15 +3,9 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import bannerImage from "@/assets/images/pascalandy-banner.jpg";
-import { SITE } from "@/config";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
 
@@ -30,13 +24,18 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         class="mb-6 w-full rounded-lg"
       />
       <p class="text-lg">
-        Pour les « non technos » qui desirent de meilleures relations avec les technologies.
+        Pour les « non technos » qui desirent de meilleures relations avec les
+        technologies.
       </p>
       <p class="mt-4">
-        J'habite a Montreal au Canada. J'ai toujours ete un patenteux, une personne qui entreprend ses idees. Pour moi, c'est une facon de vivre. J'aime me questionner et simplifier ce qui nous parait complexe.
+        J'habite a Montreal au Canada. J'ai toujours ete un patenteux, une
+        personne qui entreprend ses idees. Pour moi, c'est une facon de vivre.
+        J'aime me questionner et simplifier ce qui nous parait complexe.
       </p>
       <p class="mt-4">
-        La facon dont les technologies nous impactent me fascine. Elles m'amenent a me questionner et a tenter de comprendre comment elles faconnent nos vies au quotidien.
+        La facon dont les technologies nous impactent me fascine. Elles
+        m'amenent a me questionner et a tenter de comprendre comment elles
+        faconnent nos vies au quotidien.
       </p>
       <p class="mt-6">
         Bienvenue dans mon monde,<br />
@@ -62,10 +61,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         </section>
       )
     }
-
-
-
-
   </main>
   <Footer />
 </Layout>

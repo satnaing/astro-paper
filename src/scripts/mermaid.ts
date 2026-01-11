@@ -40,7 +40,7 @@ const initMermaid = async () => {
       wrapper.className = "mermaid-diagram";
       wrapper.innerHTML = svg;
       pre.replaceWith(wrapper);
-    } catch (error) {
+    } catch {
       // On error, leave the code block as-is for debugging
       pre.classList.add("mermaid-error");
     }
