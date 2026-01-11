@@ -83,14 +83,19 @@
     }
 
     pre {
-      @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+      @apply my-8! focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
     }
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   /* Background color is set via --astro-code-background in global.css */
   .astro-code {
-    @apply flex border border-border/50 outline-border;
+    @apply my-10 flex border border-border/50 py-4 outline-border;
+  }
+
+  /* Extra spacing for code blocks with filename labels */
+  .astro-code.mt-8 {
+    @apply my-12! pt-8 pb-6;
   }
 
   /* Styles for Shiki transformers */
@@ -108,5 +113,18 @@
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
     }
+  }
+
+  /* ===== Mermaid Diagrams ===== */
+  .mermaid-diagram {
+    @apply my-6 flex justify-center;
+  }
+
+  .mermaid-diagram svg {
+    @apply max-w-full;
+  }
+
+  .mermaid-error {
+    @apply border-destructive/50;
   }
 }
