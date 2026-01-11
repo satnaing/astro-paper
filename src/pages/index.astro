@@ -9,6 +9,7 @@ import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import bannerImage from "@/assets/images/pascalandy-banner.jpg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
@@ -23,6 +24,11 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
+      <img
+        src={bannerImage.src}
+        alt="Pascal Andy"
+        class="mb-6 w-full rounded-lg"
+      />
       <p class="text-lg">
         Pour les « non technos » qui desirent de meilleures relations avec les technologies.
       </p>
@@ -80,19 +86,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       )
     }
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
+
 
     <div class="my-8 text-center">
       <LinkButton href="/posts/">
