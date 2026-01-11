@@ -1,14 +1,11 @@
 ---
-author: Simon Smale
-pubDatetime: 2024-01-03T20:40:08Z
-modDatetime: 2024-01-08T18:59:05Z
+author: Pascal Andy
+date_created: 2024-01-03
 title: How to use Git Hooks to set Created and Modified Dates
 featured: false
 draft: false
 tags:
-  - dummy
-  - docs
-  - FAQ
+  - dev-notes
 canonicalURL: https://smale.codes/posts/setting-dates-via-git-hooks/
 description: How to use Git Hooks to set your Created and Modified Dates on AstroPaper
 ---

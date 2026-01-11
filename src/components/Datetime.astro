@@ -11,25 +11,19 @@ dayjs.extend(timezone);
 type Props = {
   class?: string;
   size?: "sm" | "lg";
-  pubDatetime: string | Date;
+  date_created: string | Date;
   timezone?: string;
-  modDatetime?: string | Date | null;
 };
 
 const {
-  pubDatetime,
-  modDatetime,
+  date_created,
   size = "sm",
   class: className = "",
   timezone: postTimezone,
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
-const isModified = modDatetime && modDatetime > pubDatetime;
-
-const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
-  postTimezone || SITE.timezone
-);
+const datetime = dayjs(date_created).tz(postTimezone || SITE.timezone);
 
 const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
 ---
@@ -41,14 +35,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
       { "scale-90": size === "sm" },
     ]}
   />
-  {
-    isModified && (
-      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
-      </span>
-    )
-  }
-  <time
+<time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
     datetime={datetime.toISOString()}>{date}</time
   >

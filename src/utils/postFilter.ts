@@ -4,7 +4,7 @@ import { SITE } from "@/config";
 const postFilter = ({ data }: CollectionEntry<"blog">) => {
   const isPublishTimePassed =
     Date.now() >
-    new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
+    new Date(data.date_created).getTime() - SITE.scheduledPostMargin;
   return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
 };
 

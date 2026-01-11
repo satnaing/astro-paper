@@ -13,29 +13,14 @@ type TagConfig = {
 
 export const TAGS: TagConfig[] = [
   {
-    slug: "dummy",
-    name: "Dummy",
-    description: "Placeholder content for development",
+    slug: "dev-notes",
+    name: "dev-notes",
+    description: "Notes about how to run this website",
   },
   {
-    slug: "docs",
-    name: "Docs",
-    description: "Documentation and guides",
-  },
-  {
-    slug: "misc",
-    name: "Misc",
-    description: "Miscellaneous posts",
-  },
-  {
-    slug: "release",
-    name: "Release",
-    description: "Release notes and updates",
-  },
-  {
-    slug: "example",
-    name: "Example",
-    description: "Example posts and demos",
+    slug: "random",
+    name: "random",
+    description: "Random thoughts and musings",
   },
 ];
 
@@ -47,10 +32,10 @@ export function getTagConfig(slug: string): TagConfig {
   const config = TAGS.find(t => t.slug === slug);
   if (config) return config;
 
-  // Default: capitalize first letter, no description
+  // Default: keep lowercase, no description
   return {
     slug,
-    name: slug.charAt(0).toUpperCase() + slug.slice(1),
+    name: slug,
     description: "",
   };
 }

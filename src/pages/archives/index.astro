@@ -37,7 +37,7 @@ const months = [
     {
       Object.entries(
         getPostsByGroupCondition(posts, post =>
-          post.data.pubDatetime.getFullYear()
+          post.data.date_created.getFullYear()
         )
       )
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
@@ -48,7 +48,7 @@ const months = [
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
-                post => post.data.pubDatetime.getMonth() + 1
+                post => post.data.date_created.getMonth() + 1
               )
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
@@ -63,10 +63,10 @@ const months = [
                       .sort(
                         (a, b) =>
                           Math.floor(
-                            new Date(b.data.pubDatetime).getTime() / 1000
+                            new Date(b.data.date_created).getTime() / 1000
                           ) -
                           Math.floor(
-                            new Date(a.data.pubDatetime).getTime() / 1000
+                            new Date(a.data.date_created).getTime() / 1000
                           )
                       )
                       .map(data => (

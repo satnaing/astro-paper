@@ -1,12 +1,10 @@
 ---
+author: Pascal Andy
 title: "shadcn Theme System for AstroPaper"
 description: "How to use and customize the shadcn/ui compatible theme system in AstroPaper, including adding themes from tweakcn.com"
-pubDatetime: 2026-01-11T09:00:00Z
+date_created: 2026-01-11
 tags:
-  - dummy
-  - docs
-  - configuration
-  - color-schemes
+  - dev-notes
 ---
 
 AstroPaper now supports [shadcn/ui](https://ui.shadcn.com/) compatible themes, allowing you to easily apply beautiful, professionally designed color schemes from [tweakcn.com](https://tweakcn.com) and other sources.

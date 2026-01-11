@@ -29,8 +29,7 @@ const {
   description,
   ogImage: initOgImage,
   canonicalURL,
-  pubDatetime,
-  modDatetime,
+  date_created,
   timezone,
   tags,
   hideEditPost,
@@ -62,8 +61,7 @@ const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
   description,
-  pubDatetime,
-  modDatetime,
+  date_created,
   canonicalURL,
   ogImage,
   scrollSmooth: true,
@@ -108,7 +106,7 @@ const nextPost =
     <hr class="my-8 border-dashed" />
 
     <div class="flex items-center gap-2 text-muted-foreground">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="sm" />
+      <Datetime {date_created} {timezone} size="sm" />
       {
         SITE.editPost.enabled && !hideEditPost && (
           <>

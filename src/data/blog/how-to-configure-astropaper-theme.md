@@ -1,15 +1,11 @@
 ---
-author: Sat Naing
-pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2026-01-10T13:04:53.851Z
+author: dummy user
+date_created: 2022-09-23
 title: How to configure AstroPaper theme
-slug: how-to-configure-astropaper-theme
 featured: true
 draft: false
 tags:
-  - dummy
-  - configuration
-  - docs
+  - dev-notes
 description: How you can make AstroPaper theme absolutely yours.
 ---
 

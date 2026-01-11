@@ -1,11 +1,11 @@
 ---
 title: "Mermaid Diagram Demo"
-description: "Demonstrating how to show Mermaid diagrams vs raw code"
-pubDatetime: 2026-01-11T12:00:00Z
+date_created: 2026-01-11
 tags:
-  - dummy
-  - docs
+  - dev-notes
 mermaid: true
+description: "Demonstrating how to show Mermaid diagrams vs raw code"
+author: Pascal Andy
 ---
 
 This post demonstrates the difference between rendering Mermaid diagrams and showing the raw code.

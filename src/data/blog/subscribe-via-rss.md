@@ -1,13 +1,9 @@
 ---
-author: Pascal Andy
-pubDatetime: 2026-01-11T12:00:00Z
 title: Subscribe via RSS
-slug: subscribe-via-rss
-featured: false
-draft: false
 tags:
-  - dummy
-  - misc
+  - random
+date_created: 2026-01-11
+author: Pascal Andy
 description: Stay updated with new posts by subscribing to the RSS feed.
 ---
 
