@@ -10,6 +10,20 @@
 - `bun` — jamais `npm/pnpm`
 - **Screenshot**: `ls -lt ~/Documents/screenshots | head -2`
 
+## Design & Style Workflow
+
+When working on design and style changes:
+
+1. **Always verify visually** - Use MCP Chrome DevTools to double-check your work
+2. **Safe viewport settings** - Max width 1400px to avoid crashing the MCP server
+3. **Resize before screenshots** - Call `resize_page` with safe dimensions before taking snapshots
+
+```
+# Safe viewport dimensions
+width: 1400 (maximum)
+height: 900 (recommended)
+```
+
 ## Git Workflow
 
 **Always use atomic commits** - one logical change per commit.
@@ -24,7 +38,7 @@ If a commit message needs "and" to describe what it does, split it into multiple
 
 ## Project Overview
 
-AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
+Built with:
 - **Astro 5** - Static site generator
 - **TypeScript** - Strict mode enabled
 - **Tailwind CSS v4** - Utility-first styling
@@ -32,7 +46,7 @@ AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
 
 ## Official Astro docs
 
-> Astro is an all-in-one web framework for building websites. 
+> Astro is an all-in-one web framework for building websites.
 
 - Astro uses island architecture and server-first design to reduce client-side JavaScript overhead and ship high performance websites.
 - Astro’s friendly content-focused features like content collections and built-in Markdown support make it an excellent choice for blogs, marketing, and e-commerce sites amongst others.
@@ -62,9 +76,145 @@ AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
 
 - [The Astro blog](https://astro.build/blog/): the latest news about Astro development
 
-## Build, Lint, and Development Commands
+## Project architecture
 
-**Package manager: bun** (not npm)
+### Project Purpose
+
+**AstroPaper** is a minimal, responsive, accessible, and SEO-friendly Astro blog theme. It's designed as a production-ready blog starter with:
+- Perfect Lighthouse scores (100/100 across all metrics)
+- Screen reader accessibility (tested with VoiceOver/TalkBack)
+- Light/dark mode with multiple theme options
+- Static search via Pagefind
+- Dynamic OG image generation
+
+---
+
+### Core Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     astro.config.ts                         │
+│  (Vite + Tailwind v4 + Sitemap + Shiki transformers)        │
+└─────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+│  src/config.ts │    │content.config │    │ src/constants │
+│  SITE settings │    │  Zod schema   │    │ SOCIALS/SHARE │
+│  THEMES colors │    │  blog loader  │    │    links      │
+└───────────────┘    └───────────────┘    └───────────────┘
+        │                     │                     │
+        └─────────────────────┼─────────────────────┘
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    src/layouts/                             │
+│  Layout.astro → PostDetails.astro / Main.astro / About      │
+│  (SEO meta, theme injection, view transitions)              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+│  src/pages/   │    │src/components/│    │  src/utils/   │
+│  File routing │    │ 14 components │    │ Post filters  │
+│  API routes   │    │ Header/Footer │    │ Path/slug gen │
+│  Dynamic [..] │    │ Card/Tag/etc  │    │ OG generation │
+└───────────────┘    └───────────────┘    └───────────────┘
+```
+
+---
+
+### Key Implementation Details
+
+#### 1. Routing Architecture
+| Route Pattern | Purpose |
+|---------------|---------|
+| `/` | Homepage (featured + recent posts) |
+| `/posts/[...page]` | Paginated post listing |
+| `/posts/[...slug]/` | Individual post |
+| `/posts/[...slug]/index.png` | Dynamic OG image |
+| `/tags/[tag]/[...page]` | Tag filtering with pagination |
+| `/search/` | Pagefind search UI |
+| `/archives/` | Posts grouped by year/month |
+| `/rss.xml` | RSS feed (API route) |
+
+#### 2. Post Filtering Logic
+```typescript
+// postFilter.ts - determines what posts are visible
+const isPublishTimePassed =
+  Date.now() > pubDatetime - SITE.scheduledPostMargin;
+return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
+```
+- **Drafts:** Hidden in production, visible in dev
+- **Scheduled posts:** Hidden until `pubDatetime - 15min`
+
+#### 3. Client-Side Features
+- **Theme toggle:** Persists to localStorage, syncs with system preference
+- **Mermaid diagrams:** Conditionally loaded when `mermaid: true` in frontmatter
+- **Code blocks:** Copy buttons, diff highlighting, filename headers
+- **Progress bar:** Scroll indicator on post pages
+- **Back navigation:** Uses sessionStorage to track history
+
+---
+
+### Component Inventory
+
+| Component | Purpose |
+|-----------|---------|
+| `Header.astro` | Nav, theme toggle, search, mobile menu |
+| `Footer.astro` | Socials, copyright |
+| `Card.astro` | Post card (title, date, description) |
+| `Pagination.astro` | Prev/Next page controls |
+| `Tag.astro` | Tag link with hash icon |
+| `Datetime.astro` | Formatted date with timezone |
+| `Breadcrumb.astro` | Path-based breadcrumbs |
+| `TableOfContents.astro` | Collapsible TOC from headings |
+| `ShareLinks.astro` | Social share buttons |
+| `BackToTopButton.astro` | Scroll-to-top with progress |
+
+---
+
+### Styling Architecture
+
+Defined in `src/styles/global.css`:
+
+```css
+/* Tailwind v4 with custom dark mode variant */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Theme variables mapped to Tailwind colors */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-accent: var(--primary);  /* backward compat */
+  /* ... theme mappings */
+}
+
+/* Custom utilities */
+@utility app-layout { @apply mx-auto w-full max-w-3xl px-4; }
+```
+
+---
+
+### Data Flow Summary
+
+```
+Markdown posts
+        ↓
+Content Collection (Zod validation)
+        ↓
+getCollection("blog")
+        ↓
+postFilter() → exclude drafts/scheduled
+        ↓
+getSortedPosts() → sort by date desc
+        ↓
+Pages render via Card.astro / PostDetails.astro
+        ↓
+Static HTML + Pagefind index + OG images
+```
+
+## Build, Lint, and Development Commands
 
 ```bash
 # Development
@@ -72,7 +222,7 @@ bun run dev              # Start development server (localhost:4321)
 bun run preview          # Preview production build locally
 
 # Build
-bun run build            # Full build: type check + build + pagefind indexing
+bun run build            # Full build
 bun run sync             # Sync Astro content collections
 
 # Linting & Formatting
@@ -85,6 +235,13 @@ bun astro check          # Run Astro's TypeScript checker
 
 # Install dependencies
 bun install              # Install all dependencies
+```
+
+### Build Pipeline
+
+`bun run build` runs:
+```bash
+astro check → astro build → pagefind --site dist → cp pagefind to public/
 ```
 
 ### Dev Server
@@ -104,24 +261,6 @@ This project does not currently have automated tests. Manual testing is recommen
 - Run `bun run dev` and verify changes in browser
 - Run `bun run build` to ensure production build succeeds
 - Check `bun run lint` passes before committing
-
-## Project Structure
-
-```
-src/
-├── assets/icons/        # SVG icon components
-├── components/          # Reusable Astro components
-├── data/blog/           # Markdown blog posts
-├── layouts/             # Page layout components
-├── pages/               # Astro pages (file-based routing)
-├── scripts/             # Client-side TypeScript
-├── styles/              # Global CSS (Tailwind)
-├── utils/               # Utility functions
-├── config.ts            # Site configuration (SITE object)
-├── constants.ts         # Constants (SOCIALS, SHARE_LINKS)
-├── content.config.ts    # Astro content collection schema
-└── env.d.ts             # TypeScript environment declarations
-```
 
 ## Code Style Guidelines
 
@@ -215,6 +354,13 @@ const posts = await getCollection("blog");
 - **Never hardcode colors** - always use theme variables
 - Layout utility: `app-layout` (max-width container with padding)
 
+#### Theme System (shadcn/ui compatible)
+
+- Themes live in `src/config.ts` (`THEMES`, `ACTIVE_THEME`)
+- Each theme provides **19 CSS variables** per theme (light + dark) using **OKLCH**
+- Built-in themes: Caffeine, Elegant Luxury, Claude
+- Theme CSS is generated in `src/layouts/Layout.astro`
+
 #### Theme Colors (shadcn/ui compatible)
 
 | Variable | Purpose |
@@ -230,8 +376,6 @@ const posts = await getCollection("blog");
 | `border` | Border color |
 | `input` | Input borders |
 | `ring` | Focus rings |
-
-Themes are defined in `src/config.ts` using `THEMES` object. Change `ACTIVE_THEME` to switch.
 
 ```astro
 <div
@@ -264,7 +408,15 @@ export default getSortedPosts;
 
 ## Content Collections
 
-Blog posts are in `src/data/blog/` as Markdown files with frontmatter:
+Blog posts live in `src/data/blog/` and are validated by Zod via
+`src/content.config.ts`.
+
+- **Schema:** Zod-validated frontmatter (12 fields)
+- **Loader:** `glob({ pattern: "**/[^_]*.md" })` - excludes `_` prefixed files
+- **Subdirectories:** Preserved in URL paths (e.g.,
+  `src/data/blog/2025/post.md` → `/posts/2025/post/`)
+
+Frontmatter example:
 
 ```yaml
 ---
@@ -319,12 +471,3 @@ export const SITE = {
 
 - Avoid `console.log` (will fail lint)
 - Use Astro's built-in error pages (`src/pages/404.astro`)
-- Content schema validation via Zod in `content.config.ts`
-
-## Key Files to Know
-
-- `src/config.ts` - Site-wide configuration
-- `src/content.config.ts` - Blog post schema definition
-- `astro.config.ts` - Astro framework configuration
-- `src/styles/global.css` - Tailwind theme and base styles
-- `src/layouts/Layout.astro` - Base HTML layout with meta tags
