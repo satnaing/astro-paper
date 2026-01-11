@@ -17,7 +17,8 @@
  */
 :root {
   /* Code block background/foreground - used by Astro's inline styles */
-  --astro-code-background: var(--muted);
+  /* Subtle tint: slightly darker than background but much lighter than muted */
+  --astro-code-background: oklch(from var(--background) calc(l - 0.02) c h);
   --astro-code-foreground: var(--foreground);
   /* Syntax highlighting tokens */
   --astro-code-token-constant: var(--primary);
