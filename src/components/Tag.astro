@@ -20,8 +20,9 @@ const displayName = tagName || config.name;
     transition:name={tag}
     class:list={[
       "flex items-center gap-0.5",
+      "px-2 py-0.5 rounded",
+      "bg-[var(--astro-code-background)] text-foreground",
       "hover:text-accent",
-      "focus-visible:text-accent",
       { "text-sm": size === "sm" },
       { "text-base": size === "lg" },
     ]}
