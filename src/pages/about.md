@@ -1,37 +1,45 @@
 ---
 layout: ../layouts/AboutLayout.astro
-title: "About"
+title: "Qui est Pascal Andy ?"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+Salut,
 
-![Astro Paper](public/astropaper-og.jpg)
+J'ai toujours été un patenteux, une personne qui entreprend ses idées. Pour moi, c'est une façon de vivre. J'aime me questionner et simplifier ce qui nous parait complexe.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+La façon dont les technologies nous touchent me fascine. Elles m'amènent à me questionner et à tenter de comprendre comment elles façonnent nos vies au quotidien.
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+Faire des liens entre ce qui nous semble abstrait et concret tient mon esprit éveillé. Je trouve ça magique quand les points finissent par dévoiler « le big picture ».
 
-## Features
+Bienvenue dans mon monde,
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+Pascal
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+## Now
 
-and so much more.
+Je mets régulièrement ma [page now](/now/) à jour. Elle donne le ton sur ce qu'est ma vie depuis les quelques derniers mois. Je me suis [inspiré du projet](http://nownownow.com/about) de Derek Sivers.
 
-## Show your support
+## Du côté professionnel
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+Je travaille sur FirePress, une startup d'hébergement de site web basé sur Ghost. Pour connaître ce que j'ai fait dans le passé, tu peux consulter mon [profil LinkedIn](https://www.linkedin.com/in/pascalnguyendeschenes) qui demeure à jour et bien détaillé.
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+## Mon nom de famille
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+Mon nom est Pascal Nguyen Deschênes. Pascal Andy c'est simplement l'acronyme qui simplifie mon nom de famille :
 
-Kyay zuu! 🙏🏼
+- **N**guyen **D**eschênes, qui devient
+- **N D**, qui devient
+- **Andy**
+
+Ceux qui ont deux noms de famille comprendront. Par exemple, mon nom n'entre pas en entier dans Twitter et je trouve ça pénible. Depuis que je suis jeune, je réalise que mon nom est compliqué pour la plupart des gens.
+
+Quelques avantages en rafale :
+
+- C'est facile à épeler pour les francophones et les anglophones.
+- C'est facile à retenir par coeur.
+- Ça sonne bien.
+- C'est plus court.
+
+## Pourquoi me lire ?
+
+J'écris pour tous les « non-technos » qui souhaitent une meilleure relation avec les technologies. À travers ces articles, j'essaie de comprendre comment elles façonnent la vie de chacun d'entre nous.
