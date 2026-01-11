@@ -214,34 +214,16 @@ Pages render via Card.astro / PostDetails.astro
 Static HTML + Pagefind index + OG images
 ```
 
-## Build, Lint, and Development Commands
+## Development Commands
 
+See [Development Workflow](/posts/dev_notes/development-workflow/) for full documentation.
+
+Quick reference:
 ```bash
-# Development
-bun run dev              # Start development server (localhost:4321)
-bun run preview          # Preview production build locally
-
-# Build
-bun run build            # Full build
-bun run sync             # Sync Astro content collections
-
-# Linting & Formatting
-bun run lint             # Run ESLint
-bun run format           # Format all files with Prettier
-bun run format:check     # Check formatting without writing
-
-# Type Checking
-bun astro check          # Run Astro's TypeScript checker
-
-# Install dependencies
-bun install              # Install all dependencies
-```
-
-### Build Pipeline
-
-`bun run build` runs:
-```bash
-astro check → astro build → pagefind --site dist → cp pagefind to public/
+bun run dev      # Start dev server (localhost:4321)
+bun run build    # Full production build
+bun run lint     # ESLint check
+bun run format   # Auto-format with Prettier
 ```
 
 ### Dev Server
@@ -252,15 +234,6 @@ Starting/stopping the dev server from the agent causes issues:
 - Agent loses control of the process
 - Port conflicts when restarting
 - HMR state becomes unpredictable
-
-Let the user run `bun run dev` in their own terminal.
-
-### Testing
-
-This project does not currently have automated tests. Manual testing is recommended:
-- Run `bun run dev` and verify changes in browser
-- Run `bun run build` to ensure production build succeeds
-- Check `bun run lint` passes before committing
 
 ## Code Style Guidelines
 
@@ -408,46 +381,13 @@ export default getSortedPosts;
 
 ## Content Collections
 
-Blog posts live in `src/data/blog/` and are validated by Zod via
-`src/content.config.ts`.
+Blog posts live in `src/data/blog/` and are validated by Zod via `src/content.config.ts`.
 
-- **Schema:** Zod-validated frontmatter (12 fields)
+See [Frontmatter Schema](/posts/dev_notes/frontmatter-schema/) for field reference.
+
 - **Loader:** `glob({ pattern: "**/[^_]*.md" })` - excludes `_` prefixed files
-- **Subdirectories:** Preserved in URL paths (e.g.,
-  `src/data/blog/2025/post.md` → `/posts/2025/post/`)
-
-Frontmatter example:
-
-```yaml
----
-title: "Post Title"
-description: "Brief description"   # Used for SEO meta + post cards, NOT in post body
-pubDatetime: 2024-01-15T10:00:00Z
-tags: ["astro", "blog"]
-author: "Author Name"          # optional, defaults to SITE.author
-featured: false                # optional
-draft: false                   # optional
-ogImage: "./og-image.png"      # optional
-modDatetime: null              # optional
----
-```
-
-### Table of Contents
-
-TOC is **automatic** - generated from h2/h3 headings in the layout. No manual `## Table of Contents` needed in markdown.
-
-Post structure:
-```md
----
-frontmatter
----
-
-Your intro text...
-
-## First Section
-
-Content...
-```
+- **Subdirectories:** Preserved in URL paths (e.g., `src/data/blog/2025/post.md` → `/posts/2025/post/`)
+- **TOC:** Automatic - generated from h2/h3 headings in the layout
 
 ## Configuration
 
