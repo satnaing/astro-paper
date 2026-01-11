@@ -25,8 +25,6 @@ Here are some rules/recommendations, tips & ticks for creating new posts in Astr
   </figcaption>
 </figure>
 
-## Table of contents
-
 ## Creating a Blog Post
 
 To write a new blog post, create a markdown file inside the `src/data/blog/` directory.
@@ -119,28 +117,9 @@ canonicalURL: https://example.org/my-article-was-already-posted-here
 ---
 ```
 
-## Adding table of contents
-
-By default, a post (article) does not include any table of contents (toc). To include toc, you have to specify it in a specific way.
-
-Write `Table of contents` in h2 format (## in markdown) and place it where you want it to be appeared on the post.
-
-For instance, if you want to place your table of contents just under the intro paragraph (like I usually do), you can do that in the following way.
-
-<!-- prettier-ignore-start -->
-```md
----
-# frontmatter
----
-
-Here are some recommendations, tips & ticks for creating new posts in AstroPaper blog theme.
-
-<!-- [!code ++] -->
 ## Table of contents
 
-<!-- the rest of the post -->
-```
-<!-- prettier-ignore-end -->
+A collapsible table of contents is automatically generated for every post based on the headings (h2 and h3) in your content. No manual setup required.
 
 ## Headings
 

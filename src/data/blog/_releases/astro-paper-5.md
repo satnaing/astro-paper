@@ -13,8 +13,6 @@ At last, the long-awaited AstroPaper v5 is finally here. AstroPaper v5 keeps the
 
 ![AstroPaper v5](@/assets/images/AstroPaper-v5.png)
 
-## Table of contents
-
 ## Major Changes
 
 ### Upgrade to Astro v5 [#455](https://github.com/satnaing/astro-paper/pull/455)

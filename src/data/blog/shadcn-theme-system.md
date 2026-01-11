@@ -8,8 +8,6 @@ tags:
   - color-schemes
 ---
 
-## Table of Contents
-
 AstroPaper now supports [shadcn/ui](https://ui.shadcn.com/) compatible themes, allowing you to easily apply beautiful, professionally designed color schemes from [tweakcn.com](https://tweakcn.com) and other sources.
 
 ## Overview

@@ -17,8 +17,6 @@ I've crafted some predefined color schemes for this AstroPaper blog theme. You c
 
 If you don't know how you can configure color schemes, check [this blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/).
 
-## Table of contents
-
 ## Light color schemes
 
 Light color scheme has to be defined using the css selector `:root` and `html[data-theme="light"]`.

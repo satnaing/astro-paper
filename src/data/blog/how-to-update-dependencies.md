@@ -15,8 +15,6 @@ Updating the dependencies of a project can be tedious. However, neglecting to up
 
 ![Forrest Gump Fake Quote](@/assets/images/forrest-gump-quote.png)
 
-## Table of contents
-
 ## Updating Package Dependencies
 
 There are several ways to update dependencies, and I've tried various methods to find the easiest path. One way to do it is by manually updating each package using `npm install package-name@latest`. This method is the most straightforward way of updating. However, it may not be the most efficient option.

@@ -14,8 +14,6 @@ description: How you can make AstroPaper theme absolutely yours.
 
 AstroPaper is a highly customizable Astro blog theme. With AstroPaper, you can customize everything according to your personal taste. This article will explain how you can make some customizations easily in the config file.
 
-## Table of contents
-
 ## Configuring SITE
 
 The important configurations resides in `src/config.ts` file. Within that file, you'll see the `SITE` object where you can specify your website's main configurations.
