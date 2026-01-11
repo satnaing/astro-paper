@@ -65,16 +65,8 @@ Something a wise person once told me about typography is:
 > Typography is pretty important if you don't want your stuff to look like trash. Make it good then it won't be bad.
 > It's probably important that images look okay here by default as well:
 
-<figure>
-  <img
-    src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-    alt=""
-  />
-  <figcaption>
-    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-    classical Latin literature from 45 BC, making it over 2000 years old.
-  </figcaption>
-</figure>
+![Shopping cart in store aisle](@/assets/images/shopping-cart.jpg)
+_Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old._
 
 Now I'm going to show you an example of an unordered list to make sure that looks good, too:
 

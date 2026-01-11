@@ -10,15 +10,8 @@ description: Learn how to add LaTeX equations in Astro blog posts using Markdown
 
 This document demonstrates how to use LaTeX equations in your Markdown files for AstroPaper. LaTeX is a powerful typesetting system often used for mathematical and scientific documents.
 
-<figure>
-  <img
-    src="https://images.pexels.com/photos/22690748/pexels-photo-22690748/free-photo-of-close-up-of-complicated-equations-written-on-a-blackboard.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-    alt="Free Close-up of complex equations on a chalkboard, showcasing chemistry and math symbols. Stock Photo"
-  />
-  <figcaption class="text-center">
-    Photo by <a href="https://www.pexels.com/photo/close-up-of-complicated-equations-written-on-a-blackboard-22690748/">Vitaly Gariev</a>
-  </figcaption>
-</figure>
+![Close-up of complex equations on a chalkboard, showcasing chemistry and math symbols](@/assets/images/equations-chalkboard.jpg)
+_Photo by [Vitaly Gariev](https://www.pexels.com/photo/close-up-of-complicated-equations-written-on-a-blackboard-22690748/)_
 
 ## Instructions
 
