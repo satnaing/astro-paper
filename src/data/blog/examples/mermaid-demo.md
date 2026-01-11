@@ -4,6 +4,7 @@ description: "Demonstrating how to show Mermaid diagrams vs raw code"
 pubDatetime: 2026-01-11T12:00:00Z
 tags:
   - docs
+mermaid: true
 ---
 
 This post demonstrates the difference between rendering Mermaid diagrams and showing the raw code.
@@ -31,6 +32,8 @@ graph TD
     C -->|Yes| D[Action]
     C -->|No| E[End]
 ```
+
+![Mermaid diagram rendered in the browser](@/assets/images/mermaid-rendering.png)
 
 ## Another Example: Sequence Diagram
 
