@@ -52,30 +52,46 @@ AstroPaper is a minimal, responsive, SEO-friendly Astro blog theme built with:
 
 ## Build, Lint, and Development Commands
 
+**Package manager: bun** (not npm)
+
 ```bash
 # Development
-npm run dev              # Start development server (localhost:4321)
-npm run preview          # Preview production build locally
+bun run dev              # Start development server (localhost:4321)
+bun run preview          # Preview production build locally
 
 # Build
-npm run build            # Full build: type check + build + pagefind indexing
-npm run sync             # Sync Astro content collections
+bun run build            # Full build: type check + build + pagefind indexing
+bun run sync             # Sync Astro content collections
 
 # Linting & Formatting
-npm run lint             # Run ESLint
-npm run format           # Format all files with Prettier
-npm run format:check     # Check formatting without writing
+bun run lint             # Run ESLint
+bun run format           # Format all files with Prettier
+bun run format:check     # Check formatting without writing
 
 # Type Checking
-npx astro check          # Run Astro's TypeScript checker
+bun astro check          # Run Astro's TypeScript checker
+
+# Install dependencies
+bun install              # Install all dependencies
 ```
+
+### Dev Server
+
+**The user must run the dev server, not the AI agent.**
+
+Starting/stopping the dev server from the agent causes issues:
+- Agent loses control of the process
+- Port conflicts when restarting
+- HMR state becomes unpredictable
+
+Let the user run `bun run dev` in their own terminal.
 
 ### Testing
 
 This project does not currently have automated tests. Manual testing is recommended:
-- Run `npm run dev` and verify changes in browser
-- Run `npm run build` to ensure production build succeeds
-- Check `npm run lint` passes before committing
+- Run `bun run dev` and verify changes in browser
+- Run `bun run build` to ensure production build succeeds
+- Check `bun run lint` passes before committing
 
 ## Project Structure
 
@@ -241,7 +257,7 @@ Blog posts are in `src/data/blog/` as Markdown files with frontmatter:
 ```yaml
 ---
 title: "Post Title"
-description: "Brief description"
+description: "Brief description"   # Used for SEO meta + post cards, NOT in post body
 pubDatetime: 2024-01-15T10:00:00Z
 tags: ["astro", "blog"]
 author: "Author Name"          # optional, defaults to SITE.author
@@ -250,6 +266,23 @@ draft: false                   # optional
 ogImage: "./og-image.png"      # optional
 modDatetime: null              # optional
 ---
+```
+
+### Table of Contents
+
+TOC is **automatic** - generated from h2/h3 headings in the layout. No manual `## Table of Contents` needed in markdown.
+
+Post structure:
+```md
+---
+frontmatter
+---
+
+Your intro text...
+
+## First Section
+
+Content...
 ```
 
 ## Configuration
