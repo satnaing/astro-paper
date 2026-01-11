@@ -1,50 +1,35 @@
 name: CI
 
+on:
+  pull_request:
+    branches: [main]
+
 permissions:
   contents: read
 
-on:
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-  workflow_call:
-
 jobs:
-  build:
-    name: Code standards & build
+  validate:
+    name: Lint, format & build
     runs-on: ubuntu-latest
-    timeout-minutes: 3
-
-    strategy:
-      matrix:
-        node-version: [20]
+    timeout-minutes: 5
 
     steps:
-      - name: "☁️ Checkout repository"
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "📦 Install pnpm"
-        uses: pnpm/action-setup@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: 10.11.1
+          bun-version: latest
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
-      - name: "📦 Install dependencies"
-        run: pnpm install
+      - name: Lint
+        run: bun run lint
 
-      - name: "🔎 Lint code"
-        run: pnpm run lint
+      - name: Check formatting
+        run: bun run format:check
 
-      - name: "📝 Checking code format"
-        run: pnpm run format:check
-
-      - name: "🚀 Build the project"
-        run: pnpm run build
+      - name: Build
+        run: bun run build
