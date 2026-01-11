@@ -41,6 +41,9 @@ importers:
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -2377,6 +2380,10 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     deprecated: 'SECURITY: Multiple vulnerabilities fixed in 8.0.1 (XML injection, path traversal, command injection, protocol injection). Upgrade immediately: npm install sitemap@8.0.1'
     hasBin: true
+
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
 
   smol-toml@1.6.0:
     resolution: {integrity: sha512-4zemZi0HvTnYwLfrpk/CF9LOd9Lt87kAt50GnqhMpyF9U3poDAP2+iukq2bZsO/ufegbYehBkqINbsWxj4l4cw==}
@@ -5405,6 +5412,8 @@ snapshots:
       '@types/sax': 1.2.7
       arg: 5.0.2
       sax: 1.4.1
+
+  slugify@1.6.6: {}
 
   smol-toml@1.6.0: {}
 
