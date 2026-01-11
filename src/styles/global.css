@@ -9,8 +9,42 @@
  * To change themes, update ACTIVE_THEME in src/config.ts
  */
 
+/*
+ * Astro Code Block Theme Variables
+ * Maps syntax highlighting colors to theme variables
+ * Used when shikiConfig.theme is set to "css-variables" in astro.config.ts
+ * Astro uses --astro-code-* prefix instead of --shiki-*
+ */
+:root {
+  --astro-code-color-text: var(--foreground);
+  --astro-code-color-background: var(--card);
+  --astro-code-token-constant: var(--primary);
+  --astro-code-token-string: var(--secondary-foreground);
+  --astro-code-token-comment: var(--muted-foreground);
+  --astro-code-token-keyword: var(--primary);
+  --astro-code-token-parameter: var(--foreground);
+  --astro-code-token-function: var(--ring);
+  --astro-code-token-string-expression: var(--secondary-foreground);
+  --astro-code-token-punctuation: var(--muted-foreground);
+  --astro-code-token-link: var(--primary);
+}
+
+[data-theme="dark"] {
+  --astro-code-color-text: var(--foreground);
+  --astro-code-color-background: var(--card);
+  --astro-code-token-constant: var(--primary);
+  --astro-code-token-string: var(--secondary);
+  --astro-code-token-comment: var(--muted-foreground);
+  --astro-code-token-keyword: var(--primary);
+  --astro-code-token-parameter: var(--foreground);
+  --astro-code-token-function: var(--ring);
+  --astro-code-token-string-expression: var(--secondary);
+  --astro-code-token-punctuation: var(--muted-foreground);
+  --astro-code-token-link: var(--primary);
+}
+
 @theme inline {
-  --font-app: var(--font-google-sans-code);
+  --font-app: var(--font-jetbrains-mono);
 
   /* Core colors */
   --color-background: var(--background);
