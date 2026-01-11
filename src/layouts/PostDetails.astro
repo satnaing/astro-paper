@@ -97,17 +97,6 @@ const nextPost =
     >
       {title}
     </h1>
-    <div class="my-2 flex items-center gap-2 text-sm text-muted-foreground">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="sm" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "max-sm:hidden",
-          { hidden: !SITE.editPost.enabled || hideEditPost },
-        ]}>|</span
-      >
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-    </div>
     <TableOfContents {headings} />
     <article
       id="article"
@@ -118,7 +107,17 @@ const nextPost =
 
     <hr class="my-8 border-dashed" />
 
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
+    <div class="flex items-center gap-2 text-muted-foreground">
+      <Datetime {pubDatetime} {modDatetime} {timezone} size="sm" />
+      {
+        SITE.editPost.enabled && !hideEditPost && (
+          <>
+            <span aria-hidden="true">|</span>
+            <EditPost {hideEditPost} {post} />
+          </>
+        )
+      }
+    </div>
 
     <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}

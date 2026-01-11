@@ -1,20 +1,17 @@
 ---
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 ---
 
 {
   SITE.showBackButton && (
-    <div class="app-layout flex items-center justify-start">
-      <LinkButton
+    <div class="app-layout mt-8 mb-2">
+      <a
         id="back-button"
         href="/"
-        class="focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"
+        class="text-muted-foreground hover:text-foreground"
       >
-        <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />
-        <span>Go back</span>
-      </LinkButton>
+        &larr; Go back
+      </a>
     </div>
   )
 }
