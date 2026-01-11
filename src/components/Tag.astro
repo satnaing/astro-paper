@@ -5,11 +5,12 @@ import { getTagConfig } from "@/tags";
 type Props = {
   tag: string;
   tagName?: string;
+  count?: number;
   size?: "sm" | "lg";
   showDescription?: boolean;
 };
 
-const { tag, tagName, size = "lg", showDescription = false } = Astro.props;
+const { tag, tagName, count, size = "lg", showDescription = false } = Astro.props;
 const config = getTagConfig(tag);
 const displayName = tagName || config.name;
 ---
@@ -34,7 +35,7 @@ const displayName = tagName || config.name;
         { "size-3": size === "sm" },
       ]}
     />
-    {displayName}
+    {displayName}{count !== undefined && <span class="text-muted-foreground/60 text-xs ml-1">({count})</span>}
   </a>
   {showDescription && config.description && (
     <p class="text-sm text-muted-foreground mt-1 ml-5">{config.description}</p>

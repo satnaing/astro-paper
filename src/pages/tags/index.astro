@@ -17,7 +17,7 @@ let tags = getUniqueTags(posts);
   <Header />
   <Main pageTitle="Tags">
     <ul class="flex flex-wrap gap-6">
-      {tags.map(({ tag }) => <Tag {tag} />)}
+      {tags.map(({ tag, count }) => <Tag {tag} {count} />)}
     </ul>
   </Main>
   <Footer />
