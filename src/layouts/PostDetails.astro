@@ -30,7 +30,6 @@ const {
   ogImage: initOgImage,
   canonicalURL,
   date_created,
-  timezone,
   tags,
   hideEditPost,
   mermaid,
@@ -106,7 +105,7 @@ const nextPost =
     <hr class="my-8 border-dashed" />
 
     <div class="flex items-center gap-2 text-muted-foreground">
-      <Datetime {date_created} {timezone} size="sm" />
+      <Datetime {date_created} size="sm" />
       {
         SITE.editPost.enabled && !hideEditPost && (
           <>

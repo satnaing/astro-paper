@@ -12,18 +12,16 @@ type Props = {
   class?: string;
   size?: "sm" | "lg";
   date_created: string | Date;
-  timezone?: string;
 };
 
 const {
   date_created,
   size = "sm",
   class: className = "",
-  timezone: postTimezone,
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
-const datetime = dayjs(date_created).tz(postTimezone || SITE.timezone);
+const datetime = dayjs(date_created).tz(SITE.timezone);
 
 const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
 ---

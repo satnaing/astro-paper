@@ -1,13 +1,12 @@
 ---
 title: "Mermaid Diagram Demo"
-description: "Demonstrating how to show Mermaid diagrams vs raw code"
-author: Pascal Andy
-date_created: 2026-01-11
 tags:
   - dev-notes
+date_created: 2026-01-11
 mermaid: true
+author: Pascal Andy
+description: "Demonstrating how to show Mermaid diagrams vs raw code"
 ---
-
 
 # Frontmatter Schema
 
@@ -17,38 +16,39 @@ Based on `src/content.config.ts`.
 
 ## Required Fields
 
-| Field | Type | Format | Description |
-|-------|------|--------|-------------|
-| `title` | `string` | — | Post title |
-| `description` | `string` | — | SEO meta + post cards (not shown in body) |
-| `date_created` | `date` | `2026-01-11` | Publication date |
-| `tags` | `string[]` | — | Post tags (min 1, use `untagged` if none) |
-| `author` | `string` | — | Post author (default: `Pascal Andy`) |
+| Field          | Type       | Format       | Description                               |
+| -------------- | ---------- | ------------ | ----------------------------------------- |
+| `title`        | `string`   | —            | Post title                                |
+| `tags`         | `string[]` | —            | Post tags (min 1, use `untagged` if none) |
+| `date_created` | `date`     | `2026-01-11` | Publication date                          |
+| `author`       | `string`   | —            | Post author (default: `Pascal Andy`)      |
+| `description`  | `string`   | —            | SEO meta + post cards (not shown in body) |
 
 ## Optional Fields
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `featured` | `boolean` | — | Show on homepage featured section |
-| `draft` | `boolean` | — | Hide in production (visible in dev) |
-| `ogImage` | `image \| string` | — | Custom OG image (local or URL) |
-| `canonicalURL` | `string` | — | canonicalURL is for SEO when you have duplicate content. It tells search engines "this is the original source |
-| `hideEditPost` | `boolean` | — | Hide "Edit post" link |
-| `timezone` | `string` | — | Timezone for date display |
-| `mermaid` | `boolean` | `false` | Enable Mermaid diagram rendering |
+| Field          | Type              | Default | Description                                                                                                   |
+| -------------- | ----------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| `featured`     | `boolean`         | —       | Show on homepage featured section                                                                             |
+| `draft`        | `boolean`         | —       | Hide in production (visible in dev)                                                                           |
+| `ogImage`      | `image \| string` | —       | Custom OG image (local or URL)                                                                                |
+| `canonicalURL` | `string`          | —       | canonicalURL is for SEO when you have duplicate content. It tells search engines "this is the original source |
+| `hideEditPost` | `boolean`         | —       | Hide "Edit post" link                                                                                         |
+| `mermaid`      | `boolean`         | `false` | Enable Mermaid diagram rendering                                                                              |
 
 ## Examples
 
 ### Minimal (5 required fields)
 
+(in this order by default)
+
 ```yaml
 ---
 title: "My Post Title"
-description: "Brief description for SEO and cards"
-date_created: 2025-01-15
 tags:
   - untagged
+date_created: 2025-01-15
 author: Pascal Andy
+description: "Brief description for SEO and cards"
 ---
 ```
 
@@ -57,19 +57,18 @@ author: Pascal Andy
 ```yaml
 ---
 title: "My Post Title"
-description: "Brief description for SEO and cards"
-date_created: 2025-01-15
-author: "Your Name"
 tags:
   - astro
   - tutorial
+date_created: 2025-01-15
+author: "Your Name"
 featured: true
 draft: false
 ogImage: "./custom-og.png"
 canonicalURL: "https://original-source.com/post"
 hideEditPost: false
-timezone: "America/Montreal"
 mermaid: true
+description: "Brief description for SEO and cards"
 ---
 ```
 
