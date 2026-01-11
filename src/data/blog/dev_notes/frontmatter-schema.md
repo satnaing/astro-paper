@@ -1,11 +1,10 @@
 ---
-title: "Mermaid Diagram Demo"
+title: "Frontmatter Schema"
 tags:
   - dev-notes
 date_created: 2026-01-11
-mermaid: true
 author: Pascal Andy
-description: "Demonstrating how to show Mermaid diagrams vs raw code"
+description: "Reference for blog post frontmatter fields"
 ---
 
 # Frontmatter Schema
