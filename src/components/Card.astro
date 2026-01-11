@@ -2,7 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import { getPath } from "@/utils/getPath";
-import Datetime from "./Datetime.astro";
 
 type Props = {
   variant?: "h2" | "h3";
@@ -10,7 +9,7 @@ type Props = {
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
-const { title, description, ...props } = data;
+const { title, description } = data;
 ---
 
 <li class="my-6">
@@ -26,6 +25,5 @@ const { title, description, ...props } = data;
       {title}
     </Heading>
   </a>
-  <Datetime {...props} />
   <p>{description}</p>
 </li>
