@@ -96,8 +96,8 @@ const nextPost =
     >
       {title}
     </h1>
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+    <div class="my-2 flex items-center gap-2 text-sm text-muted-foreground">
+      <Datetime {pubDatetime} {modDatetime} {timezone} size="sm" />
       <span
         aria-hidden="true"
         class:list={[
