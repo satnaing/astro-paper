@@ -71,7 +71,7 @@ const isActive = (path: string) => {
           "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
           "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:hover:text-accent sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
           "hidden",
-          "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
+          "sm:mt-0 sm:flex sm:w-auto sm:items-center sm:gap-x-5 sm:gap-y-0",
         ]}
       >
         <li class="col-span-2">
@@ -79,88 +79,92 @@ const isActive = (path: string) => {
             Posts
           </a>
         </li>
-        <li class="col-span-2">
-          <LinkButton
-            href="/about"
-            class:list={[
-              "focus-outline flex justify-center p-3 sm:p-1",
-              {
-                "active-nav [&>svg]:stroke-accent": isActive("/about"),
-              },
-            ]}
-            title="About"
-            aria-label="about"
-          >
-            <IconChessKnight class="hidden size-5 sm:inline-block" />
-            <span class="sm:sr-only">About</span>
-          </LinkButton>
-        </li>
-        <li class="col-span-2">
-          <LinkButton
-            href="/tags"
-            class:list={[
-              "focus-outline flex justify-center p-3 sm:p-1",
-              {
-                "active-nav [&>svg]:stroke-accent": isActive("/tags"),
-              },
-            ]}
-            title="Tags"
-            aria-label="tags"
-          >
-            <IconTags class="hidden size-5 sm:inline-block" />
-            <span class="sm:sr-only">Tags</span>
-          </LinkButton>
-        </li>
-        {
-          SITE.showArchives && (
+        <li class="col-span-2 sm:col-span-1">
+          <ul class="contents sm:flex sm:items-center sm:gap-x-4">
             <li class="col-span-2">
               <LinkButton
-                href="/archives"
+                href="/tags"
                 class:list={[
                   "focus-outline flex justify-center p-3 sm:p-1",
                   {
-                    "active-nav [&>svg]:stroke-accent": isActive("/archives"),
+                    "active-nav [&>svg]:stroke-accent": isActive("/tags"),
                   },
                 ]}
-                title="Archives"
-                aria-label="archives"
+                title="Tags"
+                aria-label="tags"
               >
-                <IconArchive class="hidden size-5 sm:inline-block" />
-                <span class="sm:sr-only">Archives</span>
+                <IconTags class="hidden size-5 sm:inline-block" />
+                <span class="sm:sr-only">Tags</span>
               </LinkButton>
             </li>
-          )
-        }
-        <li class="col-span-1 flex items-center justify-center">
-          <LinkButton
-            href="/search"
-            class:list={[
-              "focus-outline flex p-3 sm:p-1",
-              { "[&>svg]:stroke-accent": isActive("/search") },
-            ]}
-            title="Search"
-            aria-label="search"
-          >
-            <IconSearch class="size-5" />
-            <span class="sr-only">Search</span>
-          </LinkButton>
-        </li>
-        {
-          SITE.lightAndDarkMode && (
-            <li class="col-span-1 flex items-center justify-center">
-              <button
-                id="theme-btn"
-                class="focus-outline relative p-3 sm:p-1 hover:[&>svg]:stroke-accent"
-                title="Toggles light & dark"
-                aria-label="auto"
-                aria-live="polite"
+            <li class="col-span-2">
+              <LinkButton
+                href="/about"
+                class:list={[
+                  "focus-outline flex justify-center p-3 sm:p-1",
+                  {
+                    "active-nav [&>svg]:stroke-accent": isActive("/about"),
+                  },
+                ]}
+                title="About"
+                aria-label="about"
               >
-                <IconMoon class="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <IconSunHigh class="absolute top-1/2 left-1/2 size-5 -translate-1/2 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-              </button>
+                <IconChessKnight class="hidden size-5 sm:inline-block" />
+                <span class="sm:sr-only">About</span>
+              </LinkButton>
             </li>
-          )
-        }
+            {
+              SITE.showArchives && (
+                <li class="col-span-2">
+                  <LinkButton
+                    href="/archives"
+                    class:list={[
+                      "focus-outline flex justify-center p-3 sm:p-1",
+                      {
+                        "active-nav [&>svg]:stroke-accent": isActive("/archives"),
+                      },
+                    ]}
+                    title="Archives"
+                    aria-label="archives"
+                  >
+                    <IconArchive class="hidden size-5 sm:inline-block" />
+                    <span class="sm:sr-only">Archives</span>
+                  </LinkButton>
+                </li>
+              )
+            }
+            <li class="col-span-1 flex items-center justify-center">
+              <LinkButton
+                href="/search"
+                class:list={[
+                  "focus-outline flex p-3 sm:p-1",
+                  { "[&>svg]:stroke-accent": isActive("/search") },
+                ]}
+                title="Search"
+                aria-label="search"
+              >
+                <IconSearch class="size-5" />
+                <span class="sr-only">Search</span>
+              </LinkButton>
+            </li>
+            {
+              SITE.lightAndDarkMode && (
+                <li class="col-span-1 flex items-center justify-center">
+                  <button
+                    id="theme-btn"
+                    class="focus-outline relative p-3 sm:p-1 hover:[&>svg]:stroke-accent"
+                    title="Toggles light & dark"
+                    aria-label="auto"
+                    aria-live="polite"
+                  >
+                    <IconMoon class="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                    <IconSunHigh class="absolute top-1/2 left-1/2 size-5 -translate-1/2 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                  </button>
+                </li>
+              )
+            }
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>
