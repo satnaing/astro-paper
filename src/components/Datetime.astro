@@ -14,11 +14,7 @@ type Props = {
   date_created: string | Date;
 };
 
-const {
-  date_created,
-  size = "sm",
-  class: className = "",
-} = Astro.props;
+const { date_created, size = "sm", class: className = "" } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
 const datetime = dayjs(date_created).tz(SITE.timezone);
@@ -33,7 +29,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
       { "scale-90": size === "sm" },
     ]}
   />
-<time
+  <time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
     datetime={datetime.toISOString()}>{date}</time
   >

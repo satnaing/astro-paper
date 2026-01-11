@@ -83,11 +83,7 @@ const nextPost =
 
 <Layout {...layoutProps}>
   <Header />
-  <main
-    id="main-content"
-    class="app-layout mt-8 pb-12"
-    data-pagefind-body
-  >
+  <main id="main-content" class="app-layout mt-8 pb-12" data-pagefind-body>
     <h1
       transition:name={slugifyStr(title)}
       class="inline-block text-2xl font-bold text-accent sm:text-3xl"
@@ -95,10 +91,7 @@ const nextPost =
       {title}
     </h1>
     <TableOfContents {headings} />
-    <article
-      id="article"
-      class="app-prose w-full max-w-app"
-    >
+    <article id="article" class="app-prose w-full max-w-app">
       <Content />
     </article>
 
@@ -282,4 +275,4 @@ const nextPost =
   );
 </script>
 
-{mermaid && <script src="@/scripts/mermaid.ts"></script>}
+{mermaid && <script src="@/scripts/mermaid.ts" />}

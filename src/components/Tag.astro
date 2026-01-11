@@ -10,7 +10,13 @@ type Props = {
   showDescription?: boolean;
 };
 
-const { tag, tagName, count, size = "lg", showDescription = false } = Astro.props;
+const {
+  tag,
+  tagName,
+  count,
+  size = "lg",
+  showDescription = false,
+} = Astro.props;
 const config = getTagConfig(tag);
 const displayName = tagName || config.name;
 ---
@@ -21,7 +27,7 @@ const displayName = tagName || config.name;
     transition:name={tag}
     class:list={[
       "flex items-center gap-0.5",
-      "px-2 py-0.5 rounded",
+      "rounded px-2 py-0.5",
       "bg-[var(--astro-code-background)] text-foreground",
       "hover:text-accent",
       { "text-sm": size === "sm" },
@@ -30,14 +36,22 @@ const displayName = tagName || config.name;
   >
     <IconHash
       class:list={[
-        "opacity-80 stroke-[2.5]",
+        "stroke-[2.5] opacity-80",
         { "size-3.5": size === "lg" },
         { "size-3": size === "sm" },
       ]}
     />
-    {displayName}{count !== undefined && <span class="text-muted-foreground/60 text-xs ml-1">({count})</span>}
+    {displayName}{
+      count !== undefined && (
+        <span class="ml-1 text-xs text-muted-foreground/60">({count})</span>
+      )
+    }
   </a>
-  {showDescription && config.description && (
-    <p class="text-sm text-muted-foreground mt-1 ml-5">{config.description}</p>
-  )}
+  {
+    showDescription && config.description && (
+      <p class="mt-1 ml-5 text-sm text-muted-foreground">
+        {config.description}
+      </p>
+    )
+  }
 </li>

@@ -49,7 +49,7 @@ const isActive = (path: string) => {
       href="/"
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      <IconPascalAndy class="inline-block h-10 sm:h-11 text-foreground" />
+      <IconPascalAndy class="inline-block h-10 text-foreground sm:h-11" />
     </a>
     <nav
       id="nav-menu"
@@ -121,7 +121,8 @@ const isActive = (path: string) => {
                     class:list={[
                       "focus-outline flex justify-center p-3 sm:p-1",
                       {
-                        "active-nav [&>svg]:stroke-accent": isActive("/archives"),
+                        "active-nav [&>svg]:stroke-accent":
+                          isActive("/archives"),
                       },
                     ]}
                     title="Archives"

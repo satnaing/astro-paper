@@ -11,7 +11,7 @@ const { props } = Astro;
 const backUrl = SITE.showBackButton ? Astro.url.pathname : "/";
 ---
 
-<main data-backUrl={backUrl} id="main-content" class="app-layout pb-4 pt-8">
+<main data-backUrl={backUrl} id="main-content" class="app-layout pt-8 pb-4">
   {
     "titleTransition" in props ? (
       <h1 class="mb-6 text-2xl font-bold text-primary sm:text-3xl">
@@ -21,7 +21,9 @@ const backUrl = SITE.showBackButton ? Astro.url.pathname : "/";
         </span>
       </h1>
     ) : (
-      <h1 class="mb-6 text-2xl font-bold text-primary sm:text-3xl">{props.pageTitle}</h1>
+      <h1 class="mb-6 text-2xl font-bold text-primary sm:text-3xl">
+        {props.pageTitle}
+      </h1>
     )
   }
   {props.pageDesc && <p class="-mt-4 mb-6 italic">{props.pageDesc}</p>}
