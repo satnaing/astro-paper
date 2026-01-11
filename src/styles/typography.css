@@ -92,26 +92,26 @@
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
-  /* Use theme colors for code block background instead of Shiki defaults */
+  /* Use muted background for subtle contrast from page background */
   .astro-code {
-    @apply flex border border-border bg-card text-foreground outline-border;
+    @apply flex border border-border bg-muted text-foreground outline-border;
   }
 
   html[data-theme="dark"] .astro-code {
-    @apply bg-card text-foreground;
+    @apply bg-muted text-foreground;
   }
 
   /* Styles for Shiki transformers */
   /* https://shiki.style/packages/transformers */
   .astro-code {
     .line.diff.add {
-      @apply relative inline-block w-full bg-green-400/20 before:absolute before:-left-3 before:text-green-500 before:content-['+'];
+      @apply relative inline-block w-full bg-secondary/40 before:absolute before:-left-3 before:text-primary before:content-['+'];
     }
     .line.diff.remove {
-      @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
+      @apply relative inline-block w-full bg-destructive/20 before:absolute before:-left-3 before:text-destructive before:content-['-'];
     }
     .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
+      @apply inline-block w-full bg-secondary/30;
     }
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
