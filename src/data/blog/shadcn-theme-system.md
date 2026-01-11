@@ -3,6 +3,7 @@ title: "shadcn Theme System for AstroPaper"
 description: "How to use and customize the shadcn/ui compatible theme system in AstroPaper, including adding themes from tweakcn.com"
 pubDatetime: 2026-01-11T09:00:00Z
 tags:
+  - dummy
   - docs
   - configuration
   - color-schemes

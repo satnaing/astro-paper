@@ -7,6 +7,7 @@ slug: how-to-configure-astropaper-theme
 featured: true
 draft: false
 tags:
+  - dummy
   - configuration
   - docs
 description: How you can make AstroPaper theme absolutely yours.

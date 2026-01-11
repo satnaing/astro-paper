@@ -6,6 +6,7 @@ slug: example-draft-post
 featured: false
 draft: true
 tags:
+  - dummy
   - TypeScript
   - Astro
 description:

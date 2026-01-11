@@ -6,6 +6,7 @@ slug: how-do-i-develop-my-portfolio-and-blog
 featured: false
 draft: false
 tags:
+  - dummy
   - NextJS
   - TailwindCSS
   - HeadlessCMS

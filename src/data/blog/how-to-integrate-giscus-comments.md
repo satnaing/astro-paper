@@ -7,6 +7,7 @@ slug: how-to-integrate-giscus-comments
 featured: false
 draft: false
 tags:
+  - dummy
   - astro
   - blog
   - docs

@@ -6,6 +6,7 @@ slug: subscribe-via-rss
 featured: false
 draft: false
 tags:
+  - dummy
   - misc
 description: Stay updated with new posts by subscribing to the RSS feed.
 ---

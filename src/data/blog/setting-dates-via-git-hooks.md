@@ -6,6 +6,7 @@ title: How to use Git Hooks to set Created and Modified Dates
 featured: false
 draft: false
 tags:
+  - dummy
   - docs
   - FAQ
 canonicalURL: https://smale.codes/posts/setting-dates-via-git-hooks/

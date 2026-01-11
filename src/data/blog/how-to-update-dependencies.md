@@ -7,6 +7,7 @@ featured: false
 draft: false
 ogImage: ../../assets/images/forrest-gump-quote.png
 tags:
+  - dummy
   - FAQ
 description: How to update project dependencies and AstroPaper template.
 ---

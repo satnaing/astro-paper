@@ -6,6 +6,7 @@ title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
 tags:
+  - dummy
   - color-schemes
   - docs
 description:

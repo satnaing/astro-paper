@@ -5,6 +5,7 @@ slug: astro-paper-v5
 featured: true
 ogImage: ../../../assets/images/AstroPaper-v5.png
 tags:
+  - dummy
   - release
 description: "AstroPaper v5: keep the clean look, updates under the hood."
 ---

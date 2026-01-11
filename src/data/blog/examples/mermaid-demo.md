@@ -3,6 +3,7 @@ title: "Mermaid Diagram Demo"
 description: "Demonstrating how to show Mermaid diagrams vs raw code"
 pubDatetime: 2026-01-11T12:00:00Z
 tags:
+  - dummy
   - docs
 mermaid: true
 ---
