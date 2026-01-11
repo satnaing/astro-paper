@@ -1,6 +1,7 @@
 ---
 import IconX from "@/assets/icons/IconX.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconTags from "@/assets/icons/IconTags.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
@@ -47,7 +48,7 @@ const isActive = (path: string) => {
       href="/"
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      <IconPascalAndy class="inline-block h-10 sm:h-11 text-primary" />
+      <IconPascalAndy class="inline-block h-10 sm:h-11 text-foreground" />
     </a>
     <nav
       id="nav-menu"
@@ -78,14 +79,25 @@ const isActive = (path: string) => {
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
-            Tags
-          </a>
-        </li>
-        <li class="col-span-2">
           <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
             About
           </a>
+        </li>
+        <li class="col-span-2">
+          <LinkButton
+            href="/tags"
+            class:list={[
+              "focus-outline flex justify-center p-3 sm:p-1",
+              {
+                "active-nav [&>svg]:stroke-accent": isActive("/tags"),
+              },
+            ]}
+            title="Tags"
+            aria-label="tags"
+          >
+            <IconTags class="hidden size-5 sm:inline-block" />
+            <span class="sm:sr-only">Tags</span>
+          </LinkButton>
         </li>
         {
           SITE.showArchives && (

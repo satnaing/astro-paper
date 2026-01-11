@@ -23,39 +23,33 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
-      </h1>
+      <p class="text-lg">
+        Pour les « non technos » qui desirent de meilleures relations avec les technologies.
+      </p>
+      <p class="mt-4">
+        J'habite a Montreal au Canada. J'ai toujours ete un patenteux, une personne qui entreprend ses idees. Pour moi, c'est une facon de vivre. J'aime me questionner et simplifier ce qui nous parait complexe.
+      </p>
+      <p class="mt-4">
+        La facon dont les technologies nous impactent me fascine. Elles m'amenent a me questionner et a tenter de comprendre comment elles faconnent nos vies au quotidien.
+      </p>
+      <p class="mt-6">
+        Bienvenue dans mon monde,<br />
+        <span class="font-semibold">Pascal</span>
+      </p>
       <a
         target="_blank"
         href="/rss.xml"
-        class="inline-block"
+        class="mt-4 inline-block"
         aria-label="rss feed"
         title="RSS Feed"
       >
         <IconRss
           width={20}
           height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
+          class="stroke-accent stroke-3"
         />
         <span class="sr-only">RSS Feed</span>
       </a>
-
-      <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
-      </p>
-      <p class="mt-2">
-        Read the blog posts or check
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
