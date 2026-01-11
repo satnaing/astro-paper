@@ -94,7 +94,7 @@
   /* ===== Code Blocks & Syntax Highlighting ===== */
   /* Background color is set via --astro-code-background in global.css */
   .astro-code {
-    @apply flex border border-border outline-border;
+    @apply flex border border-border/50 outline-border;
   }
 
   /* Styles for Shiki transformers */
