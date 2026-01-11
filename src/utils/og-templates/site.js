@@ -1,6 +1,7 @@
 import satori from "satori";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
+import ogColors from "../getOgColors";
 
 export default async () => {
   return satori(
@@ -8,7 +9,7 @@ export default async () => {
       type: "div",
       props: {
         style: {
-          background: "#fefbfb",
+          background: ogColors.background,
           width: "100%",
           height: "100%",
           display: "flex",
@@ -23,8 +24,8 @@ export default async () => {
                 position: "absolute",
                 top: "-1px",
                 right: "-1px",
-                border: "4px solid #000",
-                background: "#ecebeb",
+                border: `4px solid ${ogColors.foreground}`,
+                background: ogColors.muted,
                 opacity: "0.9",
                 borderRadius: "4px",
                 display: "flex",
@@ -39,8 +40,8 @@ export default async () => {
             type: "div",
             props: {
               style: {
-                border: "4px solid #000",
-                background: "#fefbfb",
+                border: `4px solid ${ogColors.foreground}`,
+                background: ogColors.background,
                 borderRadius: "4px",
                 display: "flex",
                 justifyContent: "center",
