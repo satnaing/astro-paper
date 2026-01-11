@@ -92,13 +92,9 @@
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
-  /* Use muted background for subtle contrast from page background */
+  /* Background color is set via --astro-code-background in global.css */
   .astro-code {
-    @apply flex border border-border bg-muted text-foreground outline-border;
-  }
-
-  html[data-theme="dark"] .astro-code {
-    @apply bg-muted text-foreground;
+    @apply flex border border-border outline-border;
   }
 
   /* Styles for Shiki transformers */

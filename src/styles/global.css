@@ -16,8 +16,10 @@
  * Astro uses --astro-code-* prefix instead of --shiki-*
  */
 :root {
-  --astro-code-color-text: var(--foreground);
-  --astro-code-color-background: var(--card);
+  /* Code block background/foreground - used by Astro's inline styles */
+  --astro-code-background: var(--secondary);
+  --astro-code-foreground: var(--foreground);
+  /* Syntax highlighting tokens */
   --astro-code-token-constant: var(--primary);
   --astro-code-token-string: var(--secondary-foreground);
   --astro-code-token-comment: var(--muted-foreground);
@@ -30,15 +32,16 @@
 }
 
 [data-theme="dark"] {
-  --astro-code-color-text: var(--foreground);
-  --astro-code-color-background: var(--card);
+  /* Dark mode: use popover for subtle lift from background */
+  --astro-code-background: var(--popover);
+  --astro-code-foreground: var(--foreground);
   --astro-code-token-constant: var(--primary);
-  --astro-code-token-string: var(--secondary);
+  --astro-code-token-string: var(--muted-foreground);
   --astro-code-token-comment: var(--muted-foreground);
   --astro-code-token-keyword: var(--primary);
   --astro-code-token-parameter: var(--foreground);
   --astro-code-token-function: var(--ring);
-  --astro-code-token-string-expression: var(--secondary);
+  --astro-code-token-string-expression: var(--muted-foreground);
   --astro-code-token-punctuation: var(--muted-foreground);
   --astro-code-token-link: var(--primary);
 }
