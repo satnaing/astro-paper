@@ -7,6 +7,7 @@ author: "Pascal Andy"
 draft: true
 description: "Notes personnelles pour le déménagement et vente d'articles."
 ---
+
 ## Divers
 
 - null
@@ -25,7 +26,7 @@ _Allô! Ok, je vais voir avec les nouveaux locataires! Je pense qu’ils ont les
 - vente: poele **50$**
 - vente: sécheuse seulement **175$**
 - vente: tablette ultra-solide piece de rangement + tablettes literie **120$**
-23 X (2" par 4" par 8')
+  23 X (2" par 4" par 8')
 
 planches tablettes
 

@@ -6,6 +6,7 @@ date_created: 2023-05-17
 author: "Pascal Andy"
 description: "Compte rendu de l'anneau de stabilisation Wayne's Audio pour platine vinyle: installation, correction des oscillations et impressions sur la VPI Signature 21."
 ---
+
 Un compte rendu de mon expérience avec l'anneau de stabilisation de Wayne's Audio. Tout d'abord, l'utilisation de cet anneau nécessite une certaine patience. Il faut positionner délicatement l'anneau sur le disque, puis l'ajuster avec précision en utilisant un gabarit en plastique.
 
 Malheureusement, ce gabarit en plastique a tendance à accumuler la poussière et à adhérer au vinyle lors de l'alignement de l'anneau. Ainsi, lorsque vous placez le gabarit en plastique sur le disque, vous risquez d'ajouter de la poussière qui se colle au vinyle à cause de ce dernier. Cela peut être quelque peu frustrant. Cependant, du point de vue esthétique, j'apprécie grandement son apparence.

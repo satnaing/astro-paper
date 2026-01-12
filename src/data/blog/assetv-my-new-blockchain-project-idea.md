@@ -7,6 +7,7 @@ author: "Pascal Andy"
 description: "Idée de projet blockchain AssetV: un système décentralisé de versionnement d'actifs numériques inspiré de Git."
 ogImage: "/og-legacy/2018/05/pascalandy-com_header_2017-04-10_14h46.jpg"
 ---
+
 1/ As a developer and a crypto-user I just had this spark.
 
 2/ First you need to know that ‘Git’ is an open source software created to do code versioning. Read: keeping track of every change that ever happened to a software project. Code files, README files, pictures, binary files, etc.
@@ -31,6 +32,6 @@ The main development would happen to search the blockchain and determine who can
 
 9/ I will not execute on this. Feel free to take all credit if you ever build such system.
 
-* * *
+---
 
-__From this tweet storm: <https://twitter.com/askpascalandy/status/994572050877599745>
+\_\_From this tweet storm: <https://twitter.com/askpascalandy/status/994572050877599745>

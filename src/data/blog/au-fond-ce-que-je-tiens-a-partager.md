@@ -7,6 +7,7 @@ author: "Pascal Andy"
 description: "Je souhaite inspirer tous ceux et celles qui peuvent parfois se sentir dépassés, frustrés ou prisonniers par ce monde numérisé qui semble parfois manquer"
 ogImage: "/og-legacy/2017/04/pascalandy-com_header_2017-04-10_14h46.jpg"
 ---
+
 Je souhaite inspirer tous ceux et celles qui peuvent parfois se sentir dépassés, frustrés ou prisonniers:
 
 - Par ce monde numérisé qui semble parfois manquer d’humanité

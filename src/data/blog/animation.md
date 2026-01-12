@@ -6,6 +6,7 @@ date_created: 2018-01-04
 author: "Pascal Andy"
 description: "Guide d'animation pour les soirées CryptoInMontreal: plan de match, niveaux d'expérience et format des discussions."
 ---
+
 ## Rappel de la mission de #CryptoInMontreal
 
 Trois points.
