@@ -1,10 +1,11 @@
 ---
 title: "appart 250"
 tags:
-  - untagged
+  - personnel
 date_created: 2021-07-16
 author: "Pascal Andy"
-description: "no_description"
+draft: true
+description: "Notes personnelles pour le déménagement et vente d'articles."
 ---
 ## Divers
 
