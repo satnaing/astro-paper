@@ -20,6 +20,25 @@ Fix the following issues:
 
 Make sure that the front matter follows the schema @src/data/blog/dev_notes/frontmatter-schema.md 
 
+PERSONNAL STUFF
+use draft: true
+
+**example**:
+
+  Assessment
+  This is an old apartment listing with:
+  - 17 broken image links (all 404)
+  - No actual text content
+  - Outdated listing from 2015
+  Recommendation
+  Import as draft since the content is just broken images with no text. You may want to delete it later or restore images if you have them.
+  ---
+  Options:
+  1. Type go to import as draft: true with broken images removed
+  2. Type draft to import as draft keeping the broken image references
+  3. Type skip to leave in to_validate/
+
+
 ### 3. TAGS
 
 **Official tags (use these exact values):**

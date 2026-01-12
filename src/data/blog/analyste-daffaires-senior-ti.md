@@ -1,7 +1,7 @@
 ---
 title: "Analyste d'Affaires Sénior T.I."
 tags:
-  - Consultation
+  - consultation
 date_created: 2018-10-27
 author: "Pascal Andy"
 description: "Analyste d'Affaires Sénior T.I. - Mon profil, recommandations et témoignages de Bell Canada et Banque Nationale"

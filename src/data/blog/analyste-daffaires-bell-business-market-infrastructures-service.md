@@ -1,7 +1,7 @@
 ---
 title: "Analyste d'affaires T.I. @ Bell Business Market | Infrastructures"
 tags:
-  - Consultation
+  - consultation
 date_created: 2016-10-29
 author: "Pascal Andy"
 description: "À l'intérieur de Bell Business Market, j'agis à titre de consultant Analyste d'Affaires Lead à l'intérieur du district Infrastructures Services (I.S.)."

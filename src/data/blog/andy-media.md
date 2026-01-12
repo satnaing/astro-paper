@@ -1,7 +1,7 @@
 ---
 title: "Andy Media"
 tags:
-  - Startups
+  - startup
 date_created: 2014-02-17
 author: "Pascal Andy"
 description: "Être « nul avec les technos », c'était encore drôle en 2010, mais aujourd'hui, c'est un frein au développement de plusieurs organisations."
