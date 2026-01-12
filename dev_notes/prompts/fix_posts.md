@@ -1,8 +1,8 @@
 I'm in the process of importing old posts from my previous ghost blog. 
 As you can imagine, it's a bit messy as I had to export all my sites using JSON and then convert it back in Markdown, so little glitches can happen. 
 
-scan all markdown posts in src/data/blog/to_import
-pick the most recent one by date_created frontmatter
+- List all file by file name, pick a file in alphabetic order
+- then move file to src/data/blog/
 
 Fix the following issues:
 
@@ -46,7 +46,6 @@ share with the user what you fixed in a bullet point.
 
 wait for users approval (go)
 
-then move file to src/data/blog/
 commit
 
 then pick the next post that we should fix (loop)
