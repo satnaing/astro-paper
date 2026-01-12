@@ -1,8 +1,9 @@
 I'm in the process of importing old posts from my previous ghost blog. 
 As you can imagine, it's a bit messy as I had to export all my sites using JSON and then convert it back in Markdown, so little glitches can happen. 
 
-- List all file by file name, pick a file in alphabetic order
-- then move file to src/data/blog/
+from `./to_import/`
+- List all files, find the most recent one using frontmatter `date_created`
+- then move this file to: `src/data/blog/`
 
 Fix the following issues:
 
@@ -56,9 +57,14 @@ then, look for obvious things that would look off.
 
 share with the user what you fixed in a bullet point. 
 
-wait for users approval (go)
-- If you see no issues, auto-approve. 
+Get approval, and wait for users approval (go)
+- auto-approve for:
+  - descriptions imrprovements
+  - basic tag typo
+- for anything else weird let me know!
 
-commit
-
-then pick the next post that we should fix (loop)
+then
+- Get approval
+- commit
+- then pick the next post that we should fix (loop)
+- do not ask, do it
