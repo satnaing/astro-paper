@@ -1,10 +1,10 @@
 ---
 title: "Animation"
 tags:
-  - untagged
+  - crypto-in-montreal
 date_created: 2018-01-04
 author: "Pascal Andy"
-description: "no_description"
+description: "Guide d'animation pour les soirées CryptoInMontreal: plan de match, niveaux d'expérience et format des discussions."
 ---
 ## Rappel de la mission de #CryptoInMontreal
 

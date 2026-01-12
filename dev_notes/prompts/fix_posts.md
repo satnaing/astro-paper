@@ -21,12 +21,24 @@ Fix the following issues:
 Make sure that the front matter follows the schema @src/data/blog/dev_notes/frontmatter-schema.md 
 
 ### 3. TAGS
-original tags are:
-Crypto In Montreal, Technologie, Repost, Crypto, Random, Startups, 
-Emplois, Du Fond Des Tripes, Biographie, Consultation, Personnel, 
-Musique, Deck Cassette, HiFi
 
-If you feel it's relevant, you can create new tags as well. 
+**Official tags (use these exact values):**
+- crypto-in-montreal
+- technologie
+- repost
+- crypto
+- random
+- startups
+- emplois
+- du-fond-des-tripes
+- biographie
+- consultation
+- personnel
+- musique
+- deck-cassette
+- hifi
+
+If you feel it's relevant, you can create new tags as well (use lowercase-kebab-case). 
 
 ### 4. DO NOT CHANGE
 - Post body content (keep original text intact)
@@ -45,6 +57,7 @@ then, look for obvious things that would look off.
 share with the user what you fixed in a bullet point. 
 
 wait for users approval (go)
+- If you see no issues, auto-approve. 
 
 commit
 
