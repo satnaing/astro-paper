@@ -7,6 +7,7 @@ author: "Pascal Andy"
 description: "Le 8 juin 2013, je recevais un courriel en même temps que les treize autres académiciens de la première cuvée de Star Académie. C'était Marianik Giffard"
 ogImage: "/og-legacy/2017/04/10_ans_star_academie-1462895695802.jpg"
 ---
+
 Le 8 juin 2013, je recevais un courriel en même temps que les treize autres académiciens de la première cuvée de Star Académie. C'était [Marianik Giffard](https://twitter.com/MarianikGiffard) qui nous envoyait un courriel pour connaître notre intention face à de possibles retrouvailles. Une des options allait comme ci.
 
 _Courriel de Marianik:_
@@ -15,7 +16,7 @@ _Courriel de Marianik:_
 
 L’émission spéciale avec vous porterait uniquement sur l’édition Star Académie 2003. Ça serait donc une belle occasion de créer de la frénésie autour des 10 ans Star Académie. Pour ce projet, nous devons agir rapidement puisque l’enregistrement de l’émission se ferait durant les prochaines semaines. Nous aurions donc besoin de savoir votre intérêt à y participer le plus rapidement possible. La diffusion de l’émission serait en novembre. […]
 
-__Ma réponse_ :_
+\__Ma réponse_ :\_
 
 Bonjour à tous,
 
@@ -44,10 +45,6 @@ P.P.S. J'ai originalement publié cet article le 27 juin 2013 sur mon blog préc
 
 **Dans un autre ordre d'idée**. Je ne suis pas très présent « online » depuis 3 semaines, et ce pour une excellente raison. Je travaille fort sur une nouvelle startup où nous sommes quatre associés. Essentiellement, on fera en sorte qu’attendre dans une clinique, un hôpital, un garage, un resto, etc. soit une histoire du passé. Notre vision en deux mots? « Libérés d’attendre ».
 
-__[Mise à jour à propos de FollowFi](/followfi-permet-aux-patients-dattendre-a-distance-avec-leur-telephone-intelligent/)
+_Mise à jour à propos de FollowFi: Le projet a été abandonné depuis._
 
 Et la nouvelle technologique qui m’a rendu extrêmement heureux aujourd’hui, est que [KickStarter](http://www.kickstarter.com/canada) est officiellement disponible au Canada. C’est une excellente nouvelle pour tous les Canadiens qui ont des projets à réaliser.
-
-* * *
-
-__[1](http://galleryhip.com/happy-birthday-chocolate-cake-with-candles.html) / [2](http://hollywoodpq.com/2013/09/20/les-grandes-retrouvailles-star-academie-2003-a-tva-ce-soir/) / [3](http://cinema.centerblog.net/rub-Le-Banquier.html)
