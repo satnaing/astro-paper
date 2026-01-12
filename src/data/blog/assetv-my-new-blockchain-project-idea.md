@@ -1,10 +1,10 @@
 ---
 title: "AssetV: my new blockchain project idea"
 tags:
-  - Crypto
+  - crypto
 date_created: 2018-05-10
 author: "Pascal Andy"
-description: "no_description"
+description: "Idée de projet blockchain AssetV: un système décentralisé de versionnement d'actifs numériques inspiré de Git."
 ogImage: "/og-legacy/2018/05/pascalandy-com_header_2017-04-10_14h46.jpg"
 ---
 1/ As a developer and a crypto-user I just had this spark.
@@ -33,4 +33,4 @@ The main development would happen to search the blockchain and determine who can
 
 * * *
 
-__From this tweet storm:<https://twitter.com/askpascalandy/status/994572050877599745>
+__From this tweet storm: <https://twitter.com/askpascalandy/status/994572050877599745>
