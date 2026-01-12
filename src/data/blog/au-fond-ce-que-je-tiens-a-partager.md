@@ -1,7 +1,7 @@
 ---
 title: "Au fond, ce que je tiens à partager"
 tags:
-  - Du Fond Des Tripes
+  - du-fond-des-tripes
 date_created: 2014-06-18
 author: "Pascal Andy"
 description: "Je souhaite inspirer tous ceux et celles qui peuvent parfois se sentir dépassés, frustrés ou prisonniers par ce monde numérisé qui semble parfois manquer"
@@ -17,7 +17,7 @@ Je souhaite inspirer tous ceux et celles qui peuvent parfois se sentir dépassé
 
 Je veux proposer des façons concrètes d’utiliser les outils technologiques qui nous entourent avec une vision à long terme. Un article à la fois, je veux devenir humblement ton guide dans ce zoo où cohabite une infinité de technologies.
 
-J’entrevois ce périple plus comme un échange réciproque, qu’une classe magistrale. Avec ce que je possède dans ma propre valise, je me porte volontaire pour accompagner tous les [Lekt](/lekt-le-lecteur/) durant cette quête d’un meilleur mode de vie grâce aux technologies.
+J’entrevois ce périple plus comme un échange réciproque, qu’une classe magistrale. Avec ce que je possède dans ma propre valise, je me porte volontaire pour accompagner tous les [Lekt](/posts/lekt-le-lecteur/) durant cette quête d’un meilleur mode de vie grâce aux technologies.
 
 Quand je parle d’un « Meilleur Mode de Vie », j’entends plus spécifiquement qu’à travers notre quotidien, nous voulons tous ressentir un peu plus ces sentiments de sécurité, d’aventure, d’affirmation de soi, d’amour (aimer et être aimé), de croissance personnelle et de contribution. Nous avons tous le besoin de gagner plus d’amplitude dans ces sphères de notre vie.
 
