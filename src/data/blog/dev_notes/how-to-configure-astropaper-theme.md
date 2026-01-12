@@ -2,8 +2,6 @@
 author: dummy user
 date_created: 2022-09-23
 title: How to configure AstroPaper theme
-featured: true
-draft: false
 tags:
   - dev-notes
 description: How you can make AstroPaper theme absolutely yours.
