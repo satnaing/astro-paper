@@ -1,14 +1,14 @@
 ---
 title: "Au revoir guerrière"
 tags:
-  - repost
+  - Repost
 date_created: 2018-09-04
 author: "Pascal Andy"
-description: "Repost de Julie Marchand: un texte touchant sur sa transformation personnelle et l'adieu à sa guerrière intérieure."
+description: "Je laisse enf"
 ---
-![Julie-Marchand-2018-09-04_06h56](/og-legacy/2018/09/Julie-Marchand-2018-09-04_06h56.jpg)
+![Julie-Marchand-2018-09-04_06h56](/content/og-legacy/2018/09/Julie-Marchand-2018-09-04_06h56.jpg)
 
-_Originalement publié [sur le wall](https://www.facebook.com/julie.marchand.fitness/posts/1868047546575687) de Julie Marchand._
+_Originalement publié[sur le wall](https://www.facebook.com/julie.marchand.fitness/posts/1868047546575687?xts%5B0%5D=68.ARDHRUhP8t-m0Cy1Mt2YriXS35tPyKPdbpxV2w6jHot4Ln6nJel9YOwlItBnrsThqBMhHefz7jpZIiP1nsVE2iWWHPWI-Tsm9C0c4bkwu-Bitec52PBPAU2Y9BgUKHKJKNZBk&tn=K-R) de Julie Marchand._
 
 Je laisse enfin tomber mes armes...✨
 
