@@ -43,27 +43,27 @@ Inside of AstroPaper, you'll see the following folders and files:
 ```bash
 /
 ├── public/
-│   ├── assets/
-|   ├── pagefind/ # auto-generated when build
-│   └── favicon.svg
+│   ├── pagefind/ # auto-generated when build
+│   ├── favicon.svg
 │   └── astropaper-og.jpg
-│   └── favicon.svg
-│   └── toggle-theme.js
 ├── src/
 │   ├── assets/
-│   │   └── icons/
+│   │   ├── icons/
 │   │   └── images/
 │   ├── components/
 │   ├── data/
 │   │   └── blog/
 │   │       └── some-blog-posts.md
 │   ├── layouts/
-│   └── pages/
-│   └── styles/
-│   └── utils/
-│   └── config.ts
-│   └── constants.ts
-│   └── content.config.ts
+│   ├── pages/
+│   ├── scripts/
+│   ├── styles/
+│   ├── utils/
+│   ├── config.ts
+│   ├── constants.ts
+│   ├── content.config.ts
+│   ├── env.d.ts
+│   └── remark-collapse.d.ts
 └── astro.config.ts
 ```
 
