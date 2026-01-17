@@ -32,6 +32,9 @@ importers:
       remark-collapse:
         specifier: ^0.1.2
         version: 0.1.2
+      remark-github-blockquote-alert:
+        specifier: ^2.0.0
+        version: 2.0.0
       remark-toc:
         specifier: ^9.0.0
         version: 9.0.0
@@ -2277,6 +2280,10 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
+
+  remark-github-blockquote-alert@2.0.0:
+    resolution: {integrity: sha512-n05GsATsJJUm9INz6E9bMcjMdJva0iTQXBOgFqm/DqDOlztxkqpwplVOAqt/6MV/FE7G/Wqskgkbq333CJU3kg==}
+    engines: {node: '>=16'}
 
   remark-parse@11.0.0:
     resolution: {integrity: sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==}
@@ -5227,6 +5234,10 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-github-blockquote-alert@2.0.0:
+    dependencies:
+      unist-util-visit: 5.0.0
 
   remark-parse@11.0.0:
     dependencies:
