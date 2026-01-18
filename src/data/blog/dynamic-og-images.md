@@ -61,14 +61,14 @@ async function loadGoogleFonts(
     },
     {
       name: "Noto Sans JP",
-      font: "Noto+Sans+JP:wght@700",
+      font: "Noto+Sans+JP",
       weight: 700,
       style: "normal",
     },
     { name: "Noto Sans", font: "Noto+Sans", weight: 400, style: "normal" },
     {
       name: "Noto Sans",
-      font: "Noto+Sans:wght@700",
+      font: "Noto+Sans",
       weight: 700,
       style: "normal",
     },
