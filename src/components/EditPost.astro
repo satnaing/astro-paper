@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import IconEdit from "@/assets/icons/IconEdit.svg";
 import { SITE } from "@/config";
+import { getTranslations, t } from "@/utils/getTranslations";
 
 type Props = {
   hideEditPost?: CollectionEntry<"blog">["data"]["hideEditPost"];
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const { hideEditPost, post, class: className = "" } = Astro.props;
+const translations = await getTranslations();
 
 const href = `${SITE.editPost.url}${post.filePath}`;
 const showEditPost =
@@ -28,7 +30,7 @@ const showEditPost =
       ]}
     >
       <IconEdit class="inline-block" />
-      <span>{SITE.editPost.text}</span>
+      <span>{t(translations, "common.editPage")}</span>
     </a>
   )
 }

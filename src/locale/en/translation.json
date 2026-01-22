@@ -1,0 +1,79 @@
+{
+  "common": {
+    "goBack": "Go back",
+    "home": "Home",
+    "posts": "Posts",
+    "tags": "Tags",
+    "about": "About",
+    "archives": "Archives",
+    "search": "Search",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open Menu",
+    "closeMenu": "Close Menu",
+    "togglesLightDark": "Toggles light & dark",
+    "rssFeed": "RSS Feed",
+    "socialLinks": "Social Links:",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved",
+    "editPage": "Edit page",
+    "copy": "Copy",
+    "copied": "Copied",
+    "previousPost": "Previous Post",
+    "nextPost": "Next Post",
+    "page": "page",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "navigation": {
+    "gotoPreviousPage": "Goto Previous Page",
+    "gotoNextPage": "Goto Next Page",
+    "paginationNavigation": "Pagination Navigation"
+  },
+  "home": {
+    "heroTitle": "Mingalaba",
+    "heroDescription": "AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme. This theme follows best practices and provides accessibility out of the box. Light and dark mode are supported by default. Moreover, additional color schemes can also be configured.",
+    "heroReadMore": "Read the blog posts or check",
+    "readme": "README",
+    "readMoreInfo": "for more info.",
+    "featured": "Featured",
+    "recentPosts": "Recent Posts",
+    "allPosts": "All Posts"
+  },
+  "search": {
+    "title": "Search",
+    "description": "Search any article ...",
+    "devModeWarning": "DEV mode Warning!",
+    "devModeMessage": "You need to build the project at least once to see the search results during development.",
+    "buildCommand": "pnpm run build"
+  },
+  "archives": {
+    "title": "Archives",
+    "description": "All the articles I've archived.",
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "tags": {
+    "title": "Tags",
+    "description": "All the tags used in posts."
+  },
+  "error": {
+    "404": "404",
+    "pageNotFound": "Page Not Found",
+    "goBackHome": "Go back home"
+  },
+  "breadcrumb": {
+    "home": "Home"
+  }
+}

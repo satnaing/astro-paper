@@ -1,8 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
+import { getTranslations, t } from "@/utils/getTranslations";
 
 const currentYear = new Date().getFullYear();
+const translations = await getTranslations();
 
 type Props = {
   noMarginTop?: boolean;
@@ -24,9 +26,9 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
   >
     <Socials />
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>Copyright &#169; {currentYear}</span>
+      <span>{t(translations, "common.copyright")} &#169; {currentYear}</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+      <span>{t(translations, "common.allRightsReserved")}</span>
     </div>
   </div>
 </footer>

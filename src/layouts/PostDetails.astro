@@ -14,6 +14,9 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import { getTranslations, t } from "@/utils/getTranslations";
+
+const translations = await getTranslations();
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -89,6 +92,8 @@ const nextPost =
     id="main-content"
     class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
     data-pagefind-body
+    data-copy-label={t(translations, "common.copy")}
+    data-copied-label={t(translations, "common.copied")}
   >
     <h1
       transition:name={slugifyStr(title.replaceAll(".", "-"))}
@@ -138,7 +143,7 @@ const nextPost =
           >
             <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
-              <span>Previous Post</span>
+              <span>{t(translations, "common.previousPost")}</span>
               <div class="text-sm text-accent/85">{prevPost.title}</div>
             </div>
           </a>
@@ -151,7 +156,7 @@ const nextPost =
             class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
             <div>
-              <span>Next Post</span>
+              <span>{t(translations, "common.nextPost")}</span>
               <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
             <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
@@ -230,7 +235,8 @@ const nextPost =
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */
   function attachCopyButtons() {
-    const copyButtonLabel = "Copy";
+    const copyButtonLabel = document.querySelector("[data-copy-label]")?.getAttribute("data-copy-label") || "Copy";
+    const copiedLabel = document.querySelector("[data-copied-label]")?.getAttribute("data-copied-label") || "Copied";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
     for (const codeBlock of codeBlocks) {
@@ -269,7 +275,7 @@ const nextPost =
       await navigator.clipboard.writeText(text ?? "");
 
       // visual feedback that task is completed
-      button.innerText = "Copied";
+      button.innerText = copiedLabel;
 
       setTimeout(() => {
         button.innerText = copyButtonLabel;

@@ -4,6 +4,9 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
+import { getTranslations, t } from "@/utils/getTranslations";
+
+const translations = await getTranslations();
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
@@ -14,14 +17,16 @@ import { SITE } from "@/config";
     class="app-layout flex flex-1 items-center justify-center"
   >
     <div class="mb-14 flex flex-col items-center justify-center">
-      <h1 class="text-9xl font-bold text-accent">404</h1>
+      <h1 class="text-9xl font-bold text-accent">{t(translations, "error.404")}</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+      <p class="mt-4 text-2xl sm:text-3xl">
+        {t(translations, "error.pageNotFound")}
+      </p>
       <LinkButton
         href="/"
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
-        Go back home
+        {t(translations, "error.goBackHome")}
       </LinkButton>
     </div>
   </main>

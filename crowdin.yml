@@ -1,0 +1,11 @@
+project_id_env: 920745
+api_token_env: 7874090c3fcb66858a1f467e9d797f0b02ca309597ac0b539c4ad7e9506523fa27529c93ebbb87ef
+
+files:
+  - source: /src/locale/en/translation.json
+    translation: /src/locale/%two_letters_code%/translation.json
+    type: json
+    update_option: update_as_unapproved
+
+preserve_hierarchy: true
+export_only_approved: false

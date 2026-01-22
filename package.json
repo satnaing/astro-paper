@@ -10,7 +10,9 @@
     "astro": "astro",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "i18n:upload": "crowdin upload sources",
+    "i18n:download": "crowdin download"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",

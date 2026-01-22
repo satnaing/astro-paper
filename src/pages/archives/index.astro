@@ -7,6 +7,7 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 import { SITE } from "@/config";
+import { getTranslations, t } from "@/utils/getTranslations";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
@@ -14,26 +15,30 @@ if (!SITE.showArchives) {
 }
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const translations = await getTranslations();
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  t(translations, "archives.months.january"),
+  t(translations, "archives.months.february"),
+  t(translations, "archives.months.march"),
+  t(translations, "archives.months.april"),
+  t(translations, "archives.months.may"),
+  t(translations, "archives.months.june"),
+  t(translations, "archives.months.july"),
+  t(translations, "archives.months.august"),
+  t(translations, "archives.months.september"),
+  t(translations, "archives.months.october"),
+  t(translations, "archives.months.november"),
+  t(translations, "archives.months.december"),
 ];
 ---
 
-<Layout title={`Archives | ${SITE.title}`}>
+<Layout title={`${t(translations, "archives.title")} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
+  <Main
+    pageTitle={t(translations, "archives.title")}
+    pageDesc={t(translations, "archives.description")}
+  >
     {
       Object.entries(
         getPostsByGroupCondition(posts, post =>

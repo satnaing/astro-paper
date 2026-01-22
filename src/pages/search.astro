@@ -5,14 +5,26 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { SITE } from "@/config";
+import { getTranslations, t } from "@/utils/getTranslations";
 
 const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
+const translations = await getTranslations();
 ---
 
-<Layout title={`Search | ${SITE.title}`}>
+<Layout title={`${t(translations, "search.title")} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Search" pageDesc="Search any article ...">
-    <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
+  <Main
+    pageTitle={t(translations, "search.title")}
+    pageDesc={t(translations, "search.description")}
+  >
+    <div
+      id="pagefind-search"
+      transition:persist
+      data-backurl={backUrl}
+      data-dev-warning={t(translations, "search.devModeWarning")}
+      data-dev-message={t(translations, "search.devModeMessage")}
+      data-build-command={t(translations, "search.buildCommand")}
+    ></div>
   </Main>
   <Footer />
 </Layout>
@@ -34,10 +46,14 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 
       // Display warning inn dev mode
       if (import.meta.env.DEV) {
+        const devWarning = pageFindSearch.getAttribute("data-dev-warning") || "";
+        const devMessage = pageFindSearch.getAttribute("data-dev-message") || "";
+        const buildCommand = pageFindSearch.getAttribute("data-build-command") || "";
+        
         pageFindSearch.innerHTML = `
             <div class="bg-muted/75 rounded p-4 space-y-4 mb-4">
-              <p><strong>DEV mode Warning! </strong>You need to build the project at least once to see the search results during development.</p>
-              <code class="block bg-black text-white px-2 py-1 rounded">pnpm run build</code>
+              <p><strong>${devWarning}</strong>${devMessage}</p>
+              <code class="block bg-black text-white px-2 py-1 rounded">${buildCommand}</code>
             </div>
           `;
       }
