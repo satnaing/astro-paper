@@ -4,6 +4,11 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import IconCalendar from "@/assets/icons/IconCalendar.svg";
 import { SITE } from "@/config";
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -44,7 +49,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
+        {t('post.updated')}
       </span>
     )
   }

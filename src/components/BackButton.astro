@@ -2,6 +2,11 @@
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 {
@@ -13,7 +18,7 @@ import { SITE } from "@/config";
         class="focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"
       >
         <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />
-        <span>Go back</span>
+        <span>{t('nav.back')}</span>
       </LinkButton>
     </div>
   )
