@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { getBaseUrl } from "@/utils/getBaseUrl";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
@@ -18,7 +19,7 @@ import { SITE } from "@/config";
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
       <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
       <LinkButton
-        href="/"
+        href={getBaseUrl("/")}
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
         Go back home
