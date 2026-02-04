@@ -1,15 +1,18 @@
 ---
 import { SOCIALS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
+
+const EMAIL = "kajrivn@gmail.com";
 ---
 
 <div class="flex flex-wrap items-center gap-1">
   {
     SOCIALS.map(social => (
       <LinkButton
-        href={social.href}
+        href={social.name === "Mail" ? "#" : social.href}
         class="p-2 hover:rotate-6 sm:p-1"
         title={social.linkTitle}
+        data-email={social.name === "Mail" ? EMAIL : undefined}
       >
         <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
         <span class="sr-only">{social.linkTitle}</span>
@@ -17,3 +20,23 @@ import LinkButton from "./LinkButton.astro";
     ))
   }
 </div>
+
+<script is:inline data-astro-rerun>
+  const EMAIL = "kajrivn@gmail.com";
+  
+  function attachMailHandlers() {
+    const mailLinks = document.querySelectorAll('[data-email]');
+    mailLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert(`Email: ${EMAIL}`);
+      });
+    });
+  }
+  
+  // Run on initial load
+  attachMailHandlers();
+  
+  // Re-run after view transitions
+  document.addEventListener("astro:after-swap", attachMailHandlers);
+</script>

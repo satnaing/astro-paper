@@ -20,20 +20,20 @@ The objective of this challenge is to find the key via opcode and understand how
 ## Analyst
 ### Static Analyst
 
-![1.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/1.png)
+![1.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/1.png)
 Firstly, let's execute this binary on safety. The program requires 10-characters License Key so it is unnecessery to think about what string should have been an input.
 
 Upon entering whatever random string, the program outputs "This license key is corrupted." and loop back to the input prompt.
 
-![2.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/2.png)
+![2.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/2.png)
 
 An analyst of the loop shows a lot of commands and bytes here, and they are all stored in `fking_opcode` arrays after all.
 
-![3.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/3.png)
+![3.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/3.png)
 
 Next, The code invokes the `VM_INTERPRETER` function with two parameters, first one is the 8th of the input_string and the opcode array.
 
-![4.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/4.png)
+![4.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/4.png)
 
 Certain characters have been identified as components of OPCODE structure within the machine language, defined as `<opcode> <operand>, <mode>`(e.g.,`mov eax, 4.`).
 
@@ -49,14 +49,14 @@ O : OUTPUT (STORAGE)
 I : INITIALIZE
 ```
 
-![5.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/5.png)
+![5.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/5.png)
 
 Ultimately, the return value is stored in `KEY_LICENSE`. A result of zero indicates that the correct key has been entered.
 
 ### Dynamic Analyst
 
 
-![6.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/6.png)
+![6.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/6.png)
 
 The VM_INTERPRETER is putted breakpoint in order to get the opcode parameter. It is not hard to realize that some characters of input string will be there.
 
@@ -161,5 +161,5 @@ KEY-KAAKATJRI
 KEY-KAAKAT123
 KEY-KAAVIETNAMESE
 KEY-KAA_HOANGSA_TRUONGSA_BELONG_TO_VIETNAM
-![7.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/EasyVM/7.png)
+![7.png](https://raw.githubusercontent.com/KajriVN/Blog/main/src/assets/images/EasyVM/7.png)
 
