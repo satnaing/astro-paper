@@ -37,8 +37,8 @@ Network analysis confirmed outbound communication to a C2 server at 3.122.239.15
 After downloading the JavaScript file named `invoice82962.js` from the suspicious link, the script creates two PowerShell commands. One of these commands decodes a Base64 payload that is used to download and execute the next stage in memory without writing it to disk, using the IEX-DownloadString technique. This behavior is difficult to detect because it closely mimics legitimate PowerShell usage. Additionally, the payload was hosted on the domain `hotelx.rf.gd`.
 
 
-![1.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/1.png)
-![2.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/2.png)
+![1.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/1.png)
+![2.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/2.png)
 
 
 ## Execution
@@ -53,7 +53,7 @@ Next, that code also dowloaded 2 files (runpe.txt and venumentrada.txt) but it d
 
 Additionally, you have to handle the `venumentrada.txt` and get the PowerShell loader script that decoded the `runpe.txt`, renamed `swchost.exe` and execute immediately.
 
-![3.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/3.png)
+![3.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/3.png)
 
 ## Defense Evasion
 
@@ -61,37 +61,37 @@ Overall, the Javascript that threat actor write is actually the ATT&CK `T1562.00
 
 On top of that, when I checking the logs in Sysmon, I realized that the payloads trying to modify the Registy, which can make the protector weak. So, there are `12 registy ` changed with EventID 13 after figuring out.
 
-![4.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/4.png)
+![4.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/4.png)
 
 
 ## Command and Control (C2)
 
 After decoding the Base64 string, identifying the C2 becomes mush esier. I got the IP address, port number, and what the payload is. This allows analysts to quickly determine where the malware is connecting, confirm malicious network behavior, and map it to the corresponding C2 infrastructure.
 
-![5.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/5.png)
+![5.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/5.png)
 
 ## Persistence 
 
 Following the Sysmon logs, I realized that the malware copy itself to another location.
 
-![6.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/6.png)
+![6.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/6.png)
 
 Addtionally,to maintain persistence after system reboots, the executable added an entry to a specific registry location. The full path of the registry key where the executable added its persistence mechanism
 
-![7.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/7.png)
+![7.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/7.png)
 
 
 
 Next, Malware create another vbs file which is executed by the malicious executable for persistence
 
-![9.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/9.png)
+![9.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/9.png)
 Last but not least, this malware used a specific Windows API function to mark itself as critical to ensure the malware process couldn't be terminated easily.
 
-![10.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/10.png)
+![10.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/10.png)
 
 ## Collection
 
 After read all event id 11 in logs, It is mistake if you stop reading at 1:40PM because this malware will drop an exe file to collect user data. But the importance is it spent a lot of times sleeping, just waked up at 17:16:52. This technique to avoid VM or sandbox detecting.
 
-![11.png](https://raw.githubusercontent.com/KajriVN/PersonalBlog/main/public/assets/revengehotels/11.png)
+![11.png](https://raw.githubusercontent.com/KajriVN/Blog/main/public/assets/revengehotels/11.png)
 
