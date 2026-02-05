@@ -1,8 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLang, useTranslations } from '../i18n/utils';
 
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang();
 const t = useTranslations(lang);
 
 // Remove current url path and remove trailing slash if exists

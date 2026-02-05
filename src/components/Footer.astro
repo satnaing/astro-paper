@@ -1,10 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLang, useTranslations } from '../i18n/utils';
 
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang();
 const t = useTranslations(lang);
 
 const currentYear = new Date().getFullYear();

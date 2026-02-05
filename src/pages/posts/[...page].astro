@@ -9,10 +9,10 @@ import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLang, useTranslations } from '../../i18n/utils';
 
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang();
 const t = useTranslations(lang);
 
 export const getStaticPaths = (async ({ paginate }) => {

@@ -7,10 +7,10 @@ import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLang, useTranslations } from '../i18n/utils';
 
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang();
 const t = useTranslations(lang);
 
 const { pathname } = Astro.url;

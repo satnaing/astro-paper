@@ -5,8 +5,9 @@ export const languages = {
   fr: 'Français',
 };
 
+export const defaultLang = 'en'
 // Use 'lang' in config.ts file
-export const defaultLang = SITE.lang;
+export const lang = SITE.lang;
 
 export const ui = {
   en: {

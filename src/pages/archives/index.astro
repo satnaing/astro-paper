@@ -7,10 +7,10 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 import { SITE } from "@/config";
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLang, useTranslations } from '../../i18n/utils';
 
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang();
 const t = useTranslations(lang);
 
 // Redirect to 404 page if `showArchives` config is false

@@ -1,7 +1,7 @@
-import { ui, defaultLang } from './ui';
+import { ui, defaultLang, lang } from './ui';
 
-export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split('/');
+//Return lang constant from ui.ts, if exist in translated ui. Return default lang if not
+export function getLang() {
   if (lang in ui) return lang as keyof typeof ui;
   return defaultLang;
 }
