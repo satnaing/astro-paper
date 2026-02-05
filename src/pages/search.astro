@@ -5,8 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { SITE } from "@/config";
-import { getLang, useTranslations } from '../i18n/utils';
-
+import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -14,9 +13,9 @@ const t = useTranslations(lang);
 const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 ---
 
-<Layout title={`${t('search.title')} | ${SITE.title}`}>
+<Layout title={`${t("search.title")} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle={t('search.title')} pageDesc={t('search.subtitle')}>
+  <Main pageTitle={t("search.title")} pageDesc={t("search.subtitle")}>
     <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
   </Main>
   <Footer />

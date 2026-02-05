@@ -7,8 +7,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 import { SITE } from "@/config";
-import { getLang, useTranslations } from '../../i18n/utils';
-
+import { getLang, useTranslations } from "../../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -18,9 +17,9 @@ const posts = await getCollection("blog");
 let tags = getUniqueTags(posts);
 ---
 
-<Layout title={`${t('tags.title')} | ${SITE.title}`}>
+<Layout title={`${t("tags.title")} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle={t('tags.title')} pageDesc={t('tags.desc')}>
+  <Main pageTitle={t("tags.title")} pageDesc={t("tags.desc")}>
     <ul class="flex flex-wrap gap-6">
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
     </ul>

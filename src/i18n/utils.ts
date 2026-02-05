@@ -1,4 +1,4 @@
-import { ui, defaultLang, lang } from './ui';
+import { ui, defaultLang, lang } from "./ui";
 
 //Return lang constant from ui.ts, if exist in translated ui. Return default lang if not
 export function getLang() {
@@ -7,7 +7,7 @@ export function getLang() {
 }
 
 export function useTranslations(lang: keyof typeof ui) {
-  return function t(key: keyof typeof ui[typeof defaultLang]) {
+  return function t(key: keyof (typeof ui)[typeof defaultLang]) {
     return ui[lang][key] || ui[defaultLang][key];
-  }
+  };
 }

@@ -4,8 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import LinkButton from "./LinkButton.astro";
-import { getLang, useTranslations } from '../i18n/utils';
-
+import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -30,7 +29,7 @@ const { page } = Astro.props;
         aria-label="Goto Previous Page"
       >
         <IconArrowLeft class="inline-block rtl:rotate-180" />
-        {t('nav.prev')}
+        {t("nav.prev")}
       </LinkButton>
       {page.currentPage} / {page.lastPage}
       <LinkButton
@@ -39,7 +38,7 @@ const { page } = Astro.props;
         class:list={["ms-4 select-none", { "opacity-50": !page.url.next }]}
         aria-label="Goto Next Page"
       >
-        {t('nav.next')}
+        {t("nav.next")}
         <IconArrowRight class="inline-block rtl:rotate-180" />
       </LinkButton>
     </nav>

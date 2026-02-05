@@ -1,8 +1,7 @@
 ---
 import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
-import { getLang, useTranslations } from '../i18n/utils';
-
+import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -13,7 +12,7 @@ const URL = Astro.url;
 {
   SHARE_LINKS.length > 0 && (
     <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start">
-      <span class="italic">{t('post.share')}</span>
+      <span class="italic">{t("post.share")}</span>
       <div class="text-center">
         {SHARE_LINKS.map(social => (
           <LinkButton

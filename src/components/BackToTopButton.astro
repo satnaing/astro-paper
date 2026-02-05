@@ -1,8 +1,7 @@
 ---
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
-import { getLang, useTranslations } from '../i18n/utils';
-
+import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -32,7 +31,7 @@ const t = useTranslations(lang);
     <IconChevronLeft class="inline-block rotate-90 md:hidden" />
     <span class="sr-only text-sm group-hover:text-accent md:not-sr-only">
       <IconArrowNarrowUp class="inline-block size-4" />
-      {t('nav.top')}
+      {t("nav.top")}
     </span>
   </button>
 </div>

@@ -14,8 +14,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
-import { getLang, useTranslations } from '../i18n/utils';
-
+import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang();
 const t = useTranslations(lang);
@@ -143,7 +142,7 @@ const nextPost =
           >
             <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
             <div>
-              <span>{t('nav.prevPost')}</span>
+              <span>{t("nav.prevPost")}</span>
               <div class="text-sm text-accent/85">{prevPost.title}</div>
             </div>
           </a>
@@ -156,7 +155,7 @@ const nextPost =
             class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
             <div>
-              <span>{t('nav.nextPost')}</span>
+              <span>{t("nav.nextPost")}</span>
               <div class="text-sm text-accent/85">{nextPost.title}</div>
             </div>
             <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
