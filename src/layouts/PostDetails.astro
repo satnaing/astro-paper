@@ -282,4 +282,73 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  /** Image lightbox for article images */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    let overlay = null;
+
+    function open(src, alt) {
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute("aria-label", alt || "Image preview");
+      overlay.style.cssText =
+        "position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.8);cursor:zoom-out;opacity:0;transition:opacity .2s ease";
+
+      const closeBtn = document.createElement("button");
+      closeBtn.setAttribute("aria-label", "Close image preview");
+      closeBtn.style.cssText =
+        "position:absolute;top:1rem;right:1rem;color:#fff;font-size:2rem;line-height:1;background:none;border:none;cursor:pointer;padding:.5rem;z-index:51";
+      closeBtn.innerHTML = "&#10005;";
+      closeBtn.addEventListener("click", close);
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = alt || "";
+      img.style.cssText =
+        "max-width:90vw;max-height:90vh;object-fit:contain;border:none;cursor:default;border-radius:4px";
+
+      overlay.appendChild(closeBtn);
+      overlay.appendChild(img);
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => {
+        overlay.style.opacity = "1";
+      });
+
+      overlay.addEventListener("click", function (e) {
+        if (e.target === overlay) close();
+      });
+
+      document.addEventListener("keydown", onKeyDown);
+      closeBtn.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      overlay.style.opacity = "0";
+      overlay.addEventListener("transitionend", function () {
+        overlay?.remove();
+        overlay = null;
+      });
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") close();
+    }
+
+    article.addEventListener("click", function (e) {
+      const img = e.target.closest("#article img");
+      if (!img) return;
+      e.preventDefault();
+      open(img.src, img.alt);
+    });
+  }
+  initLightbox();
 </script>

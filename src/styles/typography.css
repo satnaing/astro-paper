@@ -44,7 +44,7 @@
     }
 
     img {
-      @apply mx-auto border border-border;
+      @apply mx-auto cursor-zoom-in border border-border;
     }
 
     figcaption {
