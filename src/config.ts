@@ -1,5 +1,6 @@
 export const SITE = {
   website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
+  base: "", // set to e.g. "/blog/" to serve under a sub-path
   author: "Sat Naing",
   profile: "https://satnaing.dev/",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
