@@ -9,7 +9,7 @@ import { SITE } from "@/config";
     <div class="app-layout flex items-center justify-start">
       <LinkButton
         id="back-button"
-        href="/"
+        href={import.meta.env.BASE_URL}
         class="focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"
       >
         <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />

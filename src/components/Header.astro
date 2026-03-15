@@ -8,17 +8,25 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 
+const base = import.meta.env.BASE_URL; // e.g. "/blog/"
+
 const { pathname } = Astro.url;
 
 // Remove trailing slash from current pathname if exists
 const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
+// Strip base prefix so isActive comparisons work without the base segment
+const baseStripped = base.endsWith("/") ? base.slice(0, -1) : base;
+const pathWithoutBase = currentPath.startsWith(baseStripped)
+  ? currentPath.slice(baseStripped.length) || "/"
+  : currentPath;
+
 const isActive = (path: string) => {
-  const currentPathArray = currentPath.split("/").filter(p => p.trim());
+  const currentPathArray = pathWithoutBase.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
 
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+  return pathWithoutBase === path || currentPathArray[0] === pathArray[0];
 };
 ---
 
@@ -43,7 +51,7 @@ const isActive = (path: string) => {
     ]}
   >
     <a
-      href="/"
+      href={base}
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
       {SITE.title}
@@ -72,17 +80,17 @@ const isActive = (path: string) => {
         ]}
       >
         <li class="col-span-2">
-          <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
+          <a href={`${base}posts`} class:list={{ "active-nav": isActive("/posts") }}>
             Posts
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
+          <a href={`${base}tags`} class:list={{ "active-nav": isActive("/tags") }}>
             Tags
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+          <a href={`${base}about`} class:list={{ "active-nav": isActive("/about") }}>
             About
           </a>
         </li>
@@ -90,7 +98,7 @@ const isActive = (path: string) => {
           SITE.showArchives && (
             <li class="col-span-2">
               <LinkButton
-                href="/archives"
+                href={`${base}archives`}
                 class:list={[
                   "focus-outline flex justify-center p-3 sm:p-1",
                   {
@@ -108,7 +116,7 @@ const isActive = (path: string) => {
         }
         <li class="col-span-1 flex items-center justify-center">
           <LinkButton
-            href="/search"
+            href={`${base}search`}
             class:list={[
               "focus-outline flex p-3 sm:p-1",
               { "[&>svg]:stroke-accent": isActive("/search") },
