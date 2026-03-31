@@ -112,7 +112,7 @@ sudo systemctl restart networking
 # 简单版：
 本地生成密钥对，设置一个密码![image](https://image.xxxu.me/rest/sB7XQMK.png)
 生成的公钥文件粘贴进这里![image](https://image.xxxu.me/rest/nyHXQMK.png)
-禁止密码登录，开启密钥登录![image](https://image.xxxu.me/rest/0GmXQMK.png)
+禁止密码登录，开启密钥登录![image](https://xxxumeblog-1251629007.cos.ap-guangzhou.myqcloud.com/img/0GmXQMK.png)
 ![image](https://image.xxxu.me/rest/6EQXQMK.png)
 最后重启ssh：
 ```
