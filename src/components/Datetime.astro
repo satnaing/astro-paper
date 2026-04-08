@@ -4,6 +4,10 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import IconCalendar from "@/assets/icons/IconCalendar.svg";
 import { SITE } from "@/config";
+import { getLang, useTranslations } from "../i18n/utils";
+
+const lang = getLang();
+const t = useTranslations(lang);
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -31,7 +35,14 @@ const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
   postTimezone || SITE.timezone
 );
 
-const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
+const monthKeys = [
+  "months.january", "months.february", "months.march", "months.april",
+  "months.may", "months.june", "months.july", "months.august",
+  "months.september", "months.october", "months.november", "months.december",
+] as const;
+
+const monthName = t(monthKeys[datetime.month()]);
+const date = `${datetime.format("DD")} ${monthName}, ${datetime.format("YYYY")}`;
 ---
 
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
@@ -44,7 +55,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
+        {t("post.updated")}
       </span>
     )
   }

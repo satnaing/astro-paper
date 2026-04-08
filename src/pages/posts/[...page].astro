@@ -9,6 +9,10 @@ import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
+import { getLang, useTranslations } from "../../i18n/utils";
+
+const lang = getLang();
+const t = useTranslations(lang);
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -18,9 +22,9 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<Layout title={`${t("posts.title")} | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+  <Main pageTitle={t("posts.title")} pageDesc={t("posts.subtitle")}>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>

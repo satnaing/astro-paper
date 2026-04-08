@@ -1,6 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
+import { getLang, useTranslations } from "../i18n/utils";
+
+const lang = getLang();
+const t = useTranslations(lang);
 
 const currentYear = new Date().getFullYear();
 
@@ -26,7 +30,7 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
       <span>Copyright &#169; {currentYear}</span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+      <span>{t("footer.rights")}.</span>
     </div>
   </div>
 </footer>

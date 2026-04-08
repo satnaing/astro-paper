@@ -1,4 +1,9 @@
 ---
+import { getLang, useTranslations } from "../i18n/utils";
+
+const lang = getLang();
+const t = useTranslations(lang);
+
 // Remove current url path and remove trailing slash if exists
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
@@ -28,7 +33,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">Home</a>
+      <a href="/" class="opacity-80">{t("nav.home")}</a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
