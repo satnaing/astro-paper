@@ -35,7 +35,14 @@ const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
   postTimezone || SITE.timezone
 );
 
-const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
+const monthKeys = [
+  "months.january", "months.february", "months.march", "months.april",
+  "months.may", "months.june", "months.july", "months.august",
+  "months.september", "months.october", "months.november", "months.december",
+] as const;
+
+const monthName = t(monthKeys[datetime.month()]);
+const date = `${datetime.format("DD")} ${monthName}, ${datetime.format("YYYY")}`;
 ---
 
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
