@@ -1,9 +1,0 @@
-services:
-  app:
-    image: node:lts
-    ports:
-      - 4321:4321
-    working_dir: /app
-    command: npm run dev -- --host 0.0.0.0
-    volumes:
-      - ./:/app
