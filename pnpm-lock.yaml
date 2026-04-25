@@ -15,6 +15,12 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.8
         version: 0.9.8(prettier-plugin-astro@0.14.1)(prettier@3.8.3)(typescript@6.0.3)
+      prettier:
+        specifier: 3.8.3
+        version: 3.8.3
+      prettier-plugin-astro:
+        specifier: 0.14.1
+        version: 0.14.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -3134,7 +3140,6 @@ snapshots:
       '@astrojs/compiler': 2.13.1
       prettier: 3.8.3
       sass-formatter: 0.7.9
-    optional: true
 
   prettier@3.8.3: {}
 
@@ -3288,13 +3293,11 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.60.2
       fsevents: 2.3.3
 
-  s.color@0.0.15:
-    optional: true
+  s.color@0.0.15: {}
 
   sass-formatter@0.7.9:
     dependencies:
       suf-log: 2.5.3
-    optional: true
 
   sax@1.6.0: {}
 
@@ -3369,7 +3372,6 @@ snapshots:
   suf-log@2.5.3:
     dependencies:
       s.color: 0.0.15
-    optional: true
 
   svgo@4.0.1:
     dependencies:
