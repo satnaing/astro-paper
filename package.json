@@ -11,13 +11,16 @@
     "preview": "astro preview",
     "astro": "astro",
     "format:check": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "astro": "^6.1.9"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "eslint": "^10.2.1",
+    "eslint-plugin-astro": "^1.7.0",
     "prettier": "3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "^6.0.3"
