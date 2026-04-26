@@ -1,0 +1,30 @@
+export interface UIStrings {
+  nav: {
+    home: string;
+    posts: string;
+    tags: string;
+    archives: string;
+    search: string;
+  };
+  post: {
+    publishedAt: string;
+    updatedAt: string;
+    minutesRead: string;
+    sharePost: string;
+    tagLabel: string;
+    backToTop: string;
+  };
+  pagination: {
+    prev: string;
+    next: string;
+    page: string;
+  };
+  a11y: {
+    skipToContent: string;
+    openMenu: string;
+    closeMenu: string;
+    toggleTheme: string;
+    searchPlaceholder: string;
+    noResults: string;
+  };
+}
