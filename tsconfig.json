@@ -3,6 +3,9 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
-    "paths": { "@/*": ["./src/*"] }
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/astro-paper.config": ["./astro-paper.config"]
+    }
   }
 }
