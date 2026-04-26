@@ -17,6 +17,8 @@ interface SiteConfig {
   timezone?: string;
   /** Text direction */
   dir?: "ltr" | "rtl" | "auto";
+  /** Google Search Console verification meta tag value */
+  googleVerification?: string;
 }
 
 interface PostsConfig {
