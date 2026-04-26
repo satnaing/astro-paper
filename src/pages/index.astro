@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
 ---
 
 <BaseLayout>
-  <h1>Hello World</h1>
+  <Header />
+  <main id="main-content" class="app-layout">
+    <h1>Hello World</h1>
+  </main>
 </BaseLayout>
