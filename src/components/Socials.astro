@@ -1,0 +1,36 @@
+---
+import config from "@/astro-paper.config";
+import LinkButton from "./LinkButton.astro";
+
+const { site, socials = [] } = config;
+
+const icons = import.meta.glob<{ default: (_props: Record<string, unknown>) => unknown }>(
+  "/src/assets/icons/socials/*.svg"
+);
+
+const items = await Promise.all(
+  socials.map(async ({ name, url, linkTitle }) => {
+    const mod = await icons[`/src/assets/icons/socials/${name}.svg`]?.();
+    const Icon = mod?.default;
+    const title =
+      linkTitle ??
+      (url.startsWith("mailto:") || name === "mail"
+        ? `Send an email to ${site.title}`
+        : `${site.title} on ${name.charAt(0).toUpperCase() + name.slice(1)}`);
+    return { url, title, Icon };
+  })
+);
+---
+
+<div class="flex flex-wrap items-center gap-1">
+  {
+    items.map(({ url, title, Icon }) =>
+      Icon ? (
+        <LinkButton href={url} class="p-2 hover:rotate-6 sm:p-1" title={title}>
+          <Icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+          <span class="sr-only">{title}</span>
+        </LinkButton>
+      ) : null
+    )
+  }
+</div>
