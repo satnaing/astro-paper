@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Main from "@/components/Main.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Footer from "@/components/Footer.astro";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { slugifyAll } from "@/utils/slugify";
+import Card from "@/components/Card.astro";
+import Pagination from "@/components/Pagination.astro";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const tags = getUniqueTags(posts);
+
+  return tags.flatMap(({ tag, tagName }) => {
+    const tagPosts = getSortedPosts(
+      posts.filter(({ data }) => slugifyAll(data.tags).includes(tag))
+    );
+
+    return paginate(tagPosts, {
+      params: { tag },
+      props: { tagName },
+      pageSize: config.posts.perPage,
+    });
+  });
+}
+
+const { tag } = Astro.params;
+const { page, tagName } = Astro.props;
+
+const t = useTranslations(Astro.currentLocale ?? "en");
+---
+
+<BaseLayout title={`${t.nav.tags} | ${config.site.title}`}>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main
+    pageTitle={`${t.pages.tagTitle}: ${tagName}`}
+    pageDesc={`${t.pages.tagDesc} "${tagName}".`}
+  >
+    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</BaseLayout>
