@@ -42,6 +42,9 @@ export interface UIStrings {
 
     archivesTitle: string;
     archivesDesc: string;
+
+    searchTitle: string;
+    searchDesc: string;
   };
   a11y: {
     skipToContent: string;

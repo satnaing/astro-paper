@@ -44,6 +44,9 @@ export default {
 
     archivesTitle: "Archives",
     archivesDesc: "All the articles I've archived.",
+
+    searchTitle: "Search",
+    searchDesc: "Search any article ...",
   },
   a11y: {
     skipToContent: "Skip to content",
