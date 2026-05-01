@@ -1,0 +1,29 @@
+---
+import config from "@/config";
+
+type Props = {
+  pageTitle: string | [string, string];
+  pageDesc?: string;
+};
+
+const { props } = Astro;
+
+const backUrl = config.features.showBackButton ? Astro.url.pathname : "/";
+---
+
+<main data-backUrl={backUrl} id="main-content" class="app-layout pb-4">
+  <h1 class="text-2xl font-semibold sm:text-3xl">{props.pageTitle}</h1>
+  <p class="mt-2 mb-6 italic">{props.pageDesc}</p>
+  <slot />
+</main>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const mainContent: HTMLElement | null =
+      document.querySelector("#main-content");
+    const backUrl = mainContent?.dataset?.backurl;
+    if (backUrl) {
+      sessionStorage.setItem("backUrl", backUrl);
+    }
+  });
+</script>
