@@ -21,6 +21,7 @@
     "astro": "^6.1.9",
     "dayjs": "^1.11.20",
     "lodash.kebabcase": "^4.1.1",
+    "sharp": "^0.34.5",
     "slugify": "^1.6.9",
     "tailwindcss": "^4.2.4"
   },

@@ -4,14 +4,19 @@ import config from "@/config";
 type Props = {
   pageTitle: string | [string, string];
   pageDesc?: string;
+  class?: string;
 };
 
-const { pageTitle, pageDesc } = Astro.props;
+const { pageTitle, pageDesc, class: className } = Astro.props;
 
 const backUrl = config.features.showBackButton ? Astro.url.pathname : "/";
 ---
 
-<main data-backUrl={backUrl} id="main-content" class="app-layout pb-4">
+<main
+  data-backUrl={backUrl}
+  id="main-content"
+  class:list={["app-layout pb-4", className]}
+>
   <h1 class="text-2xl font-semibold sm:text-3xl">{pageTitle}</h1>
   <p class="mt-2 mb-6 italic">{pageDesc}</p>
   <slot />
