@@ -41,6 +41,9 @@ export default {
 
     postsTitle: "Posts",
     postsDesc: "All the articles I've posted.",
+
+    archivesTitle: "Archives",
+    archivesDesc: "All the articles I've archived.",
   },
   a11y: {
     skipToContent: "Skip to content",

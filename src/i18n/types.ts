@@ -39,6 +39,9 @@ export interface UIStrings {
 
     postsTitle: string;
     postsDesc: string;
+
+    archivesTitle: string;
+    archivesDesc: string;
   };
   a11y: {
     skipToContent: string;
