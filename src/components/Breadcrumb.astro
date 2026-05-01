@@ -1,0 +1,90 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@/i18n";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+
+// Remove current url path and remove trailing slash if exists
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
+
+// Get url array from path
+// eg: /tags/tailwindcss => ['tags', 'tailwindcss']
+const breadcrumbList = currentUrlPath.split("/").slice(1);
+
+const decodeSegment = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
+const navLabels: Record<string, string> = {
+  posts: t.nav.posts,
+  tags: t.nav.tags,
+  about: t.nav.about,
+  archives: t.nav.archives,
+  search: t.nav.search,
+};
+
+// if breadcrumb is Home > Posts > [page] <etc>
+// replace Posts with localized "Posts (page number)"
+if (breadcrumbList[0] === "posts") {
+  breadcrumbList.splice(
+    0,
+    2,
+    `${t.nav.posts} (${t.pagination.page.toLowerCase()} ${breadcrumbList[1] || 1})`
+  );
+}
+
+// if breadcrumb is Home > Tags > [tag] > [page] <etc>
+// replace [tag] > [page] with localized [tag] (page number)
+if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
+  breadcrumbList.splice(
+    1,
+    3,
+    `${decodeSegment(breadcrumbList[1])} ${
+      Number(breadcrumbList[2]) === 1
+        ? ""
+        : `(${t.pagination.page.toLowerCase()} ${breadcrumbList[2]})`
+    }`
+  );
+}
+---
+
+<nav class="app-layout mt-8 mb-1" aria-label="breadcrumb">
+  <ul
+    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
+  >
+    <li>
+      <a href={getRelativeLocaleUrl(locale, "")} class="opacity-80">{t.nav.home}</a>
+      <span aria-hidden="true" class="opacity-80">&raquo;</span>
+    </li>
+    {
+      breadcrumbList.map((breadcrumb, index) =>
+        index + 1 === breadcrumbList.length ? (
+          <li>
+            <span
+              class:list={["capitalize opacity-75", { lowercase: index > 0 }]}
+              aria-current="page"
+            >
+              {/* make the last part lowercase in Home > Tags > some-tag */}
+              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
+            </span>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={getRelativeLocaleUrl(locale, breadcrumb)}
+              class="capitalize opacity-70"
+            >
+              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
+            </a>
+            <span aria-hidden="true">&raquo;</span>
+          </li>
+        )
+      )
+    }
+  </ul>
+</nav>
