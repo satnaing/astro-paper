@@ -30,7 +30,14 @@ export interface UIStrings {
     copyright: string;
     allRightsReserved: string;
   };
-  meta: {
+  pages: {
+    tagTitle: string;
+    tagDesc: string;
+
+    tagsTitle: string;
+    tagsDesc: string;
+
+    postsTitle: string;
     postsDesc: string;
   };
   a11y: {

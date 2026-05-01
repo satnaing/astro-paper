@@ -22,12 +22,12 @@ const { page } = Astro.props;
 const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
-<BaseLayout title={`${t.nav.posts} | ${config.site.title}`}>
+<BaseLayout title={`${t.pages.postsTitle} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
 
-  <Main pageTitle={t.nav.posts} pageDesc={t.meta.postsDesc}>
+  <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>

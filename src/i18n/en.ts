@@ -32,7 +32,14 @@ export default {
     copyright: "Copyright",
     allRightsReserved: "All rights reserved.",
   },
-  meta: {
+  pages: {
+    tagTitle: "Tag",
+    tagDesc: "All the articles with the tag",
+
+    tagsTitle: "Tags",
+    tagsDesc: "All the tags used in posts.",
+
+    postsTitle: "Posts",
     postsDesc: "All the articles I've posted.",
   },
   a11y: {
