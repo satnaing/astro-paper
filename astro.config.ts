@@ -1,11 +1,13 @@
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import config from "./astro-paper.config";
 
 export default defineConfig({
   site: config.site.url,
   integrations: [
+    mdx(),
     sitemap({
       filter: page =>
         config.features?.showArchives !== false || !page.endsWith("/archives/"),

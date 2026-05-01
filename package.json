@@ -18,11 +18,15 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^6.1.9",
+    "dayjs": "^1.11.20",
+    "lodash.kebabcase": "^4.1.1",
+    "slugify": "^1.6.9",
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@tailwindcss/typography": "^0.5.19",
+    "@types/lodash.kebabcase": "^4.1.9",
     "@typescript-eslint/parser": "^8.59.0",
     "eslint": "^10.2.1",
     "eslint-plugin-astro": "^1.7.0",
