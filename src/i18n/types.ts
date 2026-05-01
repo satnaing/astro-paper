@@ -37,5 +37,7 @@ export interface UIStrings {
     toggleTheme: string;
     searchPlaceholder: string;
     noResults: string;
+    goToPreviousPage: string;
+    goToNextPage: string;
   };
 }

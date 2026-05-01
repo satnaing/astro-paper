@@ -39,5 +39,7 @@ export default {
     toggleTheme: "Toggle theme",
     searchPlaceholder: "Search posts...",
     noResults: "No results found",
+    goToPreviousPage: "Go to previous page",
+    goToNextPage: "Go to next page",
   },
 } satisfies UIStrings;
