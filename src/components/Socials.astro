@@ -1,8 +1,8 @@
 ---
-import config from "@/astro-paper.config";
+import config from "@/config";
 import LinkButton from "./LinkButton.astro";
 
-const { site, socials = [] } = config;
+const { site, socials } = config;
 
 const icons = import.meta.glob<{ default: (_props: Record<string, unknown>) => unknown }>(
   "/src/assets/icons/socials/*.svg"

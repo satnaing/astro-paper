@@ -7,7 +7,7 @@ import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
-import config from "@/astro-paper.config";
+import config from "@/config";
 import { useTranslations } from "@/i18n";
 
 const { site, features } = config;
@@ -91,7 +91,7 @@ const isActive = (path: string) => {
           </a>
         </li>
         {
-          features?.showArchives !== false && (
+          features.showArchives && (
             <li class="col-span-2">
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "archives")}
@@ -109,7 +109,7 @@ const isActive = (path: string) => {
           )
         }
         {
-          features?.search !== false && (
+          features.search !== false && (
             <li class="col-span-1 flex items-center justify-center">
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "search")}
@@ -127,7 +127,7 @@ const isActive = (path: string) => {
           )
         }
         {
-          features?.lightAndDarkMode !== false && (
+          features.lightAndDarkMode && (
             <li class="col-span-1 flex items-center justify-center">
               <button
                 id="theme-btn"

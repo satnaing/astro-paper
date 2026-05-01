@@ -2,7 +2,7 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import config from "@/astro-paper.config";
+import config from "@/config";
 import "@/styles/global.css";
 
 type Props = {
@@ -108,7 +108,7 @@ const rssHref = getRelativeLocaleUrl(Astro.currentLocale ?? "en", "rss.xml");
       })();
     </script>
 
-    {features?.lightAndDarkMode !== false && <ClientRouter />}
+    {features.lightAndDarkMode && <ClientRouter />}
   </head>
   <body
     class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-background flex min-h-svh flex-col"
