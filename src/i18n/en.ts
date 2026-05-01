@@ -32,6 +32,9 @@ export default {
     copyright: "Copyright",
     allRightsReserved: "All rights reserved.",
   },
+  meta: {
+    postsDesc: "All the articles I've posted.",
+  },
   a11y: {
     skipToContent: "Skip to content",
     openMenu: "Open menu",

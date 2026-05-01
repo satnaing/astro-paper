@@ -30,6 +30,9 @@ export interface UIStrings {
     copyright: string;
     allRightsReserved: string;
   };
+  meta: {
+    postsDesc: string;
+  };
   a11y: {
     skipToContent: string;
     openMenu: string;

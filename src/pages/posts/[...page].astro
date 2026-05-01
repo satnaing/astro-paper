@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import Main from "@/components/Main.astro";
+import Card from "@/components/Card.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return paginate(getSortedPosts(posts), { pageSize: config.posts.perPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const t = useTranslations(Astro.currentLocale ?? "en");
+---
+
+<BaseLayout title={`${t.nav.posts} | ${config.site.title}`}>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.nav.posts} pageDesc={t.meta.postsDesc}>
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</BaseLayout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const mainContent = document.querySelector<HTMLElement>("#main-content");
+    if (mainContent) {
+      sessionStorage.setItem(
+        "backUrl",
+        mainContent.dataset.backurl ?? "/posts/"
+      );
+    }
+  });
+</script>
