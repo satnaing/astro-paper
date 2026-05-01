@@ -20,6 +20,16 @@ export interface UIStrings {
     next: string;
     page: string;
   };
+  home: {
+    socialLinks: string;
+    featured: string;
+    recentPosts: string;
+    allPosts: string;
+  };
+  footer: {
+    copyright: string;
+    allRightsReserved: string;
+  };
   a11y: {
     skipToContent: string;
     openMenu: string;
