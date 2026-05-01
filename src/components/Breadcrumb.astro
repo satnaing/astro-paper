@@ -58,7 +58,9 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href={getRelativeLocaleUrl(locale, "")} class="opacity-80">{t.nav.home}</a>
+      <a href={getRelativeLocaleUrl(locale, "")} class="opacity-80">
+        {t.nav.home}
+      </a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
@@ -81,7 +83,9 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
             >
               {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
             </a>
-            <span aria-hidden="true">&raquo;</span>
+            <span aria-hidden="true" class="opacity-70">
+              &raquo;
+            </span>
           </li>
         )
       )
