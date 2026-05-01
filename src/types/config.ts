@@ -117,6 +117,32 @@ interface AstroPaperConfig {
   shareLinks?: ShareLink[];
 }
 
+interface ResolvedPostsConfig {
+  perPage: number;
+  perIndex: number;
+  scheduledPostMargin: number;
+}
+
+interface ResolvedFeaturesConfig {
+  lightAndDarkMode: boolean;
+  dynamicOgImage: boolean;
+  showArchives: boolean;
+  showBackButton: boolean;
+  editPost?: EditPostConfig;
+  search: "pagefind" | false;
+  toc: "sticky" | "inline" | false;
+  comments: "giscus" | false;
+  analytics: "umami" | "google" | false;
+}
+
+export interface ResolvedAstroPaperConfig {
+  site: SiteConfig;
+  posts: ResolvedPostsConfig;
+  features: ResolvedFeaturesConfig;
+  socials: SocialLink[];
+  shareLinks: ShareLink[];
+}
+
 /**
  * Type helper for astro-paper.config.ts.
  * Provides full IntelliSense without any runtime overhead.
