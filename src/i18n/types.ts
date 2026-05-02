@@ -11,9 +11,15 @@ export interface UIStrings {
     publishedAt: string;
     updatedAt: string;
     minutesRead: string;
-    sharePost: string;
+    sharePostIntro: string;
+    sharePostOn: string;
+    sharePostViaEmail: string;
     tagLabel: string;
     backToTop: string;
+    goBack: string;
+    editPage: string;
+    previousPost: string;
+    nextPost: string;
   };
   pagination: {
     prev: string;
