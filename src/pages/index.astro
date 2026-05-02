@@ -9,11 +9,13 @@ import LinkButton from "@/components/LinkButton.astro";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 const { socials, posts: postsConfig } = config;
-const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
 
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
@@ -30,7 +32,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       </h1>
       <a
         target="_blank"
-        href="/rss.xml"
+        href={getRelativeLocaleUrl(locale, "rss.xml")}
         class="inline-block"
         aria-label="RSS Feed"
         title="RSS Feed"
@@ -107,7 +109,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
 
     <div class="my-8 text-center">
-      <LinkButton href="/posts/">
+      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
         {t.home.allPosts}
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
