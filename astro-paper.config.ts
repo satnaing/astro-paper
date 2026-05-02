@@ -2,7 +2,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    url: "http://localhost:4321/",
+    url: "https://astro-paper.pages.dev/",
     title: "AstroPaper",
     description: "A minimal, responsive and SEO-friendly Astro blog theme.",
     author: "Sat Naing",
