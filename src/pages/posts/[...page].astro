@@ -3,14 +3,14 @@ import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Pagination from "@/components/Pagination.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
-import { useTranslations } from "@/i18n";
-import config from "@/config";
 import Main from "@/components/Main.astro";
 import Card from "@/components/Card.astro";
+import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("posts", ({ data }) => !data.draft);

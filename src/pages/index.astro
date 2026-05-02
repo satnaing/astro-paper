@@ -4,13 +4,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
+import LinkButton from "@/components/LinkButton.astro";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import config from "@/config";
+import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
+import config from "@/config";
 
 const { socials, posts: postsConfig } = config;
 const t = useTranslations(Astro.currentLocale ?? "en");
@@ -61,7 +61,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       {
         socials.length > 0 && (
           <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">{t.home.socialLinks}:</div>
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
+              {t.home.socialLinks}:
+            </div>
             <Socials />
           </div>
         )
@@ -77,7 +79,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
             { "border-border border-b": recentPosts.length > 0 },
           ]}
         >
-          <h2 class="text-2xl font-semibold tracking-wide">{t.home.featured}</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">
+            {t.home.featured}
+          </h2>
           <ul>
             {featuredPosts.map(data => (
               <Card variant="h3" {...data} />
@@ -90,7 +94,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     {
       recentPosts.length > 0 && (
         <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">{t.home.recentPosts}</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">
+            {t.home.recentPosts}
+          </h2>
           <ul>
             {recentPosts.slice(0, postsConfig.perIndex).map(data => (
               <Card variant="h3" {...data} />

@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import postFilter from "./postFilter";
 
-const getSortedPosts = (posts: CollectionEntry<"posts">[]) => {
+export function getSortedPosts(posts: CollectionEntry<"posts">[]) {
   return posts
     .filter(postFilter)
     .sort(
@@ -13,6 +13,4 @@ const getSortedPosts = (posts: CollectionEntry<"posts">[]) => {
           new Date(a.data.modDatetime ?? a.data.pubDatetime).getTime() / 1000
         )
     );
-};
-
-export default getSortedPosts;
+}

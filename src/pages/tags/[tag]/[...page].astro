@@ -2,17 +2,17 @@
 import { getCollection } from "astro:content";
 import type { GetStaticPathsOptions } from "astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Main from "@/components/Main.astro";
 import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
+import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
 import { getUniqueTags } from "@/utils/getUniqueTags";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { slugifyAll } from "@/utils/slugify";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
-import getSortedPosts from "@/utils/getSortedPosts";
-import { slugifyAll } from "@/utils/slugify";
-import Card from "@/components/Card.astro";
-import Pagination from "@/components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
