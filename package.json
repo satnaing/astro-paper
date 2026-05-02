@@ -18,10 +18,12 @@
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^6.1.9",
     "dayjs": "^1.11.20",
     "lodash.kebabcase": "^4.1.1",
+    "satori": "^0.26.0",
     "sharp": "^0.34.5",
     "slugify": "^1.6.9",
     "tailwindcss": "^4.2.4"
