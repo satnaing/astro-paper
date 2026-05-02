@@ -33,23 +33,27 @@ interface PostsConfig {
   scheduledPostMargin?: number;
 }
 
-interface EditPostConfig {
-  enabled: boolean;
-  /** Base URL for the edit link, e.g. GitHub edit URL */
-  url: string;
-}
-
 interface FeaturesConfig {
   /** Enable light/dark mode toggle. Defaults to true. */
   lightAndDarkMode?: boolean;
-  /** Generate dynamic OG images per post. Defaults to true. */
+  /**
+   * Generate dynamic OG images per post and provide `/og.png` when the static
+   * `public/{site.ogImage}` file is absent. When false, that file is required
+   * for the default layout OG image (build fails if missing).
+   */
   dynamicOgImage?: boolean;
   /** Show the /archives page and link it in nav. Defaults to true. */
   showArchives?: boolean;
   /** Show back button on post detail pages. Defaults to true. */
   showBackButton?: boolean;
   /** "Edit page" link shown on post detail pages. */
-  editPost?: EditPostConfig;
+  editPost?:
+    | {
+        enabled: true;
+        /** Base URL for the edit link, e.g. GitHub edit URL */
+        url: string;
+      }
+    | { enabled: false };
   /**
    * Search provider. "pagefind" ships in the base template.
    * Set to false to disable search entirely.
@@ -115,28 +119,25 @@ interface AstroPaperConfig {
   shareLinks?: ShareLink[];
 }
 
-interface ResolvedPostsConfig {
-  perPage: number;
-  perIndex: number;
-  scheduledPostMargin: number;
-}
-
-interface ResolvedFeaturesConfig {
-  lightAndDarkMode: boolean;
-  dynamicOgImage: boolean;
-  showArchives: boolean;
-  showBackButton: boolean;
-  editPost?: EditPostConfig;
-  search: "pagefind" | false;
-  toc: "sticky" | "inline" | false;
-  comments: "giscus" | false;
-  analytics: "umami" | "google" | false;
-}
+type ResolvedSiteConfig = Required<
+  Pick<
+    SiteConfig,
+    | "url"
+    | "title"
+    | "description"
+    | "author"
+    | "lang"
+    | "timezone"
+    | "dir"
+    | "ogImage"
+  >
+> &
+  Pick<SiteConfig, "profile" | "googleVerification">;
 
 export interface ResolvedAstroPaperConfig {
-  site: SiteConfig;
-  posts: ResolvedPostsConfig;
-  features: ResolvedFeaturesConfig;
+  site: ResolvedSiteConfig;
+  posts: Required<PostsConfig>;
+  features: Required<FeaturesConfig>;
   socials: SocialLink[];
   shareLinks: ShareLink[];
 }
