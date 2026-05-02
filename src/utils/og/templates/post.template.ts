@@ -1,7 +1,7 @@
 import satori from "satori";
 import type { CollectionEntry } from "astro:content";
+import { loadGoogleFonts } from "@/utils/og/loadGoogleFont";
 import config from "@/config";
-import { loadGoogleFonts } from "./loadGoogleFont";
 
 export async function postOgTemplate(post: CollectionEntry<"posts">) {
   return satori(
