@@ -6,9 +6,9 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
-import config from "@/config";
+import { postFilter } from "@/utils/postFilter";
 import { useTranslations } from "@/i18n";
-import postFilter from "@/utils/postFilter";
+import config from "@/config";
 import { getPostsByGroupCondition } from "./_getPostsByGroupCondition";
 
 // Redirect to 404 page if `showArchives` config is false
