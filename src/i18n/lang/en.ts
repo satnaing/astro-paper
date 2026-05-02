@@ -1,4 +1,4 @@
-import type { UIStrings } from "./types";
+import type { UIStrings } from "../types";
 
 export default {
   nav: {
