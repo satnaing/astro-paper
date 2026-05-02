@@ -35,8 +35,6 @@ interface PostsConfig {
 
 interface EditPostConfig {
   enabled: boolean;
-  /** Link text shown on the post */
-  text?: string;
   /** Base URL for the edit link, e.g. GitHub edit URL */
   url: string;
 }
