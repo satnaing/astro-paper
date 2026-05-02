@@ -6,6 +6,7 @@ import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import IconUnderline from "@/assets/icons/IconUnderline.svg";
 import LinkButton from "./LinkButton.astro";
 import config from "@/config";
 import { useTranslations } from "@/i18n";
@@ -64,7 +65,7 @@ const isActive = (path: string) => {
       </button>
       <ul
         id="menu-items"
-        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
+        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 [&>li]:h-9 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
       >
         <li class="col-span-2">
           <a
@@ -96,14 +97,17 @@ const isActive = (path: string) => {
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "archives")}
                 class:list={[
-                  "focus-outline flex justify-center p-3 sm:p-1",
-                  { "active-nav [&>svg]:stroke-accent": isActive("/archives") },
+                  "focus-outline flex size-full justify-center p-3 sm:p-1",
+                  { "active-nav": isActive("/archives") },
                 ]}
                 title={t.nav.archives}
                 aria-label={t.nav.archives}
               >
                 <IconArchive class="hidden sm:inline-block" />
                 <span class="sm:sr-only">{t.nav.archives}</span>
+                {isActive("/archives") && (
+                  <IconUnderline aria-hidden="true" class="max-sm:hidden" />
+                )}
               </LinkButton>
             </li>
           )
@@ -113,15 +117,15 @@ const isActive = (path: string) => {
             <li class="col-span-1 flex items-center justify-center">
               <LinkButton
                 href={getRelativeLocaleUrl(locale, "search")}
-                class:list={[
-                  "focus-outline flex p-3 sm:p-1",
-                  { "[&>svg]:stroke-accent": isActive("/search") },
-                ]}
+                class:list={["focus-outline flex size-full"]}
                 title={t.nav.search}
                 aria-label={t.nav.search}
               >
                 <IconSearch />
                 <span class="sr-only">{t.nav.search}</span>
+                {isActive("/search") && (
+                  <IconUnderline aria-hidden="true" class="max-sm:w-6" />
+                )}
               </LinkButton>
             </li>
           )
