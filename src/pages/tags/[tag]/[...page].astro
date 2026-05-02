@@ -34,7 +34,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 const { tag } = Astro.params;
 const { page, tagName } = Astro.props;
 
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <Layout title={`${t.nav.tags} | ${config.site.title}`}>

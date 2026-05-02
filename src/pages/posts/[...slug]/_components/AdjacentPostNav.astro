@@ -27,7 +27,7 @@ const nextPost =
     ? sortedPosts[currentPostIndex + 1]
     : null;
 
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2">

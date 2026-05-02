@@ -16,7 +16,7 @@ const editPost = config.features.editPost;
 const href = editPost.enabled ? `${editPost.url}${post.filePath}` : "";
 const showEditPost = editPost.enabled && !hideEditPost && href.trim() !== "";
 
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 ---
 
 {

@@ -12,7 +12,7 @@ import { useTranslations } from "@/i18n";
 
 const { site, features } = config;
 
-const locale = Astro.currentLocale ?? "en";
+const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 
 const { pathname } = Astro.url;

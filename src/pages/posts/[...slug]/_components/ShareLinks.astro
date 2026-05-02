@@ -4,7 +4,7 @@ import { tplStr, useTranslations } from "@/i18n";
 import config from "@/config";
 
 const { shareLinks } = config;
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 
 const icons = import.meta.glob<{
   default: (_props: Record<string, unknown>) => unknown;

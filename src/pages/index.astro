@@ -13,7 +13,7 @@ import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 const { socials, posts: postsConfig } = config;
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);

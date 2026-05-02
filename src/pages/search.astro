@@ -14,7 +14,7 @@ if (config.features.search !== "pagefind") {
 
 const backUrl = config.features.showBackButton ? `${Astro.url.pathname}` : "/";
 
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <Layout title={`${t.pages.searchTitle} | ${config.site.title}`}>

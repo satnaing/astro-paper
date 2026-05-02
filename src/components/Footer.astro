@@ -9,7 +9,7 @@ type Props = {
 
 const { noMarginTop = false, class: className, ...attrs } = Astro.props;
 
-const t = useTranslations(Astro.currentLocale ?? "en");
+const t = useTranslations(Astro.currentLocale);
 const currentYear = new Date().getFullYear();
 ---
 
@@ -18,7 +18,7 @@ const currentYear = new Date().getFullYear();
   {...attrs}
 >
   <div
-    class="flex flex-col items-center justify-between border-t border-border py-6 sm:flex-row-reverse sm:py-4"
+    class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"
   >
     <Socials />
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
