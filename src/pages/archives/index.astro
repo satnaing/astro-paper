@@ -7,9 +7,9 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import { postFilter } from "@/utils/postFilter";
+import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
-import { getPostsByGroupCondition } from "./_getPostsByGroupCondition";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!config.features.showArchives) {
