@@ -2,13 +2,13 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import config from "@/config";
 import "@/styles/global.css";
 
 type Props = {
   title?: string;
   description?: string;
-  /** OG image path relative to site root, e.g. "/og.png" */
   ogImage?: string;
   canonicalURL?: string;
 };
@@ -18,7 +18,7 @@ const { site, features } = config;
 const {
   title = site.title,
   description = site.description,
-  ogImage = site.ogImage ? `/${site.ogImage}` : "/og.png",
+  ogImage = resolveDefaultOgImagePath(config),
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
 

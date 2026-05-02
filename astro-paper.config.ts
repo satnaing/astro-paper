@@ -7,7 +7,7 @@ export default defineAstroPaperConfig({
     description: "A minimal, responsive and SEO-friendly Astro blog theme.",
     author: "Sat Naing",
     profile: "https://satna.ing",
-    ogImage: "astropaper-og.jpg",
+    ogImage: "default-og.jpg",
     lang: "en",
     timezone: "Asia/Bangkok",
     dir: "ltr",
