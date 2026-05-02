@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
@@ -9,7 +9,7 @@ import config from "@/config";
 const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
-<BaseLayout title={`${t.notFound.title} | ${config.site.title}`}>
+<Layout title={`${t.notFound.title} | ${config.site.title}`}>
   <Header />
 
   <main
@@ -30,4 +30,4 @@ const t = useTranslations(Astro.currentLocale ?? "en");
   </main>
 
   <Footer />
-</BaseLayout>
+</Layout>

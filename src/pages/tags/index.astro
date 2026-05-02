@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
@@ -16,7 +16,7 @@ const tags = getUniqueTags(posts);
 const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
-<BaseLayout title={`${t.nav.tags} | ${config.site.title}`}>
+<Layout title={`${t.nav.tags} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
@@ -28,4 +28,4 @@ const t = useTranslations(Astro.currentLocale ?? "en");
   </Main>
 
   <Footer />
-</BaseLayout>
+</Layout>

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
@@ -24,7 +24,7 @@ const filteredPosts = posts.filter(postFilter);
 const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 ---
 
-<BaseLayout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
+<Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
@@ -81,4 +81,4 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
   </Main>
 
   <Footer />
-</BaseLayout>
+</Layout>

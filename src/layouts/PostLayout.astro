@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
+import Layout from "./Layout.astro";
 import config from "@/config";
 
 type Props = {
@@ -33,7 +33,7 @@ const structuredData = {
 };
 ---
 
-<BaseLayout {title} {description} {ogImage} {canonicalURL}>
+<Layout {title} {description} {ogImage} {canonicalURL}>
   <Fragment slot="head">
     <!-- Override og:type for article pages -->
     <meta property="og:type" content="article" />
@@ -63,4 +63,4 @@ const structuredData = {
   </Fragment>
 
   <slot />
-</BaseLayout>
+</Layout>

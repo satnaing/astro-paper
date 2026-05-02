@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPathsOptions } from "astro";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
@@ -37,7 +37,7 @@ const { page, tagName } = Astro.props;
 const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
-<BaseLayout title={`${t.nav.tags} | ${config.site.title}`}>
+<Layout title={`${t.nav.tags} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
@@ -55,4 +55,4 @@ const t = useTranslations(Astro.currentLocale ?? "en");
   <Pagination {page} />
 
   <Footer noMarginTop={page.lastPage > 1} />
-</BaseLayout>
+</Layout>

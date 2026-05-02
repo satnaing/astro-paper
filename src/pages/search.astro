@@ -1,6 +1,6 @@
 ---
 import "@pagefind/default-ui/css/ui.css";
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
@@ -17,7 +17,7 @@ const backUrl = config.features.showBackButton ? `${Astro.url.pathname}` : "/";
 const t = useTranslations(Astro.currentLocale ?? "en");
 ---
 
-<BaseLayout title={`${t.pages.searchTitle} | ${config.site.title}`}>
+<Layout title={`${t.pages.searchTitle} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
@@ -27,7 +27,7 @@ const t = useTranslations(Astro.currentLocale ?? "en");
   </Main>
 
   <Footer />
-</BaseLayout>
+</Layout>
 
 <script>
   function initSearch() {
