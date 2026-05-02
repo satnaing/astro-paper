@@ -62,4 +62,9 @@ export interface UIStrings {
     goToPreviousPage: string;
     goToNextPage: string;
   };
+  notFound: {
+    title: string;
+    message: string;
+    goHome: string;
+  };
 }

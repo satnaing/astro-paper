@@ -64,4 +64,9 @@ export default {
     goToPreviousPage: "Go to previous page",
     goToNextPage: "Go to next page",
   },
+  notFound: {
+    title: "404 Not Found",
+    message: "Page Not Found",
+    goHome: "Go back home",
+  },
 } satisfies UIStrings;
