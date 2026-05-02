@@ -37,7 +37,7 @@ const { page, tagName } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<Layout title={`${t.nav.tags} | ${config.site.title}`}>
+<Layout title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />

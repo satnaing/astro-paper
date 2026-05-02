@@ -16,7 +16,7 @@ const tags = getUniqueTags(posts);
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<Layout title={`${t.nav.tags} | ${config.site.title}`}>
+<Layout title={`${t.pages.tagsTitle} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
