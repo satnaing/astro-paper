@@ -40,7 +40,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
         .map(([year, yearGroup]) => (
           <div>
             <span class="text-2xl font-bold">{year}</span>
-            <sup class="text-sm">{yearGroup.length}</sup>
+            <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
@@ -56,7 +56,9 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
                         new Date(2000, Number(month) - 1, 1)
                       )}
                     </span>
-                    <sup class="text-xs">{monthGroup.length}</sup>
+                    <sup class="text-muted-foreground text-xs">
+                      {monthGroup.length}
+                    </sup>
                   </div>
                   <ul>
                     {monthGroup
