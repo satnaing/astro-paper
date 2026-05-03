@@ -12,8 +12,10 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-if (config.features.search !== "pagefind") {
-  return Astro.rewrite(getRelativeLocaleUrl(locale, "404"));
+// Redirect to 404 page if `search` feature is not enabled
+const notFoundUrl = getRelativeLocaleUrl(locale, "404");
+if (config.features.search !== "pagefind" && notFoundUrl) {
+  return Astro.rewrite(notFoundUrl);
 }
 
 const backUrl = config.features.showBackButton
