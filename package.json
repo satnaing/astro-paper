@@ -24,6 +24,8 @@
     "astro": "^6.1.9",
     "dayjs": "^1.11.20",
     "lodash.kebabcase": "^4.1.1",
+    "remark-collapse": "^0.1.2",
+    "remark-toc": "^9.0.0",
     "satori": "^0.26.0",
     "sharp": "^0.34.5",
     "slugify": "^1.6.9",
