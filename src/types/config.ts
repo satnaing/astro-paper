@@ -59,23 +59,6 @@ interface FeaturesConfig {
    * Set to false to disable search entirely.
    */
   search?: "pagefind" | false;
-  /**
-   * Table of contents. Requires `npx astro-paper add sticky-toc`
-   * or `npx astro-paper add inline-toc` from the registry.
-   * Keep false until the add-on is installed.
-   */
-  toc?: "sticky" | "inline" | false;
-  /**
-   * Comments provider. Requires `npx astro-paper add comments-giscus`.
-   * Keep false until the add-on is installed.
-   */
-  comments?: "giscus" | false;
-  /**
-   * Analytics provider. Requires the matching registry add-on,
-   * e.g. `npx astro-paper add analytics-umami`.
-   * Keep false until the add-on is installed.
-   */
-  analytics?: "umami" | "google" | false;
 }
 
 interface SocialLink {
