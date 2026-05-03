@@ -1,5 +1,6 @@
 ---
 import config from "@/config";
+import { pathWithBase } from "@/utils/withBase";
 
 type Props = {
   pageTitle: string | [string, string];
@@ -9,7 +10,9 @@ type Props = {
 
 const { pageTitle, pageDesc, class: className } = Astro.props;
 
-const backUrl = config.features.showBackButton ? Astro.url.pathname : "/";
+const backUrl = config.features.showBackButton
+  ? Astro.url.pathname
+  : pathWithBase("");
 ---
 
 <main

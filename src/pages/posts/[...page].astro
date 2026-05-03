@@ -19,7 +19,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 
-const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
 ---
 
 <Layout title={`${t.pages.postsTitle} | ${config.site.title}`}>
@@ -41,10 +42,12 @@ const t = useTranslations(Astro.currentLocale);
 <script>
   document.addEventListener("astro:page-load", () => {
     const mainContent = document.querySelector<HTMLElement>("#main-content");
+    const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+    const defaultBackUrl = `${baseRoot}posts/`;
     if (mainContent) {
       sessionStorage.setItem(
         "backUrl",
-        mainContent.dataset.backurl ?? "/posts/"
+        mainContent.dataset.backurl ?? defaultBackUrl
       );
     }
   });

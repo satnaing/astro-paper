@@ -1,15 +1,16 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import IconX from "@/assets/icons/IconX.svg";
-import IconMoon from "@/assets/icons/IconMoon.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconUnderline from "@/assets/icons/IconUnderline.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
-import IconUnderline from "@/assets/icons/IconUnderline.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
-import config from "@/config";
+import { stripBase } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
+import config from "@/config";
 
 const { site, features } = config;
 
@@ -17,8 +18,32 @@ const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 
 const { pathname } = Astro.url;
-const currentPath =
-  pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+
+// Strip the base prefix so isActive comparisons work regardless of deploy subdirectory.
+// e.g. with base "/blog": "/blog/posts/slug" → "/posts/slug"
+const relativePath = stripBase(pathname);
+const pathWithoutTrailingSlash =
+  relativePath.endsWith("/") && relativePath !== "/"
+    ? relativePath.slice(0, -1)
+    : relativePath;
+
+function stripLocalePrefix(path: string): string {
+  const localePrefix = `/${locale}`;
+
+  // "/en" should behave like root "/"
+  if (path === localePrefix) {
+    return "/";
+  }
+
+  // "/en/posts" -> "/posts"
+  if (path.startsWith(`${localePrefix}/`)) {
+    return path.slice(localePrefix.length);
+  }
+
+  return path;
+}
+
+const currentPath = stripLocalePrefix(pathWithoutTrailingSlash);
 
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());

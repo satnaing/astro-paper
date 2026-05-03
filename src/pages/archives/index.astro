@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -11,12 +12,13 @@ import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
+const locale = Astro.currentLocale ?? config.site.lang;
+
 // Redirect to 404 page if `showArchives` config is false
 if (!config.features.showArchives) {
-  return Astro.redirect("/404");
+  return Astro.rewrite(getRelativeLocaleUrl(locale, "404"));
 }
 
-const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 
 const posts = await getCollection("posts");

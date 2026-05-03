@@ -27,6 +27,7 @@ type Props = {
 };
 
 const { post } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
 
 const {
   title,
@@ -51,7 +52,7 @@ if (typeof initOgImage === "string") {
 }
 
 if (!ogImageUrl && config.features.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
+  ogImageUrl = `${getPath(post.id, post.filePath, true, locale)}/index.png`;
 }
 
 const ogImage = ogImageUrl
