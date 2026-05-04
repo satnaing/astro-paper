@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2026-01-10T13:04:53.851Z
+modDatetime: 2026-05-04T00:00:00Z
 title: How to configure AstroPaper theme
 slug: how-to-configure-astropaper-theme
 featured: true
@@ -16,65 +16,96 @@ AstroPaper is a highly customizable Astro blog theme. With AstroPaper, you can c
 
 ## Table of contents
 
-## Configuring SITE
+## Configuring astro-paper.config.ts
 
-The important configurations resides in `src/config.ts` file. Within that file, you'll see the `SITE` object where you can specify your website's main configurations.
+All site-wide configuration lives in `astro-paper.config.ts` at the root of the project. Use `defineAstroPaperConfig()` to get full IntelliSense support:
 
-During development, it's okay to leave `SITE.website` empty. But in production mode, you should specify your deployed url in `SITE.website` option since this will be used for canonical URL, social card URL etc.. which are important for SEO.
+```ts file="astro-paper.config.ts"
+import { defineAstroPaperConfig } from "./src/types/config";
 
-```js file=src/config.ts
-export const SITE = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
-  author: "Sat Naing",
-  profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "AstroPaper",
-  ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: true,
-    text: "Suggest Changes",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
+export default defineAstroPaperConfig({
+  site: {
+    url: "https://your-site.com/", // replace with your deployed URL
+    title: "AstroPaper",
+    description: "A minimal, responsive and SEO-friendly Astro blog theme.",
+    author: "Sat Naing",
+    profile: "https://satnaing.dev",
+    ogImage: "default-og.jpg",
+    lang: "en",
+    timezone: "Asia/Bangkok",
+    dir: "ltr",
   },
-  dynamicOgImage: true, // enable automatic dynamic og-image generation
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-} as const;
+  posts: {
+    perPage: 4,
+    perIndex: 4,
+    scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  },
+  features: {
+    lightAndDarkMode: true,
+    dynamicOgImage: true,
+    showArchives: true,
+    showBackButton: true,
+    editPost: {
+      enabled: true,
+      url: "https://github.com/satnaing/astro-paper/edit/main/",
+    },
+    search: "pagefind",
+  },
+  socials: [
+    { name: "github", url: "https://github.com/satnaing/astro-paper" },
+    { name: "x", url: "https://x.com/username" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/username/" },
+    { name: "mail", url: "mailto:yourmail@gmail.com" },
+  ],
+  shareLinks: [
+    { name: "whatsapp", url: "https://wa.me/?text=" },
+    { name: "facebook", url: "https://www.facebook.com/sharer.php?u=" },
+    { name: "x", url: "https://x.com/intent/post?url=" },
+    { name: "telegram", url: "https://t.me/share/url?url=" },
+    { name: "mail", url: "mailto:?subject=See%20this%20post&body=" },
+  ],
+});
 ```
 
-Here are SITE configuration options
+### `site` options
 
-| Options               | Description                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `website`             | Your deployed website URL                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `author`              | Your name                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `profile`             | Your personal/portfolio website URL which is used for better SEO. Put `null` or empty string `""` if you don't have any.                                                                                                                                                                                                                                                                                                          |
-| `desc`                | Your site description. Useful for SEO and social media sharing.                                                                                                                                                                                                                                                                                                                                                                   |
-| `title`               | Your site name                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `ogImage`             | Your default OG image for the site. Useful for social media sharing. OG images can be an external image URL or they can be placed under `/public` directory.                                                                                                                                                                                                                                                                      |
-| `lightAndDarkMode`    | Enable or disable `light & dark mode` for the website. If disabled, primary color scheme will be used. This option is enabled by default.                                                                                                                                                                                                                                                                                         |
-| `postPerIndex`        | The number of posts to be displayed at the home page under `Recent` section.                                                                                                                                                                                                                                                                                                                                                      |
-| `postPerPage`         | You can specify how many posts will be displayed in each posts page. (eg: if you set `SITE.postPerPage` to 3, each page will only show 3 posts per page)                                                                                                                                                                                                                                                                          |
-| `scheduledPostMargin` | In Production mode, posts with a future `pubDatetime` will not be visible. However, if a post's `pubDatetime` is within the next 15 minutes, it will be visible. You can set `scheduledPostMargin` if you don't like the default 15 minutes margin.                                                                                                                                                                               |
-| `showArchives`        | Determines whether to display the `Archives` menu (positioned between the `About` and `Search` menus) and its corresponding page on the site. This option is set to `true` by default.                                                                                                                                                                                                                                            |
-| `showBackButton`      | Determines whether to display the `Go back` button in each blog post.                                                                                                                                                                                                                                                                                                                                                             |
-| `editPost`            | This option allows users to suggest changes to a blog post by providing an edit link under blog post titles. This feature can be disabled by setting `SITE.editPost.enabled` to `false`.                                                                                                                                                                                                                                          |
-| `dynamicOgImage`      | This option controls whether to [generate dynamic og-image](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/) if no `ogImage` is specified in the blog post frontmatter. If you have many blog posts, you might want to disable this feature. See the [trade-off](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/#trade-off) for more details. |
-| `dir`                 | Specifies the text direction of the entire blog. Used as [HTML dir attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/dir) in `<html dir="ltr">`. Supported values: `ltr` \| `rtl` \| `auto`                                                                                                                                                                                                |
-| `lang`                | Used as HTML ISO Language code in `<html lang"en">`. Default is `en`.                                                                                                                                                                                                                                                                                                                                                             |
-| `timezone`            | This option allows you to specify your timezone using the [IANA format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Setting this ensures consistent timestamps across your localhost and deployed site, eliminating time differences.                                                                                                                                                                          |
+| Option               | Description                                                                                                                                    |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`                | Your deployed website URL. Used for canonical URLs, OG image URLs, RSS feed, and sitemap. In production this must be set correctly.            |
+| `title`              | Your site name.                                                                                                                                |
+| `description`        | Your site description. Useful for SEO and social media sharing.                                                                                |
+| `author`             | Your name. Used as the default post author.                                                                                                    |
+| `profile`            | Your personal/portfolio website URL, used for structured data. Set to `undefined` if you don't have one.                                       |
+| `ogImage`            | Default OG image filename in `/public` (e.g. `"default-og.jpg"`). Used when no post-specific OG image is set and `dynamicOgImage` is disabled. |
+| `lang`               | HTML ISO language code for `<html lang="...">`. Defaults to `"en"`.                                                                            |
+| `timezone`           | IANA timezone for post dates (e.g. `"Asia/Bangkok"`). Ensures consistent timestamps across localhost and your deployed site.                   |
+| `dir`                | Text direction for `<html dir="...">`. Supports `"ltr"` \| `"rtl"` \| `"auto"`.                                                                |
+| `googleVerification` | Google Search Console verification meta tag value. Optional.                                                                                   |
+
+### `posts` options
+
+| Option                | Description                                                                                                                       |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `perPage`             | Number of posts shown per page on paginated listing pages. Defaults to `4`.                                                       |
+| `perIndex`            | Number of posts shown in the Recent section on the home page. Defaults to `4`.                                                    |
+| `scheduledPostMargin` | Posts with a future `pubDatetime` within this window (in ms) are treated as published. Defaults to 15 minutes (`15 * 60 * 1000`). |
+
+### `features` options
+
+| Option             | Description                                                                                                                                                                                                                                   |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lightAndDarkMode` | Enable or disable the light/dark mode toggle. Defaults to `true`.                                                                                                                                                                             |
+| `dynamicOgImage`   | Generate a dynamic OG image per post when no `ogImage` is specified in frontmatter. Defaults to `true`. See the [trade-off](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/#trade-off) for details. |
+| `showArchives`     | Show the `/archives` page and its header link. Defaults to `true`.                                                                                                                                                                            |
+| `showBackButton`   | Show the "Go back" button on post pages. Defaults to `true`.                                                                                                                                                                                  |
+| `editPost`         | An "Edit page" link shown under post titles. Set `enabled: true` and provide the base `url` for your repository's edit URL. Per-post override via `hideEditPost` frontmatter.                                                                 |
+| `search`           | Search provider. `"pagefind"` is the default. Set to `false` to disable search entirely.                                                                                                                                                      |
 
 ## Update layout width
 
-The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd like to change it, you can easily update the `max-w-app` utility in your `global.css`. For instance:
+The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd like to change it, update the `max-w-app` utility in `src/styles/global.css`:
 
-```css file=src/styles/global.css
+```css file="src/styles/global.css"
 @utility max-w-app {
   /* [!code --:1] */
   @apply max-w-3xl;
@@ -87,31 +118,29 @@ You can explore more `max-width` values in the [Tailwind CSS docs](https://tailw
 
 ## Configuring logo or title
 
-Prior to AstroPaper v5, you can update your site name/logo in `LOGO_IMAGE` object inside `src/config.ts` file. However, in AstroPaper v5, this option has been removed in favor of Astro's built-in SVG and Image components.
-
 ![An arrow pointing at the website logo](https://res.cloudinary.com/noezectz/v1663911318/astro-paper/AstroPaper-logo-config_goff5l.png)
 
 There are 3 options you can do:
 
-### Option 1: SITE title text
+### Option 1: Site title text
 
-This is the easiest option. You just have to update `SITE.title` in `src/config.ts` file.
+This is the easiest option. Update `site.title` in `astro-paper.config.ts`.
 
 ### Option 2: Astro's SVG component
 
 You might want to use this option if you want to use an SVG logo.
 
-- First add an SVG inside `src/assets` directory. (eg: `src/assets/dummy-logo.svg`)
+- First add an SVG inside `src/assets/` directory. (e.g. `src/assets/dummy-logo.svg`)
 - Then import that SVG inside `Header.astro`
 
-  ```astro file=src/components/Header.astro
+  ```astro file="src/components/Header.astro"
   ---
   // ...
   import DummyLogo from "@/assets/dummy-logo.svg";
   ---
   ```
 
-- Finally, replace `{SITE.title}` with imported logo.
+- Finally, replace `{config.site.title}` with imported logo.
 
   ```html
   <a
@@ -119,7 +148,7 @@ You might want to use this option if you want to use an SVG logo.
     class="absolute py-1 text-left text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
   >
     <DummyLogo class="scale-75 dark:invert" />
-    <!-- {SITE.title} -->
+    <!-- {config.site.title} -->
   </a>
   ```
 
@@ -129,10 +158,10 @@ The best part of this approach is that you can customize your SVG styles as need
 
 If your logo is an image but not SVG, you can use Astro's Image component.
 
-- Add your logo inside `src/assets` directory. (eg: `src/assets/dummy-logo.png`)
+- Add your logo inside `src/assets/` directory. (e.g. `src/assets/dummy-logo.png`)
 - Import `Image` and your logo in `Header.astro`
 
-  ```astro file=src/components/Header.astro
+  ```astro file="src/components/Header.astro"
   ---
   // ...
   import { Image } from "astro:assets";
@@ -140,16 +169,15 @@ If your logo is an image but not SVG, you can use Astro's Image component.
   ---
   ```
 
-- Then, replace `{SITE.title}` with imported logo.
+- Then, replace `{config.site.title}` with imported logo.
 
-  <!-- prettier-ignore -->
   ```html
   <a
     href="/"
     class="absolute py-1 text-left text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
   >
-    <Image src="{dummyLogo}" alt="Dummy Blog" class="dark:invert" />
-    <!-- {SITE.title} -->
+    <image src="{dummyLogo}" alt="My Blog" class="dark:invert" />
+    <!-- {config.site.title} -->
   </a>
   ```
 
@@ -159,46 +187,44 @@ With this approach, you can still adjust your image's appearance using CSS class
 
 ![An arrow pointing at social link icons](https://github.com/user-attachments/assets/8b895400-d088-442f-881b-02d2443e00cf)
 
-You can configure social links in `SOCIALS` object inside `constants.ts`.
+Social links are configured in the `socials` array inside `astro-paper.config.ts`. Each entry requires a `name` matching an SVG filename in `src/assets/icons/socials/` and a `url`:
 
-```ts file=src/constants.ts
-export const SOCIALS = [
-  {
-    name: "GitHub",
-    href: "https://github.com/satnaing/astro-paper",
-    linkTitle: ` ${SITE.title} on GitHub`,
-    icon: IconGitHub,
-  },
-  {
-    name: "X",
-    href: "https://x.com/username",
-    linkTitle: `${SITE.title} on X`,
-    icon: IconBrandX,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/username/",
-    linkTitle: `${SITE.title} on LinkedIn`,
-    icon: IconLinkedin,
-  },
-  {
-    name: "Mail",
-    href: "mailto:yourmail@gmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    icon: IconMail,
-  },
-] as const;
+```ts file="astro-paper.config.ts"
+export default defineAstroPaperConfig({
+  // ...
+  socials: [
+    { name: "github", url: "https://github.com/satnaing/astro-paper" },
+    { name: "x", url: "https://x.com/username" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/username/" },
+    { name: "mail", url: "mailto:yourmail@gmail.com" },
+  ],
+});
 ```
+
+To add a social not in the defaults, add its SVG icon to `src/assets/icons/socials/` and add an entry to the array. The `name` must match the SVG filename without the `.svg` extension.
 
 ## Configuring share links
 
-You can configure share links in `SHARE_LINKS` object inside `src/constants.ts`.
-
 ![An arrow pointing at share link icons](https://github.com/user-attachments/assets/4f930b68-b625-45df-8c41-e076dd2b838e)
+
+Share links are configured in the `shareLinks` array. Each entry requires a `name` (matching an SVG in `src/assets/icons/socials/`) and a base `url` to which the post URL is appended:
+
+```ts file="astro-paper.config.ts"
+export default defineAstroPaperConfig({
+  // ...
+  shareLinks: [
+    { name: "whatsapp", url: "https://wa.me/?text=" },
+    { name: "facebook", url: "https://www.facebook.com/sharer.php?u=" },
+    { name: "x", url: "https://x.com/intent/post?url=" },
+    { name: "telegram", url: "https://t.me/share/url?url=" },
+    { name: "mail", url: "mailto:?subject=See%20this%20post&body=" },
+  ],
+});
+```
 
 ## Configuring fonts
 
-AstroPaper uses Astro's [experimental fonts API](https://docs.astro.build/en/reference/experimental-flags/fonts/) with [Google Sans Code](https://fonts.google.com/specimen/Google+Sans+Code) as the default font. This provides consistent typography across all platforms with automatic font optimizations including preloading and caching.
+AstroPaper uses Astro's [fonts API](https://docs.astro.build/en/guides/fonts/) with [Google Sans Code](https://fonts.google.com/specimen/Google+Sans+Code) as the default font. This provides consistent typography across all platforms with automatic font optimizations including preloading and caching.
 
 ### Using the default font
 
@@ -206,33 +232,31 @@ The font is automatically configured in `astro.config.ts` and loaded in `Layout.
 
 ### Customizing the font
 
-To use a different font, you need to update three places:
+To use a different font, update three places:
 
 1. **Update the font configuration in `astro.config.ts`:**
 
-```ts file=astro.config.ts
+```ts file="astro.config.ts"
 import { defineConfig, fontProviders } from "astro/config";
 
 export default defineConfig({
   // ...
-  experimental: {
-    fonts: [
-      {
-        name: "Your Font Name", // [!code highlight]
-        cssVariable: "--font-your-font", // [!code highlight]
-        provider: fontProviders.google(),
-        fallbacks: ["monospace"],
-        weights: [300, 400, 500, 600, 700],
-        styles: ["normal", "italic"],
-      },
-    ],
-  },
+  fonts: [
+    {
+      name: "Your Font Name", // [!code highlight]
+      cssVariable: "--font-your-font", // [!code highlight]
+      provider: fontProviders.google(),
+      fallbacks: ["monospace"],
+      weights: [300, 400, 500, 600, 700],
+      styles: ["normal", "italic"],
+    },
+  ],
 });
 ```
 
 1. **Update the Font component in `Layout.astro`:**
 
-```astro file=src/layouts/Layout.astro
+```astro file="src/layouts/Layout.astro"
 ---
 import { Font } from "astro:assets";
 // ...
@@ -240,7 +264,6 @@ import { Font } from "astro:assets";
 
 <head>
   <!-- ... -->
-  // [!code highlight:4]
   <Font
     cssVariable="--font-your-font"
     preload={[{ subset: "latin", weight: 400, style: "normal" }]}
@@ -249,22 +272,18 @@ import { Font } from "astro:assets";
 </head>
 ```
 
-1. **Update the CSS variable mapping in `global.css`:**
+1. **Update the CSS variable mapping in `src/styles/theme.css`:**
 
-```css file=src/styles/global.css
+```css file="src/styles/theme.css"
 @theme inline {
   --font-app: var(--font-your-font); /* [!code highlight] */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
+  /* ... */
 }
 ```
 
-The `--font-app` variable is used throughout the theme via the `font-app` Tailwind utility class, so updating this single variable will apply your custom font everywhere.
+The `--font-app` variable is used throughout the theme via the `font-app` Tailwind utility class, so updating this single variable applies your custom font everywhere.
 
-> **Note**: Make sure the font name matches exactly as it appears on [Google Fonts](https://fonts.google.com). For other font providers or local fonts, refer to the [Astro Experimental Fonts API documentation](https://docs.astro.build/en/reference/experimental-flags/fonts/).
+> **Note**: Make sure the font name matches exactly as it appears on [Google Fonts](https://fonts.google.com). For other font providers or local fonts, refer to the [Astro Fonts documentation](https://docs.astro.build/en/guides/fonts/).
 
 ## Conclusion
 
