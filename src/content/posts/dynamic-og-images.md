@@ -14,6 +14,8 @@ description: New feature in AstroPaper v1.4.0, introducing dynamic OG image gene
 
 New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for blog posts.
 
+![Dynamic OG image generation in AstroPaper blog posts](/posts/dynamic-og-image-generation-in-astropaper-blog-posts/index.png)
+
 ## Table of contents
 
 ## Intro
@@ -32,6 +34,8 @@ Generating a dynamic OG image for each post allows the author to avoid specifyin
 
 In AstroPaper v1.4.0, Vercel's [Satori](https://github.com/vercel/satori) package is used for dynamic OG image generation.
 
+In AstroPaper v6+, the same idea remains (Satori renders SVG, then PNG is produced via [Sharp](https://sharp.pixelplumbing.com/)), but fonts are sourced from Astro's **Fonts** configuration and loaded via [`experimental_getFontFileURL()`](https://astro.build/blog/astro-620/) so OG generation can reuse the same font pipeline as the site.
+
 Dynamic OG images will be generated at build time for blog posts that:
 
 - don't include OG image in the frontmatter
@@ -45,48 +49,41 @@ Dynamic OG images include _the blog post title_, _author name_, and _site title_
 
 ### Issue with Non-Latin Characters
 
-Titles with non-latin characters won't display properly out of the box. To resolve this, replace `fontsConfig` inside `src/utils/og/loadGoogleFont.ts` with your preferred font:
+Titles with non-latin characters won't display properly out of the box. In AstroPaper v6, dynamic OG images load font files from Astro's **Fonts** configuration (`astro.config.ts`) and register them with Satori.
 
-```ts file="src/utils/og/loadGoogleFont.ts"
-async function loadGoogleFonts(
-  text: string
-): Promise<
-  Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
-> {
-  const fontsConfig = [
+To fix missing glyphs, switch the Google font family to one that covers your writing system, and make sure you include **both** `400` and `700` weights (Satori uses separate buffers for regular + bold).
+
+```ts file="astro.config.ts"
+import { defineConfig, fontProviders } from "astro/config";
+
+export default defineConfig({
+  fonts: [
     {
+      // Example: Japanese coverage (pick what you need for your audience)
       name: "Noto Sans JP",
-      font: "Noto+Sans+JP",
-      weight: 400,
-      style: "normal",
+      cssVariable: "--font-google-sans-code",
+      provider: fontProviders.google(),
+      fallbacks: ["monospace"],
+      weights: [400, 700],
+      styles: ["normal", "italic"],
+      formats: ["woff", "ttf"],
     },
-    {
-      name: "Noto Sans JP",
-      font: "Noto+Sans+JP:wght@700",
-      weight: 700,
-      style: "normal",
-    },
-    { name: "Noto Sans", font: "Noto+Sans", weight: 400, style: "normal" },
-    {
-      name: "Noto Sans",
-      font: "Noto+Sans:wght@700",
-      weight: 700,
-      style: "normal",
-    },
-  ];
-  // ...
-}
+  ],
+});
 ```
+
+If you change `cssVariable`, also update the matching key in:
+
+- `src/pages/og.png.ts`
+- `src/pages/posts/[...slug]/index.png.ts`
 
 > Check out [this PR](https://github.com/satnaing/astro-paper/pull/318) for more info.
 
 ## Trade-off
 
-While this is a nice feature to have, there's a trade-off. Each OG image takes roughly one second to generate. This might not be noticeable at first, but as the number of blog posts grows, you might want to disable this feature by setting `features.dynamicOgImage: false` in `astro-paper.config.ts`.
+While this is a nice feature to have, there's still a trade-off: AstroPaper generates one PNG per eligible post at build time (when og image is not specified in the frontmatter), so total build time grows with content volume.
 
-For example: If one OG image takes one second to generate, then 60 images will take around one minute, and 600 images will take approximately 10 minutes. This can significantly impact build times as your content scales.
-
-Related issue: [#428](https://github.com/satnaing/astro-paper/issues/428)
+In AstroPaper v6, OG image generation is significantly faster (PR [#632](https://github.com/satnaing/astro-paper/pull/632)) than earlier implementations, so the per-image overhead is much lower in practice. If you still want to minimize build time on very large sites, you can disable it by setting `features.dynamicOgImage: false` in `astro-paper.config.ts` (and provide per-post `ogImage` files instead).
 
 ## Limitations
 
