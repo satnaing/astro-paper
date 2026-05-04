@@ -67,8 +67,7 @@ Inside of AstroPaper, you'll see the following folders and files:
 │   ├── types/
 │   ├── utils/
 │   ├── config.ts
-│   ├── content.config.ts
-│   └── env.d.ts
+│   └── content.config.ts
 ├── astro-paper.config.ts  # user-defined configurations
 └── astro.config.ts
 ```
@@ -93,8 +92,9 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 **Static Search** - [Pagefind](https://pagefind.app/)  
 **Icons** - [Tablers](https://tabler-icons.io/)  
 **Code Formatting** - [Prettier](https://prettier.io/)  
-**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)
-**Linting** - [ESLint](https://eslint.org)
+**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)  
+**Linting** - [ESLint](https://eslint.org)  
+**Dynamic OG images** - [Satori](https://github.com/vercel/satori) + [Sharp](https://sharp.pixelplumbing.com/) + [Astro Fonts](https://docs.astro.build/en/guides/fonts/)
 
 ## 👨🏻‍💻 Running Locally
 
@@ -159,7 +159,7 @@ If you have any suggestions/feedback, you can contact me via [my email](mailto:s
 
 ## 📜 License
 
-Licensed under the MIT License, Copyright © 2025
+Licensed under the MIT License, Copyright © 2026
 
 ---
 
