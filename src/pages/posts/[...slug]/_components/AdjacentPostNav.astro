@@ -1,33 +1,22 @@
 ---
-import { getCollection } from "astro:content";
 import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
-type Props = {
+type AdjacentPost = {
   id: string;
+  title: string;
+  filePath: string | undefined;
+} | null;
+
+type Props = {
+  prevPost: AdjacentPost;
+  nextPost: AdjacentPost;
 };
 
-const { id } = Astro.props;
-
-const allPosts = await getCollection("posts");
-const sortedPosts = getSortedPosts(allPosts).map(
-  ({ data: { title }, id, filePath }) => ({ id, title, filePath })
-);
-
-const currentPostIndex = sortedPosts.findIndex(a => a.id === id);
-
-const prevPost =
-  currentPostIndex > 0 ? sortedPosts[currentPostIndex - 1] : null;
-
-const nextPost =
-  currentPostIndex < sortedPosts.length - 1
-    ? sortedPosts[currentPostIndex + 1]
-    : null;
-
+const { prevPost, nextPost } = Astro.props;
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 ---
