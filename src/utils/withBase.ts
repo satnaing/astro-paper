@@ -6,15 +6,6 @@ function stripLeadingSlash(path: string): string {
 }
 
 /**
- * Prefix a route-like path with the configured Astro `base`.
- * Always returns a root-relative URL and keeps a trailing slash for root paths.
- */
-export function pathWithBase(path: string): string {
-  const normalizedPath = stripLeadingSlash(path);
-  return normalizedPath ? baseRoot + normalizedPath : baseRoot;
-}
-
-/**
  * Prefix an asset/file path with the configured Astro `base`.
  * Does not force a trailing slash for empty paths.
  */
