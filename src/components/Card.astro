@@ -22,9 +22,7 @@ const { title, description, ...props } = data;
       "focus-visible:no-underline focus-visible:underline-offset-0",
     ]}
   >
-    <Heading
-      style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
-    >
+    <Heading transition:name={slugifyStr(title.replaceAll(".", "-"))}>
       {title}
     </Heading>
   </a>
