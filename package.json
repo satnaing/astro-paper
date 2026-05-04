@@ -21,7 +21,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.2.4",
-    "astro": "^6.1.9",
+    "astro": "^6.2.1",
     "dayjs": "^1.11.20",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",
@@ -32,7 +32,7 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@pagefind/default-ui": "^1.5.2",
     "@shikijs/transformers": "^4.0.2",
     "@tailwindcss/typography": "^0.5.19",
