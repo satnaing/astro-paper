@@ -81,7 +81,11 @@ if (typeof initOgImage === "string") {
 }
 
 if (!ogImageUrl && config.features.dynamicOgImage) {
-  ogImageUrl = `${getPostUrl(post.id, post.filePath, locale)}/index.png`;
+  const postUrl = getPostUrl(post.id, post.filePath, locale).replace(
+    /\/+$/,
+    ""
+  );
+  ogImageUrl = `${postUrl}/index.png`;
 }
 
 const ogImage = ogImageUrl
