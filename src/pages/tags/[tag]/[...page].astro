@@ -31,7 +31,6 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
 }
 
-const { tag } = Astro.params;
 const { page, tagName } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
