@@ -5,7 +5,9 @@ const DARK = "dark";
 function getPreferredTheme(): string {
   const stored = localStorage.getItem(THEME_KEY);
   if (stored) return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? DARK
+    : LIGHT;
 }
 
 // Reuse the value already set by the inline FOUC-prevention script if available.
@@ -20,9 +22,7 @@ function persist(): void {
 
 function reflect(): void {
   document.firstElementChild?.setAttribute("data-theme", themeValue);
-  document
-    .querySelector("#theme-btn")
-    ?.setAttribute("aria-label", themeValue);
+  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
 
   // Fill <meta name="theme-color"> with the computed background colour so
   // Android's browser chrome matches the page background.
