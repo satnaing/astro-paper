@@ -1,22 +1,6 @@
 const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const baseRoot = base === "" ? "/" : `${base}/`;
 
-function stripLeadingSlash(path: string): string {
-  return path.replace(/^\/+/, "");
-}
-
-/**
- * Prefix an asset/file path with the configured Astro `base`.
- * Does not force a trailing slash for empty paths.
- */
-export function fileWithBase(path: string): string {
-  const normalizedPath = stripLeadingSlash(path);
-  if (!normalizedPath) {
-    return base === "" ? "/" : base;
-  }
-  return baseRoot + normalizedPath;
-}
-
 /**
  * Strip a locale prefix from a root-relative pathname.
  * e.g. with locale "en": "/en/posts/foo" → "/posts/foo", "/en" → "/"
@@ -45,4 +29,18 @@ export function stripBase(pathname: string): string {
     return stripped === "" ? "/" : stripped;
   }
   return pathname;
+}
+
+/**
+ * Prefix an asset/file path with the configured Astro `base`.
+ * Does not force a trailing slash for empty paths.
+ */
+export function getAssetPath(path: string): string {
+  // Strip leading slash to avoid double-slash when concatenating with baseRoot
+  const normalizedPath = path.replace(/^\/+/, "");
+
+  if (!normalizedPath) {
+    return base === "" ? "/" : base;
+  }
+  return baseRoot + normalizedPath;
 }

@@ -3,7 +3,7 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
-import { fileWithBase } from "@/utils/withBase";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
 
@@ -39,8 +39,8 @@ const rssHref = getRelativeLocaleUrl(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={fileWithBase("favicon.svg")} />
-    <link rel="icon" href={fileWithBase("favicon.ico")} />
+    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
+    <link rel="icon" href={getAssetPath("favicon.ico")} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -55,7 +55,7 @@ const rssHref = getRelativeLocaleUrl(
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
-    <link rel="sitemap" href={fileWithBase("sitemap-index.xml")} />
+    <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

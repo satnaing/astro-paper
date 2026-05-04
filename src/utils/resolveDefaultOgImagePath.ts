@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { ResolvedAstroPaperConfig } from "@/types/config";
-import { fileWithBase } from "./withBase";
+import { getAssetPath } from "./withBase";
 
 /**
  * Default `og:image` path for layouts when no explicit prop is passed.
@@ -30,9 +30,9 @@ export function resolveDefaultOgImagePath(
 
   if (config.features.dynamicOgImage) {
     if (exists) {
-      return fileWithBase(filename);
+      return getAssetPath(filename);
     }
-    return fileWithBase("og.png");
+    return getAssetPath("og.png");
   }
 
   if (!exists) {
@@ -41,5 +41,5 @@ export function resolveDefaultOgImagePath(
     );
   }
 
-  return fileWithBase(filename);
+  return getAssetPath(filename);
 }

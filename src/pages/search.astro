@@ -6,7 +6,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
-import { fileWithBase } from "@/utils/withBase";
+import { getAssetPath } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -22,7 +22,7 @@ const backUrl = config.features.showBackButton
   ? `${Astro.url.pathname}`
   : getRelativeLocaleUrl(locale, "");
 
-const pagefindBundlePath = fileWithBase("pagefind/");
+const pagefindBundlePath = getAssetPath("pagefind/");
 
 const t = useTranslations(locale);
 ---
