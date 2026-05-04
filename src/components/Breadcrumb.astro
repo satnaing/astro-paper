@@ -1,25 +1,16 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { stripBase } from "@/utils/withBase";
+import { stripBase, stripLocale } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 
-// Strip base prefix then remove trailing slash so breadcrumb segments
-// reflect the logical page path, not the deploy subdirectory.
+// Strip base prefix and trailing slash, then locale prefix so segments
+// reflect the logical page path only.
 const pathWithoutBase = stripBase(Astro.url.pathname).replace(/\/+$/, "");
-
-// Strip current locale prefix (e.g. "/en/tags" -> "/tags") so locale
-// itself does not appear as a breadcrumb item.
-const localePrefix = `/${locale}`;
-const currentUrlPath =
-  pathWithoutBase === localePrefix
-    ? "/"
-    : pathWithoutBase.startsWith(`${localePrefix}/`)
-      ? pathWithoutBase.slice(localePrefix.length)
-      : pathWithoutBase;
+const currentUrlPath = stripLocale(pathWithoutBase, locale);
 
 // Get url array from path
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
