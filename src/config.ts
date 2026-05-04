@@ -1,5 +1,11 @@
+/**
+ * Internal resolved configuration used throughout the codebase.
+ *
+ * Prefer editing `astro-paper.config.ts` instead of this file. This module exists to
+ * apply defaults and expose a fully-resolved config shape (`ResolvedAstroPaperConfig`).
+ */
 import userConfig from "@/astro-paper.config";
-import type { ResolvedAstroPaperConfig } from "@/types/config";
+import type { ResolvedAstroPaperConfig } from "./types/config";
 
 const DEFAULT_OG_IMAGE = "default-og.jpg";
 
