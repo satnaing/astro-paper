@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { getPostSlug } from "@/utils/postPaths";
+import { getPostSlug } from "@/utils/getPostPaths";
 import { generateOgImageForPost } from "@/utils/og/renderOgImage";
 import config from "@/config";
 
