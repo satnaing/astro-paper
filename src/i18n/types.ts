@@ -10,7 +10,6 @@ export interface UIStrings {
   post: {
     publishedAt: string;
     updatedAt: string;
-    minutesRead: string;
     sharePostIntro: string;
     sharePostOn: string;
     sharePostViaEmail: string;
