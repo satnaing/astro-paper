@@ -13,7 +13,8 @@ import config from "@/config";
 const posts = await getCollection("posts", ({ data }) => !data.draft);
 const tags = getUniqueTags(posts);
 
-const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
 ---
 
 <Layout title={`${t.pages.tagsTitle} | ${config.site.title}`}>
