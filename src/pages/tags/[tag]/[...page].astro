@@ -47,7 +47,6 @@ const t = useTranslations(locale);
     pageTitle={`${t.pages.tagTitle}: ${tagName}`}
     pageDesc={`${t.pages.tagDesc} "${tagName}".`}
   >
-    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>
