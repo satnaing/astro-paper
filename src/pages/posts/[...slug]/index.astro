@@ -5,7 +5,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Datetime from "@/components/Datetime.astro";
 import Tag from "@/components/Tag.astro";
-import { getPath } from "@/utils/getPath";
+import { getPostSlug, getPostUrl } from "@/utils/postPaths";
 import { slugifyStr } from "@/utils/slugify";
 import EditPost from "./_components/EditPost.astro";
 import ShareLinks from "./_components/ShareLinks.astro";
@@ -17,7 +17,7 @@ import config from "@/config";
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
   return posts.map(post => ({
-    params: { slug: getPath(post.id, post.filePath, false) },
+    params: { slug: getPostSlug(post.id, post.filePath) },
     props: { post },
   }));
 }
@@ -52,7 +52,7 @@ if (typeof initOgImage === "string") {
 }
 
 if (!ogImageUrl && config.features.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath, true, locale)}/index.png`;
+  ogImageUrl = `${getPostUrl(post.id, post.filePath, locale)}/index.png`;
 }
 
 const ogImage = ogImageUrl
