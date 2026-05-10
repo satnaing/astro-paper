@@ -11,3 +11,6 @@
 !.prettierrc
 !eslint.config.js
 !README.md
+
+# Ignore MDX files
+*.mdx
