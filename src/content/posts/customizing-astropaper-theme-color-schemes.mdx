@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
-modDatetime: 2026-05-04T00:00:00Z
+modDatetime: 2026-05-10T06:57:06.476Z
 title: Customizing AstroPaper theme color schemes
 featured: false
 draft: false
@@ -12,6 +12,7 @@ description:
   How you can enable/disable light & dark mode; and customize color schemes
   of AstroPaper theme.
 ---
+import ResponsiveTable from '@/components/ResponsiveTable.astro';
 
 This post will explain how you can enable/disable light & dark mode for the website. Moreover, you'll learn how you can customize color schemes of the entire website.
 
@@ -68,6 +69,8 @@ To customize your own color scheme, specify your light colors inside `:root, [da
 
 Here is a detailed explanation of each color property:
 
+<ResponsiveTable variant="minimal" class="max-sm:-mx-4 [&_td]:first-of-type:text-nowrap">
+
 | Color Property        | Definition & Usage                                                    |
 | --------------------- | --------------------------------------------------------------------- |
 | `--background`        | Primary color of the website. Usually the main background.            |
@@ -77,6 +80,8 @@ Here is a detailed explanation of each color property:
 | `--muted`             | Muted background color. Used for cards, tags, and hover states.       |
 | `--muted-foreground`  | Text color displayed on top of `--muted` backgrounds.                 |
 | `--border`            | Border color. Used for dividers and visual separation.                |
+
+</ResponsiveTable>
 
 Here is an example of changing the light color scheme:
 

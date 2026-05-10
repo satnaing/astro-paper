@@ -1,17 +1,16 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2026-05-04T00:00:00Z
+modDatetime: 2026-05-10T06:57:36.673Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
 draft: false
 tags:
   - docs
-description:
-  Some rules & recommendations for creating or adding new posts using AstroPaper
-  theme.
+description: "Some rules & recommendations for creating or adding new posts using AstroPaper theme."
 ---
+import ResponsiveTable from '@/components/ResponsiveTable.astro';
 
 Here are some rules/recommendations, tips & tricks for creating new posts in AstroPaper blog theme.
 
@@ -21,7 +20,8 @@ Here are some rules/recommendations, tips & tricks for creating new posts in Ast
     alt="Free Classic wooden desk with writing materials, vintage clock, and a leather bag. Stock Photo"
   />
   <figcaption class="text-center">
-    Photo by <a href="https://www.pexels.com/photo/brown-wooden-desk-159618/">Pixabay</a>
+    Photo by{" "}
+    <a href="https://www.pexels.com/photo/brown-wooden-desk-159618/">Pixabay</a>
   </figcaption>
 </figure>
 
@@ -52,6 +52,8 @@ Frontmatter is the main place to store metadata about a blog post. It lives at t
 
 Here is the list of frontmatter properties for each post:
 
+<ResponsiveTable variant="striped-minimal">
+
 | Property           | Description                                                                                                                         | Remark                                         |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
 | **_title_**        | Title of the post. (h1)                                                                                                             | required<sup>\*</sup>                          |
@@ -66,6 +68,8 @@ Here is the list of frontmatter properties for each post:
 | **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on another source.                                                     | default = `Astro.site` + `Astro.url.pathname`  |
 | **_hideEditPost_** | Hide the edit-post button under the post title. Applies only to the current post.                                                   | default = false                                |
 | **_timezone_**     | Specify a timezone in IANA format for the current post. Overrides the global `site.timezone` config for this post only.             | default = `site.timezone`                      |
+
+</ResponsiveTable>
 
 > Tip! You can get an ISO 8601 datetime by running `new Date().toISOString()` in the console.
 
@@ -116,7 +120,6 @@ These snippets live in `.vscode/astro-paper.code-snippets`. If you use VS Code (
 
 By default, a post does not include any table of contents (TOC). To include one, write `Table of contents` as an h2 heading (`##` in Markdown) and place it where you want it to appear:
 
-<!-- prettier-ignore-start -->
 ```md
 ---
 # frontmatter
@@ -129,7 +132,6 @@ Here are some recommendations, tips & tricks for creating new posts in AstroPape
 
 <!-- the rest of the post -->
 ```
-<!-- prettier-ignore-end -->
 
 ## Headings
 
