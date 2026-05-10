@@ -60,10 +60,6 @@
       th {
         @apply py-1.5;
       }
-
-      code {
-        @apply break-all sm:break-normal;
-      }
     }
 
     code {

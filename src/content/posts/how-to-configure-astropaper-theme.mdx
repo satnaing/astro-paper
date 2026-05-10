@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2026-05-04T00:00:00Z
+modDatetime: 2026-05-10T06:57:59.237Z
 title: How to configure AstroPaper theme
 slug: how-to-configure-astropaper-theme
 featured: true
@@ -11,6 +11,7 @@ tags:
   - docs
 description: How you can make AstroPaper theme absolutely yours.
 ---
+import ResponsiveTable from '@/components/ResponsiveTable.astro';
 
 AstroPaper is a highly customizable Astro blog theme. With AstroPaper, you can customize everything according to your personal taste. This article will explain how you can make some customizations easily in the config file.
 
@@ -69,6 +70,8 @@ export default defineAstroPaperConfig({
 
 ### `site` options
 
+<ResponsiveTable>
+
 | Option               | Description                                                                                                                                    |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `url`                | Your deployed website URL. Used for canonical URLs, OG image URLs, RSS feed, and sitemap. In production this must be set correctly.            |
@@ -82,7 +85,11 @@ export default defineAstroPaperConfig({
 | `dir`                | Text direction for `<html dir="...">`. Supports `"ltr"` \| `"rtl"` \| `"auto"`.                                                                |
 | `googleVerification` | Google Search Console verification meta tag value. Optional.                                                                                   |
 
+</ResponsiveTable>
+
 ### `posts` options
+
+<ResponsiveTable>
 
 | Option                | Description                                                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,7 +97,11 @@ export default defineAstroPaperConfig({
 | `perIndex`            | Number of posts shown in the Recent section on the home page. Defaults to `4`.                                                    |
 | `scheduledPostMargin` | Posts with a future `pubDatetime` within this window (in ms) are treated as published. Defaults to 15 minutes (`15 * 60 * 1000`). |
 
+</ResponsiveTable>
+
 ### `features` options
+
+<ResponsiveTable>
 
 | Option             | Description                                                                                                                                                                                                                                   |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -100,6 +111,8 @@ export default defineAstroPaperConfig({
 | `showBackButton`   | Show the "Go back" button on post pages. Defaults to `true`.                                                                                                                                                                                  |
 | `editPost`         | An "Edit page" link shown under post titles. Set `enabled: true` and provide the base `url` for your repository's edit URL. Per-post override via `hideEditPost` frontmatter.                                                                 |
 | `search`           | Search provider. `"pagefind"` is the default. Set to `false` to disable search entirely.                                                                                                                                                      |
+
+</ResponsiveTable>
 
 ## Update layout width
 
