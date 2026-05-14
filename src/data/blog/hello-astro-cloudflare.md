@@ -1,6 +1,6 @@
 ---
 title: "我用 Astro + Cloudflare Pages 搭建了人生第一个博客 ✨"
-pubDate: 2026-05-14
+pubDatetime: 2026-05-14
 description: "从零开始部署个人博客，并记录我的第一条博文。"
 tags: ["Astro", "Cloudflare", "博客搭建"]
 cover: "/images/astro-blog-cover.png"
