@@ -10,9 +10,10 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
-
+output: 'static',
 // https://astro.build/config
 export default defineConfig({
+  
   site: SITE.website,
   integrations: [
     sitemap({
