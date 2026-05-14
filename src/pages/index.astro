@@ -1,0 +1,60 @@
+---
+// 这是首页，什么都不用写
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的 Astro 博客 ✨</title>
+</head>
+<body style="margin:0;font-family:system-ui,-apple-system,sans-serif;background:#f4f7fe;color:#222;">
+
+  <nav style="display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05);">
+    <div style="font-weight:900;font-size:1.5rem;color:#4f46e5;">MyBlog</div>
+    <div style="display:flex;gap:20px;">
+      <a href="#" style="text-decoration:none;color:#555;">首页</a>
+      <a href="#" style="text-decoration:none;color:#555;">归档</a>
+      <a href="#" style="text-decoration:none;color:#555;">关于</a>
+    </div>
+  </nav>
+
+  <main style="display:flex;justify-content:center;align-items:center;min-height:80vh;padding:20px;">
+    <div style="background:#fff;border-radius:24px;padding:60px;max-width:800px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,.05);text-align:center;">
+      
+      <img
+        src="/images/avatar.png"
+        alt="avatar"
+        style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:24px;"
+        onerror="this.src='https://placehold.co/120x120/4f46e5/ffffff?text=Me'"
+      />
+
+      <h1 style="font-size:3rem;font-weight:900;margin:0 0 16px;">
+        欢迎来到我的宇宙 🌌
+      </h1>
+
+      <p style="font-size:1.2rem;color:#666;line-height:1.7;max-width:500px;margin:auto;">
+        这里记录我的技术探索与生活思考。<br/>
+        我们一起在数字世界里造点东西吧 ✍️
+      </p>
+
+      <a href="/blog"
+         style="display:inline-block;margin-top:36px;padding:14px 32px;background:linear-gradient(90deg,#6366f1,#a855f7);color:#fff;border-radius:50px;text-decoration:none;font-weight:bold;">
+        去看看文章 →
+      </a>
+
+      <div style="margin-top:50px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+        <span style="background:#f0f4ff;color:#4f46e5;padding:8px 16px;border-radius:50px;font-size:.9rem;">Astro</span>
+        <span style="background:#f0f4ff;color:#4f46e5;padding:8px 16px;border-radius:50px;font-size:.9rem;">Cloudflare</span>
+        <span style="background:#f0f4ff;color:#4f46e5;padding:8px 16px;border-radius:50px;font-size:.9rem;">Markdown</span>
+      </div>
+    </div>
+  </main>
+
+  <footer style="text-align:center;padding:40px;color:#999;font-size:.9rem;">
+    © 2026 我的博客
+  </footer>
+
+</body>
+</html>
