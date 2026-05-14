@@ -10,7 +10,8 @@ cover: "/images/astro-blog-cover.png"
 
 这是我的第一篇博客文章，由 **Astro + Cloudflare Pages** 强力驱动 🚀。
 
-![Astro + Cloudflare](/images/astro-cloudflare.png)
+![Astro + Cloudflare](<img width="343" height="68" alt="banner" src="https://github.com/user-attachments/assets/06f2e55d-0d27-4f2c-b1ed-be8a54d174ca" />
+)
 
 ---
 
