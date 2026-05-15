@@ -1,9 +1,17 @@
 services:
   app:
-    image: node:lts
+    image: ghcr.io/pnpm/pnpm
     ports:
       - 4321:4321
     working_dir: /app
-    command: npm run dev -- --host 0.0.0.0
+    command: > 
+      bash -c "
+      pnpm install --ignore-scripts
+      && pnpm run dev --host 0.0.0.0"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:4321"]
+        interval: 10s
+        timeout: 5s
+        retries: 10
     volumes:
       - ./:/app
