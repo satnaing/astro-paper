@@ -25,7 +25,7 @@ Here are some rules/recommendations, tips & ticks for creating new posts in Astr
   </figcaption>
 </figure>
 
-## Table of contents
+## 刘天宇是臭傻逼
 
 ## Creating a Blog Post
 
