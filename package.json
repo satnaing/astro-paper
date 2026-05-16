@@ -16,11 +16,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/mdx": "^5.0.6",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/vite": "^4.2.4",
-    "astro": "^6.2.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.3",
     "dayjs": "^1.11.20",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",
@@ -28,7 +28,7 @@
     "satori": "^0.26.0",
     "sharp": "^0.34.5",
     "slugify": "^1.6.9",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
@@ -36,13 +36,13 @@
     "@shikijs/transformers": "^4.0.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/lodash.kebabcase": "^4.1.9",
-    "@typescript-eslint/parser": "^8.59.0",
-    "eslint": "^10.2.1",
+    "@typescript-eslint/parser": "^8.59.3",
+    "eslint": "^10.4.0",
     "eslint-plugin-astro": "^1.7.0",
     "pagefind": "^1.5.2",
     "prettier": "3.8.3",
     "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^6.0.3"
   }
 }
