@@ -38,17 +38,3 @@ const t = useTranslations(locale);
 
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const mainContent = document.querySelector<HTMLElement>("#main-content");
-    const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-    const defaultBackUrl = `${baseRoot}posts/`;
-    if (mainContent) {
-      sessionStorage.setItem(
-        "backUrl",
-        mainContent.dataset.backurl ?? defaultBackUrl
-      );
-    }
-  });
-</script>
