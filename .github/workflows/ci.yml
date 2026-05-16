@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ["22.12.0"]
+        node-version: ["24"]
 
     steps:
       - name: "☁️ Checkout repository"
