@@ -1,4 +1,9 @@
-import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  svgoOptimizer,
+} from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -56,6 +61,15 @@ export default defineConfig({
       formats: ["woff", "ttf"],
     },
   ],
+  env: {
+    schema: {
+      PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+    },
+  },
   experimental: {
     svgOptimizer: svgoOptimizer(),
   },
