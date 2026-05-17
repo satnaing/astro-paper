@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v6.0.0 (2026-05-17)
+
+> ⚠ **BREAKING CHANGES**
+>
+> - User config moved to `astro-paper.config.ts`; `src/config.ts` is now internal resolved defaults only
+> - Blog content directory changed from `src/data/blog` to `src/content/posts`
+> - Pages content moved to `src/content/pages`
+> - Several utility exports and component names updated
+
+### Feat
+
+- **config**: rework into typed user-facing `astro-paper.config.ts` with internal resolved defaults layer (#631)
+- **i18n**: add lightweight i18n layer with English string keys and `useTranslations` helper (#631)
+- **mdx**: add MDX support via @astrojs/mdx (#631, closes #131)
+- **base-path**: add base path support across routing and asset helpers (#631, closes #493)
+- **archives**: add archives page (#631)
+- **search**: integrate Pagefind for static full-text search (#631)
+- **toc**: add table of contents for markdown posts (#631)
+- **timezone**: add per-post timezone support with site-level fallback (#631)
+- **rtl**: add RTL language direction support (#631)
+- **share**: add share links in post detail page (#631)
+- **edit-post**: add configurable edit post link in post detail (#631)
+- **back-button**: add back button in post detail (#631)
+- **shiki**: add Shiki transformers for enhanced code block syntax highlighting (#631)
+- improve og image generation with Astro's getFontFileURL API (#632)
+- add ResponsiveTable component for use in MDX posts (#634)
+- integrate Astro fonts API with Google Sans Code font (#602)
+
+### Fix
+
+- update back-to-top button DOM placement (#641)
+- **og**: avoid double slashes when appending index.png (#631)
+- **header**: adjust icon button and alignment in mobile (#631)
+- **a11y**: improve muted-foreground color contrast (#631)
+- decouple ClientRouter from lightAndDarkMode feature flag (#631)
+- slugify supports better acronyms and preserve non-latin char (#606)
+- add autofocus in search bar and update search result title style (#603)
+
+### Refactor
+
+- optimize theme script to prevent render-blocking (#601)
+
+### Chore
+
+- upgrade Astro to v6 and align CI to Node.js 24 (#631)
+
 ## v5.5.1 (2026-01-08)
 
 ### Fix
