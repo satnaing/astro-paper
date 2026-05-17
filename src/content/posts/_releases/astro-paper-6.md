@@ -1,14 +1,17 @@
 ---
-pubDatetime: 2026-05-17T05:54:10.331Z
+pubDatetime: 2026-05-17T07:15:45.792Z
 title: AstroPaper 6.0
 slug: astro-paper-v6
 featured: true
+ogImage: assets/AstroPaper-v6.png
 tags:
   - release
 description: "AstroPaper v6: a from-scratch rewrite on Astro v6, Tailwind v4, and a new config system."
 ---
 
 AstroPaper v6 is a complete rewrite built on Astro v6, Tailwind CSS v4, and TypeScript v6. This release replaces the legacy `SITE` / `constants.ts` configuration with a single unified config file and introduces several structural improvements across the codebase.
+
+![AstroPaper v6](assets/AstroPaper-v6.png)
 
 ## Table of contents
 
