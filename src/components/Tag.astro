@@ -1,5 +1,7 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import IconHash from "@/assets/icons/IconHash.svg";
+import config from "@/config";
 
 type Props = {
   tag: string;
@@ -8,17 +10,19 @@ type Props = {
 };
 
 const { tag, tagName, size = "lg" } = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
 ---
 
 <li>
   <a
-    href={`/tags/${tag}/`}
+    href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}
     transition:name={tag}
     class:list={[
       "flex items-center gap-0.5",
-      "border-b-2 border-dashed border-foreground",
-      "hover:-mt-0.5 hover:border-accent hover:text-accent",
-      "focus-visible:border-none focus-visible:text-accent",
+      "border-foreground border-b-2 border-dashed",
+      "hover:border-accent hover:text-accent hover:-mt-0.5",
+      "focus-visible:text-accent focus-visible:border-none",
       { "text-sm": size === "sm" },
       { "text-lg": size === "lg" },
     ]}

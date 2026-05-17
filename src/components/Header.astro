@@ -1,23 +1,35 @@
 ---
-import IconX from "@/assets/icons/IconX.svg";
-import IconMoon from "@/assets/icons/IconMoon.svg";
-import IconSearch from "@/assets/icons/IconSearch.svg";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconUnderline from "@/assets/icons/IconUnderline.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
-import { SITE } from "@/config";
+import { stripBase, stripLocale } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
 
-const { pathname } = Astro.url;
+const { site, features } = config;
 
-// Remove trailing slash from current pathname if exists
-const currentPath =
-  pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+// Strip the base prefix so isActive comparisons work regardless of deploy subdirectory.
+// e.g. with base "/blog": "/blog/posts/slug" → "/posts/slug"
+const relativePath = stripBase(Astro.url.pathname);
+const pathWithoutTrailingSlash =
+  relativePath.endsWith("/") && relativePath !== "/"
+    ? relativePath.slice(0, -1)
+    : relativePath;
+
+const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
 
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
-
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
 ---
@@ -25,28 +37,22 @@ const isActive = (path: string) => {
 <a
   id="skip-to-content"
   href="#main-content"
-  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
+  class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"
 >
-  Skip to content
+  {t.a11y.skipToContent}
 </a>
 
 <header
   class="app-layout flex flex-col items-center justify-between sm:flex-row"
 >
   <div
-    id="top-nav-wrap"
-    class:list={[
-      "py-4 sm:py-6",
-      "border-b border-border",
-      "relative w-full bg-background",
-      "flex items-baseline justify-between sm:items-center",
-    ]}
+    class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"
   >
     <a
-      href="/"
+      href={getRelativeLocaleUrl(locale, "")}
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      {SITE.title}
+      {site.title}
     </a>
     <nav
       id="nav-menu"
@@ -55,83 +61,100 @@ const isActive = (path: string) => {
       <button
         id="menu-btn"
         class="focus-outline self-end p-2 sm:hidden"
-        aria-label="Open Menu"
+        aria-label={t.a11y.openMenu}
         aria-expanded="false"
         aria-controls="menu-items"
+        data-label-open={t.a11y.openMenu}
+        data-label-close={t.a11y.closeMenu}
       >
         <IconX id="close-icon" class="hidden" />
         <IconMenuDeep id="menu-icon" />
       </button>
       <ul
         id="menu-items"
-        class:list={[
-          "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
-          "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:hover:text-accent sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
-          "hidden",
-          "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
-        ]}
+        class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
       >
         <li class="col-span-2">
-          <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
-            Posts
+          <a
+            href={getRelativeLocaleUrl(locale, "posts")}
+            class:list={{ "active-nav": isActive("/posts") }}
+          >
+            {t.nav.posts}
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
-            Tags
+          <a
+            href={getRelativeLocaleUrl(locale, "tags")}
+            class:list={{ "active-nav": isActive("/tags") }}
+          >
+            {t.nav.tags}
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
-            About
+          <a
+            href={getRelativeLocaleUrl(locale, "about")}
+            class:list={{ "active-nav": isActive("/about") }}
+          >
+            {t.nav.about}
           </a>
         </li>
         {
-          SITE.showArchives && (
+          features.showArchives && (
             <li class="col-span-2">
               <LinkButton
-                href="/archives"
+                href={getRelativeLocaleUrl(locale, "archives")}
                 class:list={[
-                  "focus-outline flex justify-center p-3 sm:p-1",
-                  {
-                    "active-nav [&>svg]:stroke-accent": isActive("/archives"),
-                  },
+                  "focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0",
+                  { "active-nav": isActive("/archives") },
                 ]}
-                title="Archives"
-                aria-label="archives"
+                title={t.nav.archives}
+                aria-label={t.nav.archives}
               >
-                <IconArchive class="hidden sm:inline-block" />
-                <span class="sm:sr-only">Archives</span>
+                <IconArchive class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" />
+                <span class="sm:sr-only">{t.nav.archives}</span>
+                {isActive("/archives") && (
+                  <IconUnderline
+                    aria-hidden="true"
+                    class="scale-125 max-sm:hidden sm:absolute sm:bottom-0 sm:w-6"
+                  />
+                )}
               </LinkButton>
             </li>
           )
         }
-        <li class="col-span-1 flex items-center justify-center">
-          <LinkButton
-            href="/search"
-            class:list={[
-              "focus-outline flex p-3 sm:p-1",
-              { "[&>svg]:stroke-accent": isActive("/search") },
-            ]}
-            title="Search"
-            aria-label="search"
-          >
-            <IconSearch />
-            <span class="sr-only">Search</span>
-          </LinkButton>
-        </li>
         {
-          SITE.lightAndDarkMode && (
+          features.search !== false && (
+            <li class="col-span-1 flex items-center justify-center">
+              <LinkButton
+                href={getRelativeLocaleUrl(locale, "search")}
+                class:list={["focus-outline relative size-8"]}
+                title={t.nav.search}
+                aria-label={t.nav.search}
+              >
+                <IconSearch class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" />
+                <span class="sr-only">{t.nav.search}</span>
+                {isActive("/search") && (
+                  <IconUnderline
+                    aria-hidden="true"
+                    class="absolute bottom-0 w-6 scale-125 max-sm:inset-s-2"
+                  />
+                )}
+              </LinkButton>
+            </li>
+          )
+        }
+        {
+          features.lightAndDarkMode && (
             <li class="col-span-1 flex items-center justify-center">
               <button
                 id="theme-btn"
-                class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent"
-                title="Toggles light & dark"
+                class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8"
+                title={t.a11y.toggleTheme}
                 aria-label="auto"
                 aria-live="polite"
               >
-                <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <IconSunHigh class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                <IconMoon class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                <IconSunHigh class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
               </button>
             </li>
           )
@@ -143,20 +166,24 @@ const isActive = (path: string) => {
 
 <script>
   function toggleNav() {
-    const menuBtn = document.querySelector("#menu-btn");
+    const menuBtn = document.querySelector<HTMLButtonElement>("#menu-btn");
     const menuItems = document.querySelector("#menu-items");
     const menuIcon = document.querySelector("#menu-icon");
     const closeIcon = document.querySelector("#close-icon");
 
     if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
 
+    const openLabel = menuBtn.dataset.labelOpen ?? "Open menu";
+    const closeLabel = menuBtn.dataset.labelClose ?? "Close menu";
+
     menuBtn.addEventListener("click", () => {
       const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
 
       menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
-      menuBtn.setAttribute("aria-label", openMenu ? "Open Menu" : "Close Menu");
+      menuBtn.setAttribute("aria-label", openMenu ? openLabel : closeLabel);
 
       menuItems.classList.toggle("hidden");
+      menuItems.classList.toggle("grid");
       menuIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
@@ -164,6 +191,5 @@ const isActive = (path: string) => {
 
   toggleNav();
 
-  // Runs on view transitions navigation
   document.addEventListener("astro:after-swap", toggleNav);
 </script>

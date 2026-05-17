@@ -1,19 +1,47 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import "@pagefind/default-ui/css/ui.css";
-import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
-import { SITE } from "@/config";
+import { getAssetPath } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
 
-const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
+const locale = Astro.currentLocale ?? config.site.lang;
+
+// Redirect to 404 page if `search` feature is not enabled
+const notFoundUrl = getRelativeLocaleUrl(locale, "404");
+if (config.features.search !== "pagefind" && notFoundUrl) {
+  return Astro.rewrite(notFoundUrl);
+}
+
+const backUrl = config.features.showBackButton
+  ? `${Astro.url.pathname}`
+  : getRelativeLocaleUrl(locale, "");
+
+const pagefindBundlePath = getAssetPath("pagefind/");
+
+const t = useTranslations(locale);
 ---
 
-<Layout title={`Search | ${SITE.title}`}>
+<Layout title={`${t.pages.searchTitle} | ${config.site.title}`}>
   <Header />
-  <Main pageTitle="Search" pageDesc="Search any article ...">
-    <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.searchTitle} pageDesc={t.pages.searchDesc}>
+    <div
+      id="pagefind-search"
+      transition:persist
+      data-backurl={backUrl}
+      data-bundle-path={pagefindBundlePath}
+    >
+    </div>
   </Main>
+
   <Footer />
 </Layout>
 
@@ -23,6 +51,9 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
       document.querySelector("#pagefind-search");
 
     if (!pageFindSearch) return;
+
+    const bundlePath = pageFindSearch?.dataset?.bundlePath;
+    if (!bundlePath) return;
 
     const params = new URLSearchParams(window.location.search);
 
@@ -45,14 +76,16 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
       // Init pagefind ui
       const search = new PagefindUI({
         element: "#pagefind-search",
+        bundlePath,
         showImages: false,
         showSubResults: true,
         processTerm: function (term: string) {
           params.set("q", term); // Update the `q` parameter in the URL
           history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
 
-          const backUrl = pageFindSearch?.dataset?.backurl;
-          sessionStorage.setItem("backUrl", backUrl + "?" + params.toString());
+          const backUrl =
+            pageFindSearch?.dataset?.backurl ?? window.location.pathname;
+          sessionStorage.setItem("backUrl", `${backUrl}?${params.toString()}`);
 
           return term;
         },

@@ -1,0 +1,34 @@
+---
+type Props = {
+  class?: string;
+  variant?: /** No borders */
+    | "minimal"
+    /** 1st, 3rd, 5th … body rows tinted — classic zebra. */
+    | "striped"
+    /** 1st, 3rd, 5th … body rows tinted + no borders. */
+    | "striped-minimal";
+};
+
+const { class: className, variant } = Astro.props;
+
+const variantClasses = {
+  minimal: "[&_td]:border-0 [&_th]:border-0",
+  striped: "[&_tbody_tr]:odd:bg-muted/25",
+};
+---
+
+<div
+  data-table-variant={variant}
+  class:list={[
+    "overflow-hidden [&_table]:my-0 [&_table]:min-w-xl",
+    variant === "minimal" && variantClasses.minimal,
+    variant === "striped" && variantClasses.striped,
+    variant === "striped-minimal" &&
+      `${variantClasses.minimal} ${variantClasses.striped}`,
+    className,
+  ]}
+>
+  <div class="relative w-full overflow-x-auto">
+    <slot />
+  </div>
+</div>

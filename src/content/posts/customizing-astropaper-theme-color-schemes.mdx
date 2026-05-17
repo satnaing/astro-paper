@@ -1,0 +1,103 @@
+---
+author: Sat Naing
+pubDatetime: 2022-09-25T15:20:35Z
+modDatetime: 2026-05-17T04:57:06.476Z
+title: Customizing AstroPaper theme color schemes
+featured: false
+draft: false
+tags:
+  - color-schemes
+  - docs
+description:
+  How you can enable/disable light & dark mode; and customize color schemes
+  of AstroPaper theme.
+---
+import ResponsiveTable from '@/components/ResponsiveTable.astro';
+
+This guide covers how to enable or disable light and dark mode, and how to customize the color scheme for the entire site.
+
+## Table of contents
+
+## Enable/disable light & dark mode
+
+AstroPaper theme includes light and dark mode by default. This default behavior can be disabled in `astro-paper.config.ts`:
+
+```ts file="astro-paper.config.ts"
+export default defineAstroPaperConfig({
+  // ...
+  features: {
+    lightAndDarkMode: true, // [!code highlight]
+    // ...
+  },
+});
+```
+
+To disable `light & dark mode`, set `features.lightAndDarkMode` to `false`. When disabled, the site will use only the light color scheme defined in `src/styles/theme.css`.
+
+## Customize color schemes
+
+Both light and dark color schemes of AstroPaper theme are defined in `src/styles/theme.css`.
+
+```css file="src/styles/theme.css"
+/* Light theme values */
+:root,
+[data-theme="light"] {
+  --background: #fdfdfd;
+  --foreground: #282728;
+  --accent: #006cac;
+  --accent-foreground: #ffffff;
+  --muted: #e6e6e6;
+  --muted-foreground: #6b7280;
+  --border: #ece9e9;
+}
+
+/* Dark theme values */
+[data-theme="dark"] {
+  --background: #212737;
+  --foreground: #eaedf3;
+  --accent: #ff6b01;
+  --accent-foreground: #ffffff;
+  --muted: #343f60;
+  --muted-foreground: #afb9ca;
+  --border: #ab4b08;
+}
+```
+
+The `:root` and `[data-theme="light"]` selectors define the light color scheme, while `[data-theme="dark"]` defines the dark color scheme.
+
+To customize your own color scheme, specify your light colors inside `:root, [data-theme="light"]`, and your dark colors inside `[data-theme="dark"]`.
+
+Here is a detailed explanation of each color property:
+
+<ResponsiveTable variant="minimal" class="max-sm:-mx-4 [&_td]:first-of-type:text-nowrap">
+
+| Color Property        | Definition & Usage                                                    |
+| --------------------- | --------------------------------------------------------------------- |
+| `--background`        | Primary color of the website. Usually the main background.            |
+| `--foreground`        | Secondary color of the website. Usually the text color.               |
+| `--accent`            | Accent color. Used for links, hover states, and interactive elements. |
+| `--accent-foreground` | Foreground color displayed on top of `--accent` backgrounds.          |
+| `--muted`             | Muted background color. Used for cards, tags, and hover states.       |
+| `--muted-foreground`  | Text color displayed on top of `--muted` backgrounds.                 |
+| `--border`            | Border color. Used for dividers and visual separation.                |
+
+</ResponsiveTable>
+
+Here is an example of changing the light color scheme:
+
+```css file="src/styles/theme.css"
+/* ... */
+:root,
+[data-theme="light"] {
+  --background: #f6eee1;
+  --foreground: #012c56;
+  --accent: #e14a39;
+  --accent-foreground: #ffffff;
+  --muted: #efd8b0;
+  --muted-foreground: #6b7280;
+  --border: #dc9891;
+}
+/* ... */
+```
+
+> Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.

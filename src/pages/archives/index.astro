@@ -1,42 +1,41 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { getCollection } from "astro:content";
-import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
-import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
-import { SITE } from "@/config";
+import { postFilter } from "@/utils/postFilter";
+import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
 
 // Redirect to 404 page if `showArchives` config is false
-if (!SITE.showArchives) {
-  return Astro.redirect("/404");
+const notFoundUrl = getRelativeLocaleUrl(locale, "404");
+if (!config.features.showArchives && notFoundUrl) {
+  return Astro.rewrite(notFoundUrl);
 }
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const t = useTranslations(locale);
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+const posts = await getCollection("posts");
+const filteredPosts = posts.filter(postFilter);
+const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 ---
 
-<Layout title={`Archives | ${SITE.title}`}>
+<Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
   <Header />
-  <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.archivesTitle} pageDesc={t.pages.archivesDesc}>
     {
       Object.entries(
-        getPostsByGroupCondition(posts, post =>
+        getPostsByGroupCondition(filteredPosts, post =>
           post.data.pubDatetime.getFullYear()
         )
       )
@@ -44,7 +43,7 @@ const months = [
         .map(([year, yearGroup]) => (
           <div>
             <span class="text-2xl font-bold">{year}</span>
-            <sup class="text-sm">{yearGroup.length}</sup>
+            <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
@@ -55,8 +54,14 @@ const months = [
               .map(([month, monthGroup]) => (
                 <div class="flex flex-col sm:flex-row">
                   <div class="mt-6 min-w-36 text-lg sm:my-6">
-                    <span class="font-bold">{months[Number(month) - 1]}</span>
-                    <sup class="text-xs">{monthGroup.length}</sup>
+                    <span class="font-bold">
+                      {monthFormatter.format(
+                        new Date(2000, Number(month) - 1, 1)
+                      )}
+                    </span>
+                    <sup class="text-muted-foreground text-xs">
+                      {monthGroup.length}
+                    </sup>
                   </div>
                   <ul>
                     {monthGroup
@@ -79,5 +84,6 @@ const months = [
         ))
     }
   </Main>
+
   <Footer />
 </Layout>

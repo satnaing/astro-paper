@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from "astro:content";
+import IconEdit from "@/assets/icons/IconEdit.svg";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+type Props = {
+  hideEditPost?: CollectionEntry<"posts">["data"]["hideEditPost"];
+  class?: string;
+  post: CollectionEntry<"posts">;
+};
+
+const { hideEditPost, post, class: className = "" } = Astro.props;
+
+const editPost = config.features.editPost;
+const href = editPost.enabled ? `${editPost.url}${post.filePath}` : "";
+const showEditPost = editPost.enabled && !hideEditPost && href.trim() !== "";
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+{
+  showEditPost && (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        "hover:text-accent text-muted-foreground flex justify-baseline gap-1.5",
+        className,
+      ]}
+    >
+      <IconEdit class="inline-block" />
+      <span>{t.post.editPage}</span>
+    </a>
+  )
+}

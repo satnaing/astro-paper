@@ -1,0 +1,38 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import config from "@/config";
+
+type Props = {
+  pageTitle: string | [string, string];
+  pageDesc?: string;
+  class?: string;
+};
+
+const { pageTitle, pageDesc, class: className } = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const backUrl = config.features.showBackButton
+  ? Astro.url.pathname
+  : getRelativeLocaleUrl(locale, "");
+---
+
+<main
+  data-backUrl={backUrl}
+  id="main-content"
+  class:list={["app-layout pb-4", className]}
+>
+  <h1 class="text-2xl font-semibold sm:text-3xl">{pageTitle}</h1>
+  <p class="mt-2 mb-6 italic">{pageDesc}</p>
+  <slot />
+</main>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const mainContent: HTMLElement | null =
+      document.querySelector("#main-content");
+    const backUrl = mainContent?.dataset?.backurl;
+    if (backUrl) {
+      sessionStorage.setItem("backUrl", backUrl);
+    }
+  });
+</script>

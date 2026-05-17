@@ -24,5 +24,4 @@ pnpm-debug.log*
 .idea/
 
 # pagefind
-
 public/pagefind

@@ -1,18 +1,22 @@
 import eslintPluginAstro from "eslint-plugin-astro";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import tsParser from "@typescript-eslint/parser";
 
 export default [
-  ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   {
+    files: ["**/*.astro"],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
+      parserOptions: {
+        parser: tsParser,
       },
     },
   },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parser: tsParser,
+    },
+  },
   { rules: { "no-console": "error" } },
-  { ignores: ["dist/**", ".astro", "public/pagefind/**"] },
+  { ignores: ["dist/**", ".astro/**", "public/pagefind/**"] },
 ];

@@ -1,12 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getPostUrl } from "@/utils/getPostPaths";
 import { slugifyStr } from "@/utils/slugify";
-import { getPath } from "@/utils/getPath";
 import Datetime from "./Datetime.astro";
 
 type Props = {
   variant?: "h2" | "h3";
-} & CollectionEntry<"blog">;
+} & CollectionEntry<"posts">;
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
@@ -15,16 +15,14 @@ const { title, description, ...props } = data;
 
 <li class="my-6">
   <a
-    href={getPath(id, filePath)}
+    href={getPostUrl(id, filePath, Astro.currentLocale)}
     class:list={[
-      "inline-block text-lg font-medium text-accent",
+      "text-accent inline-block text-lg font-medium",
       "decoration-dashed underline-offset-4 hover:underline",
       "focus-visible:no-underline focus-visible:underline-offset-0",
     ]}
   >
-    <Heading
-      style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
-    >
+    <Heading transition:name={slugifyStr(title.replaceAll(".", "-"))}>
       {title}
     </Heading>
   </a>

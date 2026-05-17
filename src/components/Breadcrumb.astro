@@ -1,24 +1,58 @@
 ---
-// Remove current url path and remove trailing slash if exists
-const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { stripBase, stripLocale } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+// Strip base prefix and trailing slash, then locale prefix so segments
+// reflect the logical page path only.
+const pathWithoutBase = stripBase(Astro.url.pathname).replace(/\/+$/, "");
+const currentUrlPath = stripLocale(pathWithoutBase, locale);
 
 // Get url array from path
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
-const breadcrumbList = currentUrlPath.split("/").slice(1);
+const breadcrumbList = currentUrlPath.split("/").slice(1).filter(Boolean);
 
-// if breadcrumb is Home > Posts > 1 <etc>
-// replace Posts with Posts (page number)
+const decodeSegment = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
+const navLabels: Record<string, string> = {
+  posts: t.nav.posts,
+  tags: t.nav.tags,
+  about: t.nav.about,
+  archives: t.nav.archives,
+  search: t.nav.search,
+};
+
+// if breadcrumb is Home > Posts > [page] <etc>
+// replace Posts with localized "Posts (page number)"
 if (breadcrumbList[0] === "posts") {
-  breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
+  breadcrumbList.splice(
+    0,
+    2,
+    `${t.nav.posts} (${t.pagination.page.toLowerCase()} ${breadcrumbList[1] || 1})`
+  );
 }
 
 // if breadcrumb is Home > Tags > [tag] > [page] <etc>
-// replace [tag] > [page] with [tag] (page number)
+// replace [tag] > [page] with localized [tag] (page number)
 if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
   breadcrumbList.splice(
     1,
     3,
-    `${breadcrumbList[1]} ${Number(breadcrumbList[2]) === 1 ? "" : "(page " + breadcrumbList[2] + ")"}`
+    `${decodeSegment(breadcrumbList[1])} ${
+      Number(breadcrumbList[2]) === 1
+        ? ""
+        : `(${t.pagination.page.toLowerCase()} ${breadcrumbList[2]})`
+    }`
   );
 }
 ---
@@ -28,7 +62,9 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">Home</a>
+      <a href={getRelativeLocaleUrl(locale, "")} class="opacity-80">
+        {t.nav.home}
+      </a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
@@ -40,15 +76,20 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
               aria-current="page"
             >
               {/* make the last part lowercase in Home > Tags > some-tag */}
-              {decodeURIComponent(breadcrumb)}
+              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
             </span>
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
-              {breadcrumb}
+            <a
+              href={getRelativeLocaleUrl(locale, breadcrumb)}
+              class="capitalize opacity-70"
+            >
+              {navLabels[breadcrumb] ?? decodeSegment(breadcrumb)}
             </a>
-            <span aria-hidden="true">&raquo;</span>
+            <span aria-hidden="true" class="opacity-70">
+              &raquo;
+            </span>
           </li>
         )
       )
