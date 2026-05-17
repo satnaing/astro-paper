@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T04:58:53Z
-modDatetime: 2026-05-10T06:57:59.237Z
+modDatetime: 2026-05-17T05:50:08.212Z
 title: How to configure AstroPaper theme
 slug: how-to-configure-astropaper-theme
 featured: true
@@ -13,7 +13,7 @@ description: How you can make AstroPaper theme absolutely yours.
 ---
 import ResponsiveTable from '@/components/ResponsiveTable.astro';
 
-AstroPaper is a highly customizable Astro blog theme. With AstroPaper, you can customize everything according to your personal taste. This article will explain how you can make some customizations easily in the config file.
+This guide covers the available configuration options in AstroPaper — from site metadata and feature flags to fonts, social links, and layout settings.
 
 ## Table of contents
 
@@ -83,7 +83,7 @@ export default defineAstroPaperConfig({
 | `lang`               | HTML ISO language code for `<html lang="...">`. Defaults to `"en"`.                                                                            |
 | `timezone`           | IANA timezone for post dates (e.g. `"Asia/Bangkok"`). Ensures consistent timestamps across localhost and your deployed site.                   |
 | `dir`                | Text direction for `<html dir="...">`. Supports `"ltr"` \| `"rtl"` \| `"auto"`.                                                                |
-| `googleVerification` | Google Search Console verification meta tag value. Optional.                                                                                   |
+| `googleVerification` | Google Search Console verification meta tag value. Optional. Takes precedence over the `PUBLIC_GOOGLE_SITE_VERIFICATION` environment variable. |
 
 </ResponsiveTable>
 
@@ -267,7 +267,7 @@ export default defineConfig({
 });
 ```
 
-1. **Update the Font component in `Layout.astro`:**
+2. **Update the Font component in `Layout.astro`:**
 
 ```astro file="src/layouts/Layout.astro"
 ---
@@ -285,7 +285,7 @@ import { Font } from "astro:assets";
 </head>
 ```
 
-1. **Update the CSS variable mapping in `src/styles/theme.css`:**
+3. **Update the CSS variable mapping in `src/styles/theme.css`:**
 
 ```css file="src/styles/theme.css"
 @theme inline {
@@ -298,6 +298,7 @@ The `--font-app` variable is used throughout the theme via the `font-app` Tailwi
 
 > **Note**: Make sure the font name matches exactly as it appears on [Google Fonts](https://fonts.google.com). For other font providers or local fonts, refer to the [Astro Fonts documentation](https://docs.astro.build/en/guides/fonts/).
 
-## Conclusion
+## See also
 
-This is the brief specification of how you can customize this theme. You can customize more if you know some coding. For customizing styles, please read [this article](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/). Thanks for reading.✌🏻
+- [Customizing AstroPaper theme color schemes](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/) — change or add color schemes via `src/styles/theme.css`.
+- [Adding new posts](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/) — frontmatter reference and file conventions.
