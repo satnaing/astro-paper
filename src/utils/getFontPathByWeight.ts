@@ -11,7 +11,12 @@ export function getFontPathByWeight(
   const style = options?.style ?? "normal";
   const format = options?.format ?? "truetype";
 
-  return fonts
-    .find(font => font.weight === String(weight) && font.style === style)
-    ?.src.find(file => file.format === format)?.url;
+  for (const font of fonts) {
+    if (font.weight === String(weight) && font.style === style) {
+      const src = font.src.find(file => file.format === format);
+      if (src) return src.url;
+    }
+  }
+
+  return undefined;
 }
