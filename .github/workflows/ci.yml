@@ -18,25 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
 
-    strategy:
-      matrix:
-        node-version: ["24"]
-
     steps:
       - name: "☁️ Checkout repository"
         uses: actions/checkout@v4
 
       - name: "📦 Install pnpm"
         uses: pnpm/action-setup@v4
+        with:
+          version: "11.3.0"
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "24"
           cache: "pnpm"
 
       - name: "📦 Install dependencies"
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: "🔎 Lint code"
         run: pnpm run lint
