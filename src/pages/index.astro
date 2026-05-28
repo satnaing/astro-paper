@@ -39,7 +39,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
       </h1>
       <a
         target="_blank"
-        href="/rss.xml"
+        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
         class="inline-block"
         aria-label="RSS Feed"
         title="RSS Feed"
