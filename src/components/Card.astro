@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
-import { slugifyStr } from "@/utils/slugify";
+import { toTransitionName } from "@/utils/slugify";
 import Datetime from "./Datetime.astro";
 
 type Props = {
@@ -22,7 +22,7 @@ const { title, description, ...props } = data;
       "focus-visible:no-underline focus-visible:underline-offset-0",
     ]}
   >
-    <Heading transition:name={slugifyStr(title.replaceAll(".", "-"))}>
+    <Heading transition:name={toTransitionName(title)}>
       {title}
     </Heading>
   </a>
