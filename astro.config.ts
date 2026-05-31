@@ -68,6 +68,11 @@ export default defineConfig({
         context: "client",
         optional: true,
       }),
+      GIT_HASH: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
     },
   },
   experimental: {

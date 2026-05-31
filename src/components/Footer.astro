@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
+import GitHash from "./GitHash.astro";
 import { useTranslations } from "@/i18n";
 
 type Props = {
@@ -27,4 +28,5 @@ const currentYear = new Date().getFullYear();
       <span>{t.footer.allRightsReserved}</span>
     </div>
   </div>
+  <GitHash />
 </footer>

@@ -1,0 +1,16 @@
+---
+import IconGitCommit from "@/assets/icons/IconGitCommit.svg";
+import config from "@/config";
+
+const gitHash = config.site.gitHash;
+---
+
+<div
+  class:list={[
+    "my-2 flex flex-col justify-end text-xs opacity-25 sm:flex-row",
+    { hidden: gitHash == null },
+  ]}
+>
+  <IconGitCommit class="h-4 rotate-90" />
+  <span>{gitHash}</span>
+</div>

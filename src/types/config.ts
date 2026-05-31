@@ -15,6 +15,8 @@ interface SiteConfig {
   lang?: string;
   /** IANA timezone for post dates, e.g. "Asia/Bangkok" */
   timezone?: string;
+  /** It's used to show commit hash on footer */
+  gitHash?: string | null;
   /** Text direction */
   dir?: "ltr" | "rtl" | "auto";
   /** Google Search Console verification meta tag value */
@@ -111,6 +113,7 @@ type ResolvedSiteConfig = Required<
     | "author"
     | "lang"
     | "timezone"
+    | "gitHash"
     | "dir"
     | "ogImage"
   >
