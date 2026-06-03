@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2026-05-17T04:47:08.212Z
+modDatetime: 2026-06-03T00:00:00.000Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -44,6 +44,7 @@ src/content/posts/docs/_legacy/how-to.md      -> mysite.com/posts/docs/how-to
 src/content/posts/Example Dir/Dummy Post.md   -> mysite.com/posts/example-dir/dummy-post
 ```
 
+> [!TIP]
 > Files and directories prefixed with `_` are excluded from routing. Use them for drafts, shared assets, or internal-only content.
 
 ## Frontmatter
@@ -71,7 +72,8 @@ Here is the list of frontmatter properties for each post:
 
 </ResponsiveTable>
 
-> Tip! You can get an ISO 8601 datetime by running `new Date().toISOString()` in the console.
+> [!TIP]
+> You can get an ISO 8601 datetime by running `new Date().toISOString()` in the console.
 
 Only `title`, `description`, and `pubDatetime` fields in frontmatter must be specified.
 
@@ -115,6 +117,65 @@ AstroPaper includes workspace snippets to speed up creating new posts:
 - **template**: inserts a basic post template (including `## Table of contents`)
 
 These snippets live in `.vscode/astro-paper.code-snippets`. If you use VS Code (or Cursor), they should be available automatically when you open the workspace.
+
+## Callouts
+
+AstroPaper started supporting callouts in AstroPaper v6.1. They use a simple blockquote syntax powered by `rehype-callouts` (Obsidian theme).
+
+Here are the most commonly used types:
+
+> [!NOTE]
+> Supplementary information the reader should be aware of.
+
+> [!TIP]
+> Helpful advice, shortcuts, or best practices.
+
+> [!WARNING]
+> Something that could go wrong or have unintended consequences.
+
+> [!DANGER]
+> Serious risk of failure, data loss, or incorrect behavior.
+
+> [!INFO]
+> Neutral informational context — less urgent than a note.
+
+> [!SUCCESS]
+> Confirmation that something worked or is correct.
+
+The full list of supported types includes: `NOTE`, `ABSTRACT`, `INFO`, `TODO`, `TIP`, `SUCCESS`, `QUESTION`, `WARNING`, `FAILURE`, `DANGER`, `BUG`, `EXAMPLE`, `QUOTE` — each with its own icon and color. Many types also accept aliases (e.g. `HINT` and `IMPORTANT` for `TIP`, `CAUTION` for `WARNING`). See the [rehype-callouts docs](https://github.com/lin-stephanie/rehype-callouts) for the complete reference.
+
+### Collapsible callouts
+
+Add `-` after the type to make the callout collapsed by default, or `+` to make it expanded but collapsible:
+
+> [!WARNING]- Read before proceeding
+> This content is hidden until the reader expands it. Useful for long caveats that would otherwise interrupt the flow.
+
+> [!TIP]+ Pro tip (expanded by default)
+> This starts open but can be collapsed. Great for optional detail you still want visible on first load.
+
+### Custom titles
+
+Replace the default type label with any title you like by adding text after the type:
+
+> [!NOTE] Did you know?
+> The text after the type becomes the callout's heading. Leave it out and the type name is used automatically.
+
+### Syntax summary
+
+```md
+> [!NOTE]
+> Supplementary information.
+
+> [!WARNING]- Collapsed by default
+> Hidden until expanded.
+
+> [!TIP]+ Expanded, but collapsible
+> Starts open.
+
+> [!DANGER] Custom title
+> Replaces the default heading.
+```
 
 ## Adding table of contents
 
@@ -181,7 +242,8 @@ export default defineConfig({
 
 Here are two methods for storing images and using them inside a markdown file.
 
-> Note: If you need to style optimized images in markdown, you should [use MDX](https://docs.astro.build/en/guides/images/#images-in-mdx-files).
+> [!IMPORTANT]
+> If you need to style optimized images in markdown, you should [use MDX](https://docs.astro.build/en/guides/images/#images-in-mdx-files).
 
 ### Inside `src/assets/` directory (recommended)
 
@@ -203,6 +265,7 @@ Example: suppose you want to display `example.jpg` whose path is `src/assets/ima
 <!-- ^^ This is wrong -->
 ```
 
+> [!TIP]
 > Technically, you can store images inside any directory under `src`. `src/assets` is just a recommendation.
 
 ### Inside `public/` directory
@@ -225,7 +288,8 @@ Example: assume `example.jpg` is located at `public/assets/images/example.jpg`.
 
 ### Image compression
 
-When putting images in a blog post (especially those in the `public/` directory), it is recommended to compress them. This will affect the overall performance of the website.
+> [!WARNING]
+> When putting images in a blog post (especially those in the `public/` directory), compress them first. Unoptimized images significantly hurt page performance.
 
 Recommended image compression sites:
 
@@ -236,4 +300,5 @@ Recommended image compression sites:
 
 The default OG image will be used if a post does not specify one. Though not required, an OG image relevant to the post should be specified in the frontmatter. The recommended size for OG images is **_1200 X 640_** px.
 
+> [!TIP]
 > Since AstroPaper v1.4.0, OG images are generated automatically if not specified. Check out [the announcement](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/).

@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-12-28T04:59:04.866Z
-modDatetime: 2026-05-04T00:00:00Z
+modDatetime: 2026-06-03T00:00:00.000Z
 title: Dynamic OG image generation in AstroPaper blog posts
 slug: dynamic-og-image-generation-in-astropaper-blog-posts
 featured: false
@@ -49,9 +49,8 @@ Dynamic OG images include _the blog post title_, _author name_, and _site title_
 
 ### Issue with Non-Latin Characters
 
-Titles with non-latin characters won't display properly out of the box. In AstroPaper v6, dynamic OG images load font files from Astro's **Fonts** configuration (`astro.config.ts`) and register them with Satori.
-
-To fix missing glyphs, switch the Google font family to one that covers your writing system, and make sure you include **both** `400` and `700` weights (Satori uses separate buffers for regular + bold).
+> [!CAUTION]
+> Titles with non-latin characters won't display properly out of the box. Switch the Google font family to one that covers your writing system, and include **both** `400` and `700` weights — Satori uses separate buffers for regular and bold, so missing either causes mismatched rendering.
 
 ```ts file="astro.config.ts"
 import { defineConfig, fontProviders } from "astro/config";
@@ -79,15 +78,8 @@ If you change `cssVariable`, also update the matching key in:
 
 > Check out [this PR](https://github.com/satnaing/astro-paper/pull/318) for more info.
 
-## Trade-off
-
-While this is a nice feature to have, there's still a trade-off: AstroPaper generates one PNG per eligible post at build time (when og image is not specified in the frontmatter), so total build time grows with content volume.
-
-In AstroPaper v6, OG image generation is significantly faster (PR [#632](https://github.com/satnaing/astro-paper/pull/632)) than earlier implementations, so the per-image overhead is much lower in practice. If you still want to minimize build time on very large sites, you can disable it by setting `features.dynamicOgImage: false` in `astro-paper.config.ts` (and provide per-post `ogImage` files instead).
-
-## Limitations
-
-At the time of writing this, [Satori](https://github.com/vercel/satori) is fairly new and has not reached major release yet. So, there are still some limitations to this dynamic OG image feature.
-
-- RTL languages are not supported yet.
-- [Using emoji](https://github.com/vercel/satori#emojis) in the title might be a little bit tricky.
+> [!WARNING] Caveats
+>
+> - **Build time** grows with content volume — one PNG per eligible post is generated at build time. Generation is faster in v6 (PR [#632](https://github.com/satnaing/astro-paper/pull/632)), but on very large sites you can disable it with `features.dynamicOgImage: false` in `astro-paper.config.ts`.
+> - **RTL languages** are not supported yet.
+> - **Emoji** in titles can be tricky — some may not render correctly.
