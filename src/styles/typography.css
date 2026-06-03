@@ -74,7 +74,7 @@
       @apply border-s-accent/80 wrap-break-word opacity-80;
     }
 
-    details {
+    details:not(.callout) {
       @apply text-foreground inline-block cursor-pointer select-none [&_p]:hidden [&_ul]:my-0!;
     }
 
