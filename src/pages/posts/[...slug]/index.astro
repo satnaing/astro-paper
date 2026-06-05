@@ -317,15 +317,107 @@ const ogImage = ogImageUrl
         if (e.target === overlay) close();
       });
 
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(4, Math.max(1, initialScale * (dist / initialDist)));
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX = panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY = panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", () => {
+        if (currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", () => {
+        if (currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
       document.body.appendChild(overlay);
       document.body.style.overflow = "hidden";
-      // iOS Safari ignores overflow:hidden on body for touch-scroll; blocking
-      // touchmove on the overlay directly is the fix without disturbing scroll position.
-      overlay.addEventListener("touchmove", e => e.preventDefault(), {
-        passive: false,
-      });
       document.addEventListener("keydown", onKeyDown);
-      window.__closeLightbox = close; // exposed so a View Transition can close it
+      window.__closeLightbox = close;
 
       requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
       closeButton.focus();
