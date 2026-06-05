@@ -296,7 +296,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/80 opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -309,7 +309,8 @@ const ogImage = ogImageUrl
       const image = document.createElement("img");
       image.src = src;
       image.alt = "";
-      image.className = "max-h-[90vh] max-w-[90vw] cursor-default object-contain";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
@@ -318,6 +319,11 @@ const ogImage = ogImageUrl
 
       document.body.appendChild(overlay);
       document.body.style.overflow = "hidden";
+      // iOS Safari ignores overflow:hidden on body for touch-scroll; blocking
+      // touchmove on the overlay directly is the fix without disturbing scroll position.
+      overlay.addEventListener("touchmove", e => e.preventDefault(), {
+        passive: false,
+      });
       document.addEventListener("keydown", onKeyDown);
       window.__closeLightbox = close; // exposed so a View Transition can close it
 

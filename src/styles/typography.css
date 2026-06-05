@@ -49,6 +49,10 @@
 
     img[role="button"] {
       @apply cursor-zoom-in;
+
+      &:focus-visible {
+        @apply outline-2 outline-offset-2 outline-dashed;
+      }
     }
 
     figcaption {
