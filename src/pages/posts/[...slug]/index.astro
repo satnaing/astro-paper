@@ -271,18 +271,21 @@ const ogImage = ogImageUrl
     let overlay = null;
     let lastFocused = null;
 
-    // Linked images are left untouched so their link keeps working.
-    const images = Array.from(article.querySelectorAll("img"));
-    for (const image of images) {
-      if (image.closest("a")) continue;
-      image.setAttribute("role", "button");
-      image.setAttribute("tabindex", "0");
-      image.setAttribute("aria-haspopup", "dialog");
-      image.setAttribute(
-        "aria-label",
-        image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
-      );
-    }
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
 
     function open(src, alt, trigger) {
       if (overlay) return;
@@ -314,7 +317,7 @@ const ogImage = ogImageUrl
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
-        if (e.target === overlay) close();
+        if (e.target === overlay && currentScale <= 1) close();
       });
 
       let currentScale = 1;
@@ -362,6 +365,10 @@ const ogImage = ogImageUrl
                 applyTransform();
               }
               lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
             } else {
               lastTapTime = now;
               if (currentScale > 1) {
@@ -386,13 +393,28 @@ const ogImage = ogImageUrl
               t[1].clientX - t[0].clientX,
               t[1].clientY - t[0].clientY
             );
-            currentScale = Math.min(4, Math.max(1, initialScale * (dist / initialDist)));
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
             applyTransform();
           } else if (t.length === 1) {
             if (currentScale > 1) {
               e.preventDefault();
-              translateX = panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
-              translateY = panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
               applyTransform();
             } else {
               e.preventDefault();
@@ -402,14 +424,14 @@ const ogImage = ogImageUrl
         { passive: false }
       );
 
-      overlay.addEventListener("touchend", () => {
-        if (currentScale <= 1.05) {
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
           resetTransform();
         }
       });
 
-      overlay.addEventListener("touchcancel", () => {
-        if (currentScale <= 1.05) {
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
           resetTransform();
         }
       });
