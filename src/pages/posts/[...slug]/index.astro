@@ -324,7 +324,7 @@ const ogImage = ogImageUrl
       image.alt = "";
       image.className =
         "max-h-[90dvh] max-w-[90dvw] object-contain cursor-default";
-      image.id = "lightbox-image"
+      image.id = "lightbox-image";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
@@ -519,7 +519,7 @@ const ogImage = ogImageUrl
 
       overlay.addEventListener("mousedown", e => {
         if (e.button !== 0 || currentScale <= 1) return;
-        if ((e.target).closest("button")) return;
+        if (e.target.closest("button")) return;
         isMouseDown = true;
         mouseStartX = e.clientX;
         mouseStartY = e.clientY;
