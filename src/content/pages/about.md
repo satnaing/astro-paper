@@ -3,6 +3,8 @@ title: "About"
 description: "A brief professional overview."
 ---
 
+![Astro Paper](@/assets/images/astropaper-og.jpg)
+
 I am a credentialed actuary (FSA) working at the management level within the insurance space. My work revolves around quantitative analysis, evaluating complex risk models, and managing technical portfolios. 
 
 Beyond risk modeling, my focus leans heavily toward raw, structured writing—exploring modern lifestyle trade-offs, analytical frameworks, and decision utility.
