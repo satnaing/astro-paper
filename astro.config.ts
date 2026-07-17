@@ -1,4 +1,4 @@
-fimport {
+import {
   defineConfig,
   envField,
   fontProviders,
