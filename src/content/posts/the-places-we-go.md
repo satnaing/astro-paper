@@ -1,16 +1,16 @@
 ---
 author: Justin Chow
-pubDatetime: 2025-11-30
+pubDatetime: 2025-10-08
 title: The Places We Go
 featured: false
-ogImage: https://github.com/satnaing/astro-paper/assets/53733092/1ef0cf03-8137-4d67-ac81-84a032119e3a
+ogImage:
 tags:
   - release
-description: Essay - The Places We Go
+description: Charter a yacht with your friends. It's cheaper than you think.
 ---
 ## **The Places We Go**
 
-### **Calle de Santo Domingo, Pamplona, July 2023.**
+### Calle de Santo Domingo, Pamplona, July 2023.
 
 "Let's see what we're up against tomorrow," Uncle Jimmy says as we peer
 over the balcony.
@@ -28,8 +28,7 @@ launches into a chant that shakes the block. All I manage to catch at
 the end is "Viva! Gora!"
 
 Then everyone scatters in anticipation. Another hush.
-
-### **Caesar's Palace, Las Vegas, April 2024.**
+### Caesar's Palace, Las Vegas, April 2024.
 
 "You done with work for today?" Uncle Jimmy asks as he looks up from his
 pool chair.
@@ -46,8 +45,7 @@ for workplace frivolity was a trait I learned from the best.
 "Someone's gotta use the pool," I observe as I dip a toe. The hotel pool
 is lined with plaster statues and an inexplicable gazebo in the middle.
 I love the absurdity of it all.
-
-### **Indian Ocean, The Maldives, December 2024.**
+### Indian Ocean, The Maldives, December 2024.
 
 "We have more bathrooms than people on this yacht," remarked Uncle
 Jimmy. And so it was - ten bathrooms to nine passengers.
@@ -63,8 +61,7 @@ the reefs.
 
 I find a quiet scenic spot to set up a tripod for curating the perfect
 beach frame. *It's embarrassing how good I am at this.*
-
-### **Pamplona.**
+### Pamplona.
 
 You don't see them at first. You feel them more than hear them. And
 suddenly, a realization sweeps the crowd as the bulls thunder down the
@@ -84,8 +81,7 @@ passes us.
 We round a corner and find ourselves in a corral. Cowbells are jingling
 behind me. The authorities have barricaded both sides of the street. We
 follow this new herd of cows. Into an arena.
-
-### **Las Vegas.**
+### Las Vegas.
 
 "Well then you'd have to invent a new kind of money," I say.
 
@@ -106,8 +102,7 @@ We visit a watch shop and receive an education in the finer points of a
 tourbillon. I marvel at how he charms the salespeople and handles
 jewelry with price tags that exceed the average American's annual
 income. *This from a man with holes in his T-shirt.*
-
-### **The Maldives.**
+### The Maldives.
 
 There's no view like a sky full of stars in the middle of the ocean.
 After several frustrating attempts, I concede that nighttime photography
@@ -131,8 +126,7 @@ though an expert.
 Though at this point I'd concede my current methods weren't exactly
 yielding success. Nothing stings quite like recognizing you're a failure
 on a yacht.
-
-### **Pamplona.**
+### Pamplona.
 
 "This must be what *Gladiator* feels like!" I exclaim to Uncle Jimmy.
 Fellow runners are in high spirits and taking selfies.
@@ -153,8 +147,7 @@ cobblestone streets back to our apartment.
 "Yes, and aren't you glad we did it while we could!" His cheer is
 evident. "Just imagine one day this wouldn't be possible, or I'd be too
 old!" Uncle Jimmy's stroke the year before was still fresh in our minds.
-
-### **Las Vegas.**
+### Las Vegas.
 
 "I think you'll want a pool," I comment as we leave the third tour of
 the day. Uncle Jimmy has me tagging along as he shops for a retirement
@@ -188,8 +181,7 @@ tasted anything like this for twenty years. And they served it to us
 just for walking in the door!"
 
 He just nods and smiles. Uncle Jimmy - ever the stoic.
-
-### **The Maldives.**
+### The Maldives.
 
 "You're doing all the right things." Another cigar. But tonight the
 clouds have hidden away the stars. Just as well that the crew have set

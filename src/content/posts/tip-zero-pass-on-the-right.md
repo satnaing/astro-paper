@@ -1,14 +1,15 @@
 ---
 author: Justin Chow
-pubDatetime: 2026-06-30
+pubDatetime: 2026-04-30
 title: Tip Zero. Pass on the Right.
 featured: true
-ogImage: https://github.com/satnaing/astro-paper/assets/53733092/1ef0cf03-8137-4d67-ac81-84a032119e3a
+ogImage:
 tags:
   - release
-description: Essay - Tip Zero. Pass on the Right.
+description: Jeep Wranglers. Do we really need them?
 ---
-## Your feelings are the reason marketing departments exist
+## Tip Zero. Pass on the Right.
+### Your feelings are the reason marketing departments exist
 
 Nobody has ever closed a deal with a spec sheet. As any good salesman
 knows, emotional manipulation beats charts and graphs. Every time. When
@@ -25,8 +26,7 @@ conspicuously unsafe vehicle?
 
 On an unrelated note, the Jeep Wrangler improved its safety rating to
 4-stars in 2019.
-
-## Psychology is just Biology
+### Psychology is just Biology
 
 People are not rational decision makers. Coming to this realization is a
 prerequisite to understanding human behavior. Our brains crave
@@ -50,8 +50,7 @@ argument that involves an amortization table. That has to compete with
 the warm fuzzies of proud parents. You don't make many friends pulling
 the brakes on the dopamine train. That was the sound of Bubba signing an
 8% car note on a new Jeep Wrangler.
-
-## They're in the way (Ugh, traffic)
+### They're in the way (Ugh, traffic)
 
 Do you realize these people get to vote? Worse still, they get to drive.
 If you think other people suck at driving, you are correct. Although not
@@ -65,8 +64,7 @@ should drive faster than I'm comfortable with" -* what is one to do? I
 suggest passing on the right**.** Not because this will lead to some
 great revolution in driver's education - it won't. It's just mildly
 satisfying.
-
-## Lies, damned lies, and Santa Claus
+### Lies, damned lies, and Santa Claus
 
 But let's return to Bubba - our intrepid protagonist who's the proud
 owner of a brand-new lime-green Jeep Wrangler hybrid with an extended
@@ -87,8 +85,7 @@ Santa Claus, so children learn to believe. How else can they grow into
 adults who trust in the big lies of justice, mercy, and the value of
 money? The same money that only works in-so-far as there is a massive,
 coordinated social lie: everyone agrees to act as if it has value.
-
-## Know your worth - it might be less than you think
+### Know your worth - it might be less than you think
 
 We're not ready for a society with no concept of money. We measure
 everything from attorney fees to petrol to zygote development in
@@ -106,8 +103,7 @@ people tip for good service. If there is one practice that is
 universally repulsive to the rest of the world, it is the socially
 coerced 20%. Let's kindly stop pretending that tipping is anything but
 discrimination against ugly people and bad weather.
-
-## Being Right vs Being Effective
+### Being Right vs Being Effective
 
 There's a prevailing philosophy in business that success requires
 compromise - that a skilled leader knows how to empathize with others to

@@ -1,12 +1,12 @@
 ---
 author: Justin Chow
-pubDatetime: 2025-07-31
+pubDatetime: 2025-04-21
 title: Two Cappuccinos
 featured: false
-ogImage: https://user-images.githubusercontent.com/53733092/215771435-25408246-2309-4f8b-a781-1f3d93bdf0ec.png
+ogImage:
 tags:
   - release
-description: Essay - Two Cappuccinos
+description: Rome Sweet Home
 ---
 ## Two Cappuccinos
 
