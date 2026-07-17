@@ -1,6 +1,6 @@
 # Justin H. Chow's Personal Website 📄
 
-![AstroPaper](public/default-og.jpg)
+![[about-banner.jpeg|AstroPaper]]
 
 A personal portfolio and blog built with [Astro](https://astro.build/) using the [AstroPaper](https://astro-paper.pages.dev/) theme.
 
