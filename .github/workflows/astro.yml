@@ -39,20 +39,25 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+          # Look for package manager files inside BUILD_PATH (supports repo root or subfolders)
+          CHECK_DIR="${{ github.workspace }}/${{ env.BUILD_PATH }}"
+          echo "Checking for package files in: $CHECK_DIR"
+          if [ -f "$CHECK_DIR/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
             echo "lockfile=yarn.lock" >> $GITHUB_OUTPUT
             exit 0
-          elif [ -f "${{ github.workspace }}/package.json" ]; then
+          elif [ -f "$CHECK_DIR/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
             echo "lockfile=package-lock.json" >> $GITHUB_OUTPUT
             exit 0
           else
-            echo "Unable to determine package manager"
+            echo "Unable to determine package manager. Checked: $CHECK_DIR"
+            echo "Repository listing at $CHECK_DIR:"
+            ls -la "$CHECK_DIR" || true
             exit 1
           fi
       - name: Setup Node
