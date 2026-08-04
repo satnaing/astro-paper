@@ -19,6 +19,9 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  #main-content {
+    @apply outline-accent my-1 outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
 }
 
 @utility max-w-app {
