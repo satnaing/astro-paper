@@ -264,6 +264,16 @@ const ogImage = ogImageUrl
 
   /** Accessible image lightbox for article images. */
   function initLightbox() {
+    if (!document.getElementById("__lbox-style")) {
+      const s = document.createElement("style");
+      s.id = "__lbox-style";
+      s.textContent =
+        "#lightbox-image{transition:transform .1s ease-out}" +
+        "#lightbox-image[data-zoom=drag]{transition:none;cursor:grabbing}" +
+        "#lightbox-image[data-zoom=in]{cursor:grab}";
+      document.head.appendChild(s);
+    }
+
     const article = document.getElementById("article");
     if (!article) return;
 
@@ -274,7 +284,6 @@ const ogImage = ogImageUrl
     let lastFocused = null;
 
     // Defer attribute mutations so they don't push the LCP timestamp.
-    // Event listeners below use delegation and don't need the attributes to exist yet.
     requestAnimationFrame(() => {
       const images = Array.from(article.querySelectorAll("img"));
       for (const image of images) {
@@ -294,6 +303,7 @@ const ogImage = ogImageUrl
       lastFocused = trigger ?? document.activeElement;
 
       overlay = document.createElement("div");
+      if (!overlay) return;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
       overlay.setAttribute(
@@ -307,7 +317,7 @@ const ogImage = ogImageUrl
       closeButton.type = "button";
       closeButton.setAttribute("aria-label", "Close image preview");
       closeButton.className =
-        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+        "absolute end-4 top-4 z-1 rounded p-2 text-3xl leading-none text-white";
       closeButton.innerHTML = "&#10005;";
       closeButton.addEventListener("click", close);
 
@@ -315,7 +325,8 @@ const ogImage = ogImageUrl
       image.src = src;
       image.alt = "";
       image.className =
-        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+        "max-h-[90dvh] max-w-[90dvw] object-contain cursor-default";
+      image.id = "lightbox-image";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
@@ -342,6 +353,7 @@ const ogImage = ogImageUrl
         translateX = 0;
         translateY = 0;
         image.style.transform = "";
+        image.removeAttribute("data-zoom");
       }
 
       overlay.addEventListener(
@@ -349,6 +361,7 @@ const ogImage = ogImageUrl
         e => {
           const t = e.touches;
           if (t.length === 2) {
+            image.setAttribute("data-zoom", "drag");
             initialDist = Math.hypot(
               t[1].clientX - t[0].clientX,
               t[1].clientY - t[0].clientY
@@ -365,8 +378,10 @@ const ogImage = ogImageUrl
                 translateX = 0;
                 translateY = 0;
                 applyTransform();
+                image.setAttribute("data-zoom", "in");
               }
               lastTapTime = 0;
+              image.setAttribute("data-zoom", "drag");
               panStartX = t[0].clientX;
               panStartY = t[0].clientY;
               panStartTranslateX = translateX;
@@ -374,6 +389,7 @@ const ogImage = ogImageUrl
             } else {
               lastTapTime = now;
               if (currentScale > 1) {
+                image.setAttribute("data-zoom", "drag");
                 panStartX = t[0].clientX;
                 panStartY = t[0].clientY;
                 panStartTranslateX = translateX;
@@ -395,10 +411,22 @@ const ogImage = ogImageUrl
               t[1].clientX - t[0].clientX,
               t[1].clientY - t[0].clientY
             );
+            const oldScale = currentScale;
             currentScale = Math.min(
               4,
               Math.max(1, initialScale * (dist / initialDist))
             );
+
+            // Zoom to the geometric center of the two fingers
+            const midX = (t[0].clientX + t[1].clientX) / 2;
+            const midY = (t[0].clientY + t[1].clientY) / 2;
+            const ox = overlay.clientWidth / 2;
+            const oy = overlay.clientHeight / 2;
+            translateX =
+              (midX - ox) * (1 / currentScale - 1 / oldScale) + translateX;
+            translateY =
+              (midY - oy) * (1 / currentScale - 1 / oldScale) + translateY;
+
             applyTransform();
           } else if (t.length === 1) {
             if (currentScale > 1) {
@@ -407,6 +435,7 @@ const ogImage = ogImageUrl
                 panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
               translateY =
                 panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              if (!overlay) return;
               const maxX = Math.max(
                 0,
                 (image.clientWidth - overlay.clientWidth / currentScale) / 2
@@ -427,19 +456,112 @@ const ogImage = ogImageUrl
       );
 
       overlay.addEventListener("touchend", e => {
-        if (e.touches.length === 0 && currentScale <= 1.05) {
-          resetTransform();
+        if (e.touches.length === 0) {
+          if (currentScale > 1) {
+            image.setAttribute("data-zoom", "in");
+          } else {
+            image.removeAttribute("data-zoom");
+          }
+          if (currentScale <= 1.05) resetTransform();
         }
       });
 
       overlay.addEventListener("touchcancel", e => {
-        if (e.touches.length === 0 && currentScale <= 1.05) {
-          resetTransform();
+        if (e.touches.length === 0) {
+          if (currentScale > 1) {
+            image.setAttribute("data-zoom", "in");
+          } else {
+            image.removeAttribute("data-zoom");
+          }
+          if (currentScale <= 1.05) resetTransform();
+        }
+      });
+
+      overlay.addEventListener(
+        "wheel",
+        e => {
+          e.preventDefault();
+          const oldScale = currentScale;
+          const delta = -e.deltaY * 0.001;
+          currentScale = Math.min(4, Math.max(1, currentScale * (1 + delta)));
+
+          if (currentScale <= 1.05) {
+            resetTransform();
+          } else {
+            image.setAttribute("data-zoom", "in");
+            // Zoom to cursor: adjust translate so the point under cursor stays fixed
+            const ox = overlay.clientWidth / 2;
+            const oy = overlay.clientHeight / 2;
+            translateX =
+              (e.clientX - ox) * (1 / currentScale - 1 / oldScale) + translateX;
+            translateY =
+              (e.clientY - oy) * (1 / currentScale - 1 / oldScale) + translateY;
+
+            // Clamp pan
+            const maxX = Math.max(
+              0,
+              (image.clientWidth - overlay.clientWidth / currentScale) / 2
+            );
+            const maxY = Math.max(
+              0,
+              (image.clientHeight - overlay.clientHeight / currentScale) / 2
+            );
+            translateX = Math.min(maxX, Math.max(-maxX, translateX));
+            translateY = Math.min(maxY, Math.max(-maxY, translateY));
+
+            applyTransform();
+          }
+        },
+        { passive: false }
+      );
+
+      let isMouseDown = false;
+      let mouseStartX = 0;
+      let mouseStartY = 0;
+
+      overlay.addEventListener("mousedown", e => {
+        if (e.button !== 0 || currentScale <= 1) return;
+        if (e.target.closest("button")) return;
+        isMouseDown = true;
+        mouseStartX = e.clientX;
+        mouseStartY = e.clientY;
+        panStartTranslateX = translateX;
+        panStartTranslateY = translateY;
+        image.setAttribute("data-zoom", "drag");
+        e.preventDefault();
+      });
+
+      document.addEventListener("mousemove", e => {
+        if (!isMouseDown) return;
+        translateX =
+          panStartTranslateX + (e.clientX - mouseStartX) / currentScale;
+        translateY =
+          panStartTranslateY + (e.clientY - mouseStartY) / currentScale;
+        const maxX = Math.max(
+          0,
+          (image.clientWidth - overlay.clientWidth / currentScale) / 2
+        );
+        const maxY = Math.max(
+          0,
+          (image.clientHeight - overlay.clientHeight / currentScale) / 2
+        );
+        translateX = Math.min(maxX, Math.max(-maxX, translateX));
+        translateY = Math.min(maxY, Math.max(-maxY, translateY));
+        applyTransform();
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (!isMouseDown) return;
+        isMouseDown = false;
+        if (currentScale > 1) {
+          image.setAttribute("data-zoom", "in");
+        } else {
+          image.removeAttribute("data-zoom");
         }
       });
 
       document.body.appendChild(overlay);
-      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       document.addEventListener("keydown", onKeyDown);
       window.__closeLightbox = close;
 
@@ -454,7 +576,7 @@ const ogImage = ogImageUrl
       window.__closeLightbox = null;
 
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
       lastFocused?.focus();
       lastFocused = null;
 
@@ -505,6 +627,7 @@ const ogImage = ogImageUrl
     }
 
     article.addEventListener("click", e => {
+      if (!article) return;
       const image = triggerFromEvent(e);
       if (!image) return;
       e.preventDefault();
@@ -519,7 +642,9 @@ const ogImage = ogImageUrl
       activate(image);
     });
   }
+
   initLightbox();
+  document.addEventListener("astro:after-swap", initLightbox);
 
   if (!window.__lightboxSwapBound) {
     window.__lightboxSwapBound = true;
