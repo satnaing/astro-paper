@@ -1,0 +1,42 @@
+---
+import { getPostUrl } from "@/utils/getPostPaths";
+import config from "@/config";
+
+type Props = {
+  seriesTitle: string;
+  entries: {
+    id: string;
+    title: string;
+    filePath: string | undefined;
+    seriesOrder: number;
+    isCurrent: boolean;
+  }[];
+};
+
+const { seriesTitle, entries } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+---
+
+<div data-pagefind-ignore class="my-8">
+  <h2 class="text-lg font-semibold">{seriesTitle}</h2>
+  <ol class="mt-3 flex flex-col gap-2">
+    {
+      entries.map(entry => (
+        <li>
+          {entry.isCurrent ? (
+            <span class="text-accent font-medium" aria-current="page">
+              {entry.seriesOrder}. {entry.title}
+            </span>
+          ) : (
+            <a
+              href={getPostUrl(entry.id, entry.filePath, locale)}
+              class="hover:text-accent underline-offset-4 hover:underline"
+            >
+              {entry.seriesOrder}. {entry.title}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</div>
