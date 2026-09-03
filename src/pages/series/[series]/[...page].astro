@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Card from "@/components/Card.astro";
+import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getSeries } from "@/utils/getSeries";
+import { getSortedSeriesPosts } from "@/utils/getSortedSeriesPosts";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const series = getSeries(posts);
+
+  return series.flatMap(({ series: seriesSlug, seriesTitle, complete }) => {
+    const seriesPosts = getSortedSeriesPosts(posts, seriesSlug);
+    // By convention, seriesDescription is written once on the first post
+    // (seriesPosts[0] after sorting ascending) — a summary of the series as
+    // a whole, not that post's own excerpt. Falls back to generic text.
+    const seriesDescription = seriesPosts[0]?.data.seriesDescription;
+
+    return paginate(seriesPosts, {
+      params: { series: seriesSlug },
+      props: { seriesTitle, complete, seriesDescription },
+      pageSize: config.posts.perPage,
+    });
+  });
+}
+
+const { page, seriesTitle, complete, seriesDescription } = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const completePrefix = complete ? `[${t.pages.seriesComplete}] ` : "";
+const pageDesc = seriesDescription ?? `${t.pages.seriesDesc} "${seriesTitle}".`;
+const pageTitle = `${completePrefix}${t.pages.seriesTitle}: ${seriesTitle}`;
+---
+
+<Layout title={`${pageTitle} | ${config.site.title}`} description={pageDesc}>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={pageTitle} pageDesc={pageDesc}>
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

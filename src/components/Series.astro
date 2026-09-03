@@ -1,0 +1,42 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@/i18n";
+import Datetime from "./Datetime.astro";
+import config from "@/config";
+
+type Props = {
+  series: string;
+  seriesTitle: string;
+  count: number;
+  complete: boolean;
+  latestPubDatetime: Date;
+  latestPostTitle: string;
+};
+
+const {
+  series,
+  seriesTitle,
+  count,
+  complete,
+  latestPubDatetime,
+  latestPostTitle,
+} = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<li class="my-6 w-full">
+  <a
+    href={getRelativeLocaleUrl(locale, `series/${series}/`)}
+    class:list={[
+      "text-accent inline-block text-lg font-medium",
+      "decoration-dashed underline-offset-4 hover:underline",
+      "focus-visible:no-underline focus-visible:underline-offset-0",
+    ]}
+  >
+    {complete && `[${t.pages.seriesComplete}] `}{seriesTitle} ({count})
+  </a>
+  <Datetime pubDatetime={latestPubDatetime} />
+  <p>{latestPostTitle}</p>
+</li>

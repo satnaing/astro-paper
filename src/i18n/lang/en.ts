@@ -5,6 +5,7 @@ export default {
     home: "Home",
     posts: "Posts",
     tags: "Tags",
+    series: "Series",
     about: "About",
     archives: "Archives",
     search: "Search",
@@ -43,6 +44,13 @@ export default {
 
     tagsTitle: "Tags",
     tagsDesc: "All the tags used in posts.",
+
+    seriesTitle: "Series",
+    seriesDesc: "All the articles in the series",
+    seriesComplete: "Complete",
+
+    seriesListTitle: "Series",
+    seriesListDesc: "All the series I've written.",
 
     postsTitle: "Posts",
     postsDesc: "All the articles I've posted.",

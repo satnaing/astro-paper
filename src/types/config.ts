@@ -44,6 +44,12 @@ interface FeaturesConfig {
   dynamicOgImage?: boolean;
   /** Show the /archives page and link it in nav. Defaults to true. */
   showArchives?: boolean;
+  /**
+   * Show the /series page and link it in nav. Defaults to false — most
+   * sites don't group posts into series, so this stays opt-in even when
+   * posts use the `series`/`seriesTitle`/`seriesOrder` frontmatter.
+   */
+  showSeries?: boolean;
   /** Show back button on post detail pages. Defaults to true. */
   showBackButton?: boolean;
   /** "Edit page" link shown on post detail pages. */

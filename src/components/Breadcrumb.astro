@@ -27,6 +27,7 @@ const decodeSegment = (value: string) => {
 const navLabels: Record<string, string> = {
   posts: t.nav.posts,
   tags: t.nav.tags,
+  series: t.nav.series,
   about: t.nav.about,
   archives: t.nav.archives,
   search: t.nav.search,
@@ -45,6 +46,20 @@ if (breadcrumbList[0] === "posts") {
 // if breadcrumb is Home > Tags > [tag] > [page] <etc>
 // replace [tag] > [page] with localized [tag] (page number)
 if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
+  breadcrumbList.splice(
+    1,
+    3,
+    `${decodeSegment(breadcrumbList[1])} ${
+      Number(breadcrumbList[2]) === 1
+        ? ""
+        : `(${t.pagination.page.toLowerCase()} ${breadcrumbList[2]})`
+    }`
+  );
+}
+
+// if breadcrumb is Home > Series > [series] > [page] <etc>
+// replace [series] > [page] with localized [series] (page number)
+if (breadcrumbList[0] === "series" && !isNaN(Number(breadcrumbList[2]))) {
   breadcrumbList.splice(
     1,
     3,

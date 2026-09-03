@@ -90,6 +90,18 @@ const isActive = (path: string) => {
             {t.nav.tags}
           </a>
         </li>
+        {
+          features.showSeries && (
+            <li class="col-span-2">
+              <a
+                href={getRelativeLocaleUrl(locale, "series")}
+                class:list={{ "active-nav": isActive("/series") }}
+              >
+                {t.nav.series}
+              </a>
+            </li>
+          )
+        }
         <li class="col-span-2">
           <a
             href={getRelativeLocaleUrl(locale, "about")}
