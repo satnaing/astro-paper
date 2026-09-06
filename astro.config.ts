@@ -18,6 +18,7 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import config from "./astro-paper.config";
+import draftToggle from "./src/integrations/draft-toggle";
 
 export default defineConfig({
   site: config.site.url,
@@ -27,6 +28,7 @@ export default defineConfig({
       filter: page =>
         config.features?.showArchives !== false || !page.endsWith("/archives/"),
     }),
+    draftToggle(),
   ],
   i18n: {
     locales: ["en"],

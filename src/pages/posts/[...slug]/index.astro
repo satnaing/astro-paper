@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Datetime from "@/components/Datetime.astro";
 import Tag from "@/components/Tag.astro";
+import { draftTitle } from "@/utils/draftTitle";
 import { getPostSlug, getPostUrl } from "@/utils/getPostPaths";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyStr } from "@/utils/slugify";
@@ -71,7 +72,10 @@ const {
   timezone,
   tags,
   hideEditPost,
+  draft,
 } = post.data;
+
+const displayTitle = draftTitle(title, draft);
 
 const { Content } = await render(post);
 
@@ -97,7 +101,7 @@ const ogImage = ogImageUrl
 ---
 
 <PostLayout
-  title={`${title} | ${config.site.title}`}
+  title={`${displayTitle} | ${config.site.title}`}
   description={description}
   ogImage={ogImage}
   canonicalURL={canonicalURL}
@@ -117,7 +121,7 @@ const ogImage = ogImageUrl
       style={{ viewTransitionName: toTransitionName(post.id) }}
       class="text-accent inline-block text-2xl font-bold sm:text-3xl"
     >
-      {title}
+      {displayTitle}
     </h1>
 
     <div class="my-2 flex items-center gap-2">
