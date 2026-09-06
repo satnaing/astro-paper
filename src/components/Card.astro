@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { draftTitle } from "@/utils/draftTitle";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { toTransitionName } from "@/utils/toTransitionName";
 import Datetime from "./Datetime.astro";
@@ -10,7 +11,8 @@ type Props = {
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
-const { title, description, ...props } = data;
+const { title, description, draft, ...props } = data;
+const displayTitle = draftTitle(title, draft);
 ---
 
 <li class="my-6">
@@ -23,7 +25,7 @@ const { title, description, ...props } = data;
     ]}
   >
     <Heading transition:name={toTransitionName(id)}>
-      {title}
+      {displayTitle}
     </Heading>
   </a>
   <Datetime {...props} />

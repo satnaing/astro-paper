@@ -15,7 +15,7 @@ import { useTranslations } from "@/i18n";
 import config from "@/config";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const posts = await getCollection("posts");
   const tags = getUniqueTags(posts);
 
   return tags.flatMap(({ tag, tagName }) => {
