@@ -1,7 +1,7 @@
 {
   "name": "astro-paper-v6",
   "type": "module",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "engines": {
     "node": ">=22.23.4"
   },

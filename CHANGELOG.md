@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v7.0.0 (2026-10-30)
+
+### Feat
+
+- astro v7 upgrade (#664)
+
+### Fix
+
+- move focus to main content when skip-to-content is clicked (#665)
+- respect markdown table column alignment (#668)
+- prev/next post links point the wrong direction (#674)
+- duplicate view-transition-name when posts share the same title (#662)
+
 ## v6.1.0 (2026-06-06)
 
 ### Feat
