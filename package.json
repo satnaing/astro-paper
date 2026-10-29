@@ -3,7 +3,7 @@
   "type": "module",
   "version": "6.1.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.23.4"
   },
   "scripts": {
     "dev": "astro dev",
@@ -16,35 +16,35 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^7.0.0",
+    "@astrojs/markdown-remark": "^7.3.4",
+    "@astrojs/mdx": "^7.0.8",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.3",
-    "@tailwindcss/vite": "^4.3.2",
-    "astro": "^7.0.3",
-    "dayjs": "^1.11.21",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
+    "dayjs": "^1.11.23",
     "lodash.kebabcase": "^4.1.1",
-    "@astrojs/markdown-remark": "^7.2.0",
     "rehype-callouts": "^2.2.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.26.0",
-    "sharp": "^0.35.2",
+    "sharp": "^0.35.5",
     "slugify": "^1.6.9",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.12",
     "@pagefind/default-ui": "^1.5.2",
-    "@shikijs/transformers": "^4.3.0",
+    "@shikijs/transformers": "^4.5.0",
     "@tailwindcss/typography": "^0.5.20",
     "@types/lodash.kebabcase": "^4.1.9",
-    "@typescript-eslint/parser": "^8.62.0",
-    "eslint": "^10.6.0",
+    "@typescript-eslint/parser": "^8.72.1",
+    "eslint": "^10.13.0",
     "eslint-plugin-astro": "^2.1.1",
     "pagefind": "^1.5.2",
     "prettier": "3.9.3",
     "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-tailwindcss": "^0.8.0",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3"
   }
 }
