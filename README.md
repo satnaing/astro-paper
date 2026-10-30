@@ -140,6 +140,12 @@ export default defineAstroPaperConfig({
 
 > See [this discussion](https://github.com/satnaing/astro-paper/discussions/334#discussioncomment-10139247) for adding AstroPaper to the Google Search Console.
 
+## 🚀 Deploy
+
+`pnpm build` outputs a static site to `dist/`. To deploy it on Wasmer Edge, import this repository, or your own copy of it to publish your customized blog:
+
+[![Deploy to Wasmer](https://img.shields.io/badge/Deploy%20to-Wasmer-171717?logo=wasmer&logoColor=white)](https://wasmer.io/apps/create?github=satnaing%2Fastro-paper)
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
