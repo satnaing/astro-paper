@@ -27,7 +27,7 @@
     "rehype-callouts": "^2.2.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
-    "satori": "^0.33.5",
+    "satori": "^0.63.2",
     "sharp": "^0.35.5",
     "slugify": "^1.6.9",
     "tailwindcss": "^4.3.3"
@@ -42,7 +42,7 @@
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^2.1.1",
     "pagefind": "^1.5.2",
-    "prettier": "3.9.3",
+    "prettier": "3.9.10",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3"
