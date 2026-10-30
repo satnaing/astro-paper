@@ -40,6 +40,14 @@ Browse through the existing issues to find one that interests you. You can use l
 
 For small changes like typos, syntax fixes, or broken links, click the "Suggest Changes" link below the title of any blog post. This will take you to the .md file, where you can make your changes and submit a pull request for review. For more significant changes to a blog post, it’s recommended to open a new issue or discussion first.
 
+### Using AI Tools
+
+Using AI tools to write code or docs is fine. However, you are the author of your PR:
+
+- Read, understand, and test every change before opening the PR.
+- Be ready to explain your changes and answer review questions yourself.
+- Keep the PR focused on one issue or feature, and fill in the PR template.
+
 ## Helping with GitHub Issues/Discussions
 
 GitHub Discussions and Issues are great places to help others. Whether you're a long-time user of AstroPaper or just have experience with a specific problem, we encourage you to answer questions or solve issues when possible.
