@@ -275,6 +275,7 @@ const ogImage = ogImageUrl
     let removeDragListeners = null;
 
     // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
     requestAnimationFrame(() => {
       const images = Array.from(article.querySelectorAll("img"));
       for (const image of images) {
@@ -294,7 +295,6 @@ const ogImage = ogImageUrl
       lastFocused = trigger ?? document.activeElement;
 
       overlay = document.createElement("div");
-      if (!overlay) return;
       overlay.setAttribute("role", "dialog");
       overlay.setAttribute("aria-modal", "true");
       overlay.setAttribute(
@@ -626,7 +626,6 @@ const ogImage = ogImageUrl
     }
 
     article.addEventListener("click", e => {
-      if (!article) return;
       const image = triggerFromEvent(e);
       if (!image) return;
       e.preventDefault();
