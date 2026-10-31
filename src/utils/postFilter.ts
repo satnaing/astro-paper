@@ -21,10 +21,12 @@ dayjs.extend(timezone);
  * timezone, so the byline shows that day unless a later `modDatetime` is set.
  */
 export function postFilter({ data }: CollectionEntry<"posts">) {
+  if (data.draft) return false;
+  if (import.meta.env.DEV) return true;
+
   const tz = resolveTimezone(data.timezone ?? config.site.timezone);
   const publishDay = dayjs(data.pubDatetime).tz(tz).startOf("day");
   const buildDay = dayjs().tz(tz).startOf("day");
-  const isPublishDayReached = !publishDay.isAfter(buildDay);
 
-  return !data.draft && (import.meta.env.DEV || isPublishDayReached);
+  return !publishDay.isAfter(buildDay);
 }
