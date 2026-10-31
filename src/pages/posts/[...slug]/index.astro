@@ -282,6 +282,7 @@ const ogImage = ogImageUrl
 
     let overlay = null;
     let lastFocused = null;
+    let removeDragListeners = null;
 
     // Defer attribute mutations so they don't push the LCP timestamp.
     requestAnimationFrame(() => {
@@ -531,8 +532,8 @@ const ogImage = ogImageUrl
         e.preventDefault();
       });
 
-      document.addEventListener("mousemove", e => {
-        if (!isMouseDown) return;
+      function onMouseMove(e) {
+        if (!isMouseDown || !overlay) return;
         translateX =
           panStartTranslateX + (e.clientX - mouseStartX) / currentScale;
         translateY =
@@ -548,9 +549,9 @@ const ogImage = ogImageUrl
         translateX = Math.min(maxX, Math.max(-maxX, translateX));
         translateY = Math.min(maxY, Math.max(-maxY, translateY));
         applyTransform();
-      });
+      }
 
-      document.addEventListener("mouseup", () => {
+      function onMouseUp() {
         if (!isMouseDown) return;
         isMouseDown = false;
         if (currentScale > 1) {
@@ -558,7 +559,14 @@ const ogImage = ogImageUrl
         } else {
           image.removeAttribute("data-zoom");
         }
-      });
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+      removeDragListeners = () => {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
 
       document.body.appendChild(overlay);
       document.documentElement.style.overflow = "hidden";
@@ -576,6 +584,8 @@ const ogImage = ogImageUrl
       window.__closeLightbox = null;
 
       document.removeEventListener("keydown", onKeyDown);
+      removeDragListeners?.();
+      removeDragListeners = null;
       document.documentElement.style.overflow = "";
       lastFocused?.focus();
       lastFocused = null;
