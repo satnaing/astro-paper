@@ -39,7 +39,6 @@ export default defineAstroPaperConfig({
   posts: {
     perPage: 4,
     perIndex: 4,
-    scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   },
   features: {
     lightAndDarkMode: true,
@@ -95,9 +94,17 @@ export default defineAstroPaperConfig({
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `perPage`             | Number of posts shown per page on paginated listing pages. Defaults to `4`.                                                       |
 | `perIndex`            | Number of posts shown in the Recent section on the home page. Defaults to `4`.                                                    |
-| `scheduledPostMargin` | Posts with a future `pubDatetime` within this window (in ms) are treated as published. Defaults to 15 minutes (`15 * 60 * 1000`). |
+| `scheduledPostMargin` | **Deprecated.** Has no effect, see [Scheduled posts](#scheduled-posts). Safe to delete from your config. |
 
 </ResponsiveTable>
+
+### Scheduled posts
+
+A post with a future `pubDatetime` is left out of the build (no page, no links, no RSS item) until its day comes.
+
+Publishing goes by day. A post shows up from the start of the date shown under its title, in `site.timezone` (or the post's own `timezone`). The time of day in `pubDatetime` doesn't change when it shows up.
+
+This is checked at build time, so a scheduled post appears with the first build on or after its day. To publish without pushing, add a daily scheduled build. See [Scheduled posts](https://github.com/satnaing/astro-paper/wiki/Configuration#scheduled-posts) in the wiki.
 
 ### `features` options
 
