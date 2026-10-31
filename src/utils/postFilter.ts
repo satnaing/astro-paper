@@ -17,8 +17,8 @@ dayjs.extend(timezone);
  * - In dev, always shows non-draft posts to make authoring easier
  *
  * Publishing is day-granular by design: a post becomes visible on its
- * `pubDatetime` day, not at a time of day. `Datetime.astro` renders `pubDatetime`
- * through the same timezone, so the byline shows that same day.
+ * `pubDatetime` day, not at a time of day. `Datetime.astro` uses the same
+ * timezone, so the byline shows that day unless a later `modDatetime` is set.
  */
 export function postFilter({ data }: CollectionEntry<"posts">) {
   const tz = resolveTimezone(data.timezone ?? config.site.timezone);
