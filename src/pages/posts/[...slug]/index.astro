@@ -336,6 +336,8 @@ const ogImage = ogImageUrl
 
       function applyTransform() {
         image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+        // A backdrop click only closes at fit size, so drop the zoom-out cursor while zoomed.
+        overlay?.classList.toggle("cursor-zoom-out", currentScale <= 1);
       }
 
       function resetTransform() {
@@ -344,6 +346,22 @@ const ogImage = ogImageUrl
         translateY = 0;
         image.style.transform = "";
         image.removeAttribute("data-zoom");
+        overlay?.classList.add("cursor-zoom-out");
+      }
+
+      // Keep the zoomed image from being panned past its edges.
+      function clampTranslate() {
+        if (!overlay) return;
+        const maxX = Math.max(
+          0,
+          (image.clientWidth - overlay.clientWidth / currentScale) / 2
+        );
+        const maxY = Math.max(
+          0,
+          (image.clientHeight - overlay.clientHeight / currentScale) / 2
+        );
+        translateX = Math.min(maxX, Math.max(-maxX, translateX));
+        translateY = Math.min(maxY, Math.max(-maxY, translateY));
       }
 
       overlay.addEventListener(
@@ -371,7 +389,6 @@ const ogImage = ogImageUrl
                 image.setAttribute("data-zoom", "in");
               }
               lastTapTime = 0;
-              image.setAttribute("data-zoom", "drag");
               panStartX = t[0].clientX;
               panStartY = t[0].clientY;
               panStartTranslateX = translateX;
@@ -416,26 +433,17 @@ const ogImage = ogImageUrl
               (midX - ox) * (1 / currentScale - 1 / oldScale) + translateX;
             translateY =
               (midY - oy) * (1 / currentScale - 1 / oldScale) + translateY;
-
+            clampTranslate();
             applyTransform();
           } else if (t.length === 1) {
             if (currentScale > 1) {
               e.preventDefault();
+              image.setAttribute("data-zoom", "drag");
               translateX =
                 panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
               translateY =
                 panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
-              if (!overlay) return;
-              const maxX = Math.max(
-                0,
-                (image.clientWidth - overlay.clientWidth / currentScale) / 2
-              );
-              const maxY = Math.max(
-                0,
-                (image.clientHeight - overlay.clientHeight / currentScale) / 2
-              );
-              translateX = Math.min(maxX, Math.max(-maxX, translateX));
-              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              clampTranslate();
               applyTransform();
             } else {
               e.preventDefault();
@@ -486,19 +494,7 @@ const ogImage = ogImageUrl
               (e.clientX - ox) * (1 / currentScale - 1 / oldScale) + translateX;
             translateY =
               (e.clientY - oy) * (1 / currentScale - 1 / oldScale) + translateY;
-
-            // Clamp pan
-            const maxX = Math.max(
-              0,
-              (image.clientWidth - overlay.clientWidth / currentScale) / 2
-            );
-            const maxY = Math.max(
-              0,
-              (image.clientHeight - overlay.clientHeight / currentScale) / 2
-            );
-            translateX = Math.min(maxX, Math.max(-maxX, translateX));
-            translateY = Math.min(maxY, Math.max(-maxY, translateY));
-
+            clampTranslate();
             applyTransform();
           }
         },
@@ -527,16 +523,7 @@ const ogImage = ogImageUrl
           panStartTranslateX + (e.clientX - mouseStartX) / currentScale;
         translateY =
           panStartTranslateY + (e.clientY - mouseStartY) / currentScale;
-        const maxX = Math.max(
-          0,
-          (image.clientWidth - overlay.clientWidth / currentScale) / 2
-        );
-        const maxY = Math.max(
-          0,
-          (image.clientHeight - overlay.clientHeight / currentScale) / 2
-        );
-        translateX = Math.min(maxX, Math.max(-maxX, translateX));
-        translateY = Math.min(maxY, Math.max(-maxY, translateY));
+        clampTranslate();
         applyTransform();
       }
 
