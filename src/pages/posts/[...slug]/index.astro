@@ -264,16 +264,6 @@ const ogImage = ogImageUrl
 
   /** Accessible image lightbox for article images. */
   function initLightbox() {
-    if (!document.getElementById("__lbox-style")) {
-      const s = document.createElement("style");
-      s.id = "__lbox-style";
-      s.textContent =
-        "#lightbox-image{transition:transform .1s ease-out}" +
-        "#lightbox-image[data-zoom=drag]{transition:none;cursor:grabbing}" +
-        "#lightbox-image[data-zoom=in]{cursor:grab}";
-      document.head.appendChild(s);
-    }
-
     const article = document.getElementById("article");
     if (!article) return;
 
@@ -326,8 +316,7 @@ const ogImage = ogImageUrl
       image.src = src;
       image.alt = "";
       image.className =
-        "max-h-[90dvh] max-w-[90dvw] object-contain cursor-default";
-      image.id = "lightbox-image";
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain transition-transform duration-100 ease-out motion-reduce:transition-none data-[zoom=drag]:cursor-grabbing data-[zoom=drag]:transition-none data-[zoom=in]:cursor-grab";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
