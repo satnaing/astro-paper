@@ -102,7 +102,7 @@ export default defineAstroPaperConfig({
 
 A post with a future `pubDatetime` is left out of the build (no page, no links, no RSS item) until its day comes.
 
-Publishing goes by day. A post shows up from the start of the date shown under its title, in `site.timezone` (or the post's own `timezone`). The time of day in `pubDatetime` doesn't change when it shows up.
+Publishing goes by day. A post shows up from the start of its `pubDatetime` date, in `site.timezone` (or the post's own `timezone`). The time of day in `pubDatetime` doesn't change when it shows up.
 
 This is checked at build time, so a scheduled post appears with the first build on or after its day. To publish without pushing, add a daily scheduled build. See [Scheduled posts](https://github.com/satnaing/astro-paper/wiki/Configuration#scheduled-posts) in the wiki.
 
