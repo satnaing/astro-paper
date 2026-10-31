@@ -27,8 +27,9 @@ interface PostsConfig {
   /** Posts shown on the index/home page */
   perIndex?: number;
   /**
-   * Scheduled posts within this window (ms) of their pubDatetime
-   * are shown as published. Defaults to 15 minutes.
+   * @deprecated No longer has any effect. Publishing is day-granular: a post is
+   * listed from the start of its `pubDatetime` day in the site timezone, so
+   * there is no sub-day boundary left for a margin to cover. Safe to remove.
    */
   scheduledPostMargin?: number;
 }

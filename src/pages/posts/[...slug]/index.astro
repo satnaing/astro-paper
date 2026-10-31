@@ -24,20 +24,22 @@ export async function getStaticPaths() {
     params: { slug: getPostSlug(post.id, post.filePath) },
     props: {
       post,
+      // sortedPosts is newest-first, so "older" (prev) is a higher index
+      // and "newer" (next) is a lower index.
       prevPost:
-        index > 0
-          ? {
-              id: sortedPosts[index - 1].id,
-              title: sortedPosts[index - 1].data.title,
-              filePath: sortedPosts[index - 1].filePath,
-            }
-          : null,
-      nextPost:
         index < sortedPosts.length - 1
           ? {
               id: sortedPosts[index + 1].id,
               title: sortedPosts[index + 1].data.title,
               filePath: sortedPosts[index + 1].filePath,
+            }
+          : null,
+      nextPost:
+        index > 0
+          ? {
+              id: sortedPosts[index - 1].id,
+              title: sortedPosts[index - 1].data.title,
+              filePath: sortedPosts[index - 1].filePath,
             }
           : null,
     },
@@ -112,7 +114,7 @@ const ogImage = ogImageUrl
     data-pagefind-body
   >
     <h1
-      style={{ viewTransitionName: toTransitionName(title) }}
+      style={{ viewTransitionName: toTransitionName(post.id) }}
       class="text-accent inline-block text-2xl font-bold sm:text-3xl"
     >
       {title}
