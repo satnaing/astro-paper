@@ -557,6 +557,7 @@ const ogImage = ogImageUrl
       if (!overlay) return;
       const el = overlay;
       overlay = null;
+      el.classList.add("pointer-events-none");
       window.__closeLightbox = null;
 
       document.removeEventListener("keydown", onKeyDown);
@@ -627,7 +628,6 @@ const ogImage = ogImageUrl
       activate(image);
     });
   }
-
   initLightbox();
 
   if (!window.__lightboxSwapBound) {
