@@ -42,7 +42,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
           <div>
-            <span class="text-2xl font-bold">{year}</span>
+            <span class="text-2xl font-bold">{year}</span>{" "}
             <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
             {Object.entries(
               getPostsByGroupCondition(
@@ -58,7 +58,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
                       {monthFormatter.format(
                         new Date(2000, Number(month) - 1, 1)
                       )}
-                    </span>
+                    </span>{" "}
                     <sup class="text-muted-foreground text-xs">
                       {monthGroup.length}
                     </sup>
