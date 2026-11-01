@@ -1,7 +1,7 @@
 ---
 author: Simon Smale
 pubDatetime: 2024-01-03T20:40:08Z
-modDatetime: 2024-01-08T18:59:05Z
+modDatetime: 2026-11-01T10:00:00Z
 title: How to use Git Hooks to set Created and Modified Dates
 featured: false
 draft: false
@@ -28,9 +28,9 @@ As this project uses npm, we are able to make use of a package called [Husky](ht
 
 ## The Hook
 
-As we want this hook to run as we commit the code to update the dates and then have that as part of our change we are going to use the `pre-commit` hook. This has already been set up by this AstroPaper project, but if it hadn't, you would run `npx husky add .husky/pre-commit 'echo "This is our new pre-commit hook"'`.
+As we want this hook to run as we commit the code to update the dates and then have that as part of our change we are going to use the `pre-commit` hook. After installing Husky, run `npx husky init`. It creates a `.husky/pre-commit` file with a placeholder command.
 
-Navigating to the `hooks/pre-commit` file, we are going to add one or both of the following snippets.
+Replace that placeholder in `.husky/pre-commit` with one or both of the following snippets.
 
 ### Updating the modified date when a file is edited
 
@@ -68,7 +68,7 @@ done
 `git diff --cached --name-status` gets the files from git that have been staged for committing. The output looks like:
 
 ```shell
-A       src/content/blog/setting-dates-via-git-hooks.md
+A       src/content/posts/setting-dates-via-git-hooks.md
 ```
 
 The letter at the start denotes what action has been taken, in the above example the file has been added. Modified files have `M`
@@ -79,7 +79,7 @@ We pipe that output into the grep command where we are looking at each line to f
 
 #### Improvement - More Explicit
 
-This could be added to only look for files that we markdown files in the `blog` directory, as these are the only ones that will have the right frontmatter
+This could be added to only look for files that we markdown files in the `src/content/posts/` directory, as these are the only ones that will have the right frontmatter
 
 ---
 
@@ -103,7 +103,7 @@ This replacement is in the context of the whole file so we put that into a tempo
 
 #### NOTE
 
-For the `sed` to work the frontmatter needs to already have the `modDatetime` key in the frontmatter. There are some other changes you will need to make for the app to build with a blank date, see [further down](#empty-moddatetime-changes)
+For the `sed` to work the frontmatter needs to already have the `modDatetime` key in the frontmatter. AstroPaper already builds with a blank date, see [further down](#empty-moddatetime-changes)
 
 ---
 
@@ -130,60 +130,20 @@ We could use the `a` variable to switch inside the loop and either update the `m
 
 ## Populating the frontmatter
 
-If your IDE supports snippets then there is the option to create a custom snippet to populate the frontmatter.[In AstroPaper v4 will come with one for VSCode by default.](https://github.com/satnaing/astro-paper/pull/206)
+If your IDE supports snippets then there is the option to create a custom snippet to populate the frontmatter. AstroPaper comes with [one for VS Code](https://github.com/satnaing/astro-paper/pull/206) in `.vscode/astro-paper.code-snippets`.
 
-<video autoplay muted="muted" controls plays-inline="true" class="border border-skin-line">
+<video autoplay muted="muted" controls plays-inline="true" class="border border-border">
   <source src="https://github.com/satnaing/astro-paper/assets/17761689/e13babbc-2d78-405d-8758-ca31915e41b0" type="video/mp4">
 </video>
 
 ## Empty `modDatetime` changes
 
-To allow Astro to compile the markdown and do its thing, it needs to know what is expected in the frontmatter. It does this via the config in `src/content/config.ts`
+To allow Astro to compile the markdown and do its thing, it needs to know what is expected in the frontmatter. It does this via the schema in `src/content.config.ts`.
 
-To allow the key to be there with no value we need to edit line 10 to add the `.nullable()` function.
+AstroPaper already allows the key to be there with no value, so you don't need to change anything:
 
-```ts
-const blog = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    z.object({
-      author: z.string().default(SITE.author),
-      pubDatetime: z.date(),
-      modDatetime: z.date().optional(), // [!code --]
-      modDatetime: z.date().optional().nullable(), // [!code ++]
-      title: z.string(),
-      featured: z.boolean().optional(),
-      draft: z.boolean().optional(),
-      tags: z.array(z.string()).default(["others"]),
-      ogImage: image().or(z.string()).optional(),
-      description: z.string(),
-      canonicalURL: z.string().optional(),
-      readingTime: z.string().optional(),
-    }),
-});
+```ts file=src/content.config.ts
+modDatetime: z.date().optional().nullable(),
 ```
 
-To stop the IDE complaining in the blog engine files I have also done the following:
-
-1. added `| null` to line 15 in `src/layouts/Layout.astro` so that it looks like
-
-   ```typescript
-   export interface Props {
-     title?: string;
-     author?: string;
-     description?: string;
-     ogImage?: string;
-     canonicalURL?: string;
-     pubDatetime?: Date;
-     modDatetime?: Date | null;
-   }
-   ```
-
-2. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
-
-   ```typescript
-   interface DatetimesProps {
-     pubDatetime: string | Date;
-     modDatetime: string | Date | undefined | null;
-   }
-   ```
+The layouts and the `Datetime.astro` component handle a `null` value as well.

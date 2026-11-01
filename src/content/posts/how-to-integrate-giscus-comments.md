@@ -1,7 +1,7 @@
 ---
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
-modDatetime: 2025-03-12T12:28:53Z
+modDatetime: 2026-11-01T10:00:00Z
 title: How to integrate Giscus comments into AstroPaper
 slug: how-to-integrate-giscus-comments
 featured: false
@@ -75,23 +75,23 @@ You should now have a script tag that looks like this:
 ></script>
 ```
 
-Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `PostDetails.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post on:` buttons.
+Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `src/pages/posts/[...slug]/index.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post:` buttons.
 
-```astro file=src/layouts/PostDetails.astro
-<Layout {...layoutProps}>
-  <main>
-    <ShareLinks />
+_AstroPaper_ uses Astro's [client-side routing](https://docs.astro.build/en/guides/view-transitions/), so a script runs only once by default. Add `data-astro-rerun` to the script tag, so the comments load again when you go to another post.
 
-    <!-- [!code ++:6] -->
-    <script
-      src="https://giscus.app/client.js"
-      data-repo="[ENTER REPO HERE]"
-      data-repo-id="[ENTER REPO ID HERE]"
-      data-category="[ENTER CATEGORY NAME HERE]"
-      data-category-id="[ENTER CATEGORY ID HERE]"></script>
-  </main>
-  <Footer />
-</Layout>
+```astro file=src/pages/posts/[...slug]/index.astro
+<ShareLinks />
+
+<!-- [!code ++:7] -->
+<script
+  src="https://giscus.app/client.js"
+  data-repo="[ENTER REPO HERE]"
+  data-repo-id="[ENTER REPO ID HERE]"
+  data-category="[ENTER CATEGORY NAME HERE]"
+  data-category-id="[ENTER CATEGORY ID HERE]"
+  data-astro-rerun></script>
+
+<hr class="my-8 border-dashed" />
 ```
 
 And it's done! You have successfully integrated comments in _AstroPaper_!
@@ -103,75 +103,17 @@ The embedded script tag in the layout is quite static, with the _Giscus_ configu
 Firstly, we are going to install the [React component](https://www.npmjs.com/package/@giscus/react) for _Giscus_:
 
 ```bash
-npm i @giscus/react && npx astro add react
+pnpm astro add react
+pnpm add @giscus/react
 ```
 
 Then we create a new `Comments.tsx` React component in `src/components`:
 
 ```tsx file=src/components/Comments.tsx
-import Giscus, { type Theme } from "@giscus/react";
-import { GISCUS } from "@/constants";
+import Giscus, { type GiscusProps, type Theme } from "@giscus/react";
 import { useEffect, useState } from "react";
 
-interface CommentsProps {
-  lightTheme?: Theme;
-  darkTheme?: Theme;
-}
-
-export default function Comments({
-  lightTheme = "light",
-  darkTheme = "dark",
-}: CommentsProps) {
-  const [theme, setTheme] = useState(() => {
-    const currentTheme = localStorage.getItem("theme");
-    const browserTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
-
-    return currentTheme || browserTheme;
-  });
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = ({ matches }: MediaQueryListEvent) => {
-      setTheme(matches ? "dark" : "light");
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
-  useEffect(() => {
-    const themeButton = document.querySelector("#theme-btn");
-    const handleClick = () => {
-      setTheme(prevTheme => (prevTheme === "dark" ? "light" : "dark"));
-    };
-
-    themeButton?.addEventListener("click", handleClick);
-
-    return () => themeButton?.removeEventListener("click", handleClick);
-  }, []);
-
-  return (
-    <div className="mt-8">
-      <Giscus theme={theme === "light" ? lightTheme : darkTheme} {...GISCUS} />
-    </div>
-  );
-}
-```
-
-This _React_ component not only wraps the native _Giscus_ component, but also introduces additional props, namely `lightTheme` and `darkTheme`. Leveraging two event listeners, the _Giscus_ comments will align with the site's theme, dynamically switching between dark and light themes whenever the site or browser theme is changed.
-
-We also need to define the `GISCUS` config, for which the optimal location is in `constants.ts`:
-
-```ts file=src/constants.ts
-import type { GiscusProps } from "@giscus/react";
-
-...
-
-export const GISCUS: GiscusProps = {
+const GISCUS: GiscusProps = {
   repo: "[ENTER REPO HERE]",
   repoId: "[ENTER REPO ID HERE]",
   category: "[ENTER CATEGORY NAME HERE]",
@@ -183,24 +125,58 @@ export const GISCUS: GiscusProps = {
   lang: "en",
   loading: "lazy",
 };
+
+interface CommentsProps {
+  lightTheme?: Theme;
+  darkTheme?: Theme;
+}
+
+export default function Comments({
+  lightTheme = "light",
+  darkTheme = "dark",
+}: CommentsProps) {
+  const [theme, setTheme] = useState(
+    () => document.documentElement.dataset.theme
+  );
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const observer = new MutationObserver(() => {
+      setTheme(root.dataset.theme);
+    });
+
+    observer.observe(root, { attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="mt-8">
+      <Giscus theme={theme === "dark" ? darkTheme : lightTheme} {...GISCUS} />
+    </div>
+  );
+}
 ```
 
-Note that specifying a `theme` here will override the `lightTheme` and `darkTheme` props, resulting in a static theme setting, similar to the previous approach of embedding _Giscus_ with the `<script>` tag.
+This _React_ component not only wraps the native _Giscus_ component, but also introduces additional props, namely `lightTheme` and `darkTheme`. _AstroPaper_ sets the current theme as `data-theme` on the `<html>` element, so the component watches that attribute. The _Giscus_ comments switch between dark and light themes whenever the site theme changes, whether from the theme button or the browser setting.
 
-To complete the process, add the new Comments component to `PostDetails.astro` (replacing the `script` tag from the previous step).
+The `GISCUS` config at the top of the file holds the values from [giscus.app](https://giscus.app/). Note that specifying a `theme` there will override the `lightTheme` and `darkTheme` props, resulting in a static theme setting, similar to the previous approach of embedding _Giscus_ with the `<script>` tag.
 
-```jsx file=src/layouts/PostDetails.astro
-// [!code ++:1]
-import Comments from "@/components/Comments";
+To complete the process, add the new Comments component to `src/pages/posts/[...slug]/index.astro` (replacing the `script` tag from the previous step).
+
+```astro file=src/pages/posts/[...slug]/index.astro
+---
+// ...
+import Comments from "@/components/Comments"; // [!code ++]
+// ...
+---
 
 <ShareLinks />
 
-// [!code ++:1]
+<!-- [!code ++:1] -->
 <Comments client:only="react" />
 
-<hr class="my-6 border-dashed" />
-
-<Footer />
+<hr class="my-8 border-dashed" />
 ```
 
 And that's it!

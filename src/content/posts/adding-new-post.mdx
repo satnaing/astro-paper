@@ -1,7 +1,7 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-23T15:22:00Z
-modDatetime: 2026-06-03T00:00:00.000Z
+modDatetime: 2026-11-01T10:00:00.000Z
 title: Adding new posts in AstroPaper theme
 slug: adding-new-posts-in-astropaper-theme
 featured: true
@@ -220,13 +220,15 @@ import {
 export default defineConfig({
   // ...
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    processor: unified({
+      // ...
+    }),
     shikiConfig: {
       themes: { light: "min-light", dark: "night-owl" },
       defaultColor: false,
       wrap: false,
       transformers: [
-        transformerFileName(),
+        transformerFileName({ style: "v2", hideDot: false }),
         // [!code --:3]
         transformerNotationHighlight(),
         transformerNotationWordHighlight(),
