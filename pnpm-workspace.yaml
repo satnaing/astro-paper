@@ -1,3 +1,5 @@
+# pnpm < 10.5 refuses a workspace file without `packages`
+packages: ["."]
 allowBuilds:
   esbuild: true
   sharp: true
