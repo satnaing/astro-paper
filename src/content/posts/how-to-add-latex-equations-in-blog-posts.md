@@ -1,7 +1,7 @@
 ---
 author: Alberto Perdomo
 pubDatetime: 2024-09-08T20:58:52.737Z
-modDatetime: 2025-03-22T09:25:46.734Z
+modDatetime: 2026-11-01T10:00:00.000Z
 title: How to add LaTeX Equations in Astro blog posts
 tags:
   - docs
@@ -29,79 +29,64 @@ In this section, you will find instructions on how to add support for LaTeX in y
 1. Install the necessary remark and rehype plugins by running:
 
    ```bash
-   pnpm install rehype-katex remark-math katex
+   pnpm add rehype-katex remark-math katex@^0.16
    ```
 
-2. Update the Astro configuration to use the these plugins:
+   `rehype-katex` renders equations with KaTeX 0.16, so `katex` is pinned to the same version. This keeps the KaTeX CSS in step 3 in sync with the HTML it styles.
+
+2. Add the plugins to the `unified()` Markdown processor in the Astro config:
 
    ```ts file=astro.config.ts
    // ...
-   import remarkMath from "remark-math";
-   import rehypeKatex from "rehype-katex";
+   import remarkMath from "remark-math"; // [!code ++]
+   import rehypeKatex from "rehype-katex"; // [!code ++]
 
    export default defineConfig({
      // ...
      markdown: {
-       remarkPlugins: [
-         remarkMath, // [!code ++]
-         remarkToc,
-         [remarkCollapse, { test: "Table of contents" }],
-       ],
-       rehypePlugins: [rehypeKatex], // [!code ++]
-       shikiConfig: {
-         // For more themes, visit https://shiki.style/themes
-         themes: { light: "min-light", dark: "night-owl" },
-         wrap: false,
-       },
+       processor: unified({
+         remarkPlugins: [
+           remarkMath, // [!code ++]
+           remarkToc,
+           [remarkCollapse, { test: "Table of contents" }],
+         ],
+         rehypePlugins: [rehypeCallouts, rehypeKatex], // [!code highlight]
+       }),
+       // ...
      },
      // ...
    });
    ```
 
-3. Import KaTeX CSS in the main layout file
+3. Import the KaTeX CSS in the main layout file:
 
    ```astro file=src/layouts/Layout.astro
    ---
-   import { SITE } from "@config";
-
-   // astro code
+   // ...
+   import "@/styles/global.css";
+   import "katex/dist/katex.min.css"; // [!code ++]
+   // ...
    ---
-
-   <!doctype html>
-   <!-- Other elements  -->
-   <meta property="og:image" content={socialImageURL} />
-
-   <!-- [!code highlight:4] -->
-   <link
-     rel="stylesheet"
-     href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
-   />
-
-   <body>
-     <slot />
-   </body>
    ```
 
-4. As the last step, add a text-color for `katex` in `typography.css`.
+   The CSS and its fonts are bundled with your site at build time, so there's no CDN link to keep up to date.
+
+4. As the last step, give block equations the theme's text color in `typography.css`. Without it, they keep the Tailwind Typography default color, which is hard to read in dark mode.
 
    ```css file=src/styles/typography.css
-   @plugin "@tailwindcss/typography";
-
    @layer base {
-     /* other classes */
+     .app-prose {
+       /* other styles */
 
-     /* Katex text color */
-     /* [!code highlight:3] */
-     .prose .katex-display {
-       @apply text-foreground;
+       /* [!code highlight:3] */
+       .katex-display {
+         @apply text-foreground;
+       }
      }
-
-     /* ===== Code Blocks & Syntax Highlighting ===== */
-     /* other classes */
    }
    ```
 
-And _voilà_, this setup allows you to write LaTeX equations in your Markdown files, which will be rendered properly when the site is built. Once you do it, the rest of the document will appear rendered correctly.
+And _voilà_, this setup allows you to write LaTeX equations in your Markdown files, which will be rendered properly when the site is built.
 
 ---
 
@@ -117,18 +102,22 @@ Inline equations are written between single dollar signs `$...$`. Here are some 
 
 ## Block Equations
 
-For more complex equations or when you want the equation to be displayed on its own line, use double dollar signs `$$...$$`:
+For more complex equations or when you want the equation to be displayed on its own line, put the equation between double dollar signs `$$`, each on its own line (written on a single line, `$$...$$` renders inline):
 
 The Gaussian integral:
 
 ```bash
-$$ \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} $$
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
 ```
 
 The definition of the Riemann zeta function:
 
 ```bash
-$$ \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} $$
+$$
+\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}
+$$
 ```
 
 Maxwell's equations in differential form:
