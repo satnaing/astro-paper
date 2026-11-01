@@ -85,6 +85,14 @@
       }
     }
 
+    .table-wrapper {
+      @apply outline-accent my-7 overflow-x-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-dashed;
+
+      table {
+        @apply my-0;
+      }
+    }
+
     code {
       @apply bg-muted/75 text-foreground rounded p-1 wrap-break-word before:content-none after:content-none;
     }

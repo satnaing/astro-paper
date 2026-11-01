@@ -29,7 +29,10 @@ const variantClasses = {
     className,
   ]}
 >
-  <div class="relative w-full overflow-x-auto">
+  <div
+    tabindex="0"
+    class="outline-accent relative w-full overflow-x-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-dashed"
+  >
     <slot />
   </div>
 </div>
