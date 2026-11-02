@@ -1,87 +1,139 @@
 ---
-import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import type { MarkdownHeading } from "astro";
 import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
+import IconListTree from "@/assets/icons/IconListTree.svg";
+import IconX from "@/assets/icons/IconX.svg";
 import { useTranslations } from "@/i18n";
+import { buildTocTree, hasToc } from "@/utils/buildTocTree";
+import TocList from "./TocList.astro";
 
+type Props = { headings: MarkdownHeading[] };
+
+const { headings } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
+const withToc = hasToc(headings);
+const items = withToc ? buildTocTree(headings) : [];
 ---
 
-<div
-  id="btt-btn-container"
-  class:list={[
-    "fixed inset-e-4 bottom-8 z-50",
-    "md:sticky md:inset-e-auto md:float-end md:me-1",
-    "translate-y-14 opacity-0 transition duration-500",
-  ]}
->
+<div id="post-fab" class="post-fab" data-pagefind-ignore>
   <button
-    data-button="back-to-top"
-    class:list={[
-      "group bg-background relative px-2 py-1",
-      "size-14 rounded-full shadow-xl",
-      "md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none",
-      "md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg",
-    ]}
+    type="button"
+    class="post-fab-btn"
+    aria-label={withToc ? t.post.tableOfContents : t.post.backToTop}
+    popovertarget={withToc ? "toc-popover" : undefined}
+    data-has-toc={withToc ? "" : undefined}
   >
-    <span
-      id="progress-indicator"
-      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"
-    ></span>
-    <IconArrowLeft class="inline-block rotate-90 md:hidden" />
-    <span class="group-hover:text-accent sr-only text-sm md:not-sr-only">
-      <IconArrowNarrowUp class="inline-block size-4" />{" "}
-      {t.post.backToTop}
-    </span>
+    <span class="post-fab-progress" aria-hidden="true"></span>
+    {
+      withToc && (
+        <>
+          <IconListTree class="post-fab-icon-toc size-6" aria-hidden="true" />
+          <IconX class="post-fab-icon-close size-6" aria-hidden="true" />
+        </>
+      )
+    }
+    <IconArrowNarrowUp class="post-fab-icon-top size-6" aria-hidden="true" />
   </button>
 </div>
 
-<script is:inline data-astro-rerun>
-  function backToTop() {
-    const rootElement = document.documentElement;
-    const btnContainer = document.querySelector("#btt-btn-container");
-    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
-    const progressIndicator = document.querySelector("#progress-indicator");
+{
+  withToc && (
+    <div id="toc-popover" class="toc-popover" popover data-pagefind-ignore>
+      <nav aria-labelledby="toc-popover-label" data-toc-nav>
+        <h2 id="toc-popover-label" class="toc-label">
+          {t.post.tableOfContents}
+        </h2>
+        <TocList {items} />
+        <button type="button" class="toc-back-to-top" data-back-to-top>
+          <IconArrowNarrowUp class="size-4" aria-hidden="true" />
+          {t.post.backToTop}
+        </button>
+      </nav>
+    </div>
+  )
+}
 
-    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
-      return;
+<script>
+  let cleanup: (() => void) | undefined;
 
-    backToTopBtn.addEventListener("click", () => {
+  function initPostFab() {
+    cleanup?.();
+    cleanup = undefined;
+
+    const root = document.documentElement;
+    const fab = document.getElementById("post-fab");
+    const button = fab?.querySelector<HTMLButtonElement>("button");
+    const progress = fab?.querySelector<HTMLElement>(".post-fab-progress");
+    const popover = document.getElementById("toc-popover");
+    if (!fab || !button || !progress) return;
+
+    const scrollToTop = () => {
+      root.scrollTop = 0;
       document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    });
+    };
+    const opensToc = button.hasAttribute("data-has-toc");
 
-    let lastVisible = null;
-    function handleScroll() {
-      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
-      const scrollTop = rootElement.scrollTop;
-      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+    const onButtonClick = () => {
+      if (!opensToc) scrollToTop();
+    };
 
-      progressIndicator.style.setProperty(
-        "background-image",
-        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
-      );
+    const closePopover = () => {
+      if (popover?.matches(":popover-open")) popover.hidePopover();
+    };
+    const onDocClick = (e: Event) => {
+      const target = e.target as Element;
+      if (target.closest("[data-back-to-top]")) {
+        scrollToTop();
+        closePopover();
+      } else if (target.closest(".toc-popover a")) {
+        closePopover();
+      }
+    };
 
-      const isVisible = scrollTop / scrollTotal > 0.3;
+    // The scroll spy can't scroll a hidden popover, so catch up on open.
+    const onToggle = (e: Event) => {
+      const list = popover?.querySelector<HTMLElement>("nav > ol");
+      if ((e as ToggleEvent).newState !== "open" || !list) return;
+      const active = list.querySelector<HTMLElement>("[aria-current]");
+      if (active && list.scrollHeight > list.clientHeight) {
+        list.scrollTop = active.offsetTop - list.clientHeight / 2;
+      }
+    };
 
+    let lastVisible: boolean | null = null;
+    let frame = 0;
+    function update() {
+      frame = 0;
+      const scrollTotal = root.scrollHeight - root.clientHeight;
+      const ratio = scrollTotal > 0 ? root.scrollTop / scrollTotal : 0;
+      progress!.style.setProperty("--progress", `${ratio * 100}%`);
+
+      // A TOC button is useful from the start; back to top only once scrolled.
+      const isVisible = opensToc || ratio > 0.3;
       if (isVisible !== lastVisible) {
-        btnContainer.classList.toggle("opacity-100", isVisible);
-        btnContainer.classList.toggle("translate-y-0", isVisible);
-        btnContainer.classList.toggle("opacity-0", !isVisible);
-        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        fab!.toggleAttribute("data-visible", isVisible);
         lastVisible = isVisible;
       }
     }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
 
-    let ticking = false;
-    document.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    button.addEventListener("click", onButtonClick);
+    document.addEventListener("click", onDocClick);
+    popover?.addEventListener("toggle", onToggle);
+    addEventListener("scroll", schedule, { passive: true });
+    update();
+
+    cleanup = () => {
+      button.removeEventListener("click", onButtonClick);
+      document.removeEventListener("click", onDocClick);
+      popover?.removeEventListener("toggle", onToggle);
+      removeEventListener("scroll", schedule);
+      cancelAnimationFrame(frame);
+    };
   }
-  backToTop();
+
+  document.addEventListener("astro:page-load", initPostFab);
+  document.addEventListener("astro:before-swap", () => cleanup?.());
 </script>

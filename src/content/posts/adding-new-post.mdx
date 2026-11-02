@@ -25,8 +25,6 @@ This guide covers the rules and conventions for creating new posts in AstroPaper
   </figcaption>
 </figure>
 
-## Table of contents
-
 ## Creating a Blog Post
 
 To write a new blog post, create a markdown (or MDX) file inside the `src/content/posts/` directory.
@@ -68,6 +66,7 @@ Here is the list of frontmatter properties for each post:
 | **_ogImage_**      | OG image of the post. Useful for social media sharing and SEO. Can be a remote URL or an image path relative to the current folder. | default = `site.ogImage` or generated OG image |
 | **_canonicalURL_** | Canonical URL (absolute), in case the article already exists on another source.                                                     | default = `Astro.site` + `Astro.url.pathname`  |
 | **_hideEditPost_** | Hide the edit-post button under the post title. Applies only to the current post.                                                   | default = false                                |
+| **_hideToc_** | Hide the table of contents on this post. Applies only to the current post. | default = false |
 | **_timezone_**     | Specify a timezone in IANA format for the current post. Overrides the global `site.timezone` config for this post only.             | default = `site.timezone`                      |
 
 </ResponsiveTable>
@@ -114,7 +113,7 @@ canonicalURL: https://example.org/my-article-was-already-posted-here
 AstroPaper includes workspace snippets to speed up creating new posts:
 
 - **frontmatter**: inserts the recommended frontmatter block
-- **template**: inserts a basic post template (including `## Table of contents`)
+- **template**: inserts a basic post template
 
 These snippets live in `.vscode/astro-paper.code-snippets`. If you use VS Code (or Cursor), they should be available automatically when you open the workspace.
 
@@ -177,22 +176,14 @@ Replace the default type label with any title you like by adding text after the 
 > Replaces the default heading.
 ```
 
-## Adding table of contents
+## Table of contents in posts
 
-By default, a post does not include any table of contents (TOC). To include one, write `Table of contents` as an h2 heading (`##` in Markdown) and place it where you want it to appear:
+A post with 2 or more `h2`/`h3` headings gets a table of contents automatically: beside the post on wide screens, and behind the floating button at the bottom of the page on smaller ones. The same button takes you back to the top.
 
-```md
----
-# frontmatter
----
+To hide it on one post, set `hideToc: true` in its frontmatter. To turn it off for the whole site, set `features.toc: false` in `astro-paper.config.ts`.
 
-Here are some recommendations, tips & tricks for creating new posts in AstroPaper blog theme.
-
-<!-- [!code ++] -->
-## Table of contents
-
-<!-- the rest of the post -->
-```
+> [!NOTE]
+> Older AstroPaper versions added a table of contents only where a post had a `## Table of contents` heading. That heading is deprecated and stops working in v8, so you can remove it from your posts.
 
 ## Headings
 

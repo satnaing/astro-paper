@@ -60,6 +60,12 @@ interface FeaturesConfig {
    * Set to false to disable search entirely.
    */
   search?: "pagefind" | false;
+  /**
+   * Table of contents on posts with 2+ h2/h3 headings: beside the post from
+   * 1280px, in the floating button below that. Defaults to true. Turn it off
+   * for one post with `hideToc: true` in its frontmatter.
+   */
+  toc?: boolean;
 }
 
 interface SocialLink {

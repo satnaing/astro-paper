@@ -15,6 +15,7 @@ export interface UIStrings {
     sharePostViaEmail: string;
     tagLabel: string;
     backToTop: string;
+    tableOfContents: string;
     goBack: string;
     editPage: string;
     previousPost: string;
@@ -53,6 +54,7 @@ export interface UIStrings {
   };
   a11y: {
     skipToContent: string;
+    skipTableOfContents: string;
     openMenu: string;
     closeMenu: string;
     toggleTheme: string;
