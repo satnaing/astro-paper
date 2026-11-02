@@ -22,7 +22,7 @@ In this post I will explain how to use the pre-commit Git hook to automate the i
 
 You can get around this by having a `hooks` directory and manually copy them to the `.git/hooks` directory or set up a symlink, but this all requires you to remember to set it up, and that is not something I am good at doing.
 
-As this project uses npm, we are able to make use of a package called [Husky](https://typicode.github.io/husky/) (this is already installed in AstroPaper) to automatically install the hooks for us.
+As this project uses npm, we are able to make use of a package called [Husky](https://typicode.github.io/husky/) to automatically install the hooks for us.
 
 > Update! In AstroPaper [v4.3.0](https://github.com/satnaing/astro-paper/releases/tag/v4.3.0), the pre-commit hook has been removed in favor of GitHub Actions. However, you can easily [install Husky](https://typicode.github.io/husky/get-started.html) yourself.
 
@@ -45,7 +45,7 @@ This section has been updated with a new version of the hook that is smarter. It
 ```shell
 # Modified files, update the modDatetime
 git diff --cached --name-status |
-grep -i '^M.*\.md$' |
+grep -Ei '^M.*\.mdx?$' |
 while read _ file; do
   filecontent=$(cat "$file")
   frontmatter=$(echo "$filecontent" | awk -v RS='---' 'NR==2{print}')
@@ -113,7 +113,7 @@ Adding the date for a new file is the same process as above, but this time we ar
 
 ```shell
 # New files, add/update the pubDatetime
-git diff --cached --name-status | egrep -i "^(A).*\.(md)$" | while read a b; do
+git diff --cached --name-status | grep -Ei "^A.*\.mdx?$" | while read a b; do
   cat $b | sed "/---.*/,/---.*/s/^pubDatetime:.*$/pubDatetime: $(date -u "+%Y-%m-%dT%H:%M:%SZ")/" > tmp
   mv tmp $b
   git add $b

@@ -50,7 +50,7 @@ In this section, you will find instructions on how to add support for LaTeX in y
            remarkToc,
            [remarkCollapse, { test: "Table of contents" }],
          ],
-         rehypePlugins: [rehypeCallouts, rehypeKatex], // [!code highlight]
+         rehypePlugins: [rehypeCallouts, rehypeKatex, rehypeTableWrapper], // [!code highlight]
        }),
        // ...
      },
