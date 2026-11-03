@@ -111,10 +111,6 @@ const items = buildTocTree(headings);
 </script>
 
 <style is:global>
-  :root {
-    --toc-gap: 2.5rem;
-  }
-
   .post-body {
     position: relative;
   }
@@ -330,8 +326,16 @@ const items = buildTocTree(headings);
       position: absolute;
       inset-block: 0;
       inset-inline-start: 100%;
+      /* 100% is the post column, so a customised max-w-app still fits. A wide
+         column leaves little space, so the gaps shrink to give the list more. */
+      --toc-space: calc((100vw - 100%) / 2);
+      --toc-gap: clamp(0.75rem, calc(var(--toc-space) - 14.5rem), 2.5rem);
+      --toc-edge: clamp(0.75rem, calc(var(--toc-space) - 15.5rem), 1.5rem);
       margin-inline-start: var(--toc-gap);
-      width: min(16rem, calc((100vw - 46rem) / 2 - var(--toc-gap) - 1.5rem));
+      width: min(
+        16rem,
+        calc(var(--toc-space) - var(--toc-gap) - var(--toc-edge))
+      );
     }
     .post-fab:has([data-has-toc]) {
       display: none;

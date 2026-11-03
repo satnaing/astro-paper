@@ -15,7 +15,8 @@ export interface UIStrings {
     sharePostViaEmail: string;
     tagLabel: string;
     backToTop: string;
-    tableOfContents: string;
+    /** Optional until v8, so older locale files still type-check. */
+    tableOfContents?: string;
     goBack: string;
     editPage: string;
     previousPost: string;
@@ -54,7 +55,8 @@ export interface UIStrings {
   };
   a11y: {
     skipToContent: string;
-    skipTableOfContents: string;
+    /** Optional until v8, so older locale files still type-check. */
+    skipTableOfContents?: string;
     openMenu: string;
     closeMenu: string;
     toggleTheme: string;

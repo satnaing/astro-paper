@@ -184,6 +184,8 @@ To hide it on one post, set `hideToc: true` in its frontmatter. To turn it off f
 
 > [!NOTE]
 > Older AstroPaper versions added a table of contents only where a post had a `## Table of contents` heading. That heading is deprecated and stops working in v8, so you can remove it from your posts.
+>
+> The theme no longer uses `remark-toc` and `remark-collapse` either. They stay installed until v8, so a customised `astro.config.ts` that imports them keeps building. Until you remove them, a post with that heading shows both tables of contents.
 
 ## Headings
 
