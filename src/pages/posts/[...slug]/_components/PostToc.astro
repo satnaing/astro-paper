@@ -195,106 +195,6 @@ const items = buildTocTree(headings);
     line-height: 1.4;
   }
 
-  /* ---- floating button: TOC + back to top (BackToTopButton.astro) ---- */
-  .post-fab {
-    position: fixed;
-    inset-block-end: 2rem;
-    inset-inline-end: 1rem;
-    z-index: 50;
-    opacity: 0;
-    translate: 0 3.5rem;
-    visibility: hidden;
-    transition:
-      opacity 0.5s,
-      translate 0.5s,
-      visibility 0.5s;
-  }
-  .post-fab[data-visible] {
-    opacity: 1;
-    translate: 0;
-    visibility: visible;
-  }
-  .post-fab-btn {
-    position: relative;
-    display: flex;
-    width: 3.5rem;
-    height: 3.5rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    border: 2px solid transparent;
-    background: var(--color-background) padding-box;
-    color: var(--color-foreground);
-    box-shadow:
-      0 10px 15px -3px rgb(0 0 0 / 0.15),
-      0 4px 6px -4px rgb(0 0 0 / 0.15);
-  }
-  /* The ring is the scroll progress: a 4px accent arc over a 2px track, showing
-     through the button's transparent border. Accent and track have similar
-     lightness in the light theme, so the arc stands out by its width. */
-  .post-fab-progress {
-    --fab-track: var(--color-muted-foreground);
-    position: absolute;
-    inset: -4px;
-    z-index: -1;
-    border-radius: inherit;
-    background:
-      conic-gradient(var(--color-accent) var(--progress, 0%), transparent 0),
-      radial-gradient(
-        closest-side,
-        transparent calc(100% - 4px),
-        var(--fab-track) 0 calc(100% - 2px),
-        transparent 0
-      );
-  }
-  /* Only with a real pointer: on touch screens hover sticks after a tap. */
-  @media (hover: hover) {
-    .post-fab-btn:hover {
-      color: var(--color-accent);
-    }
-  }
-  /* Dashed, so it doesn't read as a second progress ring. The offset clears the
-     arc, which sticks out 2px past the button. */
-  .post-fab-btn:focus-visible {
-    outline: 2px dashed var(--color-accent);
-    outline-offset: 4px;
-    color: var(--color-accent);
-  }
-  .post-fab-icon-toc,
-  .post-fab-icon-close,
-  [data-has-toc] .post-fab-icon-top,
-  .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-toc {
-    display: none;
-  }
-  [data-has-toc] .post-fab-icon-toc,
-  .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-close {
-    display: block;
-  }
-
-  .toc-popover {
-    position: fixed;
-    inset: auto;
-    inset-block-end: 6.25rem;
-    inset-inline-end: 1rem;
-    margin: 0;
-    width: min(20rem, calc(100vw - 2rem));
-    max-height: min(60dvh, 28rem);
-    flex-direction: column;
-    padding: 0;
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background: var(--color-background);
-    color: var(--color-foreground);
-    font-size: 0.9rem;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
-  }
-  .toc-popover:popover-open {
-    display: flex;
-  }
-  .toc-popover nav {
-    padding: 0.75rem 1.25rem 0.25rem 1rem;
-  }
-
   .toc-back-to-top {
     display: flex;
     align-items: center;
@@ -345,15 +245,10 @@ const items = buildTocTree(headings);
         display: none;
       }
     }
-    .post-fab:has([data-has-toc]):not([data-side-toc-hidden]) {
-      display: none;
-    }
   }
 
   @media print {
-    .toc-side,
-    .post-fab,
-    .toc-popover {
+    .toc-side {
       display: none !important;
     }
   }
