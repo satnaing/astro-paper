@@ -7,9 +7,9 @@ import { useTranslations } from "@/i18n";
 import { buildTocTree, hasToc } from "@/utils/buildTocTree";
 import TocList from "./TocList.astro";
 
-type Props = { headings: MarkdownHeading[] };
+type Props = { headings?: MarkdownHeading[] };
 
-const { headings } = Astro.props;
+const { headings = [] } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 const withToc = hasToc(headings);
 const items = withToc ? buildTocTree(headings) : [];
@@ -65,6 +65,7 @@ const items = withToc ? buildTocTree(headings) : [];
     const button = fab?.querySelector<HTMLButtonElement>("button");
     const progress = fab?.querySelector<HTMLElement>(".post-fab-progress");
     const popover = document.getElementById("toc-popover");
+    const sideToc = document.querySelector<HTMLElement>(".toc-side > nav");
     if (!fab || !button || !progress) return;
 
     const scrollToTop = () => {
@@ -104,6 +105,9 @@ const items = withToc ? buildTocTree(headings) : [];
     let frame = 0;
     function update() {
       frame = 0;
+      // CSS hides a side TOC with no room, but can't tell the button from there.
+      fab!.toggleAttribute("data-side-toc-hidden", sideToc?.offsetWidth === 0);
+
       const scrollTotal = root.scrollHeight - root.clientHeight;
       const ratio = scrollTotal > 0 ? root.scrollTop / scrollTotal : 0;
       progress!.style.setProperty("--progress", `${ratio * 100}%`);
@@ -123,6 +127,7 @@ const items = withToc ? buildTocTree(headings) : [];
     document.addEventListener("click", onDocClick);
     popover?.addEventListener("toggle", onToggle);
     addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
     update();
 
     cleanup = () => {
@@ -130,6 +135,7 @@ const items = withToc ? buildTocTree(headings) : [];
       document.removeEventListener("click", onDocClick);
       popover?.removeEventListener("toggle", onToggle);
       removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
       cancelAnimationFrame(frame);
     };
   }

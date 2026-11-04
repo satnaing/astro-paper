@@ -336,8 +336,16 @@ const items = buildTocTree(headings);
         16rem,
         calc(var(--toc-space) - var(--toc-gap) - var(--toc-edge))
       );
+      container-type: inline-size;
     }
-    .post-fab:has([data-has-toc]) {
+    /* Too narrow to read, so the floating button takes over. */
+    @container (width < 7.5rem) {
+      .toc-side > nav,
+      .toc-skip {
+        display: none;
+      }
+    }
+    .post-fab:has([data-has-toc]):not([data-side-toc-hidden]) {
       display: none;
     }
   }

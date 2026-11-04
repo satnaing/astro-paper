@@ -1,4 +1,3 @@
-import en from "./lang/en";
 import type { UIStrings } from "./types";
 
 export { tplStr } from "./format";
@@ -20,10 +19,10 @@ type ResolvedStrings = { [K in keyof UIStrings]: Required<UIStrings[K]> };
  * are optional until v8 fall back one by one.
  */
 export function useTranslations(locale: string = "en"): ResolvedStrings {
-  const t = translations[locale] ?? en;
+  const t = translations[locale] ?? translations["en"];
   return {
     ...t,
-    post: { tableOfContents: en.post.tableOfContents, ...t.post },
-    a11y: { skipTableOfContents: en.a11y.skipTableOfContents, ...t.a11y },
+    post: { tableOfContents: "Table of contents", ...t.post },
+    a11y: { skipTableOfContents: "Skip table of contents", ...t.a11y },
   };
 }
