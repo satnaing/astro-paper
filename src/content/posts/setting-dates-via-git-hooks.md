@@ -73,7 +73,7 @@ A       src/content/posts/setting-dates-via-git-hooks.md
 
 The letter at the start denotes what action has been taken, in the above example the file has been added. Modified files have `M`
 
-We pipe that output into the grep command where we are looking at each line to find that have been modified. The line needs to start with `M` (`^(M)`), have any number of characters after that (`.*`) and end with the `.md` file extension (`.(md)$`).This is going to filter out the lines that are not modified markdown files `egrep -i "^(M).*\.(md)$"`.
+We pipe that output into the grep command where we are looking at each line to find that have been modified. The line needs to start with `M` (`^M`), have any number of characters after that (`.*`) and end with the `.md` or `.mdx` file extension (`\.mdx?$`). This is going to filter out the lines that are not modified markdown files `grep -Ei '^M.*\.mdx?$'`.
 
 ---
 
