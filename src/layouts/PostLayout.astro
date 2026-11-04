@@ -31,6 +31,13 @@ const structuredData = {
     },
   ],
 };
+
+// JSON.stringify leaves `<` alone, so a title containing `</script>` would
+// end the ld+json block early. `\u003c` reads back as `<` for JSON parsers.
+const structuredDataJson = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c"
+);
 ---
 
 <Layout {title} {description} {ogImage} {canonicalURL}>
@@ -58,7 +65,7 @@ const structuredData = {
     <script
       type="application/ld+json"
       is:inline
-      set:html={JSON.stringify(structuredData)}
+      set:html={structuredDataJson}
     />
   </Fragment>
 
