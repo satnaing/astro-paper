@@ -79,11 +79,13 @@ const items = withToc ? buildTocTree(headings) : [];
     };
 
     const closePopover = () => {
-      if (popover?.matches(":popover-open")) popover.hidePopover();
+      if (popover?.hidePopover && popover.matches(":popover-open")) {
+        popover.hidePopover();
+      }
     };
     const onDocClick = (e: Event) => {
       const target = e.target as Element;
-      if (target.closest("[data-back-to-top]")) {
+      if (target.closest(".toc-popover [data-back-to-top]")) {
         scrollToTop();
         closePopover();
       } else if (target.closest(".toc-popover a")) {
@@ -107,6 +109,8 @@ const items = withToc ? buildTocTree(headings) : [];
       frame = 0;
       // CSS hides a side TOC with no room, but can't tell the button from there.
       fab!.toggleAttribute("data-side-toc-hidden", sideToc?.offsetWidth === 0);
+      // A popover left open would outlive the button that closes it.
+      if (fab!.offsetWidth === 0) closePopover();
 
       const scrollTotal = root.scrollHeight - root.clientHeight;
       const ratio = scrollTotal > 0 ? root.scrollTop / scrollTotal : 0;
@@ -211,11 +215,16 @@ const items = withToc ? buildTocTree(headings) : [];
   }
   .post-fab-icon-toc,
   .post-fab-icon-close,
-  [data-has-toc] .post-fab-icon-top,
+  [data-has-toc] .post-fab-icon-top {
+    display: none;
+  }
+  [data-has-toc] .post-fab-icon-toc {
+    display: block;
+  }
+  /* Apart from the rules above: a browser without :popover-open drops the rule. */
   .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-toc {
     display: none;
   }
-  [data-has-toc] .post-fab-icon-toc,
   .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-close {
     display: block;
   }
@@ -242,6 +251,12 @@ const items = withToc ? buildTocTree(headings) : [];
   }
   .toc-popover nav {
     padding: 0.75rem 1.25rem 0.25rem 1rem;
+  }
+  /* Without popover support nothing would hide it (Safari before 17). */
+  @supports not selector(:popover-open) {
+    .toc-popover {
+      display: none;
+    }
   }
 
   /* The side TOC takes over from 80rem while it has room (PostToc.astro). */

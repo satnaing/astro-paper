@@ -45,7 +45,7 @@ const list = items => ({
  * the removed heading is dropped from that list here.
  */
 export const rehypeInlineToc =
-  ({ maxDepth = 3 } = {}) =>
+  ({ maxDepth = 6 } = {}) =>
   (tree, file) => {
     let target;
     const headings = [];

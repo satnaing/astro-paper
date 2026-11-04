@@ -86,7 +86,10 @@ const items = buildTocTree(headings);
         );
         if (isActive && list && list.scrollHeight > list.clientHeight) {
           const top = link.offsetTop - list.clientHeight / 2;
-          list.scrollTo({ top, behavior: "smooth" });
+          const reduced = matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          list.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
         }
       }
     }
@@ -95,11 +98,16 @@ const items = buildTocTree(headings);
       if (!frame) frame = requestAnimationFrame(update);
     };
 
+    const backToTop = document.querySelector(".toc-side [data-back-to-top]");
+    const scrollToTop = () => scrollTo(0, 0);
+
+    backToTop?.addEventListener("click", scrollToTop);
     addEventListener("scroll", schedule, { passive: true });
     addEventListener("resize", schedule);
     update();
 
     cleanup = () => {
+      backToTop?.removeEventListener("click", scrollToTop);
       removeEventListener("scroll", schedule);
       removeEventListener("resize", schedule);
       cancelAnimationFrame(frame);
@@ -137,6 +145,7 @@ const items = buildTocTree(headings);
   }
   :is(.toc-side, .toc-popover) nav a::before {
     content: "#";
+    content: "#" / "";
     position: absolute;
     inset-inline-start: -0.75rem;
     opacity: 0.6;
