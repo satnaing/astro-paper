@@ -191,12 +191,12 @@ If your logo is an image but not SVG, you can use Astro's Image component.
 
 - Then, replace `{config.site.title}` with imported logo.
 
-  ```html
+  ```astro
   <a
     href="/"
     class="absolute py-1 text-left text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
   >
-    <image src="{dummyLogo}" alt="My Blog" class="dark:invert" />
+    <Image src={dummyLogo} alt="My Blog" class="dark:invert" />
     <!-- {config.site.title} -->
   </a>
   ```
@@ -252,7 +252,7 @@ The font is automatically configured in `astro.config.ts` and loaded in `Layout.
 
 ### Customizing the font
 
-To use a different font, update three places:
+To use a different font, update four places:
 
 1. **Update the font configuration in `astro.config.ts`:**
 
@@ -269,6 +269,7 @@ export default defineConfig({
       fallbacks: ["monospace"],
       weights: [300, 400, 500, 600, 700],
       styles: ["normal", "italic"],
+      formats: ["woff", "ttf"], // keep this, the OG image routes need a TrueType file
     },
   ],
 });
@@ -302,6 +303,14 @@ import { Font } from "astro:assets";
 ```
 
 The `--font-app` variable is used throughout the theme via the `font-app` Tailwind utility class, so updating this single variable applies your custom font everywhere.
+
+4. **Update the OG image routes:**
+
+`src/pages/og.png.ts` and `src/pages/posts/[...slug]/index.png.ts` load the font files through `fontData["--font-google-sans-code"]`. Change that key to your new `cssVariable` in both files, otherwise `astro check` fails with `Property '--font-google-sans-code' does not exist`.
+
+```ts file="src/pages/og.png.ts"
+const fonts = fontData["--font-your-font"]; // [!code highlight]
+```
 
 > [!WARNING]
 > Make sure the font name matches exactly as it appears on [Google Fonts](https://fonts.google.com). For other font providers or local fonts, refer to the [Astro Fonts documentation](https://docs.astro.build/en/guides/fonts/).

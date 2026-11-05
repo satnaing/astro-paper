@@ -45,7 +45,7 @@ src/content/posts/Example Dir/Dummy Post.md   -> mysite.com/posts/example-dir/du
 ```
 
 > [!TIP]
-> Files and directories prefixed with `_` are excluded from routing. Use them for drafts, shared assets, or internal-only content.
+> A file whose name starts with `_` is not loaded as a post at all, so you can keep notes or partial content next to your posts. An underscore directory only drops out of the URL: the posts inside it are still published. To keep a post unpublished, set `draft: true` in its frontmatter.
 
 ## Frontmatter
 
