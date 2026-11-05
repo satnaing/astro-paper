@@ -15,8 +15,6 @@ import ResponsiveTable from '@/components/ResponsiveTable.astro';
 
 This guide covers the available configuration options in AstroPaper — from site metadata and feature flags to fonts, social links, and layout settings.
 
-## Table of contents
-
 ## Configuring astro-paper.config.ts
 
 All site-wide configuration lives in `astro-paper.config.ts` at the root of the project. Use `defineAstroPaperConfig()` to get full IntelliSense support:
@@ -50,6 +48,7 @@ export default defineAstroPaperConfig({
       url: "https://github.com/satnaing/astro-paper/edit/main/",
     },
     search: "pagefind",
+    toc: true,
   },
   socials: [
     { name: "github", url: "https://github.com/satnaing/astro-paper" },
@@ -118,6 +117,7 @@ This is checked at build time, so a scheduled post appears with the first build 
 | `showBackButton`   | Show the "Go back" button on post pages. Defaults to `true`.                                                                                                                                                                                  |
 | `editPost`         | An "Edit page" link shown under post titles. Set `enabled: true` and provide the base `url` for your repository's edit URL. Per-post override via `hideEditPost` frontmatter.                                                                 |
 | `search`           | Search provider. `"pagefind"` is the default. Set to `false` to disable search entirely.                                                                                                                                                      |
+| `toc` | Table of contents on posts with 2 or more h2/h3 headings: beside the post on wide screens, behind the floating button on smaller ones. Defaults to `true`. Per-post override via `hideToc` frontmatter. |
 
 </ResponsiveTable>
 
@@ -135,6 +135,8 @@ The default `max-width` for the entire blog is `768px` (`max-w-3xl`). If you'd l
 ```
 
 You can explore more `max-width` values in the [Tailwind CSS docs](https://tailwindcss.com/docs/max-width).
+
+The side table of contents uses the space left beside the column, so a wider column makes it narrower. At `max-w-5xl` it's 120px wide on a 1280px screen. With less room than that, it opens from the floating button instead.
 
 ## Configuring logo or title
 

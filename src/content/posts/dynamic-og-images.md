@@ -16,8 +16,6 @@ New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for bl
 
 ![Dynamic OG image generation in AstroPaper blog posts](/posts/dynamic-og-image-generation-in-astropaper-blog-posts/index.png)
 
-## Table of contents
-
 ## Intro
 
 OG images (aka Social Images) play an important role in social media engagements. In case you don't know what OG image means, it is an image displayed whenever we share our website URL on social media such as Facebook, Discord etc.

@@ -13,8 +13,6 @@ AstroPaper v6 is a complete rewrite built on Astro v6, Tailwind CSS v4, and Type
 
 ![AstroPaper v6](assets/AstroPaper-v6.png)
 
-## Table of contents
-
 ## Major Changes
 
 ### Upgrade to Astro v6

@@ -1,87 +1,275 @@
 ---
-import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import type { MarkdownHeading } from "astro";
 import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
+import IconListTree from "@/assets/icons/IconListTree.svg";
+import IconX from "@/assets/icons/IconX.svg";
 import { useTranslations } from "@/i18n";
+import { buildTocTree, hasToc } from "@/utils/buildTocTree";
+import TocList from "./TocList.astro";
 
+type Props = { headings?: MarkdownHeading[] };
+
+const { headings = [] } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
+const withToc = hasToc(headings);
+const items = withToc ? buildTocTree(headings) : [];
 ---
 
-<div
-  id="btt-btn-container"
-  class:list={[
-    "fixed inset-e-4 bottom-8 z-50",
-    "md:sticky md:inset-e-auto md:float-end md:me-1",
-    "translate-y-14 opacity-0 transition duration-500",
-  ]}
->
+<div id="post-fab" class="post-fab" data-pagefind-ignore>
   <button
-    data-button="back-to-top"
-    class:list={[
-      "group bg-background relative px-2 py-1",
-      "size-14 rounded-full shadow-xl",
-      "md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none",
-      "md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg",
-    ]}
+    type="button"
+    class="post-fab-btn"
+    aria-label={withToc ? t.post.tableOfContents : t.post.backToTop}
+    popovertarget={withToc ? "toc-popover" : undefined}
+    data-has-toc={withToc ? "" : undefined}
   >
-    <span
-      id="progress-indicator"
-      class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"
-    ></span>
-    <IconArrowLeft class="inline-block rotate-90 md:hidden" />
-    <span class="group-hover:text-accent sr-only text-sm md:not-sr-only">
-      <IconArrowNarrowUp class="inline-block size-4" />{" "}
-      {t.post.backToTop}
-    </span>
+    <span class="post-fab-progress" aria-hidden="true"></span>
+    {
+      withToc && (
+        <>
+          <IconListTree class="post-fab-icon-toc size-6" aria-hidden="true" />
+          <IconX class="post-fab-icon-close size-6" aria-hidden="true" />
+        </>
+      )
+    }
+    <IconArrowNarrowUp class="post-fab-icon-top size-6" aria-hidden="true" />
   </button>
 </div>
 
-<script is:inline data-astro-rerun>
-  function backToTop() {
-    const rootElement = document.documentElement;
-    const btnContainer = document.querySelector("#btt-btn-container");
-    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
-    const progressIndicator = document.querySelector("#progress-indicator");
+{
+  withToc && (
+    <div id="toc-popover" class="toc-popover" popover data-pagefind-ignore>
+      <nav aria-labelledby="toc-popover-label" data-toc-nav>
+        <h2 id="toc-popover-label" class="toc-label">
+          {t.post.tableOfContents}
+        </h2>
+        <TocList {items} />
+        <button type="button" class="toc-back-to-top" data-back-to-top>
+          <IconArrowNarrowUp class="size-4" aria-hidden="true" />
+          {t.post.backToTop}
+        </button>
+      </nav>
+    </div>
+  )
+}
 
-    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
-      return;
+<script>
+  let cleanup: (() => void) | undefined;
 
-    backToTopBtn.addEventListener("click", () => {
+  function initPostFab() {
+    cleanup?.();
+    cleanup = undefined;
+
+    const root = document.documentElement;
+    const fab = document.getElementById("post-fab");
+    const button = fab?.querySelector<HTMLButtonElement>("button");
+    const progress = fab?.querySelector<HTMLElement>(".post-fab-progress");
+    const popover = document.getElementById("toc-popover");
+    const sideToc = document.querySelector<HTMLElement>(".toc-side > nav");
+    if (!fab || !button || !progress) return;
+
+    const scrollToTop = () => {
+      root.scrollTop = 0;
       document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    });
+    };
+    const opensToc = button.hasAttribute("data-has-toc");
 
-    let lastVisible = null;
-    function handleScroll() {
-      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
-      const scrollTop = rootElement.scrollTop;
-      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+    const onButtonClick = () => {
+      if (!opensToc) scrollToTop();
+    };
 
-      progressIndicator.style.setProperty(
-        "background-image",
-        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
-      );
+    const closePopover = () => {
+      if (popover?.hidePopover && popover.matches(":popover-open")) {
+        popover.hidePopover();
+      }
+    };
+    const onDocClick = (e: Event) => {
+      const target = e.target as Element;
+      if (target.closest(".toc-popover [data-back-to-top]")) {
+        scrollToTop();
+        closePopover();
+      } else if (target.closest(".toc-popover a")) {
+        closePopover();
+      }
+    };
 
-      const isVisible = scrollTop / scrollTotal > 0.3;
+    // The scroll spy can't scroll a hidden popover, so catch up on open.
+    const onToggle = (e: Event) => {
+      const list = popover?.querySelector<HTMLElement>("nav > ol");
+      if ((e as ToggleEvent).newState !== "open" || !list) return;
+      const active = list.querySelector<HTMLElement>("[aria-current]");
+      if (active && list.scrollHeight > list.clientHeight) {
+        list.scrollTop = active.offsetTop - list.clientHeight / 2;
+      }
+    };
 
+    let lastVisible: boolean | null = null;
+    let frame = 0;
+    function update() {
+      frame = 0;
+      // CSS hides a side TOC with no room, but can't tell the button from there.
+      fab!.toggleAttribute("data-side-toc-hidden", sideToc?.offsetWidth === 0);
+      // A popover left open would outlive the button that closes it.
+      if (fab!.offsetWidth === 0) closePopover();
+
+      const scrollTotal = root.scrollHeight - root.clientHeight;
+      const ratio = scrollTotal > 0 ? root.scrollTop / scrollTotal : 0;
+      progress!.style.setProperty("--progress", `${ratio * 100}%`);
+
+      // A TOC button is useful from the start; back to top only once scrolled.
+      const isVisible = opensToc || ratio > 0.3;
       if (isVisible !== lastVisible) {
-        btnContainer.classList.toggle("opacity-100", isVisible);
-        btnContainer.classList.toggle("translate-y-0", isVisible);
-        btnContainer.classList.toggle("opacity-0", !isVisible);
-        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        fab!.toggleAttribute("data-visible", isVisible);
         lastVisible = isVisible;
       }
     }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
 
-    let ticking = false;
-    document.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    button.addEventListener("click", onButtonClick);
+    document.addEventListener("click", onDocClick);
+    popover?.addEventListener("toggle", onToggle);
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    update();
+
+    cleanup = () => {
+      button.removeEventListener("click", onButtonClick);
+      document.removeEventListener("click", onDocClick);
+      popover?.removeEventListener("toggle", onToggle);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+      cancelAnimationFrame(frame);
+    };
   }
-  backToTop();
+
+  document.addEventListener("astro:page-load", initPostFab);
+  document.addEventListener("astro:before-swap", () => cleanup?.());
 </script>
+
+<style is:global>
+  .post-fab {
+    position: fixed;
+    inset-block-end: 2rem;
+    inset-inline-end: 1rem;
+    z-index: 50;
+    opacity: 0;
+    translate: 0 3.5rem;
+    visibility: hidden;
+    transition:
+      opacity 0.5s,
+      translate 0.5s,
+      visibility 0.5s;
+  }
+  .post-fab[data-visible] {
+    opacity: 1;
+    translate: 0;
+    visibility: visible;
+  }
+  .post-fab-btn {
+    position: relative;
+    display: flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background: var(--color-background) padding-box;
+    color: var(--color-foreground);
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.15),
+      0 4px 6px -4px rgb(0 0 0 / 0.15);
+  }
+  /* The ring is the scroll progress: a 4px accent arc over a 2px track, showing
+     through the button's transparent border. Accent and track have similar
+     lightness in the light theme, so the arc stands out by its width. */
+  .post-fab-progress {
+    --fab-track: var(--color-muted-foreground);
+    position: absolute;
+    inset: -4px;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      conic-gradient(var(--color-accent) var(--progress, 0%), transparent 0),
+      radial-gradient(
+        closest-side,
+        transparent calc(100% - 4px),
+        var(--fab-track) 0 calc(100% - 2px),
+        transparent 0
+      );
+  }
+  /* Only with a real pointer: on touch screens hover sticks after a tap. */
+  @media (hover: hover) {
+    .post-fab-btn:hover {
+      color: var(--color-accent);
+    }
+  }
+  /* Dashed, so it doesn't read as a second progress ring. The offset clears the
+     arc, which sticks out 2px past the button. */
+  .post-fab-btn:focus-visible {
+    outline: 2px dashed var(--color-accent);
+    outline-offset: 4px;
+    color: var(--color-accent);
+  }
+  .post-fab-icon-toc,
+  .post-fab-icon-close,
+  [data-has-toc] .post-fab-icon-top {
+    display: none;
+  }
+  [data-has-toc] .post-fab-icon-toc {
+    display: block;
+  }
+  /* Apart from the rules above: a browser without :popover-open drops the rule. */
+  .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-toc {
+    display: none;
+  }
+  .post-fab:has(+ .toc-popover:popover-open) .post-fab-icon-close {
+    display: block;
+  }
+
+  .toc-popover {
+    position: fixed;
+    inset: auto;
+    inset-block-end: 6.25rem;
+    inset-inline-end: 1rem;
+    margin: 0;
+    width: min(20rem, calc(100vw - 2rem));
+    max-height: min(60dvh, 28rem);
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-size: 0.9rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+  }
+  .toc-popover:popover-open {
+    display: flex;
+  }
+  .toc-popover nav {
+    padding: 0.75rem 1.25rem 0.25rem 1rem;
+  }
+  /* Without popover support nothing would hide it (Safari before 17). */
+  @supports not selector(:popover-open) {
+    .toc-popover {
+      display: none;
+    }
+  }
+
+  /* The side TOC takes over from 80rem while it has room (PostToc.astro). */
+  @media (min-width: 80rem) {
+    .post-fab:has([data-has-toc]):not([data-side-toc-hidden]) {
+      display: none;
+    }
+  }
+
+  @media print {
+    .post-fab,
+    .toc-popover {
+      display: none !important;
+    }
+  }
+</style>

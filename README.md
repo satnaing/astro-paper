@@ -23,7 +23,7 @@ Read [the blog posts](https://astro-paper.pages.dev/posts/) or check [the README
 - [x] draft posts & pagination
 - [x] sitemap & rss feed
 - [x] MDX support
-- [x] collapsible table of contents
+- [x] table of contents beside posts
 - [x] followed best practices
 - [x] highly customizable
 - [x] dynamic OG image generation for blog posts ([Blog Post](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/))

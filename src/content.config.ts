@@ -20,6 +20,7 @@ const posts = defineCollection({
       description: z.string(),
       canonicalURL: z.string().optional(),
       hideEditPost: z.boolean().optional(),
+      hideToc: z.boolean().optional(),
       // An empty value means "not set", so the site timezone applies.
       timezone: z
         .string()

@@ -1,0 +1,264 @@
+---
+import type { MarkdownHeading } from "astro";
+import IconArrowNarrowUp from "@/assets/icons/IconArrowNarrowUp.svg";
+import { useTranslations } from "@/i18n";
+import { buildTocTree, hasToc } from "@/utils/buildTocTree";
+import TocList from "./TocList.astro";
+
+type Props = { headings: MarkdownHeading[] };
+
+const { headings } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const label = t.post.tableOfContents;
+const items = buildTocTree(headings);
+---
+
+{
+  hasToc(headings) && (
+    <aside class="toc-side" data-pagefind-ignore>
+      <a href="#article" class="toc-skip">
+        {t.a11y.skipTableOfContents}
+      </a>
+      <nav aria-labelledby="toc-side-label" data-toc-nav>
+        <h2 id="toc-side-label" class="toc-label">
+          {label}
+        </h2>
+        <TocList items={items} />
+        <button type="button" class="toc-back-to-top" data-back-to-top>
+          <IconArrowNarrowUp class="size-4" aria-hidden="true" />
+          {t.post.backToTop}
+        </button>
+      </nav>
+    </aside>
+  )
+}
+
+<script>
+  let cleanup: (() => void) | undefined;
+
+  function initToc() {
+    cleanup?.();
+    cleanup = undefined;
+
+    const links = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(
+        "[data-toc-nav] a[href^='#']"
+      )
+    );
+    if (!links.length) return;
+
+    const headings = [
+      ...new Set(links.map(link => decodeURIComponent(link.hash.slice(1)))),
+    ]
+      .map(id => document.getElementById(id))
+      .filter(heading => heading !== null);
+
+    let activeId: string | null = null;
+    let frame = 0;
+
+    // The active section is the last heading that has scrolled above this line.
+    const READING_LINE = 96;
+
+    function update() {
+      frame = 0;
+      const root = document.documentElement;
+      const atBottom = root.scrollTop + innerHeight >= root.scrollHeight - 2;
+
+      let current: HTMLElement | null = null;
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top > READING_LINE) break;
+        current = heading;
+      }
+      if (atBottom) current = headings[headings.length - 1] ?? current;
+
+      const id = current?.id ?? null;
+      if (id === activeId) return;
+      activeId = id;
+
+      for (const link of links) {
+        const isActive = decodeURIComponent(link.hash.slice(1)) === id;
+        if (isActive) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+
+        // Keep the active item in view when the TOC itself scrolls.
+        const list = link.closest<HTMLElement>(
+          ":is(.toc-side, .toc-popover) nav > ol"
+        );
+        if (isActive && list && list.scrollHeight > list.clientHeight) {
+          const top = link.offsetTop - list.clientHeight / 2;
+          const reduced = matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          list.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
+        }
+      }
+    }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const backToTop = document.querySelector(".toc-side [data-back-to-top]");
+    const scrollToTop = () => scrollTo(0, 0);
+
+    backToTop?.addEventListener("click", scrollToTop);
+    addEventListener("scroll", schedule, { passive: true });
+    addEventListener("resize", schedule);
+    update();
+
+    cleanup = () => {
+      backToTop?.removeEventListener("click", scrollToTop);
+      removeEventListener("scroll", schedule);
+      removeEventListener("resize", schedule);
+      cancelAnimationFrame(frame);
+    };
+  }
+
+  document.addEventListener("astro:page-load", initToc);
+  document.addEventListener("astro:before-swap", () => cleanup?.());
+</script>
+
+<style is:global>
+  .post-body {
+    position: relative;
+  }
+
+  /* ---- list look (side, popover) ---- */
+  :is(.toc-side, .toc-popover) ol {
+    list-style: none;
+    margin: 0;
+    padding-inline-start: 1rem;
+  }
+  :is(.toc-side, .toc-popover) ol ol {
+    color: color-mix(in oklab, var(--color-foreground) 80%, transparent);
+  }
+  :is(.toc-side, .toc-popover) li {
+    margin-block: 0.375rem;
+  }
+  :is(.toc-side, .toc-popover) nav a {
+    position: relative;
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    overflow-wrap: anywhere;
+    transition: color 0.2s ease;
+  }
+  :is(.toc-side, .toc-popover) nav a::before {
+    content: "#";
+    content: "#" / "";
+    position: absolute;
+    inset-inline-start: -0.75rem;
+    opacity: 0.6;
+  }
+  [data-toc-nav] a:hover,
+  [data-toc-nav] a[aria-current="true"] {
+    color: var(--color-accent);
+  }
+  [data-toc-nav] a[aria-current="true"] {
+    text-decoration: underline dashed;
+    text-underline-offset: 4px;
+  }
+  .toc-label {
+    flex-shrink: 0;
+    padding-block-end: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  /* The label and Back to top stay put; only the list between them scrolls. */
+  :is(.toc-side, .toc-popover) nav {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  :is(.toc-side, .toc-popover) nav > ol {
+    position: relative;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  /* ---- side TOC (hidden below 80rem) ---- */
+  /* Shows on focus, over the label, so keyboard users can jump to the article. */
+  .toc-skip {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 1;
+    padding: 0.125rem 0.25rem;
+    background: var(--color-background);
+    color: var(--color-accent);
+    font-size: 0.875rem;
+  }
+  .toc-skip:not(:focus) {
+    clip-path: inset(50%);
+  }
+  .toc-side {
+    display: none;
+  }
+  .toc-side > nav {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100dvh - 4rem);
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .toc-back-to-top {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  .toc-back-to-top:hover {
+    color: var(--color-accent);
+  }
+  :is(.toc-side, .toc-popover) .toc-back-to-top {
+    flex-shrink: 0;
+    margin-block-start: 0.5rem;
+    padding-block: 0.5rem;
+    border-radius: 0;
+    border-block-start: 1px dashed var(--color-border);
+  }
+
+  /* The layout TOC replaces an author-written one (deprecated, see rehypeInlineToc). */
+  .post-body:has(.toc-side) .toc-inline {
+    display: none;
+  }
+
+  /* ---- beside the centred column (>= 80rem) ---- */
+  @media (min-width: 80rem) {
+    .toc-side {
+      display: block;
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 100%;
+      /* 100% is the post column, so a customised max-w-app still fits. A wide
+         column leaves little space, so the gaps shrink to give the list more. */
+      --toc-space: calc((100vw - 100%) / 2);
+      --toc-gap: clamp(0.75rem, calc(var(--toc-space) - 14.5rem), 2.5rem);
+      --toc-edge: clamp(0.75rem, calc(var(--toc-space) - 15.5rem), 1.5rem);
+      margin-inline-start: var(--toc-gap);
+      width: min(
+        16rem,
+        calc(var(--toc-space) - var(--toc-gap) - var(--toc-edge))
+      );
+      container-type: inline-size;
+    }
+    /* Too narrow to read, so the floating button takes over. */
+    @container (width < 7.5rem) {
+      .toc-side > nav,
+      .toc-skip {
+        display: none;
+      }
+    }
+  }
+
+  @media print {
+    .toc-side {
+      display: none !important;
+    }
+  }
+</style>

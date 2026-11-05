@@ -16,8 +16,6 @@ Astro 2.0 has been released with some cool features, breaking changes, DX improv
 
 ![Introducing AstroPaper 2.0](https://user-images.githubusercontent.com/53733092/215771435-25408246-2309-4f8b-a781-1f3d93bdf0ec.png)
 
-## Table of contents
-
 ## Features & Changes
 
 ### Type-safe Frontmatters and Redefined Blog Schema
