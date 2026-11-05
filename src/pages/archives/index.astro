@@ -1,6 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
@@ -8,9 +11,13 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import { postFilter } from "@/utils/postFilter";
+import { resolveTimezone } from "@/utils/resolveTimezone";
 import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
@@ -25,6 +32,13 @@ const t = useTranslations(locale);
 const posts = await getCollection("posts");
 const filteredPosts = posts.filter(postFilter);
 const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
+
+// Group by the calendar day the post's byline shows (see Datetime.astro),
+// not by the build machine's local zone.
+const publishDate = (post: CollectionEntry<"posts">) =>
+  dayjs(post.data.pubDatetime).tz(
+    resolveTimezone(post.data.timezone ?? config.site.timezone)
+  );
 ---
 
 <Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
@@ -36,7 +50,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
     {
       Object.entries(
         getPostsByGroupCondition(filteredPosts, post =>
-          post.data.pubDatetime.getFullYear()
+          publishDate(post).year()
         )
       )
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
@@ -47,7 +61,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
-                post => post.data.pubDatetime.getMonth() + 1
+                post => publishDate(post).month() + 1
               )
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
