@@ -40,7 +40,7 @@
     "@types/lodash.kebabcase": "^4.1.9",
     "@typescript-eslint/parser": "^8.72.1",
     "eslint": "^10.13.0",
-    "eslint-plugin-astro": "^2.1.1",
+    "eslint-plugin-astro": "^3.2.1",
     "pagefind": "^1.5.2",
     "prettier": "3.9.3",
     "prettier-plugin-astro": "0.14.1",
