@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v7.1.0 (2026-11-06)
+
+### Feat
+
+- add a table of contents beside posts and a floating TOC button (#718)
+- improve image lightbox (#666)
+
+### Fix
+
+- group archives by site timezone and drop hidden `/archives` from sitemap (#719)
+- keep `</script>` in a post title from breaking the post's structured data (#715)
+- restore spacing around the RSS icon, archive counts and Back to top label (#714)
+- let wide tables scroll inside posts on small screens (#574) (#712)
+- **og-images**: build no longer fails after adding @astrojs/react (#711)
+- let the build pass with non-JS files like `_headers` in `public/` (#684)
+- make build script work on Windows (#681)
+- let pnpm 9 install the theme (packages in pnpm-workspace.yaml) (#710)
+- add spacing below code block filename labels (#678)
+- drop trailing slash from RSS autodiscovery link (#676)
+- skip scheduled posts when generating dynamic OG images (#709)
+- treat an empty post timezone as unset and skip drafts' timezone check (#708)
+- publish scheduled posts by day in the site timezone (#707)
+
 ## v7.0.0 (2026-10-30)
 
 ### Feat
