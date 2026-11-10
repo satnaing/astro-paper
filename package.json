@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && node copy-pagefind.mjs",
     "preview": "astro preview",
+    "check:links": "node scripts/check-links.mjs",
     "sync": "astro sync",
     "astro": "astro",
     "format:check": "prettier --check .",

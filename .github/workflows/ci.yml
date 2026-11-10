@@ -44,3 +44,6 @@ jobs:
 
       - name: "🚀 Build the project"
         run: pnpm run build
+
+      - name: "🔗 Check external links"
+        run: pnpm run check:links
