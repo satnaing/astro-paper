@@ -43,7 +43,7 @@
     "eslint-plugin-astro": "^3.2.1",
     "pagefind": "^1.6.0",
     "prettier": "3.9.10",
-    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-astro": "1.1.2",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3"
   }
