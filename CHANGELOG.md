@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v7.2.0 (2026-11-15)
+
+### Feat
+
+- add custom slots for head, body end and post end (#728)
+
 ## v7.1.0 (2026-11-06)
 
 ### Feat
