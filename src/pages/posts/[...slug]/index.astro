@@ -15,6 +15,7 @@ import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import PostToc from "./_components/PostToc.astro";
+import PostEnd from "@/custom/PostEnd.astro";
 import config from "@/config";
 
 export async function getStaticPaths() {
@@ -169,6 +170,8 @@ const ogImage = ogImageUrl
 
       <ShareLinks />
     </div>
+
+    <PostEnd {post} />
 
     <hr class="my-8 border-dashed" />
 

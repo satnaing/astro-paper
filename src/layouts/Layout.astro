@@ -5,6 +5,8 @@ import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
+import CustomHead from "@/custom/Head.astro";
+import CustomBodyEnd from "@/custom/BodyEnd.astro";
 
 type Props = {
   title?: string;
@@ -111,6 +113,8 @@ const rssHref = getAssetPath("rss.xml");
     </script>
 
     <ClientRouter />
+
+    <CustomHead {title} {description} />
   </head>
   <body
     class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
@@ -119,5 +123,6 @@ const rssHref = getAssetPath("rss.xml");
     <script>
       import "@/scripts/theme";
     </script>
+    <CustomBodyEnd />
   </body>
 </html>

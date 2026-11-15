@@ -94,6 +94,10 @@ To publish scheduled posts without pushing, see [Scheduled posts](https://github
 
 Prior rounds: [#233](https://github.com/satnaing/astro-paper/issues/233), [#300](https://github.com/satnaing/astro-paper/issues/300), [#495](https://github.com/satnaing/astro-paper/issues/495), [#663](https://github.com/satnaing/astro-paper/pull/663).
 
+### `src/custom/` belongs to your site
+
+`src/custom/` holds three empty components the theme always renders: `Head.astro` (end of `<head>`), `BodyEnd.astro` (end of `<body>`) and `PostEnd.astro` (post page, after the share links). Site owners put their own code there, such as analytics, comments or extra `<head>` tags, instead of editing theme files. Once released, the theme never changes, moves or renames these files, so updating AstroPaper doesn't conflict with them.
+
 ### Mermaid is a wiki recipe
 
 Mermaid diagrams aren't built into the theme. Most blogs never draw a diagram, and Mermaid's client-side JavaScript would land on every post page. The wiki shows how to add it: [Mermaid Diagrams](https://github.com/satnaing/astro-paper/wiki/Integrations#mermaid-diagrams).
