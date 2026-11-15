@@ -1,7 +1,7 @@
 ---
 author: Alberto Perdomo
 pubDatetime: 2024-09-08T20:58:52.737Z
-modDatetime: 2026-11-14T10:00:00.000Z
+modDatetime: 2026-11-15T10:00:00.000Z
 title: How to add LaTeX Equations in Astro blog posts
 tags:
   - docs
@@ -67,20 +67,24 @@ In this section, you will find instructions on how to add support for LaTeX in y
 
    The CSS and its fonts are bundled with your site at build time, so there's no CDN link to keep up to date.
 
-4. As the last step, give block equations the theme's text color in `typography.css`. Without it, they keep the Tailwind Typography default color, which is hard to read in dark mode.
+4. As the last step, give block equations the theme's text color, in the same file. Without it, they keep the Tailwind Typography default color, which is hard to read in dark mode.
 
-   ```css file=src/styles/typography.css
-   @layer base {
-     .app-prose {
-       /* other styles */
+   ```astro file=src/custom/Head.astro
+   ---
+   // ...
+   import "katex/dist/katex.min.css";
+   // ...
+   ---
 
-       /* [!code highlight:3] */
-       .katex-display {
-         @apply text-foreground;
-       }
+   <!-- [!code ++:5] -->
+   <style is:global>
+     .app-prose .katex-display {
+       color: var(--foreground);
      }
-   }
+   </style>
    ```
+
+   This is plain CSS on purpose: Tailwind's `@apply` doesn't work inside a component's `<style>` without extra setup.
 
 And _voilà_, this setup allows you to write LaTeX equations in your Markdown files, which will be rendered properly when the site is built.
 

@@ -1,7 +1,7 @@
 ---
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
-modDatetime: 2026-11-01T10:00:00Z
+modDatetime: 2026-11-15T10:00:00Z
 title: How to integrate Giscus comments into AstroPaper
 slug: how-to-integrate-giscus-comments
 featured: false
@@ -73,12 +73,14 @@ You should now have a script tag that looks like this:
 ></script>
 ```
 
-Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `src/pages/posts/[...slug]/index.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post:` buttons.
+Simply add that to the source code of the site. _AstroPaper_ renders `src/custom/PostEnd.astro` on every post page, right after the `Share this post:` buttons, so paste it there. That file is yours: theme updates never change it.
 
 _AstroPaper_ uses Astro's [client-side routing](https://docs.astro.build/en/guides/view-transitions/), so a script runs only once by default. Add `data-astro-rerun` to the script tag, so the comments load again when you go to another post.
 
-```astro file=src/pages/posts/[...slug]/index.astro
-<ShareLinks />
+```astro file=src/custom/PostEnd.astro
+---
+// ...
+---
 
 <!-- [!code ++:7] -->
 <script
@@ -88,8 +90,6 @@ _AstroPaper_ uses Astro's [client-side routing](https://docs.astro.build/en/guid
   data-category="[ENTER CATEGORY NAME HERE]"
   data-category-id="[ENTER CATEGORY ID HERE]"
   data-astro-rerun></script>
-
-<hr class="my-8 border-dashed" />
 ```
 
 And it's done! You have successfully integrated comments in _AstroPaper_!
@@ -160,21 +160,17 @@ This _React_ component not only wraps the native _Giscus_ component, but also in
 
 The `GISCUS` config at the top of the file holds the values from [giscus.app](https://giscus.app/). Note that specifying a `theme` there will override the `lightTheme` and `darkTheme` props, resulting in a static theme setting, similar to the previous approach of embedding _Giscus_ with the `<script>` tag.
 
-To complete the process, add the new Comments component to `src/pages/posts/[...slug]/index.astro` (replacing the `script` tag from the previous step).
+To complete the process, add the new Comments component to `src/custom/PostEnd.astro` (replacing the `script` tag from the previous step).
 
-```astro file=src/pages/posts/[...slug]/index.astro
+```astro file=src/custom/PostEnd.astro
 ---
 // ...
 import Comments from "@/components/Comments"; // [!code ++]
 // ...
 ---
 
-<ShareLinks />
-
 <!-- [!code ++:1] -->
 <Comments client:only="react" />
-
-<hr class="my-8 border-dashed" />
 ```
 
 And that's it!
