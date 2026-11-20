@@ -32,7 +32,7 @@ const rssHref = getAssetPath("rss.xml");
 <html
   dir={site.dir ?? "ltr"}
   lang={Astro.currentLocale ?? site.lang}
-  class="overflow-y-scroll scroll-smooth"
+  class="overflow-y-scroll motion-safe:scroll-smooth"
 >
   <head>
     <meta charset="UTF-8" />
