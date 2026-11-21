@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v7.2.1 (2026-11-21)
+
+### Fix
+
+- exclude custom post footer content from search (#729)
+- respect reduced motion for smooth scrolling (#731)
+
 ## v7.2.0 (2026-11-15)
 
 ### Feat
